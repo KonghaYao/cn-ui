@@ -15,12 +15,13 @@
         "solid-js": "^1.5.6",
         "typescript": "^4.8.2",
         "vite": "^3.0.9",
-        "vite-plugin-solid": "^2.3.0"
+        "vite-plugin-solid": "^2.3.0",
+        "globby": "^13.1.2",
+        "react": "^18.2.0"
     },
     "dependencies": {
         "@fontsource/material-icons": "^4.5.4",
-        "globby": "^13.1.2",
-        "react": "^18.2.0",
-        "solid-element": "^1.5.6"
+        "solid-element": "^1.5.6",
+        "@cn-ui/palette": "workspace:"
     }
 }
