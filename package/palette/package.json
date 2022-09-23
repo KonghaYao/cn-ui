@@ -1,0 +1,16 @@
+{
+    "name": "palette",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.css",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "node index.mjs && node genCSS.mjs"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "chroma-js": "^2.4.2"
+    }
+}
