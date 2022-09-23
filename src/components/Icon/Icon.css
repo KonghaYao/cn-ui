@@ -1,0 +1,21 @@
+@import url("@fontsource/material-icons/index.css");
+.px-icon-font {
+    width: fit-content;
+    font-family: var(--icon, "Material Icons");
+    cursor: pointer;
+    user-select: none;
+    font-style: normal;
+    transform-origin: 50% 50%;
+}
+.px-icon-spin {
+    animation: rotate-center 1s linear infinite both;
+}
+
+@keyframes rotate-center {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

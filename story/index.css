@@ -1,0 +1,19 @@
+.col {
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.flex-1 {
+    flex: 1;
+}
+body {
+    margin: 0;
+}
+#app {
+    height: 100vh;
+    width: 100vw;
+}
