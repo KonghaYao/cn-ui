@@ -1,0 +1,45 @@
+@import url('../../../style/setting.css');
+.cn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    outline: none;
+    font-weight: 400;
+    appearance: none;
+    user-select: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: filter 0.1s linear;
+    box-sizing: border-box;
+    line-height: 1.5715;
+    border: 0 solid transparent;
+    padding: 0.25rem 0.75rem;
+
+    &.primary {
+        background-color: var(--primary-6);
+        color: #fff;
+    }
+    &.secondary {
+        background-color: var(--secondary);
+        color: var(--text-1);
+    }
+    &.dashed {
+        background-color: var(--primary-6);
+        color: var(--text-1);
+    }
+    &.outline {
+        background-color: var(--primary-6);
+        color: #fff;
+    }
+    &.text {
+        background-color: var(--primary-6);
+        color: #fff;
+    }
+    &:hover {
+        filter: brightness(0.95);
+    }
+    &:active {
+        filter: brightness(0.9);
+    }
+}

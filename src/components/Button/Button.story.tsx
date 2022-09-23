@@ -16,11 +16,6 @@ export const Controller = [
         prop: 'loading',
     },
     {
-        type: 'switch',
-        default: false,
-        prop: 'loadingFixedWidth',
-    },
-    {
         type: 'select',
         default: 'square',
         prop: 'shape',

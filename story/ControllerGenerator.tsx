@@ -1,5 +1,5 @@
-import { Component, For } from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { Component, For } from 'solid-js';
+import { Dynamic } from 'solid-js/web';
 
 export const ControllerGenerator: Component<{
     controller: any[];
@@ -20,52 +20,32 @@ export const ControllerGenerator: Component<{
                     value={defaultValue}
                     onchange={(e) => {
                         props.onChange(prop, (e.target as any).value);
-                    }}>
+                    }}
+                >
                     <For each={options}>
                         {(i) => {
-                            return (
-                                <option value={i.value}>
-                                    {i.label || i.value}
-                                </option>
-                            );
+                            return <option value={i.value}>{i.label || i.value}</option>;
                         }}
                     </For>
                 </select>
             );
         },
-        switch: ({
-            default: defaultValue,
-            prop,
-        }: {
-            default: boolean;
-            prop: string;
-        }) => {
+        switch: ({ default: defaultValue, prop }: { default: boolean; prop: string }) => {
             return (
                 <input
                     type="checkbox"
                     checked={defaultValue}
-                    onchange={(e) =>
-                        props.onChange(prop, (e.target as any).checked)
-                    }
+                    onchange={(e) => props.onChange(prop, (e.target as any).checked)}
                 />
             );
         },
-        range: ({
-            default: defaultValue,
-            prop,
-            ...Props
-        }: {
-            default: string;
-            prop: string;
-        }) => {
+        range: ({ default: defaultValue, prop, ...Props }: { default: string; prop: string }) => {
             return (
                 <input
                     type="range"
                     {...Props}
                     value={parseInt(defaultValue)}
-                    onchange={(e) =>
-                        props.onChange(prop, (e.target as any).value + "px")
-                    }
+                    onchange={(e) => props.onChange(prop, (e.target as any).value + 'px')}
                 />
             );
         },
@@ -74,7 +54,7 @@ export const ControllerGenerator: Component<{
         <main>
             <For each={props.controller}>
                 {(i) => {
-                    console.log(i);
+                    // console.log(i);
                     return (
                         <div>
                             {i.prop}

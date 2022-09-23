@@ -3,7 +3,6 @@
 // import Notification from '../Notification';
 // import Empty from '../Empty';
 import { ConfigProviderProps } from './interface';
-import { createContext } from 'solid-js';
 import { createStore } from 'solid-js/store';
 
 // function renderEmpty(componentName?: string) {

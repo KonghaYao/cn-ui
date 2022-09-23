@@ -1,9 +1,7 @@
-@import url("@fontsource/material-icons/index.css");
-@import url("@cn-ui/palette/dist/setting.css");
-@import url("@cn-ui/palette/dist/setting.dark.css");
+@import url('@fontsource/material-icons/index.css');
 .px-icon-font {
-    width: fit-content;
-    font-family: var(--cn-icon, "Material Icons");
+    display: inline-block;
+    font-family: var(--cn-icon, 'Material Icons');
     cursor: pointer;
     user-select: none;
     font-style: normal;
