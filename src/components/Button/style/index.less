@@ -2,7 +2,7 @@
 .cn-btn {
     display: inline-flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     position: relative;
     outline: none;
     font-weight: 400;
@@ -13,33 +13,94 @@
     transition: filter 0.1s linear;
     box-sizing: border-box;
     line-height: 1.5715;
-    border: 0 solid transparent;
+    border: 1px solid transparent;
+    background-color: transparent;
     padding: 0.25rem 0.75rem;
+    margin: 0.25rem 0.5rem;
+    --light-color: var(--primary-6);
 
+    // size
+    &.mini {
+        padding: 0 11px;
+        font-size: 0.8em;
+        height: var(--size-6);
+    }
+    &.small {
+        padding: 0 15px;
+
+        height: var(--size-7);
+    }
+    &.normal {
+        padding: 0 15px;
+
+        height: var(--size-8);
+    }
+    &.large {
+        padding: 0 19px;
+        font-size: 16px;
+        height: var(--size-9);
+    }
+
+    // type
     &.primary {
-        background-color: var(--primary-6);
+        background-color: var(--light-color);
         color: #fff;
     }
     &.secondary {
         background-color: var(--secondary);
-        color: var(--text-1);
+        color: var(--text-2);
     }
-    &.dashed {
-        background-color: var(--primary-6);
-        color: var(--text-1);
-    }
+
     &.outline {
-        background-color: var(--primary-6);
-        color: #fff;
+        border: 1px solid var(--light-color);
+
+        color: var(--light-color);
     }
     &.text {
-        background-color: var(--primary-6);
-        color: #fff;
+        background-color: var(--secondary);
+        color: var(--light-color);
     }
-    &:hover {
+    // shape
+
+    &.round {
+        border-radius: 1.5em;
+    }
+    &.circle {
+        border-radius: 50%;
+        height: 1.5em;
+        width: 1.5em;
+        padding: 1em;
+    }
+    // 状态
+    &:hover:not(.disabled) {
         filter: brightness(0.95);
     }
-    &:active {
-        filter: brightness(0.9);
+    &:active:not(.disabled) {
+        filter: brightness(0.8);
+    }
+    &.disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+    &.long {
+        width: 100%;
+    }
+
+    // 状态
+    &.warning {
+        background-color: var(--warning-5);
+        color: white;
+    }
+    &.danger {
+        background-color: var(--danger-5);
+        color: white;
+    }
+    &.success {
+        background-color: var(--success-5);
+        color: white;
+    }
+
+    .cn-icon-font {
+        margin: 0 0.3em;
     }
 }

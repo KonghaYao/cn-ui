@@ -1,13 +1,12 @@
 @import url('@fontsource/material-icons/index.css');
-.px-icon-font {
+.cn-icon-font {
     display: inline-block;
     font-family: var(--cn-icon, 'Material Icons');
-    cursor: pointer;
     user-select: none;
     font-style: normal;
     transform-origin: 50% 50%;
 }
-.px-icon-spin {
+.cn-icon-spin {
     animation: rotate-center 1s linear infinite both;
 }
 

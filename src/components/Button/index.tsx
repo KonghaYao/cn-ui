@@ -7,27 +7,29 @@ import { GlobalConfigStore } from '../ConfigProvider';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',
-    type: 'default',
     shape: 'square',
 };
 
 export const Button = (baseProps: ButtonProps) => {
     const { size: ctxSize, componentConfig, rtl } = GlobalConfigStore;
-    const props: ButtonProps = mergeProps(baseProps, defaultProps, componentConfig?.Button);
+    const props: ButtonProps = mergeProps(defaultProps, componentConfig?.Button, baseProps);
     const iconNode = createMemo(() => (props.loading ? <Icon name="refresh" spin /> : props.icon));
 
     const classNames = createMemo(() => {
+        console.log(props.type);
         return cs(
             'cn-btn',
-            props.type === 'default' ? 'secondary' : props.type,
-            `size-${props.size || ctxSize}`,
-            `shape-${props.shape}`,
+            props.type ?? 'secondary',
+            props.size ?? 'normal',
+            props.shape,
+            props.status,
             {
-                [`long`]: props.long,
-                [`status-${props.status}`]: props.status,
                 [`loading`]: props.loading,
-                [`link`]: props.href,
                 [`disabled`]: props.disabled,
+                [`long`]: props.long,
+
+                // 暂时未控制
+                [`link`]: props.href,
                 [`rtl`]: rtl,
             },
             props.className
@@ -41,11 +43,14 @@ export const Button = (baseProps: ButtonProps) => {
         }
         props.onClick && props.onClick(event);
     };
-
+    const children = createMemo(() => {
+        // 如果没有标签会导致 flex 布局错误
+        return typeof props.children === 'string' ? <span>{props.children}</span> : props.children;
+    });
     const InnerContent = (
         <>
             {iconNode}
-            {!props.iconOnly && props.children}
+            {!props.iconOnly && children}
         </>
     );
 

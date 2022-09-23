@@ -8,9 +8,9 @@ export const Icon: Component<{
 }> = (props) => {
     return (
         <nav
-            class="px-icon-font"
+            class="cn-icon-font"
             classList={{
-                'px-icon-spin': props.spin ?? false,
+                'cn-icon-spin': props.spin ?? false,
             }}
             style={{ 'font-size': props.size ?? '1rem' }}
         >

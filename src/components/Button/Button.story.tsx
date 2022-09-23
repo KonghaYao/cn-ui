@@ -19,7 +19,7 @@ export const Controller = [
         type: 'select',
         default: 'square',
         prop: 'shape',
-        options: ['circle', 'round', 'square'].map((i) => ({ value: i })),
+        options: ['square', 'circle', 'round'].map((i) => ({ value: i })),
     },
     {
         type: 'select',
@@ -31,7 +31,15 @@ export const Controller = [
         type: 'select',
         default: 'default',
         prop: 'type',
-        options: ['default', 'primary', 'secondary', 'dashed', 'text', 'outline'].map((i) => ({
+        options: ['default', 'primary', 'secondary', 'text', 'outline'].map((i) => ({
+            value: i,
+        })),
+    },
+    {
+        type: 'select',
+        default: 'default',
+        prop: 'status',
+        options: ['default', 'warning', 'danger', 'success'].map((i) => ({
             value: i,
         })),
     },

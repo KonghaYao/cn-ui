@@ -12,19 +12,19 @@ export interface BaseButtonProps {
      * `text`, `linear` and `default` which is the secondary.
      * @defaultValue default
      */
-    type?: 'default' | 'primary' | 'secondary' | 'dashed' | 'text' | 'outline';
+    type?: 'primary' | 'secondary' | 'dashed' | 'text' | 'outline';
     /**
      * @zh 按钮状态
      * @en Status of the button
      * @defaultValue default
      */
-    status?: 'warning' | 'danger' | 'success' | 'default';
+    status?: 'warning' | 'danger' | 'success';
     /**
      * @zh 按钮的尺寸
      * @en Size of the button
      * @defaultValue default
      */
-    size?: 'mini' | 'small' | 'default' | 'large';
+    size?: 'mini' | 'small' | 'normal' | 'large';
     /**
      * @zh 按钮形状，`circle` - 圆形， `round` - 全圆角， `square` - 长方形
      * @en Three button shapes are available: `circle`, `round` and `square`

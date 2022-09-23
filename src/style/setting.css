@@ -225,14 +225,14 @@
     --bg-4: var(--gray-4);
     --bg-5: var(--gray-5);
     --bg-white: #fff;
-    --text-1: var(--gray-1); /* 标题，正文*/
-    --text-2: var(--gray-2); /* 语句*/
+    --text-1: var(--gray-2); /* 标题，正文*/
+    --text-2: var(--gray-3); /* 语句*/
     --text-3: var(--gray-4); /* 次要信息*/
     --text-4: var(--gray-6); /* 次要信息*/
-    --fill-1: var(--gray-1);
-    --fill-2: var(--gray-2);
-    --fill-3: var(--gray-3);
-    --fill-4: var(--gray-4);
+    --fill-1: var(--gray-2);
+    --fill-2: var(--gray-3);
+    --fill-3: var(--gray-4);
+    --fill-4: var(--gray-5);
     --border-1: var(--gray-2);
     --border-2: var(--gray-3);
     --border-3: var(--gray-4);
@@ -241,7 +241,7 @@
     --primary-light-2: var(--primary-2);
     --primary-light-3: var(--primary-3);
     --primary-light-4: var(--primary-4);
-    --secondary: var(--gray-8);
+    --secondary: var(--gray-9);
     --secondary-hover: var(--gray-3);
     --secondary-active: var(--gray-4);
     --secondary-disabled: var(--gray-1);
