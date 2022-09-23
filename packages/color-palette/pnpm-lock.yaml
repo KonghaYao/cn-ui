@@ -1,0 +1,15 @@
+lockfileVersion: 5.4
+
+specifiers:
+  chroma-js: ^2.4.2
+
+dependencies:
+  chroma-js: registry.npmmirror.com/chroma-js/2.4.2
+
+packages:
+
+  registry.npmmirror.com/chroma-js/2.4.2:
+    resolution: {integrity: sha512-U9eDw6+wt7V8z5NncY2jJfZa+hUH8XEj8FQHgFJTrUFnJfXYf4Ml4adI2vXZOjqRDpFWtYVWypDfZwnJ+HIR4A==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/chroma-js/-/chroma-js-2.4.2.tgz}
+    name: chroma-js
+    version: 2.4.2
+    dev: false
