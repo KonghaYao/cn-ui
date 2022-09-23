@@ -1,0 +1,13 @@
+.cn-btn {
+    display: inline-block;
+    position: relative;
+    outline: none;
+    font-weight: 400;
+    appearance: none;
+    user-select: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.1s linear;
+    box-sizing: border-box;
+    line-height: 1.5715;
+}

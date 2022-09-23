@@ -23,7 +23,7 @@ const data = Object.fromEntries(
                 return colors.reverse().map((i, index) => {
                     const replacer = findSimilar(i);
                     return {
-                        var: [colorName, index].join("-"),
+                        var: [colorName, index + 1].join("-"),
                         value: replacer.hex,
                         name: replacer.name,
                     };
