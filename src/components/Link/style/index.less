@@ -1,107 +1,36 @@
-@import './token.less';
+@import url('../../../style/setting.css');
 
-@link-prefix-cls: ~'@{prefix}-link';
+.cn-link {
+    color: var(--link-6);
+    font-size: 1rem;
+    line-height: 1.5715;
+    display: inline-block;
+    padding: 1px 4px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: var(--radius-small);
+    background-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-.@{link-prefix-cls} {
-  color: @link-color-text;
-  font-size: @link-font-size;
-  line-height: @link-line-height;
-  display: inline-block;
-  padding: @link-padding-vertical @link-padding-horizontal;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: @link-border-radius;
-  background-color: @color-transparent;
-  transition: all @transition-duration-1 @transition-timing-function-linear;
-
-  &:hover {
-    color: @link-color-text_hover;
-    background-color: @link-color-bg_hover;
-  }
-
-  &:active {
-    transition: none;
-    color: @link-color-text_active;
-    background-color: @link-color-bg_active;
-  }
-
-  &:focus-visible {
-    box-shadow: 0 0 0 2px @link-color-text;
-  }
-
-  &&-hoverless {
-    background-color: unset;
-    padding: 0;
-    display: inline;
-
-    &:active,
-    &:hover {
-      background-color: unset;
+    &.disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
     }
-  }
-
-  &&-disabled {
-    color: @link-color-text_disabled;
-    background: none;
-    cursor: not-allowed;
-  }
-
-  // 不同状态
-  &-is-success {
-    color: @link-color-text_success;
-
-    &:hover {
-      color: @link-color-text_success_hover;
+    &.warning {
+        color: var(--warning-5);
     }
-
-    &:active {
-      color: @link-color-text_success_active;
+    &.danger {
+        color: var(--danger-5);
     }
-  }
-
-  &-is-success&-disabled {
-    color: @link-color-text_success_disabled;
-  }
-
-  &-is-error {
-    color: @link-color-text_error;
-
-    &:hover {
-      color: @link-color-text_error_hover;
+    &.success {
+        color: var(--success-5);
     }
-
-    &:active {
-      color: @link-color-text_error_active;
+    &:hover:not(.hoverless) {
+        backdrop-filter: brightness(0.9);
     }
-  }
-
-  &-is-error&-disabled {
-    color: @link-color-text_error_disabled;
-  }
-
-  &-is-warning {
-    color: @link-color-text_warning;
-
-    &:hover {
-      color: @link-color-text_warning_hover;
+    .cn-icon-font {
+        margin: 0.2em;
     }
-
-    &:active {
-      color: @link-color-text_warning_active;
-    }
-  }
-
-  &-is-warning&-disabled {
-    color: @link-color-text_warning_disabled;
-  }
-
-  &-icon {
-    margin-right: @link-margin-icon-right;
-    font-size: @link-size-icon;
-  }
-
-  &-rtl &-icon {
-    margin-left: @link-margin-icon-right;
-    margin-right: 0;
-  }
 }

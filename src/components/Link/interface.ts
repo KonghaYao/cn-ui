@@ -1,16 +1,17 @@
-import { ReactNode, CSSProperties, AnchorHTMLAttributes } from 'react';
+import { JSXElement } from 'solid-js';
+import { JSX } from 'solid-js/jsx-runtime';
 
 /**
  * @title Link
  */
-export interface LinkProps extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> {
+export interface LinkProps extends Omit<JSX.AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> {
     className?: string | string[];
-    style?: CSSProperties;
+    style?: JSX.CSSProperties;
     /**
      * @zh 显示图标，设置为 `true` 时展示默认图标。
      * @en Custom Icon, Display the default icon when set to `true`.
      */
-    icon?: ReactNode | boolean;
+    icon?: JSXElement | boolean;
     /**
      * @zh 不同状态
      * @en The status of `Link`

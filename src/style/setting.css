@@ -3,9 +3,21 @@
 @import 'sanitize.css';
 :root {
     --cn-icon: 'Material Icons';
-    --font-default: '';
+    --font-default: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB,
+        Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
 
     /******** size *******/
+    /*
+    sm (640px)	max-width: 640px;
+    md (768px)	max-width: 768px;
+    lg (1024px)	max-width: 1024px;
+    xl (1280px)	max-width: 1280px;
+    2xl (1536px)	max-width: 1536px; */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    --container-2xl: 1536px;
 
     --size-none: 0;
     --size-1: 4px;
@@ -214,16 +226,16 @@
     /* variables*/
     --border: var(--gray-3);
     --bg-popup: var(--bg-5);
-    --bg-1: var(--gray-1);
-    --bg-2: var(--gray-2);
-    --bg-3: var(--gray-3);
-    --bg-4: var(--gray-4);
-    --bg-5: var(--gray-5);
+    --bg-1: var(--gray-6);
+    --bg-2: var(--gray-7);
+    --bg-3: var(--gray-8);
+    --bg-4: var(--gray-9);
+    --bg-5: var(--gray-10);
     --bg-white: #fff;
     --text-1: var(--gray-2); /* 标题，正文*/
-    --text-2: var(--gray-3); /* 语句*/
-    --text-3: var(--gray-4); /* 次要信息*/
-    --text-4: var(--gray-6); /* 次要信息*/
+    --text-2: var(--gray-4); /* 语句*/
+    --text-3: var(--gray-6); /* 次要信息*/
+    --text-4: var(--gray-8); /* 次要信息*/
     --fill-1: var(--gray-2);
     --fill-2: var(--gray-3);
     --fill-3: var(--gray-4);

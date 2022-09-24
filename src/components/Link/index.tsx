@@ -3,11 +3,10 @@ import { GlobalConfigStore } from '../GlobalConfigStore';
 import { LinkProps } from './interface';
 import { Component, createMemo, mergeProps } from 'solid-js';
 import { Icon } from '../Icon';
-import './index.less';
+import './style/index.less';
 const defaultProps: LinkProps = {
     hoverable: true,
 };
-
 export const Link: Component<LinkProps> = (baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props: LinkProps = mergeProps(defaultProps, componentConfig?.Link, baseProps);
@@ -39,7 +38,7 @@ export const Link: Component<LinkProps> = (baseProps) => {
                     e.preventDefault();
                     e.stopPropagation();
                 } else {
-                    props.onClick && props.onClick(e);
+                    props.onClick && (props.onClick as any)(e);
                 }
             }}
         >

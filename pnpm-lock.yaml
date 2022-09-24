@@ -19,6 +19,7 @@ importers:
       sanitize.css: ^13.0.0
       solid-element: ^1.5.6
       solid-js: ^1.5.6
+      solid-use: ^0.5.0
       typescript: ^4.8.2
       vite: ^3.0.9
       vite-plugin-solid: ^2.3.0
@@ -28,6 +29,7 @@ importers:
       lodash-es: 4.17.21
       sanitize.css: 13.0.0
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.6
+      solid-use: 0.5.0_solid-js@1.5.6
     devDependencies:
       '@types/lodash': 4.14.185
       '@types/lodash-es': 4.17.6
@@ -843,6 +845,15 @@ packages:
       '@babel/types': registry.npmmirror.com/@babel/types/7.19.0
       solid-js: registry.npmmirror.com/solid-js/1.5.6
     dev: true
+
+  /solid-use/0.5.0_solid-js@1.5.6:
+    resolution: {integrity: sha512-z1AaS99SL3gNP70K4+XIVKGXDRI56m3Q6Q4X63bfgw0kaN6cwT4SAyFZAmIRjHcvf5rOMRQfNgUV4YVDha+LcQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      solid-js: ^1.2
+    dependencies:
+      solid-js: registry.npmmirror.com/solid-js/1.5.6
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

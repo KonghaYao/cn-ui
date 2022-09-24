@@ -13,7 +13,7 @@ import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
 
 export const App = () => {
-    const [page, setPage] = createSignal<string>(Index[1]);
+    const [page, setPage] = createSignal<string>(Index[3]);
     const [props, setProps] = createSignal({});
     const [Controller, setController] = createSignal([]);
     const [Content, { refetch }] = createResource<Component<any>>(async () => {
@@ -55,9 +55,23 @@ export const App = () => {
                         }}
                     </For>
                 </nav>
-                <div class="col flex-1">
-                    <main class="flex-1">{Content.loading ? '加载中' : ContentComp()}</main>
-                    <nav class="flex-1">
+                <div
+                    class="col flex-1"
+                    style={{
+                        width: '100%',
+                        overflow: 'hidden',
+                    }}
+                >
+                    <main
+                        class="flex-1"
+                        style={{
+                            overflow: 'scroll',
+                            'max-height': '80vh',
+                        }}
+                    >
+                        {Content.loading ? '加载中' : ContentComp()}
+                    </main>
+                    <nav>
                         <ControllerGenerator
                             controller={Controller()}
                             onChange={(name, value) => {
