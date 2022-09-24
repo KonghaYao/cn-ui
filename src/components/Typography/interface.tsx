@@ -5,9 +5,12 @@ type ReactNode = JSXElement;
  * @title Typography
  */
 export interface TypographyProps {
-    style?: JSX.CSSProperties;
     className?: string | string[];
-    children?: JSX.Element;
+    children?: JSXElement;
+    /**
+     * @zh 文本展示组件的最大宽度，当外层容器超过最大宽度时，将会自动帮你居中它
+     */
+    maxWidth?: 'md' | 'sm' | 'lg' | 'xl' | '2xl' | number;
 }
 
 export interface OperationsProps extends Omit<JSX.HTMLAttributes<HTMLElement>, 'className'> {

@@ -1,15 +1,10 @@
 import { Component, createMemo, JSXElement, ParentComponent } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import cs from '../_util/classNames';
+import { TypographyProps } from './interface';
 import './style/index.less';
-/**
- * @zh 使用原生的 HTML 标签进行使用比较好，由 CSS 完成对应的操作，这个组件将会维持子代的样式为流式
- *
- */
-const OriginTypography: Component<{
-    className?: string | string[];
-    children?: JSXElement;
-}> = (props) => {
+
+const OriginTypography: Component<TypographyProps> = (props) => {
     const { rtl } = GlobalConfigStore;
     const className = createMemo(() => {
         return cs(
@@ -22,13 +17,21 @@ const OriginTypography: Component<{
     });
     return (
         <div class="cn-typography-wrapper">
-            <article class={className()}>{props.children}</article>
+            <article
+                class={className()}
+                style={{
+                    'max-width':
+                        typeof props.maxWidth === 'number'
+                            ? props.maxWidth + 'px'
+                            : 'var(--container-md)',
+                }}
+            >
+                {props.children}
+            </article>
         </div>
     );
 };
-
-export const Typography = Object.assign(OriginTypography, {}) as typeof OriginTypography & {
-    Title: typeof Title;
-    Text: typeof Text;
-    Paragraph: typeof Paragraph;
-};
+/**
+ * @zh 兼容中文排版的文本专用容器，自动响应式组件
+ * */
+export const Typography = Object.assign(OriginTypography, {}) as typeof OriginTypography & {};

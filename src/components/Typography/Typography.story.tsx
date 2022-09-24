@@ -30,6 +30,7 @@ const Demo = (
         <h6 id="tagline" class="serif">
             一致化浏览器排版效果，构建最适合中文阅读的网页排版
         </h6>
+        <em>这是 UI 的排版指导文本，借鉴了 Typo.css 的格式化方式</em>
 
         <ol id="table">
             <li>
