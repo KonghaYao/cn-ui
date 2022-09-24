@@ -1,9 +1,9 @@
 import cs from '../_util/classNames';
 import { ButtonProps } from './interface';
-import { Icon } from '../Icon/Icon';
+import { Icon } from '../Icon';
 import { createMemo, mergeProps } from 'solid-js';
 import './style/index.less';
-import { GlobalConfigStore } from '../ConfigProvider';
+import { GlobalConfigStore } from '../GlobalConfigStore';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',

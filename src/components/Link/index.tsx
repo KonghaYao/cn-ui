@@ -1,8 +1,8 @@
 import cs from '../_util/classNames';
-import { GlobalConfigStore } from '../ConfigProvider';
+import { GlobalConfigStore } from '../GlobalConfigStore';
 import { LinkProps } from './interface';
 import { Component, createMemo, mergeProps } from 'solid-js';
-import { Icon } from '../Icon/Icon';
+import { Icon } from '../Icon';
 import './index.less';
 const defaultProps: LinkProps = {
     hoverable: true,

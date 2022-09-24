@@ -1,22 +1,22 @@
-import { Icon } from "./Icon";
+import { Icon } from '.';
 
-import IconNames from "./IconNames.json";
+import IconNames from './IconNames.json';
 export const Controller = [
     {
-        type: "select",
-        default: "refresh",
-        prop: "name",
+        type: 'select',
+        default: 'refresh',
+        prop: 'name',
         options: IconNames.map((i) => ({ value: i })),
     },
     {
-        type: "switch",
+        type: 'switch',
         default: true,
-        prop: "spin",
+        prop: 'spin',
     },
     {
-        type: "range",
-        default: "50px",
-        prop: "size",
+        type: 'range',
+        default: '50px',
+        prop: 'size',
         min: 0,
         max: 100,
     },
