@@ -16,11 +16,13 @@ export const CopyText: Component<EditContentProps> = (props) => {
                     copy(container.textContent, { format: 'text/plain' });
                 }}
             >
+                {/* TODO 复制完成动画 */}
                 <Icon name="content_copy"></Icon>
             </span>
         </span>
     );
 };
+// TODO 可编辑文本框
 export const EllipsisText: Component<{ line: number; children: string }> = (props) => {
     const line = atom<'unset' | number>(props.line);
     const isOpen = createMemo(() => typeof line() === 'number');

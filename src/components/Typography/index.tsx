@@ -36,3 +36,5 @@ const OriginTypography: Component<TypographyProps> = (props) => {
  *
  */
 export const Typography = Object.assign(OriginTypography, {}) as typeof OriginTypography & {};
+export { useFont } from './useFont';
+export { CopyText, EllipsisText } from './EditText';

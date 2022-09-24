@@ -1,0 +1,22 @@
+hr {
+    border: none;
+    border-bottom: 1px solid var(--text-4);
+    border-left: 0;
+    margin-bottom: 0.8em;
+    height: 10px;
+
+    // 将 hr 标记为 vertical 可以使得 hr 变为竖直分割线
+    &.vertical {
+        height: 100%;
+        border-bottom: 0;
+        min-height: 10px;
+        margin: 0 0.8em;
+        width: fit-content;
+        display: inline;
+        border-left: 1px solid var(--text-4);
+    }
+}
+
+body {
+    font-family: var(--font-default);
+}

@@ -1,4 +1,6 @@
+import { Button } from '../Button';
 import { CopyText, EllipsisText } from './EditText';
+import { useFont } from './useFont';
 export const Controller = [];
 export default (props) => {
     return (
@@ -15,6 +17,19 @@ export default (props) => {
                 product or process. The verb to design expresses the process of developing a design.
                 The verb to design expresses the process of developing a design.
             </EllipsisText>
+            <Button
+                onClick={() => {
+                    const { register, loadFont } = useFont();
+                    loadFont(
+                        'https://cdn.jsdelivr.net/gh/KonghaYao/chinese-free-web-font-storage/build/江西拙楷2.0/result.css'
+                    ).then((res) => {
+                        register('jiangxizhuokai');
+                    });
+                }}
+            >
+                {' '}
+                改变字体为江西拙楷
+            </Button>
         </>
     );
 };
