@@ -1,4 +1,3 @@
-@import url('@fontsource/material-icons/index.css');
 .cn-icon-font {
     display: inline-block;
     font-family: var(--cn-icon, 'Material Icons');

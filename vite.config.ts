@@ -7,12 +7,14 @@ export default defineConfig({
         port: 3000,
     },
     build: {
-        target: 'esnext',
+        target: 'es6',
+        cssCodeSplit: true,
         lib: {
             entry: './src/index.ts',
             name: 'CNUI',
             formats: ['es'],
         },
+        sourcemap: true,
         rollupOptions: {
             external: ['solid-js', 'solid-js/web', 'solid-js/store'],
         },
