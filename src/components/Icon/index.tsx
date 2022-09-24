@@ -25,6 +25,10 @@ export const loadIcon = async (iconFontPath?: string) => {
     });
 };
 let loaded = false;
+/**
+ * @zh 如果你在项目中不想使用我们提供的 CDN 加载方案，那么可以取消它，然后自己加载 CSS 文件
+ *  */
+export const ignoreAutoLoad = () => (loaded = true);
 export const Icon: Component<{
     size?: string;
     name: IconNames;
