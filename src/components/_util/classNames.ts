@@ -1,4 +1,4 @@
-import { isArray, isObject, isString } from 'lodash';
+import { isArray, isObject, isString } from 'lodash-es';
 import warning from './warning';
 
 type ClassNamesArg = string | string[] | { [key: string]: any } | undefined | null | boolean;

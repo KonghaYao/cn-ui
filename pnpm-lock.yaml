@@ -7,10 +7,11 @@ importers:
       '@cn-ui/palette': 'workspace:'
       '@fontsource/material-icons': ^4.5.4
       '@types/lodash': ^4.14.185
+      '@types/lodash-es': ^4.17.6
       autoprefixer: ^10.4.8
       globby: ^13.1.2
       less: ^4.1.3
-      lodash: ^4.17.21
+      lodash-es: ^4.17.21
       postcss: ^8.4.16
       postcss-nesting: ^10.2.0
       postcss-normalize: ^10.0.1
@@ -24,11 +25,12 @@ importers:
     dependencies:
       '@cn-ui/palette': link:package/palette
       '@fontsource/material-icons': registry.npmmirror.com/@fontsource/material-icons/4.5.4
-      lodash: 4.17.21
+      lodash-es: 4.17.21
       sanitize.css: 13.0.0
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.6
     devDependencies:
       '@types/lodash': 4.14.185
+      '@types/lodash-es': 4.17.6
       autoprefixer: 10.4.8_postcss@8.4.16
       globby: registry.npmmirror.com/globby/13.1.2
       less: 4.1.3
@@ -227,6 +229,12 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.185
+    dev: true
 
   /@types/lodash/4.14.185:
     resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==}
@@ -641,8 +649,8 @@ packages:
       - supports-color
     dev: true
 
-  /lodash/4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
   /make-dir/2.1.0:
