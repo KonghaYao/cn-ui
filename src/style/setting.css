@@ -1,7 +1,6 @@
 @import url('@cn-ui/palette/dist/setting.css');
 @import url('@cn-ui/palette/dist/setting.dark.css');
-@import url('./element.less');
-@import 'sanitize.css';
+
 :root {
     --cn-icon: 'Material Icons';
 
