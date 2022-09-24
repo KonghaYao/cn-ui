@@ -12,7 +12,7 @@ export const Icon: Component<{
             classList={{
                 'cn-icon-spin': props.spin ?? false,
             }}
-            style={{ 'font-size': props.size ?? '1rem' }}
+            style={{ 'font-size': props.size }}
         >
             {props.name}
         </nav>

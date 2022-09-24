@@ -1,14 +1,9 @@
 @import url('@cn-ui/palette/dist/setting.css');
 @import url('@cn-ui/palette/dist/setting.dark.css');
+@import 'sanitize.css';
 :root {
     --cn-icon: 'Material Icons';
-
-    /******** radius *******/
-
-    --border-radius-small: 2px;
-    --border-radius-medium: 4px;
-    --border-radius-large: 8px;
-    --border-radius-circle: 50%;
+    --font-default: '';
 
     /******** size *******/
 
@@ -193,16 +188,16 @@
 
     /******** link *******/
 
-    --link-1: var(--purple-1);
-    --link-2: var(--purple-2);
-    --link-3: var(--purple-3);
-    --link-4: var(--purple-4);
-    --link-5: var(--purple-5);
-    --link-6: var(--purple-6);
-    --link-7: var(--purple-7);
-    --link-8: var(--purple-8);
-    --link-9: var(--purple-9);
-    --link-10: var(--purple-10);
+    --link-1: var(--cyan-1);
+    --link-2: var(--cyan-2);
+    --link-3: var(--cyan-3);
+    --link-4: var(--cyan-4);
+    --link-5: var(--cyan-5);
+    --link-6: var(--cyan-6);
+    --link-7: var(--cyan-7);
+    --link-8: var(--cyan-8);
+    --link-9: var(--cyan-9);
+    --link-10: var(--cyan-10);
 
     /******** radius *******/
 

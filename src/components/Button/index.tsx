@@ -7,21 +7,19 @@ import { GlobalConfigStore } from '../ConfigProvider';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',
-    shape: 'square',
 };
 
 export const Button = (baseProps: ButtonProps) => {
-    const { size: ctxSize, componentConfig, rtl } = GlobalConfigStore;
+    const { componentConfig, rtl } = GlobalConfigStore;
     const props: ButtonProps = mergeProps(defaultProps, componentConfig?.Button, baseProps);
     const iconNode = createMemo(() => (props.loading ? <Icon name="refresh" spin /> : props.icon));
 
     const classNames = createMemo(() => {
-        console.log(props.type);
         return cs(
             'cn-btn',
             props.type ?? 'secondary',
             props.size ?? 'normal',
-            props.shape,
+            props.shape ?? 'square',
             props.status,
             {
                 [`loading`]: props.loading,

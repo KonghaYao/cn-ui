@@ -29,9 +29,9 @@ export const Controller = [
     },
     {
         type: 'select',
-        default: 'default',
+        default: 'primary',
         prop: 'type',
-        options: ['default', 'primary', 'secondary', 'text', 'outline'].map((i) => ({
+        options: ['primary', 'secondary', 'text', 'outline'].map((i) => ({
             value: i,
         })),
     },
