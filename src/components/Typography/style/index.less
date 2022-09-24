@@ -30,15 +30,15 @@
  * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
  * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
  */
-    u,
-    .typo-u {
+    u {
         text-decoration: underline;
+        text-underline-offset: 0.2em;
     }
 
     /* 标记，类似于手写的荧光笔的作用 */
     mark {
-        background: #fffdd1;
-        border-bottom: 1px solid #ffedce;
+        background: var(--yellow-10);
+        border-bottom: 1px solid var(--yellow-8);
         padding: 2px;
         margin: 0 5px;
     }

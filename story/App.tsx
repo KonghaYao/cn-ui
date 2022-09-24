@@ -65,7 +65,7 @@ export const App = () => {
                     <main
                         class="flex-1"
                         style={{
-                            overflow: 'scroll',
+                            overflow: 'auto',
                             'max-height': '80vh',
                         }}
                     >
