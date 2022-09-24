@@ -23,7 +23,7 @@ const OriginTypography: Component<TypographyProps> = (props) => {
                     'max-width':
                         typeof props.maxWidth === 'number'
                             ? props.maxWidth + 'px'
-                            : 'var(--container-md)',
+                            : `var(--container-${props.maxWidth || 'md'})`,
                 }}
             >
                 {props.children}
@@ -32,6 +32,7 @@ const OriginTypography: Component<TypographyProps> = (props) => {
     );
 };
 /**
- * @zh 兼容中文排版的文本专用容器，自动响应式组件
- * */
+ * @zh 兼容中文排版的文本专用容器，自动响应式组件。在内部使用的 HTML 标签样式将不同
+ *
+ */
 export const Typography = Object.assign(OriginTypography, {}) as typeof OriginTypography & {};

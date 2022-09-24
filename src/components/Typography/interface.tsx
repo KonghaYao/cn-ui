@@ -127,15 +127,7 @@ export interface TypographyParagraphProps extends CommonProps {
 }
 
 export interface EditContentProps {
-    prefixCls?: string;
-    children?: ReactNode;
-    setEditing?: (editing: boolean) => void;
-    editableConfig?: {
-        editing?: boolean;
-        onStart?: (text, e) => void;
-        onChange?: (text) => void;
-        onEnd?: (text) => void;
-    };
+    children: JSXElement;
 }
 
 /**
