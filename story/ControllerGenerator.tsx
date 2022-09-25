@@ -39,13 +39,22 @@ export const ControllerGenerator: Component<{
                 />
             );
         },
-        range: ({ default: defaultValue, prop, ...Props }: { default: string; prop: string }) => {
+        range: ({
+            default: defaultValue,
+            prop,
+            unit,
+            ...Props
+        }: {
+            default: string;
+            prop: string;
+            unit?: string;
+        }) => {
             return (
                 <input
                     type="range"
                     {...Props}
                     value={parseInt(defaultValue)}
-                    onchange={(e) => props.onChange(prop, (e.target as any).value + 'px')}
+                    onchange={(e) => props.onChange(prop, (e.target as any).value + (unit || 0))}
                 />
             );
         },

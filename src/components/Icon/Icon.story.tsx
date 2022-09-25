@@ -19,6 +19,7 @@ export const Controller = [
         prop: 'size',
         min: 0,
         max: 100,
+        uint: 'px',
     },
 ];
 export default Icon;

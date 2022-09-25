@@ -13,7 +13,7 @@ import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
 
 export const App = () => {
-    const [page, setPage] = createSignal<string>(Index[3]);
+    const [page, setPage] = createSignal<string>(Index[0]);
     const [props, setProps] = createSignal({});
     const [Controller, setController] = createSignal([]);
     const [Content, { refetch }] = createResource<Component<any>>(async () => {

@@ -1,5 +1,5 @@
 import { Component } from 'solid-js';
-import './Icon.css';
+import './style/index.css';
 import { IconNames } from './IconNames';
 import { loadLink } from '../_util/loadLink';
 /**

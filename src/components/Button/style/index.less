@@ -15,10 +15,10 @@
     border: 1px solid transparent;
     background-color: transparent;
     padding: 0.25rem 0.75rem;
-    // margin: 0.25rem 0.5rem;
+
     --light-color: var(--primary-6);
 
-    // size
+    /* size*/
     &.mini {
         padding: 0 11px;
         font-size: 0.8em;
@@ -40,7 +40,7 @@
         height: var(--size-9);
     }
 
-    // type
+    /*type*/
     &.primary {
         background-color: var(--light-color);
         color: #fff;
@@ -50,17 +50,11 @@
         color: var(--text-2);
     }
 
-    &.outline {
-        border: 1px solid var(--light-color);
-
-        color: var(--light-color);
-    }
     &.text {
         background-color: var(--secondary);
         color: var(--light-color);
     }
-    // shape
-
+    /** shape */
     &.round {
         border-radius: 1.5em;
     }
@@ -85,18 +79,26 @@
         width: 100%;
     }
 
-    // 状态
+    /* 状态 */
     &.warning {
+        --light-color: var(--warning-5);
         background-color: var(--warning-5);
         color: white;
     }
     &.danger {
+        --light-color: var(--danger-5);
         background-color: var(--danger-5);
         color: white;
     }
     &.success {
+        --light-color: var(--success-5);
         background-color: var(--success-5);
         color: white;
+    }
+    &.outline {
+        border: 1px solid var(--light-color);
+        color: var(--light-color);
+        background-color: transparent;
     }
 
     .cn-icon-font {

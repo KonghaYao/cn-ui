@@ -1,0 +1,36 @@
+.cn-avatar {
+    --size: var(--size-large, 36px);
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    background-color: var(--text-4);
+    white-space: nowrap;
+    color: var(--light);
+    box-sizing: border-box;
+    vertical-align: middle;
+    width: var(--size);
+    height: var(--size);
+    font-size: 20px;
+    overflow: hidden;
+    justify-content: center;
+    .text {
+        position: absolute;
+        left: 50%;
+        transform-origin: 0 center;
+        transform: translateX(-50%);
+        line-height: 1;
+        display: flex;
+        align-items: center;
+    }
+    &.square {
+        border-radius: 6px;
+    }
+    .img {
+        width: 100%;
+        height: 100%;
+    }
+
+    &.circle {
+        border-radius: var(--radius-circle);
+    }
+}
