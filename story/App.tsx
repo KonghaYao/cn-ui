@@ -1,43 +1,12 @@
-import {
-    Accessor,
-    batch,
-    Component,
-    createEffect,
-    createMemo,
-    createResource,
-    createSignal,
-    For,
-} from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Accessor, createEffect, For } from 'solid-js';
 import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
-import { useParams, useNavigate, useLocation } from '@solidjs/router';
-export const App = () => {
-    const location = useLocation();
-    const [props, setProps] = createSignal({});
+import { useNavigate } from '@solidjs/router';
+import { useStory } from './useStory';
 
-    const [Controller, setController] = createSignal([]);
-    const [Content, { refetch }] = createResource<Component<any>>(async () => {
-        return import(
-            /* @vite-ignore */ new URLSearchParams(location.search).get('path') || Index[0]
-        ).then((module) => {
-            batch(() => {
-                setController(module.Controller || []);
-                const props =
-                    module.Controller.reduce((col, cur) => {
-                        col[cur.prop] = cur.default;
-                        return col;
-                    }, {}) || {};
-                setProps(props);
-            });
-            return module.default;
-        });
-    });
-    const ContentComp = createMemo(() => {
-        // * 维持依赖追踪
-        const p = props();
-        return <Dynamic component={Content()} {...p}></Dynamic>;
-    });
+export const App = () => {
+    const { updateProps, ContentComp, Controller, refreshStory, Content } = useStory();
+
     const navigate = useNavigate();
     return (
         <main class="col" id="app">
@@ -50,7 +19,7 @@ export const App = () => {
                                 <div
                                     onclick={() => {
                                         navigate('/path?path=' + i);
-                                        refetch();
+                                        refreshStory();
                                     }}
                                 >
                                     {i}
@@ -79,7 +48,7 @@ export const App = () => {
                         <ControllerGenerator
                             controller={Controller()}
                             onChange={(name, value) => {
-                                setProps((props) => {
+                                updateProps((props) => {
                                     props[name] = value;
                                     return { ...props };
                                 });
