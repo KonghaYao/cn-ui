@@ -33,6 +33,7 @@
         "lodash-es": "^4.17.21",
         "sanitize.css": "^13.0.0",
         "solid-element": "^1.5.6",
-        "solid-use": "^0.5.0"
+        "solid-use": "^0.5.0",
+        "swiper": "^8.4.2"
     }
 }

@@ -10,7 +10,7 @@ render(
         <Router source={hashIntegration()}>
             <Routes>
                 <Route path="/path" element={App}></Route>
-                {/* <Route path="/" element={App}></Route> */}
+                <Route path="/" element={App}></Route>
             </Routes>
         </Router>
     ),
