@@ -31,7 +31,7 @@ const Demo = (
             一致化浏览器排版效果，构建最适合中文阅读的网页排版
         </h6>
         <span>
-            中文 <hr class="vertical"></hr>排版<hr class="vertical"></hr>标准
+            中文 <hr class="vertical space"></hr>排版<hr class="vertical space"></hr>标准
         </span>
 
         <hr />

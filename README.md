@@ -1,3 +1,4 @@
 -   [ ] swiper
 -   [ ] Tippy.js
 -   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
+-   [ ] https://www.npmjs.com/package/viewerjs

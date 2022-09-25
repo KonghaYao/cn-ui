@@ -74,7 +74,7 @@
 
     --size-mini: var(--size-6);
     --size-small: var(--size-7);
-    --size-default: var(--size-8);
+    --size-medium: var(--size-8);
     --size-large: var(--size-9);
 
     /******** spacing *******/
@@ -101,6 +101,11 @@
     --spacing-20: 96px;
     --spacing-21: 100px;
     --spacing-22: 120px;
+
+    --spacing-mini: var(--spacing-6);
+    --spacing-small: var(--spacing-7);
+    --spacing-medium: var(--spacing-8);
+    --spacing-large: var(--spacing-9);
 
     /******** shadow *******/
 
