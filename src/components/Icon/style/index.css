@@ -5,8 +5,9 @@
     user-select: none;
     font-style: normal;
     transform-origin: 50% 50%;
+    line-height: 1em;
 }
-.cn-icon-spin {
+.cn-icon-font.spin {
     animation: rotate-center 1s linear infinite both;
 }
 

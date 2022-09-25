@@ -64,10 +64,12 @@ import { TriggerProps } from '../Trigger/interface';
 // import { TypographyProps } from '../Typography/interface';
 import { UploadProps } from '../Upload/interface';
 import { JSXElement } from 'solid-js';
+import { MaskProps } from '../Mask/interface';
 
 export type ThemeConfig = Record<string, any>;
 
 export type ComponentConfig = {
+    Mask?: MaskProps;
     Affix?: AffixProps;
     Alert?: AlertProps;
     AutoComplete?: AutoCompleteProps;

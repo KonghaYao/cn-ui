@@ -1,10 +1,10 @@
 import { JSX, JSXElement } from 'solid-js';
 /**
- * @title Avatar
+ * @title Mask
  */
-export interface AvatarProps {
+export interface MaskProps {
     style?: JSX.CSSProperties;
-    src?: string;
+
     className?: string | string[];
     /**
      * @zh 头像的形状，有圆形(circle)和正方形(square)两种

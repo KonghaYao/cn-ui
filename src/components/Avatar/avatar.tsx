@@ -19,7 +19,7 @@ const calcStr = (strOrNum: string | number, func: (int: number) => number) => {
     const result = parseInt(strOrNum as string);
     return strOrNum.toString().replace(result.toString(), func(result).toString());
 };
-export const Avatar: Component<AvatarProps & { children: JSXElement }> = (props) => {
+export const Avatar: Component<AvatarProps & { children?: JSXElement }> = (props) => {
     const { componentConfig, rtl } = GlobalConfigStore;
 
     const merged = mergeProps(defaultProps, componentConfig?.Avatar, props);
@@ -44,8 +44,8 @@ export const Avatar: Component<AvatarProps & { children: JSXElement }> = (props)
                 rtl: rtl,
             }}
             style={{
-                '--size': merged.size,
-                'font-size': calcStr(merged.size, (i) => i / 2),
+                '--size': typeof merged.size === 'number' ? merged.size + 'px' : merged.size,
+
                 ...merged.style,
             }}
             class={classNames()}
@@ -53,7 +53,13 @@ export const Avatar: Component<AvatarProps & { children: JSXElement }> = (props)
         >
             <Switch
                 fallback={
-                    <span ref={textRef} class="text">
+                    <span
+                        ref={textRef}
+                        class="text"
+                        style={{
+                            'font-size': calcStr(merged.size, (i) => i / 2),
+                        }}
+                    >
                         {merged.children}
                     </span>
                 }

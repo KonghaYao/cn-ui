@@ -33,4 +33,24 @@
     &.circle {
         border-radius: var(--radius-circle);
     }
+    & .trigger {
+        position: absolute;
+        cursor: pointer;
+        background-color: var(--text-4);
+    }
+    & .mask {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        font-size: calc(var(--size) / 2);
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.3s;
+        transform: rotate(180deg);
+        &:hover {
+            opacity: 1;
+            transform: rotate(0);
+        }
+    }
 }

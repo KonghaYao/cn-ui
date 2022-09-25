@@ -30,7 +30,7 @@ export const Icon: Component<{
         <nav
             class="cn-icon-font"
             classList={{
-                'cn-icon-spin': props.spin ?? false,
+                spin: props.spin ?? false,
             }}
             style={{ 'font-size': props.size }}
         >
