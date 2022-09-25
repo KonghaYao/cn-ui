@@ -1,4 +1,3 @@
-import { Icon } from '../Icon';
 import { Space } from './index';
 export const Controller = [
     {

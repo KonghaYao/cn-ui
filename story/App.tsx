@@ -11,13 +11,16 @@ import {
 import { Dynamic } from 'solid-js/web';
 import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
-
+import { useParams, useNavigate, useLocation } from '@solidjs/router';
 export const App = () => {
-    const [page, setPage] = createSignal<string>(Index[5]);
+    const location = useLocation();
     const [props, setProps] = createSignal({});
+
     const [Controller, setController] = createSignal([]);
     const [Content, { refetch }] = createResource<Component<any>>(async () => {
-        return import(/* @vite-ignore */ page()).then((module) => {
+        return import(
+            /* @vite-ignore */ new URLSearchParams(location.search).get('path') || Index[0]
+        ).then((module) => {
             batch(() => {
                 setController(module.Controller || []);
                 const props =
@@ -35,6 +38,7 @@ export const App = () => {
         const p = props();
         return <Dynamic component={Content()} {...p}></Dynamic>;
     });
+    const navigate = useNavigate();
     return (
         <main class="col" id="app">
             <header>StoryBook</header>
@@ -45,7 +49,7 @@ export const App = () => {
                             return (
                                 <div
                                     onclick={() => {
-                                        setPage(i);
+                                        navigate('/path?path=' + i);
                                         refetch();
                                     }}
                                 >
