@@ -15,17 +15,17 @@ export const Controller = [
 export default (props) => {
     return (
         <>
-            <Collapse activeKey={[]}>
-                <CollapseItem header="47834738" name="34384378">
+            <Collapse activeKey={[]} accordion>
+                <CollapseItem header="47834738" destroyOnHide name="1">
                     <div>Content</div>
                 </CollapseItem>
-                <CollapseItem header="47834738" name="34384378">
+                <CollapseItem header="47834738" name="2">
                     <div>Content</div>
                 </CollapseItem>
-                <CollapseItem header="47834738" name="34384378">
+                <CollapseItem header="47834738" name="3">
                     <div>Content</div>
                 </CollapseItem>
-                <CollapseItem header="47834738" name="34384378">
+                <CollapseItem header="47834738" name="4">
                     <div>Content</div>
                 </CollapseItem>
             </Collapse>
