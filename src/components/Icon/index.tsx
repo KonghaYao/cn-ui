@@ -21,7 +21,7 @@ export let loaded = false;
  *  */
 export const ignoreAutoLoad = () => (loaded = true);
 export const Icon: Component<{
-    size?: string;
+    size?: string | number;
     name: IconNames;
     spin?: boolean;
 }> = (props) => {
@@ -32,7 +32,7 @@ export const Icon: Component<{
             classList={{
                 spin: props.spin ?? false,
             }}
-            style={{ 'font-size': props.size }}
+            style={{ 'font-size': typeof props.size === 'number' ? props.size + 'px' : props.size }}
         >
             {props.name}
         </nav>

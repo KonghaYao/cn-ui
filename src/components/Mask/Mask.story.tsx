@@ -1,33 +1,20 @@
 import { Avatar } from '../Avatar/index';
 import { Icon } from '../Icon';
-import { Mask, Position } from './index';
-export const Controller = [
-    {
-        type: 'switch',
-        default: true,
-        prop: 'autoFixFontSize',
-    },
-    {
-        type: 'select',
-        default: 'circle',
-        prop: 'shape',
-        options: ['circle', 'square'].map((i) => ({ value: i })),
-    },
-    {
-        type: 'range',
-        default: '36px',
-        prop: 'size',
-        unit: 'px',
-    },
-];
+import { Badge } from './Badge';
+import { Mask } from './index';
+import { Position } from './Position';
+export const Controller = [];
 export default (props) => {
+    const avatar = () => (
+        <Avatar
+            src="https://foruda.gitee.com/avatar/1663940152493388167/5342313_dongzhongzhidong_1663940152.png"
+            size={60}
+        ></Avatar>
+    );
     return (
         <>
             <Mask {...props}>
-                <Avatar
-                    src="https://foruda.gitee.com/avatar/1663940152493388167/5342313_dongzhongzhidong_1663940152.png"
-                    size={60}
-                ></Avatar>
+                {avatar()}
                 <Position right="0" bottom="0">
                     <div
                         style={{
@@ -41,11 +28,7 @@ export default (props) => {
                 </Position>
             </Mask>
             <Mask {...props}>
-                <Avatar
-                    src="https://foruda.gitee.com/avatar/1663940152493388167/5342313_dongzhongzhidong_1663940152.png"
-                    size={60}
-                    shape="square"
-                ></Avatar>
+                {avatar()}
                 <Position full right="0" bottom="0">
                     <div
                         style={{
@@ -57,8 +40,26 @@ export default (props) => {
                             'align-items': 'center',
                         }}
                     >
-                        <Icon name="camera"></Icon>
+                        <Icon name="camera" size={36}></Icon>
                     </div>
+                </Position>
+            </Mask>
+            <Mask {...props}>
+                {avatar()}
+                <Position right="0" bottom="0">
+                    <Badge count="100"></Badge>
+                </Position>
+            </Mask>
+            <Mask {...props}>
+                {avatar()}
+                <Position right="0" bottom="0">
+                    <Badge count="1"></Badge>
+                </Position>
+            </Mask>
+            <Mask {...props}>
+                {avatar()}
+                <Position top="0.2em" right="0.2em">
+                    <Badge dot></Badge>
                 </Position>
             </Mask>
         </>
