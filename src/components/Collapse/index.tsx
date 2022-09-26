@@ -19,14 +19,10 @@ import { Icon } from '../Icon';
 import { CollapseItemProps, CollapseProps } from './interface';
 
 import cs from '../_util/classNames';
-import { untrack } from 'solid-js/web';
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 type Controller = { [key: string]: Atom<boolean> };
 const CollapseContext = createContext<{
-    expandIcon?: JSXElement;
-    activeKeys: string[];
-    expandIconPosition?: 'left' | 'right';
     lazyload?: boolean;
     destroyOnHide?: boolean;
     onToggle?: (_key: string, state: boolean, _e) => void;
@@ -36,15 +32,12 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props: CollapseProps = mergeProps({}, componentConfig?.Collapse, baseProps);
 
-    const activeKeys = atom(props.activeKey);
-
     const [controllers, CommitController] = createSignal<Controller>({}, { equals: false });
-    const { lazyload, expandIconPosition, destroyOnHide } = props;
+    const { lazyload, destroyOnHide } = props;
 
     return (
         <CollapseContext.Provider
             value={{
-                activeKeys: activeKeys(),
                 CommitController,
                 lazyload,
 
@@ -58,7 +51,6 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
                     props.onChange && props.onChange(key, e);
                 },
                 destroyOnHide,
-                expandIconPosition,
             }}
         >
             <article
@@ -75,9 +67,10 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
 export const CollapseItem: Component<CollapseItemProps> = (props) => {
     const ctx = useContext(CollapseContext);
     props = mergeProps({}, props);
+    /** 用于取消下一次 toggle 避免回环 */
+    let cancelNext = false;
+    const isExpanded = atom(false);
 
-    const initExpanded = (props.value && props.value()) || ctx.activeKeys.indexOf(props.name) > -1;
-    const isExpanded = atom(initExpanded);
     /** 阻止回环的函数 */
     const _isExpanded = (a?: boolean, _cancelNext = true) => {
         if (typeof a === 'boolean') {
@@ -86,19 +79,25 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
         return isExpanded(a);
     };
 
+    const initExpanded = () => {
+        if (props.open) return true;
+        return props.value && props.value();
+    };
+    _isExpanded(initExpanded());
+
     if (props.value) {
         let outlet = undefined;
         createEffect(() => {
-            if (outlet === props.value()) return;
-            outlet = props.value();
-            console.log('监听到 value 变化', outlet, props.value());
+            const val = (props.value as Atom<boolean>)();
+            // 取消重复触发
+            if (outlet === val) return;
+            outlet = val;
+            // console.log('监听到 value 变化', outlet, val);
             // * 取消下一次是防止 value 回环
-            _isExpanded(props.value());
+            _isExpanded(val);
         });
     }
 
-    /** 用于取消下一次操作避免回环 */
-    let cancelNext = false;
     // 移交 Expanded 的控制权
     onMount(() => {
         ctx.CommitController((val) => ({

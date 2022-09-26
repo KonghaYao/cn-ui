@@ -8,28 +8,13 @@ export interface CollapseProps {
     children: JSXElement;
     style?: JSX.CSSProperties;
     className?: string | string[];
-    /**
-     * @zh 当前面板选中值
-     * @en Key of the active panel
-     */
-    activeKey?: string[];
 
     /**
      * @zh 是否是手风琴模式
      * @en Whether to render as Accordion
      */
     accordion?: boolean;
-    /**
-     * @zh 自定义展开图标
-     * @en Custom collapse icon
-     */
-    expandIcon?: JSXElement;
-    /**
-     * @zh 展开图标的位置
-     * @en Position of collapse icon
-     * @defaultValue left
-     */
-    expandIconPosition?: 'left' | 'right';
+
     /**
      * @zh 无边框样式
      * @en Whether to render border
@@ -84,9 +69,14 @@ export interface CollapseItemProps {
     disabled?: boolean;
 
     /**
-     * @zh 同步标签
+     * @zh 同步标签，数据内外统一
      */
     value?: Atom<boolean>;
+
+    /**
+     * @zh 等级高于同步 value 值，但是只在初始化时才使用
+     */
+    open?: boolean;
     /**
      * @zh 面板被折叠时是否销毁节点，优先级高于 `Collapse` 的 `destroyOnHide`
      * @en If true, item will be unmounted on collapsing. (Higher priority than `Collapse.destroyOnHide`)

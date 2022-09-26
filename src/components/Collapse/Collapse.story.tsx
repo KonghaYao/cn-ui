@@ -1,3 +1,4 @@
+import { For } from 'solid-js';
 import { atom } from 'solid-use';
 import { Collapse, CollapseItem } from './index';
 export const Controller = [
@@ -24,33 +25,35 @@ export const Controller = [
     },
 ];
 export default (props) => {
-    const Value = atom(false);
+    const data = [...Array(5).keys()].map((i) => {
+        return {
+            label: '标签 ' + i,
+            name: 'tag ' + i,
+            value: atom(!!(i % 2)),
+            content: [...Array(i + 1).keys()].map((ii) => <span>{ii}</span>),
+        };
+    });
+    // 想要获取 所有标签的打开值:
+    //  data.map((i) => i.value());
+    const Value = data[0].value;
     return (
         <>
-            <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'truee' : 'ffe'}</button>
+            <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'true' : 'false'}</button>
             <Collapse
-                activeKey={[]}
                 {...props}
                 onChange={(...args) => {
                     console.log(args);
                 }}
             >
-                <CollapseItem header="47834738" name="1">
-                    <div>Content</div>
-                    <div>Content</div>
-                    <div>Content</div>
-                    <div>Content</div>
-                    <div>Content</div>
-                </CollapseItem>
-                <CollapseItem header="47834738" value={Value} name="2">
-                    <div>Content</div>
-                </CollapseItem>
-                <CollapseItem header="47834738" name="3">
-                    <div>Content</div>
-                </CollapseItem>
-                <CollapseItem header="47834738" name="4">
-                    <div>Content</div>
-                </CollapseItem>
+                <For each={data}>
+                    {(item) => {
+                        return (
+                            <CollapseItem header={item.label} name={item.name} value={item.value}>
+                                {item.content}
+                            </CollapseItem>
+                        );
+                    }}
+                </For>
             </Collapse>
         </>
     );
