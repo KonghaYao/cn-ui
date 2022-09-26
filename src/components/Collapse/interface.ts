@@ -16,12 +16,6 @@ export interface CollapseProps {
     accordion?: boolean;
 
     /**
-     * @zh 无边框样式
-     * @en Whether to render border
-     * @defaultValue true
-     */
-    bordered?: boolean;
-    /**
      * @zh 设置为 `true` 时，挂载时不会渲染被隐藏的面板。
      * @en If true, invisible panels will not be rendered on mount
      * @defaultValue true

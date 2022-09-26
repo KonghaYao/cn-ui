@@ -1,7 +1,6 @@
-// import React, { useContext, Fragment, forwardRef, ReactElement } from 'react';
 import cs from '../_util/classNames';
 import { SpaceSize, SpaceProps } from './interface';
-import { Component, createMemo, mergeProps } from 'solid-js';
+import { Component, createMemo, For, mergeProps, JSX } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 const defaultProps: SpaceProps = {
@@ -10,7 +9,7 @@ const defaultProps: SpaceProps = {
 
 export const Space: Component<SpaceProps> = (baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
-    const props = mergeProps(defaultProps, componentConfig?.Space, baseProps);
+    const props: SpaceProps = mergeProps(defaultProps, componentConfig?.Space, baseProps);
 
     const style = createMemo(() => {
         const size =
@@ -21,7 +20,9 @@ export const Space: Component<SpaceProps> = (baseProps) => {
 
     const classNames = createMemo(() => cs('cn-space', props.className));
 
-    const childrenList = props.children;
+    const childrenList = (
+        props.children.hasOwnProperty('length') ? props.children : [props.children]
+    ) as JSX.ArrayElement;
 
     return (
         <div
@@ -34,14 +35,17 @@ export const Space: Component<SpaceProps> = (baseProps) => {
             {...props}
             style={style()}
         >
-            {childrenList.map((child, index) => {
-                return (
-                    <>
-                        <div class="cn-space-item">{child}</div>
-                        {index !== childrenList.length - 1 && props.split}
-                    </>
-                );
-            })}
+            <For each={childrenList}>
+                {(child, index) => {
+                    if (!child) return null;
+                    return (
+                        <>
+                            <div class="cn-space-item">{child}</div>
+                            {index() !== childrenList.length - 1 && props.split}
+                        </>
+                    );
+                }}
+            </For>
         </div>
     );
 };

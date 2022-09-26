@@ -2,20 +2,15 @@ import {
     Component,
     createContext,
     createEffect,
-    createMemo,
     createSignal,
-    JSXElement,
     mergeProps,
     onCleanup,
     onMount,
-    ParentComponent,
     Show,
-    Switch,
     useContext,
 } from 'solid-js';
 import { Atom, atom } from 'solid-use';
 import { GlobalConfigStore } from '../GlobalConfigStore';
-import { Icon } from '../Icon';
 import { CollapseItemProps, CollapseProps } from './interface';
 
 import cs from '../_util/classNames';
@@ -55,7 +50,7 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
         >
             <article
                 {...(props as any)}
-                class={cs('cn-collapse', props.bordered ? 'border' : 'borderless', props.className)}
+                class={cs('cn-collapse', props.className)}
                 classList={{ rtl: rtl }}
                 style={props.style}
             >

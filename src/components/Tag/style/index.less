@@ -1,0 +1,42 @@
+.cn-tag {
+    --background-color-checked: var(--gray-9);
+    --background-color: var(--gray-9);
+    --color: var(--text-1);
+    display: inline-flex;
+    align-items: center;
+
+    box-sizing: border-box;
+    height: 1.5em;
+    padding: 0 0.6em;
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+    font-weight: lighter;
+    font-size: 0.8em;
+    line-height: 1em;
+    color: var(--color);
+    background-color: var(--background-color);
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &.loading {
+        pointer-events: none;
+    }
+    &.hide {
+        display: none;
+    }
+    &.checked {
+        background-color: var(--background-color-checked);
+    }
+    &.bordered {
+        border: 2px solid var(--background-color-checked);
+    }
+    & .cn-icon-font {
+        &.close-icon,
+        &.loading-icon {
+            margin-left: 0.3em;
+        }
+        &.icon {
+            margin-left: 0.3em;
+        }
+    }
+}
