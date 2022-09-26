@@ -1,9 +1,20 @@
+import { atom } from 'solid-use';
 import { Collapse, CollapseItem } from './index';
 export const Controller = [
     {
         type: 'switch',
         default: false,
-        prop: 'loading',
+        prop: 'accordion',
+    },
+    {
+        type: 'switch',
+        default: false,
+        prop: 'destroyOnHide',
+    },
+    {
+        type: 'switch',
+        default: false,
+        prop: 'lazyload',
     },
     {
         type: 'select',
@@ -13,13 +24,25 @@ export const Controller = [
     },
 ];
 export default (props) => {
+    const Value = atom(false);
     return (
         <>
-            <Collapse activeKey={[]} accordion>
-                <CollapseItem header="47834738" destroyOnHide name="1">
+            <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'truee' : 'ffe'}</button>
+            <Collapse
+                activeKey={[]}
+                {...props}
+                onChange={(...args) => {
+                    console.log(args);
+                }}
+            >
+                <CollapseItem header="47834738" name="1">
+                    <div>Content</div>
+                    <div>Content</div>
+                    <div>Content</div>
+                    <div>Content</div>
                     <div>Content</div>
                 </CollapseItem>
-                <CollapseItem header="47834738" name="2">
+                <CollapseItem header="47834738" value={Value} name="2">
                     <div>Content</div>
                 </CollapseItem>
                 <CollapseItem header="47834738" name="3">

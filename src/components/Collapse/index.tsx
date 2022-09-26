@@ -10,6 +10,7 @@ import {
     onMount,
     ParentComponent,
     Show,
+    Switch,
     useContext,
 } from 'solid-js';
 import { Atom, atom } from 'solid-use';
@@ -19,7 +20,8 @@ import { CollapseItemProps, CollapseProps } from './interface';
 
 import cs from '../_util/classNames';
 import { untrack } from 'solid-js/web';
-
+import './style/index.less';
+import { CancelFirstRender } from '../_util/CancelFirstTime';
 type Controller = { [key: string]: Atom<boolean> };
 const CollapseContext = createContext<{
     expandIcon?: JSXElement;
@@ -45,11 +47,7 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
                 activeKeys: activeKeys(),
                 CommitController,
                 lazyload,
-                expandIcon: props.expandIcon || (
-                    <Icon
-                        name={expandIconPosition === 'right' ? 'arrow_drop_down' : 'arrow_drop_up'}
-                    />
-                ),
+
                 onToggle: (key, state, e) => {
                     const c = controllers();
                     if (props.accordion && state) {
@@ -57,6 +55,7 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
                             if (key !== name) toggle(false);
                         });
                     }
+                    props.onChange && props.onChange(key, e);
                 },
                 destroyOnHide,
                 expandIconPosition,
@@ -64,11 +63,7 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
         >
             <article
                 {...(props as any)}
-                class={cs(
-                    '.cn-collapse',
-                    props.bordered ? 'border' : 'borderless',
-                    props.className
-                )}
+                class={cs('cn-collapse', props.bordered ? 'border' : 'borderless', props.className)}
                 classList={{ rtl: rtl }}
                 style={props.style}
             >
@@ -79,9 +74,28 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
 };
 export const CollapseItem: Component<CollapseItemProps> = (props) => {
     const ctx = useContext(CollapseContext);
-    props = mergeProps({ showExpendIcon: true }, props);
-    const initExpanded = ctx.activeKeys.indexOf(props.name) > -1;
+    props = mergeProps({}, props);
+
+    const initExpanded = (props.value && props.value()) || ctx.activeKeys.indexOf(props.name) > -1;
     const isExpanded = atom(initExpanded);
+    /** 阻止回环的函数 */
+    const _isExpanded = (a?: boolean, _cancelNext = true) => {
+        if (typeof a === 'boolean') {
+            if (isExpanded() !== a) cancelNext = _cancelNext;
+        }
+        return isExpanded(a);
+    };
+
+    if (props.value) {
+        let outlet = undefined;
+        createEffect(() => {
+            if (outlet === props.value()) return;
+            outlet = props.value();
+            console.log('监听到 value 变化', outlet, props.value());
+            // * 取消下一次是防止 value 回环
+            _isExpanded(props.value());
+        });
+    }
 
     /** 用于取消下一次操作避免回环 */
     let cancelNext = false;
@@ -89,10 +103,7 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
     onMount(() => {
         ctx.CommitController((val) => ({
             ...val,
-            [props.name]: (a?: boolean) => {
-                if (isExpanded() !== a) cancelNext = true;
-                return isExpanded(a);
-            },
+            [props.name]: _isExpanded,
         }));
     });
     onCleanup(() => {
@@ -101,29 +112,54 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
             return val;
         });
     });
-    const icon = props.showExpandIcon ? props.expandIcon || ctx.expandIcon : null;
+
+    const Content = () => {
+        return ctx.destroyOnHide ? (
+            <Show when={isExpanded()}>{props.children}</Show>
+        ) : (
+            props.children
+        );
+    };
     return (
         <details
             class={cs('cn-collapse-item', props.className)}
             open={isExpanded()}
             classList={{
-                [`no-icon`]: !icon,
-                [`disabled`]: props.disabled,
+                disabled: props.disabled,
             }}
             // ! ontoggle 是 open 被改变后就会触发，所以函数也也可以触发导致回环
             ontoggle={(e) => {
+                const state = !isExpanded();
                 if (cancelNext) {
                     cancelNext = false;
-                    return;
+                } else {
+                    isExpanded(state);
+                    props.value && props.value(state);
                 }
-                const state = !isExpanded();
-                isExpanded(state);
-                ctx.onToggle(props.name, state, e);
+                props.onTrigger && props.onTrigger(props.name, state, e);
+                if (!e.cancelBubble) {
+                    ctx.onToggle(props.name, state, e);
+                }
             }}
             style={props.style}
         >
-            <summary>{props.header}</summary>
-            {ctx.destroyOnHide ? <Show when={isExpanded()}>{props.children}</Show> : props.children}
+            <summary class="cn-collapse-summary">{props.header}</summary>
+            {/* TODO Collapse 的动态效果没有实现 */}
+            <div
+                class="cn-collapse-container"
+                classList={{
+                    show: isExpanded(),
+                }}
+                style={props.contentStyle}
+            >
+                {ctx.lazyload ? (
+                    <CancelFirstRender trigger={isExpanded}>
+                        <Content></Content>
+                    </CancelFirstRender>
+                ) : (
+                    <Content></Content>
+                )}
+            </div>
         </details>
     );
 };

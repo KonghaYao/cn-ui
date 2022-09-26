@@ -1,4 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
+import { Atom } from 'solid-use';
 
 /**
  * @title Collapse
@@ -50,7 +51,7 @@ export interface CollapseProps {
      * @zh 展开面板改变时触发
      * @en Callback when the active panel changes
      */
-    onChange?: (key: string, keys: string[], e) => void;
+    onChange?: (key: string, e) => void;
 }
 
 /**
@@ -81,25 +82,19 @@ export interface CollapseItemProps {
      * @en If true, the panel is not collapsible
      */
     disabled?: boolean;
+
     /**
-     * @zh 自定义展开图标
-     * @en Custom expand icon
+     * @zh 同步标签
      */
-    expandIcon?: JSXElement;
-    /**
-     * @zh 是否展示展开按钮
-     * @en Whether to show expand icon
-     * @defaultValue true
-     */
-    showExpandIcon?: boolean;
-    /**
-     * @zh 额外节点
-     * @en The extra element in the corner
-     */
-    extra?: JSXElement;
+    value?: Atom<boolean>;
     /**
      * @zh 面板被折叠时是否销毁节点，优先级高于 `Collapse` 的 `destroyOnHide`
      * @en If true, item will be unmounted on collapsing. (Higher priority than `Collapse.destroyOnHide`)
      */
     destroyOnHide?: boolean;
+    /**
+     * @zh 监控这个组件的 Trigger 事件
+     * @en
+     */
+    onTrigger?: (key: string, state: boolean, e) => void;
 }
