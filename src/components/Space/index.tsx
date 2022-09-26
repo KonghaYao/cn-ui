@@ -20,9 +20,11 @@ export const Space: Component<SpaceProps> = (baseProps) => {
 
     const classNames = createMemo(() => cs('cn-space', props.className));
 
-    const childrenList = (
-        props.children.hasOwnProperty('length') ? props.children : [props.children]
-    ) as JSX.ArrayElement;
+    const childrenList = createMemo<JSX.ArrayElement>(() => {
+        return (
+            props.children.hasOwnProperty('length') ? props.children : [props.children]
+        ) as JSX.ArrayElement;
+    });
 
     return (
         <div
@@ -35,9 +37,8 @@ export const Space: Component<SpaceProps> = (baseProps) => {
             {...props}
             style={style()}
         >
-            <For each={childrenList}>
+            <For each={childrenList()}>
                 {(child, index) => {
-                    if (!child) return null;
                     return (
                         <>
                             <div class="cn-space-item">{child}</div>
