@@ -1,4 +1,4 @@
-import { render } from 'solid-js/web';
+import { Portal, render } from 'solid-js/web';
 import { Mask } from '../Mask/index';
 import { createServer, SlotMap } from '../Server';
 
@@ -23,4 +23,6 @@ const OuterSpace = Template(({ Slots, SlotList }) => {
     );
 });
 /** 向全局注入一个默认的 Layer 空间，生命周期为 solid 全生命 */
-render(() => <OuterSpace></OuterSpace>, document.body);
+render(() => {
+    return <OuterSpace></OuterSpace>;
+}, document.body);
