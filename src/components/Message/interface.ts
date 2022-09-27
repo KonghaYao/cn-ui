@@ -10,11 +10,6 @@ export interface MessageProps {
     type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'loading';
 
     /**
-     * @zh 消息弹出动画的类名，见 react-transition-group 的 `classNames`
-     * @en ClassNames of react-transition-group of the message pop-up animation, see `classNames`
-     */
-    transitionClassNames?: string;
-    /**
      * @zh 消息内容
      * @en Message content
      */
