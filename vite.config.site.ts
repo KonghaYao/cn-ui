@@ -10,8 +10,9 @@ export default defineConfig({
     server: {
         port: 3000,
     },
+
     optimizeDeps: {
-        include: ['lodash-es', 'copy-to-clipboard', 'solid-use'],
+        include: ['lodash-es', 'copy-to-clipboard', 'solid-use', 'swiper/solid'],
     },
     build: {
         outDir: 'dist_site',

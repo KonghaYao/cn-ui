@@ -1,6 +1,5 @@
 import { JSX } from 'solid-js/jsx-runtime';
 import { JSXElement, Component } from 'solid-js';
-type ReactNode = JSXElement;
 /**
  * @title Typography
  */
@@ -24,8 +23,6 @@ export interface OperationsProps extends Omit<JSX.HTMLAttributes<HTMLElement>, '
         | {
               text?: string;
               onCopy?: (text: string, e) => void;
-              icon?: ReactNode;
-              tooltips?: [ReactNode, ReactNode];
           };
     /**
      * @zh 开启可编辑功能
@@ -56,7 +53,6 @@ export interface OperationsProps extends Omit<JSX.HTMLAttributes<HTMLElement>, '
 export interface CommonProps extends Omit<OperationsProps, 'currentContext'> {
     style?: JSX.CSSProperties;
     className?: string | string[];
-    children?: ReactNode;
     /**
      * @zh 文本类型
      * @en Text type
@@ -172,7 +168,6 @@ export type EllipsisConfig = {
      * @zh 配置 折叠 / 展开 的元素
      * @en Configure expand elements
      */
-    expandNodes?: ReactNode[];
     /**
      * @zh 在省略发生改变的时候触发，通常是窗口resize情况会触发。
      * @en Callback when the ellipsis state changes, usually triggered by window resize。
