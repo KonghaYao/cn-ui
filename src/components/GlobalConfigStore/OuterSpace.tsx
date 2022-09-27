@@ -18,7 +18,7 @@ const OuterSpace = Template(({ Slots, SlotList }) => {
                 'pointer-events': 'none',
             }}
         >
-            <SlotMap list={SlotList().Inner}></SlotMap>
+            <SlotMap list={SlotList.Inner}></SlotMap>
         </Mask>
     );
 });

@@ -39,5 +39,8 @@ export interface SpaceProps {
      * @version 2.22.0
      */
     split?: JSXElement;
+
+    /** 动画类名 */
+    animate?: string;
     children?: JSXElement;
 }

@@ -1,4 +1,3 @@
-import mitt from 'mitt';
 import {
     Accessor,
     Component,
@@ -6,10 +5,10 @@ import {
     createSignal,
     For,
     JSXElement,
-    onCleanup,
     onMount,
     useContext,
 } from 'solid-js';
+import { createStore } from 'solid-js/store';
 
 type SlotType = Component;
 type SlotsType<Key extends string> = Record<Key, SlotType>;
@@ -35,25 +34,24 @@ export function createServer<
 
         if (list) {
             // 更新状态
-            setSlotList((list) => {
-                list[slot] = [...(list?.[slot] || []), wrapper];
-                return { ...list };
+            setSlotList(slot, (list) => {
+                return [...(list || []), wrapper];
             });
         } else {
-            setSlots((item) => ({ ...item, [slot]: wrapper }));
+            setSlots(slot, wrapper);
         }
     };
 
-    const [Slots, setSlots] = createSignal<SlotsType<SlotNames>>({} as any);
-    const [SlotList, setSlotList] = createSignal<SlotListType<SlotListNames>>({} as any);
+    const [Slots, setSlots] = createStore<SlotsType<SlotNames>>({} as any);
+    const [SlotList, setSlotList] = createStore<SlotListType<SlotListNames>>({} as any);
     const [data, setData] = createSignal<DataType>(init);
 
     /** 用于外包一个组件，使其内部可以写一个 Template 来渲染 Slot */
     function Template<T>(
         InnerUI: Component<
             T & {
-                Slots: Accessor<SlotsType<SlotNames>>;
-                SlotList: Accessor<SlotListType<SlotListNames>>;
+                Slots: SlotsType<SlotNames>;
+                SlotList: SlotListType<SlotListNames>;
             }
         >
     ): Component<T> {
@@ -79,5 +77,6 @@ export const SlotMap = (props: {
     children?: (i: SlotType, index: Accessor<number>) => JSXElement;
 }) => {
     const mapper = props.children || ((I: SlotType, index: Accessor<number>) => <I />);
+
     return <For each={props.list}>{mapper}</For>;
 };

@@ -24,6 +24,8 @@ const MessageCard: Component<MessageProps> = (props) => {
         </div>
     );
 };
+import 'animate.css';
+import { TransitionGroup } from '../../Transition/TransitionGroup';
 const Root = () => {
     return (
         <Position
@@ -34,11 +36,17 @@ const Root = () => {
                 height: '100vh',
             }}
         >
-            <Space vertical size="mini">
-                {MessageQueue.map((props) => {
-                    return <MessageCard {...props}></MessageCard>;
-                })}
-            </Space>
+            <TransitionGroup
+                enterActiveClass="animated fadeInDown"
+                exitActiveClass="animated fadeOutUp"
+            >
+                <For each={MessageQueue}>
+                    {(props) => {
+                        return <MessageCard {...props}></MessageCard>;
+                    }}
+                </For>
+            </TransitionGroup>
+            {/* <Space vertical className="animated" size="mini" animate="fade"></Space> */}
         </Position>
     );
 };

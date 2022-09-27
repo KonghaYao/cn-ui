@@ -1,6 +1,6 @@
 import cs from '../_util/classNames';
 import { SpaceSize, SpaceProps } from './interface';
-import { Component, createMemo, For, mergeProps, JSX } from 'solid-js';
+import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 const defaultProps: SpaceProps = {
@@ -16,14 +16,12 @@ export const Space: Component<SpaceProps> = (baseProps) => {
             typeof props.size === 'string' ? `var(--spacing-${props.size})` : props.size + 'px';
         return { ...props.style, '--space-size': size };
     });
-    const innerAlign = props.align || 'center';
 
     const classNames = createMemo(() => cs('cn-space', props.className));
 
-    const childrenList = createMemo<JSX.ArrayElement>(() => {
-        return (
-            props.children.hasOwnProperty('length') ? props.children : [props.children]
-        ) as JSX.ArrayElement;
+    const childrenList = createMemo(() => {
+        const child = children(() => props.children);
+        return child.toArray();
     });
 
     return (
@@ -39,9 +37,11 @@ export const Space: Component<SpaceProps> = (baseProps) => {
         >
             <For each={childrenList()}>
                 {(child, index) => {
+                    const main = <div class="cn-space-item">{child}</div>;
+
                     return (
                         <>
-                            <div class="cn-space-item">{child}</div>
+                            {main}
                             {index() !== childrenList.length - 1 && props.split}
                         </>
                     );

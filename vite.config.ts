@@ -7,7 +7,7 @@ export default defineConfig({
         port: 3000,
     },
     optimizeDeps: {
-        include: ['lodash-es'],
+        include: ['lodash-es', 'solid-use'],
     },
     build: {
         assetsInlineLimit: 8 * 1024,

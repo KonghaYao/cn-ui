@@ -9,6 +9,7 @@ importers:
       '@solidjs/router': ^0.4.3
       '@types/lodash': ^4.14.185
       '@types/lodash-es': ^4.17.6
+      animate.css: '3'
       autoprefixer: ^10.4.8
       copy-to-clipboard: ^3.3.2
       globby: ^13.1.2
@@ -22,6 +23,8 @@ importers:
       sanitize.css: ^13.0.0
       solid-element: ^1.5.6
       solid-js: ^1.5.6
+      solid-react-transition: ^1.0.8
+      solid-transition-group: ^0.0.11
       solid-use: ^0.5.0
       swiper: ^8.4.2
       typescript: ^4.8.2
@@ -31,11 +34,14 @@ importers:
       '@cn-ui/palette': link:package/palette
       '@fontsource/material-icons': registry.npmmirror.com/@fontsource/material-icons/4.5.4
       '@solidjs/router': 0.4.3_solid-js@1.5.6
+      animate.css: 3.7.2
       copy-to-clipboard: 3.3.2
       lodash-es: 4.17.21
       mitt: 3.0.0
       sanitize.css: 13.0.0
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.6
+      solid-react-transition: 1.0.8_solid-js@1.5.6
+      solid-transition-group: 0.0.11_solid-js@1.5.6
       solid-use: 0.5.0_solid-js@1.5.6
       swiper: 8.4.2
     devDependencies:
@@ -257,6 +263,10 @@ packages:
   /@types/lodash/4.14.185:
     resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==}
     dev: true
+
+  /animate.css/3.7.2:
+    resolution: {integrity: sha512-0bE8zYo7C0KvgOYrSVfrzkbYk6IOTVPNqkiHg2cbyF4Pq/PXzilz4BRWA3hwEUBoMp5VBgrC29lQIZyhRWdBTw==}
+    dev: false
 
   /autoprefixer/10.4.8_postcss@8.4.16:
     resolution: {integrity: sha512-75Jr6Q/XpTqEf6D2ltS5uMewJIx5irCU1oBYJrWjFenq/m12WRRrz6g15L1EIoYvPLXTbEry7rDOwrcYNj77xw==}
@@ -867,6 +877,14 @@ packages:
     hasBin: true
     dev: true
 
+  /solid-react-transition/1.0.8_solid-js@1.5.6:
+    resolution: {integrity: sha512-7i00fI2BdkI+S1wi8XIQU+tRugMU1wccF3cnTKe3om9slCdQRFeDYzBGSn4Q/wdK+JLIA5MrC0k1oKyF7ysxuA==}
+    peerDependencies:
+      solid-js: '>=1.2.5'
+    dependencies:
+      solid-js: registry.npmmirror.com/solid-js/1.5.6
+    dev: false
+
   /solid-refresh/0.4.1_solid-js@1.5.6:
     resolution: {integrity: sha512-v3tD/OXQcUyXLrWjPW1dXZyeWwP7/+GQNs8YTL09GBq+5FguA6IejJWUvJDrLIA4M0ho9/5zK2e9n+uy+4488g==}
     peerDependencies:
@@ -877,6 +895,14 @@ packages:
       '@babel/types': registry.npmmirror.com/@babel/types/7.19.0
       solid-js: registry.npmmirror.com/solid-js/1.5.6
     dev: true
+
+  /solid-transition-group/0.0.11_solid-js@1.5.6:
+    resolution: {integrity: sha512-WcMhZvaQKAWfByVgtJuKwR2naXQHG1tJHDvqsC/EyNsoNWRkDu+9AWcwaUWW1kXZ24n17We0IIRe7z4G5dEYRw==}
+    peerDependencies:
+      solid-js: ^1.0.0
+    dependencies:
+      solid-js: registry.npmmirror.com/solid-js/1.5.6
+    dev: false
 
   /solid-use/0.5.0_solid-js@1.5.6:
     resolution: {integrity: sha512-z1AaS99SL3gNP70K4+XIVKGXDRI56m3Q6Q4X63bfgw0kaN6cwT4SAyFZAmIRjHcvf5rOMRQfNgUV4YVDha+LcQ==}

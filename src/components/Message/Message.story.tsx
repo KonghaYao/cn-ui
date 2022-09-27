@@ -12,6 +12,7 @@ export default (props) => {
                         id: Math.random().toString(),
                         content: '这是一条信息',
                         closable: true,
+                        duration: 0,
                     });
                 }}
             >
