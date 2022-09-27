@@ -11,7 +11,7 @@ export default defineConfig({
         port: 3000,
     },
     optimizeDeps: {
-        include: ['lodash-es'],
+        include: ['lodash-es', 'copy-to-clipboard', 'solid-use'],
     },
     build: {
         outDir: 'dist_site',

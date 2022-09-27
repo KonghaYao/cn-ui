@@ -2,6 +2,7 @@
 
 import { JSXElement } from 'solid-js';
 import { JSX } from 'solid-js/jsx-runtime';
+import { TransitionGroupProps } from '../../Transition/TransitionGroup';
 
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
 
@@ -9,6 +10,11 @@ export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
  * @title Space
  */
 export interface SpaceProps {
+    /**
+     * @zh 附加动画
+     *  */
+    transition?: TransitionGroupProps;
+
     style?: JSX.CSSProperties;
     className?: string | string[];
     /**
@@ -33,14 +39,6 @@ export interface SpaceProps {
      * @en Whether to wrap line automatic
      */
     wrap?: boolean;
-    /**
-     * @zh 设置分隔符
-     * @en Set separator
-     * @version 2.22.0
-     */
-    split?: JSXElement;
 
-    /** 动画类名 */
-    animate?: string;
     children?: JSXElement;
 }

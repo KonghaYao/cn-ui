@@ -38,7 +38,7 @@ function getRect(element: Element): BoundingRect {
     };
 }
 
-type TransitionGroupProps = {
+export type TransitionGroupProps = {
     name?: string;
     enterActiveClass?: string;
     enterClass?: string;
@@ -158,11 +158,17 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
     });
 
     createEffect<Map<Element, ElementInfo>>((nodes) => {
-        const c = combined()!;
+        const c = combined();
         c.forEach((child) => {
-            let n: ElementInfo | undefined;
-            if (!(n = nodes!.get(child))) {
-                nodes!.set(child, (n = { pos: getRect(child), new: !first }));
+            let n: ElementInfo | undefined = nodes.get(child);
+            if (!n) {
+                try {
+                    // 这里查找的时候会发生 BUG
+                    n = { pos: getRect(child), new: !first };
+                } catch (e) {
+                    return;
+                }
+                nodes.set(child, n);
             } else if (n.new) {
                 n.new = false;
                 n.newPos = getRect(child);

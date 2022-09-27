@@ -3,7 +3,7 @@ import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
 import { useNavigate } from '@solidjs/router';
 import { useStory } from './useStory';
-import 'animate.css';
+// import 'animate.css';
 export const App = () => {
     const { updateProps, ContentComp, Controller, refreshStory, Content } = useStory();
 

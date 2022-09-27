@@ -3,6 +3,7 @@ import { SpaceSize, SpaceProps } from './interface';
 import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
+import { TransitionGroup } from '../../Transition/TransitionGroup';
 const defaultProps: SpaceProps = {
     size: 'mini',
 };
@@ -19,11 +20,6 @@ export const Space: Component<SpaceProps> = (baseProps) => {
 
     const classNames = createMemo(() => cs('cn-space', props.className));
 
-    const childrenList = createMemo(() => {
-        const child = children(() => props.children);
-        return child.toArray();
-    });
-
     return (
         <div
             class={classNames()}
@@ -35,18 +31,11 @@ export const Space: Component<SpaceProps> = (baseProps) => {
             {...props}
             style={style()}
         >
-            <For each={childrenList()}>
-                {(child, index) => {
-                    const main = <div class="cn-space-item">{child}</div>;
-
-                    return (
-                        <>
-                            {main}
-                            {index() !== childrenList.length - 1 && props.split}
-                        </>
-                    );
-                }}
-            </For>
+            {props.transition ? (
+                <TransitionGroup {...props.transition}>{props.children}</TransitionGroup>
+            ) : (
+                props.children
+            )}
         </div>
     );
 };

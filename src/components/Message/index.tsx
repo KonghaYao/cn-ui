@@ -24,8 +24,9 @@ const MessageCard: Component<MessageProps> = (props) => {
         </div>
     );
 };
-import 'animate.css';
-import { TransitionGroup } from '../../Transition/TransitionGroup';
+// 最小化动画载入
+import 'animate.css/source/fading_entrances/fadeInDown.css';
+import 'animate.css/source/fading_exits/fadeOutUp.css';
 const Root = () => {
     return (
         <Position
@@ -36,17 +37,21 @@ const Root = () => {
                 height: '100vh',
             }}
         >
-            <TransitionGroup
-                enterActiveClass="animated fadeInDown"
-                exitActiveClass="animated fadeOutUp"
+            <Space
+                transition={{
+                    enterActiveClass: 'animated fadeInDown',
+                    exitActiveClass: 'animated fadeOutUp',
+                }}
+                vertical
+                className="animated"
+                size="mini"
             >
                 <For each={MessageQueue}>
                     {(props) => {
                         return <MessageCard {...props}></MessageCard>;
                     }}
                 </For>
-            </TransitionGroup>
-            {/* <Space vertical className="animated" size="mini" animate="fade"></Space> */}
+            </Space>
         </Position>
     );
 };
