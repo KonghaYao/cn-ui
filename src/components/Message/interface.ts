@@ -29,7 +29,7 @@ export interface MessageProps {
      * @zh 自定义图标
      * @en Custom icon
      */
-    icon?: JSXElement;
+    icon?: () => JSXElement;
     /**
      * @zh 自动关闭的时间，单位为 `ms`
      * @en Automatic shutdown time, the unit is `ms`

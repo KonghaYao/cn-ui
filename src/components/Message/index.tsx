@@ -67,7 +67,7 @@ const sendMessage = (config: MessageProps, ...over: Partial<MessageProps>[]) => 
 
 const DefaultIcon: Component<
     JSX.HTMLAttributes<HTMLSpanElement> & { name: IconNames; color: string; spin?: boolean }
-> = (props) => () => {
+> = (props) => {
     return (
         <span
             class="cn-icon-wrapper"
@@ -89,31 +89,31 @@ export class Message {
     static success(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'success',
-            icon: DefaultIcon({ name: 'check', color: 'green' }),
+            icon: () => DefaultIcon({ name: 'check', color: 'green' }),
         });
     }
     static loading(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'loading',
-            icon: DefaultIcon({ name: 'refresh', color: 'gray', spin: true }),
+            icon: () => DefaultIcon({ name: 'refresh', color: 'gray', spin: true }),
         });
     }
     static info(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'info',
-            icon: DefaultIcon({ name: 'info', color: 'cyan' }),
+            icon: () => DefaultIcon({ name: 'info', color: 'cyan' }),
         });
     }
     static warning(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'warning',
-            icon: DefaultIcon({ name: 'warning_amber', color: 'orange' }),
+            icon: () => DefaultIcon({ name: 'warning_amber', color: 'orange' }),
         });
     }
     static error(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'error',
-            icon: DefaultIcon({ name: 'error_outline', color: 'red' }),
+            icon: () => DefaultIcon({ name: 'error_outline', color: 'red' }),
         });
     }
     static normal(config: MessageProps) {
