@@ -1,3 +1,3 @@
 
-import 'swiper/css/manipulation.css'
+import 'swiper/css/manipulation'
 export { Manipulation } from 'swiper';

@@ -1,3 +1,3 @@
 
-import 'swiper/css/mousewheel.css'
+import 'swiper/css/mousewheel'
 export { Mousewheel } from 'swiper';

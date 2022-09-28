@@ -1,3 +1,3 @@
 
-import 'swiper/css/pagination.css'
+import 'swiper/css/pagination'
 export { Pagination } from 'swiper';

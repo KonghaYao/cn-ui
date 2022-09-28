@@ -1,3 +1,3 @@
 
-import 'swiper/css/thumbs.css'
+import 'swiper/css/thumbs'
 export { Thumbs } from 'swiper';

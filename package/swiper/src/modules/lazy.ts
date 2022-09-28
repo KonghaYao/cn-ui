@@ -1,3 +1,3 @@
 
-import 'swiper/css/lazy.css'
+import 'swiper/css/lazy'
 export { Lazy } from 'swiper';

@@ -1,3 +1,3 @@
 
-import 'swiper/css/parallax.css'
+import 'swiper/css/parallax'
 export { Parallax } from 'swiper';

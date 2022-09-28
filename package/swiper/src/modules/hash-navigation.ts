@@ -1,3 +1,3 @@
 
-import 'swiper/css/hash-navigation.css'
+import 'swiper/css/hash-navigation'
 export { HashNavigation } from 'swiper';

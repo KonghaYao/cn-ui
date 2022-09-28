@@ -1,3 +1,3 @@
 
-import 'swiper/css/zoom.css'
+import 'swiper/css/zoom'
 export { Zoom } from 'swiper';

@@ -1,3 +1,3 @@
 
-import 'swiper/css/history.css'
+import 'swiper/css/history'
 export { History } from 'swiper';

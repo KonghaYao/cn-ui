@@ -1,3 +1,3 @@
 
-import 'swiper/css/effect-coverflow.css'
+import 'swiper/css/effect-coverflow'
 export { EffectCoverflow } from 'swiper';

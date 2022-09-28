@@ -1,3 +1,3 @@
 
-import 'swiper/css/scrollbar.css'
+import 'swiper/css/scrollbar'
 export { Scrollbar } from 'swiper';

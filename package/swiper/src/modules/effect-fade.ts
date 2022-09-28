@@ -1,3 +1,3 @@
 
-import 'swiper/css/effect-fade.css'
+import 'swiper/css/effect-fade'
 export { EffectFade } from 'swiper';

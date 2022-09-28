@@ -6,12 +6,15 @@
     "scripts": {
         "build:module": "node ./src/modules.mjs",
         "dev": "vite",
-        "build": "vite build ",
+        "build": "vite build",
         "serve": "vite preview"
     },
     "license": "MIT",
     "devDependencies": {
-        "babel-preset-solid": "^1.4.6"
+        "@rollup/plugin-babel": "^5.3.1",
+        "@rollup/plugin-multi-entry": "^4.1.0",
+        "babel-preset-solid": "^1.4.6",
+        "rollup": "^2.79.1"
     },
     "dependencies": {
         "swiper": "^8.4.2"

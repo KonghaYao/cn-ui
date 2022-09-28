@@ -1,3 +1,3 @@
 
-import 'swiper/css/grid.css'
+import 'swiper/css/grid'
 export { Grid } from 'swiper';

@@ -1,3 +1,3 @@
 
-import 'swiper/css/navigation.css'
+import 'swiper/css/navigation'
 export { Navigation } from 'swiper';

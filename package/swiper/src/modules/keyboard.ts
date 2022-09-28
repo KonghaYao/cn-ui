@@ -1,3 +1,3 @@
 
-import 'swiper/css/keyboard.css'
+import 'swiper/css/keyboard'
 export { Keyboard } from 'swiper';

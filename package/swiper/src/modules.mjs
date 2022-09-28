@@ -1,5 +1,8 @@
 import fs from 'fs';
-fs.unlinkSync('./src/module.ts');
+fs.unlinkSync('./src/index.ts');
+fs.writeFileSync('./src/index.ts', `export * from './component';\n`, {
+    flag: 'a',
+});
 [
     'A11y',
     'Autoplay',
@@ -22,7 +25,7 @@ fs.unlinkSync('./src/module.ts');
     'Thumbs',
     'Virtual',
     'Zoom',
-    'FreeMode',
+    ['FreeMode', 'free-mode'],
     'Grid',
     'Manipulation',
 ].map((i) => {
@@ -30,10 +33,10 @@ fs.unlinkSync('./src/module.ts');
     fs.writeFileSync(
         `./src/modules/${smallName}.ts`,
         `
-import 'swiper/css/${smallName}.css'
+import 'swiper/css/${smallName}'
 export { ${name} } from 'swiper';`
     );
-    fs.writeFileSync('./src/module.ts', `export { ${name} } from './modules/${smallName}';\n`, {
+    fs.writeFileSync('./src/index.ts', `export { ${name} } from './modules/${smallName}';\n`, {
         flag: 'a',
     });
 });

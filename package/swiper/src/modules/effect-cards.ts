@@ -1,3 +1,3 @@
 
-import 'swiper/css/effect-cards.css'
+import 'swiper/css/effect-cards'
 export { EffectCards } from 'swiper';

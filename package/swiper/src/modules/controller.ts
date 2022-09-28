@@ -1,3 +1,3 @@
 
-import 'swiper/css/controller.css'
+import 'swiper/css/controller'
 export { Controller } from 'swiper';

@@ -1,3 +1,3 @@
 
-import 'swiper/css/autoplay.css'
+import 'swiper/css/autoplay'
 export { Autoplay } from 'swiper';
