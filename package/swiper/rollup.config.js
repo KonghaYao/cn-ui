@@ -4,17 +4,19 @@ import postcss from 'rollup-plugin-postcss';
 import multi from 'rollup-plugin-multi-input';
 import fse from 'fs-extra';
 fse.emptyDirSync('./dist/');
+const external = ['solid-js', 'solid-js/web', 'solid-js/store'];
 export default {
-    input: ['src/index.ts', 'src/modules/*.ts'],
+    input: ['src/index.ts', 'src/module.ts'],
     output: { dir: 'dist' },
     plugins: [
         multi({ relative: 'src/' }),
         nodeResolve({
             browser: true,
+            extensions: ['.js', '.ts'],
         }),
         babel({
-            presets: ['@babel/preset-env', 'babel-preset-solid', '@babel/preset-typescript'],
-            babelHelpers: 'bundled',
+            presets: ['babel-preset-solid', '@babel/preset-typescript'],
+          
         }),
         postcss({
             extract: true,
@@ -22,6 +24,9 @@ export default {
             // extract: path.resolve('dist/my-custom-file-name.css'),
         }),
         {
+            resolveId(id) {
+                if (external.includes(id)) return false;
+            },
             transform(code, id) {
                 if (id.includes('index.ts')) {
                     return code.replace(/\/\/ Ignore[\s\S]*\/\/ Ignore/, '');

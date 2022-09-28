@@ -1,19 +1,12 @@
 export const Controller = [];
 
 // 使用包内部的导出，原项目有 Bug
+// css 文件非常小，故直接导入
+import '@cn-ui/swiper/dist/index.css';
 import { Swiper, SwiperSlide } from '@cn-ui/swiper';
+import { Navigation, Pagination, Scrollbar, EffectFade, Lazy } from '@cn-ui/swiper/dist/module';
 
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 import { Component, For, JSXElement } from 'solid-js';
-
-import 'swiper/css/effect-fade';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/lazy';
-
-// import Swiper core and required modules
-import { Navigation, Pagination, Scrollbar, EffectFade, Lazy } from 'swiper';
 
 export default () => {
     const DemoSlide: Component<{ children: JSXElement; index: number }> = (props) => {

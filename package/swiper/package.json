@@ -1,15 +1,20 @@
 {
     "name": "@cn-ui/swiper",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "description": "",
     "main": "./dist/index.js",
+    "files": [
+        "src",
+        "dist"
+    ],
     "scripts": {
         "build:module": "node ./src/modules.mjs",
-        "build": "rollup -c rollup.config.js"
+        "build": "rollup -c rollup.config.js&& tsc"
     },
     "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.19.3",
+        "@babel/plugin-transform-runtime": "^7.19.1",
         "@babel/plugin-transform-typescript": "^7.19.3",
         "@babel/preset-env": "^7.19.3",
         "@rollup/plugin-babel": "^5.3.1",
