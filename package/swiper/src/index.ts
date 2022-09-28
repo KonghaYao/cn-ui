@@ -1,25 +1,7 @@
-export * from './component';
-export { A11y } from './modules/a11y';
-export { Autoplay } from './modules/autoplay';
-export { Controller } from './modules/controller';
-export { EffectCoverflow } from './modules/effect-coverflow';
-export { EffectCube } from './modules/effect-cube';
-export { EffectFade } from './modules/effect-fade';
-export { EffectFlip } from './modules/effect-flip';
-export { EffectCreative } from './modules/effect-creative';
-export { EffectCards } from './modules/effect-cards';
-export { HashNavigation } from './modules/hash-navigation';
-export { History } from './modules/history';
-export { Keyboard } from './modules/keyboard';
-export { Lazy } from './modules/lazy';
-export { Mousewheel } from './modules/mousewheel';
-export { Navigation } from './modules/navigation';
-export { Pagination } from './modules/pagination';
-export { Parallax } from './modules/parallax';
-export { Scrollbar } from './modules/scrollbar';
-export { Thumbs } from './modules/thumbs';
-export { Virtual } from './modules/virtual';
-export { Zoom } from './modules/zoom';
-export { FreeMode } from './modules/free-mode';
-export { Grid } from './modules/grid';
-export { Manipulation } from './modules/manipulation';
+/** 官方打包方式错误了，所以需要重新打包一次 */
+import 'swiper/css';
+export { Swiper, SwiperSlide, useSwiper, useSwiperSlide } from 'swiper/solid';
+
+// Ignore
+export type { SwiperProps, SwiperSlideProps } from 'swiper/solid/index';
+// Ignore
