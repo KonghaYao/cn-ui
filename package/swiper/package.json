@@ -1,0 +1,19 @@
+{
+    "name": "@cn-ui/swiper",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./src/index.ts",
+    "scripts": {
+        "build:module": "node ./src/modules.mjs",
+        "dev": "vite",
+        "build": "vite build ",
+        "serve": "vite preview"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "babel-preset-solid": "^1.4.6"
+    },
+    "dependencies": {
+        "swiper": "^8.4.2"
+    }
+}

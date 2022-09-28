@@ -3,7 +3,6 @@
     "version": "0.0.0",
     "description": "",
     "scripts": {
-        "postinstall": "./scripts/createSwiperLink.bat",
         "dev": "pnpm build:index && vite",
         "build": "vite build",
         "build:site": "vite build -c vite.config.site.ts",
@@ -24,17 +23,15 @@
         "solid-js": "^1.5.6",
         "typescript": "^4.8.2",
         "vite": "^3.0.9",
-        "vite-plugin-solid": "^2.3.0"
-    },
-    "peerDependencies": {
-        "swiper": "^8.4.2"
+        "vite-plugin-solid": "^2.3.0",
+        "browserslist": "^4.21.4"
     },
     "dependencies": {
         "@cn-ui/palette": "workspace:",
+        "@cn-ui/swiper": "workspace:",
         "@fontsource/material-icons": "^4.5.4",
         "@solidjs/router": "^0.4.3",
         "animate.css": "3",
-        "browserslist": "^4.21.4",
         "copy-to-clipboard": "^3.3.2",
         "lodash-es": "^4.17.21",
         "mitt": "^3.0.0",

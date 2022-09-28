@@ -1,7 +1,7 @@
 export const Controller = [];
 
 // 使用包内部的导出，原项目有 Bug
-import { Swiper, SwiperSlide } from './index';
+import { Swiper, SwiperSlide } from '@cn-ui/swiper';
 
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
