@@ -1,3 +1,4 @@
+@import url('./tailwind.css');
 @import url('./element.less');
 @import url('./setting.css');
 @import url('./animate.css');

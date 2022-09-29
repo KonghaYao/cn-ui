@@ -9,9 +9,9 @@ export const App = () => {
 
     const navigate = useNavigate();
     return (
-        <main class="col" id="app">
+        <main class="flex flex-col" id="app">
             <header>StoryBook</header>
-            <main class="row flex-1">
+            <main class="flex flex-row flex-1">
                 <nav>
                     <For each={Index}>
                         {(i) => {
@@ -29,7 +29,7 @@ export const App = () => {
                     </For>
                 </nav>
                 <div
-                    class="col flex-1"
+                    class="flex flex-col flex-1"
                     style={{
                         width: '100%',
                         overflow: 'hidden',
