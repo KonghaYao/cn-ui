@@ -1,18 +1,11 @@
 .cn-collapse {
     .cn-collapse-item {
-        border-bottom: 1px solid var(--gray-8);
-        box-sizing: border-box;
         .cn-collapse-summary {
-            user-select: none;
-            cursor: pointer;
-            padding: var(--spacing-mini) var(--spacing-mini);
-            line-height: 1em;
         }
         .cn-collapse-container {
-            background-color: var(--bg-4);
             display: none;
             height: auto;
-            padding: 1em 2em;
+
             transition: height 2s cubic-bezier(0.34, 0.69, 0.1, 1);
             &.show {
                 display: block;

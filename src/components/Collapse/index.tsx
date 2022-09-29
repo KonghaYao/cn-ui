@@ -116,7 +116,10 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
     };
     return (
         <details
-            class={cs('cn-collapse-item', props.className)}
+            class={cs(
+                'cn-collapse-item border-b border-solid border-gray-200 box-border',
+                props.className
+            )}
             open={isExpanded()}
             classList={{
                 disabled: props.disabled,
@@ -137,10 +140,12 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
             }}
             style={props.style}
         >
-            <summary class="cn-collapse-summary">{props.header}</summary>
+            <summary class="cn-collapse-summary select-none cursor-pointer leading-none px-4 py-2">
+                {props.header}
+            </summary>
             {/* TODO Collapse 的动态效果没有实现 */}
             <div
-                class="cn-collapse-container"
+                class="cn-collapse-container bg-gray-100 px-4 py-2"
                 classList={{
                     show: isExpanded(),
                 }}
