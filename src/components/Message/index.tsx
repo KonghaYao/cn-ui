@@ -15,7 +15,7 @@ const [MessageQueue, setMessage] = createStore<MessageProps[]>([]);
 const MessageCard: Component<MessageProps> = (props) => {
     const close = () => setMessage((list) => list.filter((i) => i.id !== props.id));
     return (
-        <div class="cn-message">
+        <div class="cn-message relative px-4 py-3 leading-none">
             <span>{props.icon}</span>
             <span>{props.content}</span>
             {props.closable && (

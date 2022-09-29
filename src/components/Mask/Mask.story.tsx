@@ -8,6 +8,8 @@ export default (props) => {
     const avatar = () => (
         <Image
             src="https://foruda.gitee.com/avatar/1663940152493388167/5342313_dongzhongzhidong_1663940152.png"
+            // 使用 block 布局修复 inline 的 多余高度问题
+            block
             height={60}
             width={60}
             round
