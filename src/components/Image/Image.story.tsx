@@ -1,6 +1,7 @@
 import { Icon } from '../Icon';
 import { Space } from '../Space';
 import { Image } from './index';
+import { useViewer } from './Viewer';
 export const Controller = [
     {
         type: 'switch',
@@ -26,6 +27,13 @@ export const Controller = [
     },
 ];
 export default (props) => {
+    const { getViewer, addImages } = useViewer({});
+    addImages([
+        {
+            alt: '信息',
+            src: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+        },
+    ]);
     return (
         <Space vertical>
             <Image
@@ -35,12 +43,13 @@ export default (props) => {
                 {...props}
             ></Image>
             <Image height={100} width={100} src="" block {...props}></Image>
+            <h3>点击预览</h3>
             <Image
                 height={100}
                 width={100}
                 src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                forceLoading
                 {...props}
+                onclick={() => getViewer().show()}
             ></Image>
         </Space>
     );

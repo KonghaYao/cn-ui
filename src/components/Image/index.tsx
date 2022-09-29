@@ -1,12 +1,13 @@
-import { Component, createSignal, JSXElement, Match, mergeProps, Switch } from 'solid-js';
+import { Component, createSignal, JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
 import { atom } from 'solid-use';
 import { Icon } from '../Icon';
+import { Box } from '../Box';
 import './style/index.less';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
-export type ImageProps = {
+export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
     src: string;
-    alt?: string;
+
     fit?: ImageFit;
     position?: ImagePosition;
     round?: boolean;
@@ -20,23 +21,7 @@ export type ImageProps = {
     showLoading?: boolean;
     errorIcon?: JSXElement;
     loadingIcon?: JSXElement;
-};
-
-export const Result: Component<{
-    children?: JSXElement;
-    description?: string;
-    icon: JSXElement;
-}> = (props) => {
-    return (
-        <div class="cn-result">
-            <div class="container">
-                {props.icon}
-                <div class="description">{props.description}</div>
-                {props.children}
-            </div>
-        </div>
-    );
-};
+}
 
 export const Image: Component<ImageProps> = (props) => {
     props = mergeProps(
@@ -67,16 +52,16 @@ export const Image: Component<ImageProps> = (props) => {
         >
             <Switch>
                 <Match when={props.showLoading && loading()}>
-                    <Result
+                    <Box
                         icon={<Icon name="refresh" spin size={props.iconSize}></Icon>}
                         description="加载中"
-                    ></Result>
+                    ></Box>
                 </Match>
                 <Match when={props.showError && error()}>
-                    <Result
+                    <Box
                         icon={<Icon name="error" size={props.iconSize}></Icon>}
                         description="图片加载错误"
-                    ></Result>
+                    ></Box>
                 </Match>
             </Switch>
 
@@ -84,7 +69,6 @@ export const Image: Component<ImageProps> = (props) => {
                 <img
                     {...props}
                     src={props.src}
-                    alt={props.alt}
                     style={{
                         'object-fit': props.fit,
                         'object-position': props.position,
