@@ -1,0 +1,33 @@
+.cn-image {
+    &.round {
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    &.error,
+    &.loading {
+        background-color: var(--gray-9);
+    }
+    &.error {
+        color: var(--red-6);
+    }
+    &.loading {
+        color: var(--gray-6);
+    }
+}
+.cn-result {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .description {
+        font-size: 0.8em;
+        font-weight: thin;
+    }
+}

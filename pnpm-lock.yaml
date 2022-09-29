@@ -28,6 +28,7 @@ importers:
       solid-use: ^0.5.0
       swiper: ^8.4.2
       typescript: ^4.8.2
+      viewerjs: ^1.10.5
       vite: ^3.0.9
       vite-plugin-solid: ^2.3.0
     dependencies:
@@ -43,6 +44,7 @@ importers:
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.6
       solid-use: 0.5.0_solid-js@1.5.6
       swiper: 8.4.2
+      viewerjs: 1.10.5
     devDependencies:
       '@types/lodash': 4.14.185
       '@types/lodash-es': 4.17.6
@@ -3540,6 +3542,10 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
+
+  /viewerjs/1.10.5:
+    resolution: {integrity: sha512-QwKrmXlSfKg5x4y74F/jicpHIRqBMMfHXyboOxHDi5n4XAaejjpalphPq4/HW6venQAoMiD57HpVwBk0JvqpSA==}
+    dev: false
 
   /vite-plugin-solid/2.3.0_solid-js@1.5.6+vite@3.0.9:
     resolution: {integrity: sha512-N2sa54C3UZC2nN5vpj5o6YP+XdIAZW6n6xv8OasxNAcAJPFeZT7EOVvumL0V4c8hBz1yuYniMWdESY8807fVSg==}
