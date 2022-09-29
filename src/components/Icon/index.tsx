@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { Component, createMemo } from 'solid-js';
 import './style/index.css';
 
 import { loadLink } from '../_util/loadLink';
@@ -24,11 +24,14 @@ import cs from '../_util/classNames';
 export const ignoreAutoLoad = () => (loaded = true);
 export const Icon: Component<IconProps> = (props) => {
     if (!loaded) loadIcon();
+    const fontSize = createMemo(() => {
+        return typeof props.size === 'number' ? props.size + 'px' : props.size;
+    });
     return (
         <nav
-            style={{ 'font-size': typeof props.size === 'number' ? props.size + 'px' : props.size }}
             {...props}
-            class={cs('cn-icon-font', props.class)}
+            class={'cn-icon-font inline-block select-none leading-none origin-center' + props.class}
+            style={{ ...props?.style, 'font-size': fontSize() }}
             classList={{
                 spin: props.spin ?? false,
             }}

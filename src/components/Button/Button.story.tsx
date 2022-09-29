@@ -49,7 +49,7 @@ export default (props) => {
         <>
             <Button {...props}>按钮一个</Button>
             <br />
-            <Button {...props} long>
+            <Button {...props} block>
                 按钮一个
             </Button>
         </>

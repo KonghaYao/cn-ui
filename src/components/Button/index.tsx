@@ -24,7 +24,7 @@ export const Button = (baseProps: ButtonProps) => {
             {
                 [`loading`]: props.loading,
                 [`disabled`]: props.disabled,
-                [`long`]: props.long,
+                [`block`]: props.block,
 
                 // 暂时未控制
                 [`link`]: props.href,

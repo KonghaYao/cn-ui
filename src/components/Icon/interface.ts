@@ -9,4 +9,5 @@ export interface IconProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'cla
     size?: string | number;
     name: IconNames;
     spin?: boolean;
+    style?: JSX.CSSProperties;
 }

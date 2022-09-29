@@ -71,7 +71,7 @@ export interface BaseButtonProps {
      * @zh 按钮宽度随容器自适应。
      * @en Whether the width of the button should adapt to the container.
      */
-    long?: boolean;
+    block?: boolean;
     /**
      * @zh 点击按钮的回调
      * @en Callback fired when the button is clicked

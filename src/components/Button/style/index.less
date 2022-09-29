@@ -1,106 +1,114 @@
 .cn-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    outline: none;
-    font-weight: 400;
-    appearance: none;
-    user-select: none;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: filter 0.1s linear;
+    transition: filter 0.3s linear, background-color 0.3s linear;
     box-sizing: border-box;
-    line-height: 1.5715;
-    border: 1px solid transparent;
+
     background-color: transparent;
-    padding: 0.25rem 0.75rem;
+    @apply inline-flex items-center justify-center relative outline-none font-normal select-none  cursor-pointer whitespace-nowrap box-border border border-solid border-transparent bg-transparent py-1 px-4;
 
     --light-color: var(--primary-6);
 
     /* size*/
     &.mini {
-        padding: 0 11px;
-        font-size: 0.8em;
-        height: var(--size-6);
+        @apply h-6 px-2 text-xs;
     }
     &.small {
-        padding: 0 15px;
-
-        height: var(--size-7);
+        @apply h-8 px-3 text-sm;
     }
     &.normal {
-        padding: 0 15px;
-
-        height: var(--size-8);
+        @apply h-10 px-4;
     }
     &.large {
-        padding: 0 19px;
-        font-size: 1.2em;
-        height: var(--size-9);
+        @apply h-12 px-4 text-lg;
     }
 
     /*type*/
     &.primary {
-        background-color: var(--light-color);
-        color: #fff;
+        @apply bg-blue-600 text-white;
     }
     &.secondary {
-        background-color: var(--secondary);
-        color: var(--text-2);
+        @apply bg-gray-200 text-gray-500;
     }
 
-    &.text {
-        background-color: var(--secondary);
-        color: var(--light-color);
-    }
     /** shape */
     &.round {
-        border-radius: 1.5em;
+        @apply rounded-xl;
     }
-    &.circle {
-        border-radius: var(--radius-circle, '50%');
-        height: 1.5em;
-        width: 1.5em;
-        padding: 1em;
-    }
+
     // 状态
-    &:hover:not(.disabled) {
-        filter: brightness(0.95);
+    &:hover:not(.disabled):not(.text):not(.outline) {
+        @apply brightness-95;
     }
-    &:active:not(.disabled) {
-        filter: brightness(0.8);
+    &:active:not(.disabled):not(.text):not(.outline) {
+        @apply brightness-90;
     }
     &.disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
+        @apply opacity-70 cursor-not-allowed;
     }
-    &.long {
-        width: 100%;
+    &.block {
+        @apply w-full;
     }
 
     /* 状态 */
     &.warning {
-        --light-color: var(--warning-5);
-        background-color: var(--warning-5);
-        color: white;
+        @apply text-white bg-orange-500;
     }
     &.danger {
-        --light-color: var(--danger-5);
-        background-color: var(--danger-5);
-        color: white;
+        @apply text-white bg-red-500;
     }
     &.success {
-        --light-color: var(--success-5);
-        background-color: var(--success-5);
-        color: white;
+        @apply text-white bg-green-500;
     }
     &.outline {
-        border: 1px solid var(--light-color);
-        color: var(--light-color);
+        @apply border border-solid border-blue-500;
+        &:hover {
+            @apply bg-blue-50;
+        }
+        /* 状态 */
+        &.warning {
+            @apply text-orange-500 border-orange-500;
+            &:hover {
+                @apply bg-orange-50;
+            }
+        }
+        &.danger {
+            @apply text-red-500 border-red-500;
+            &:hover {
+                @apply bg-red-50;
+            }
+        }
+        &.success {
+            @apply text-green-500 border-green-500;
+            &:hover {
+                @apply bg-green-50;
+            }
+        }
         background-color: transparent;
     }
-
+    &.text {
+        @apply bg-transparent text-blue-500;
+        &:hover {
+            @apply bg-blue-50;
+        }
+        /* 状态 */
+        &.warning {
+            @apply text-orange-500;
+            &:hover {
+                @apply bg-orange-50;
+            }
+        }
+        &.danger {
+            @apply text-red-500;
+            &:hover {
+                @apply bg-red-50;
+            }
+        }
+        &.success {
+            @apply text-green-500;
+            &:hover {
+                @apply bg-green-50;
+            }
+        }
+    }
     .cn-icon-font {
         margin: 0 0.3em;
     }
