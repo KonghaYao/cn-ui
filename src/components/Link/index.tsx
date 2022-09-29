@@ -16,19 +16,20 @@ export const Link: Component<LinkProps> = (baseProps) => {
     const className = createMemo(() => {
         return cs(
             'cn-link',
-            {
-                [`disabled`]: disabled,
-                [status]: status,
-                [`with-icon`]: icon,
-                hoverless: !hoverable,
-                [`rtl`]: rtl,
-            },
+
             props.className
         );
     });
     return (
         <span
             className={className()}
+            classList={{
+                [`disabled`]: disabled,
+                [status]: !!status,
+                [`with-icon`]: !!icon,
+                hoverless: !hoverable,
+                [`rtl`]: rtl,
+            }}
             ref={props.ref}
             {...rest}
             style={style}
