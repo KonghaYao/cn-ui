@@ -15,7 +15,7 @@ const [MessageQueue, setMessage] = createStore<MessageProps[]>([]);
 const MessageCard: Component<MessageProps> = (props) => {
     const close = () => setMessage((list) => list.filter((i) => i.id !== props.id));
     return (
-        <div class="cn-message relative px-4 py-3 leading-none">
+        <div class="cn-message relative flex flex-row justify-evenly items-center px-4 py-3 leading-none border border-solid border-gray-200 rounded-lg bg-white overflow-hidden pointer-events-auto shadow-md text-center">
             <span>{props.icon}</span>
             <span>{props.content}</span>
             {props.closable && (
@@ -83,12 +83,15 @@ const DefaultIcon: Component<
 > = (props) => {
     return (
         <span
-            class="cn-icon-wrapper"
-            {...props}
-            style={{
-                color: `var(--${props.color}-4)`,
-                'background-color': `var(--${props.color}-10)`,
+            class="cn-icon-wrapper h-5 w-5 inline-flex justify-center items-center rounded-full cursor-pointer"
+            classList={{
+                'bg-red-100 text-red-500': props.color === 'red',
+                'bg-green-100 text-green-500': props.color === 'green',
+                'bg-orange-100 text-orange-500': props.color === 'orange',
+                'bg-gray-100 text-gray-500': props.color === 'gray',
+                'bg-blue-100 text-blue-500': props.color === 'blue',
             }}
+            {...props}
         >
             <Icon name={props.name} spin={props.spin}></Icon>
         </span>
@@ -114,7 +117,7 @@ export class Message {
     static info(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'info',
-            icon: () => DefaultIcon({ name: 'info', color: 'cyan' }),
+            icon: () => DefaultIcon({ name: 'info', color: 'blue' }),
         });
     }
     static warning(config: MessageProps) {
@@ -126,7 +129,7 @@ export class Message {
     static error(config: MessageProps) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'error',
-            icon: () => DefaultIcon({ name: 'error_outline', color: 'red' }),
+            icon: () => DefaultIcon({ name: 'error', color: 'red' }),
         });
     }
     static normal(config: MessageProps) {
