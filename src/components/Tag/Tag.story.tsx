@@ -1,6 +1,5 @@
-import { createMemo, For } from 'solid-js';
+import { For } from 'solid-js';
 import { atom } from 'solid-use';
-import { Icon } from '../Icon';
 import { Space } from '../Space';
 import { COLORS, Tag } from './index';
 export const Controller = [
@@ -21,40 +20,59 @@ export const Controller = [
         options: COLORS.map((i) => ({ value: i })),
     },
 ];
+
+import 'animate.css/source/fading_entrances/fadeInDown.css';
+import 'animate.css/source/fading_exits/fadeOutUp.css';
+const sleep = (ms) =>
+    new Promise((resolve) => {
+        setTimeout(() => resolve(null), ms);
+    });
 export default (props) => {
-    const sleep = (ms) =>
-        new Promise((resolve) => {
-            setTimeout(() => resolve(null), ms);
-        });
     const data = [...Array(5).keys()].map((i) => {
         return {
             name: 'tag ' + i,
             value: atom(true),
-            content: [...Array(i + 1).keys()].join(' '),
-            onClose: () => sleep(i * 100),
+            visible: atom(true),
+            onClose: () => {
+                return sleep(i * 100).then((res) => {
+                    console.log('触发关闭', i * 100);
+                });
+            },
             color: COLORS[i % 10],
         };
     });
     // 想要获取 所有标签的打开值:
     //  data.map((i) => i.value());
     const Value = data[0].value;
-    const Content = createMemo(() => {
-        console.log('重新绘制');
-        return data
-            .filter((i) => i.value())
-            .map((item) => {
-                return (
-                    <Tag color={item.color} checked={item.value} onClose={item.onClose} {...props}>
-                        {item.content}
-                    </Tag>
-                );
-            });
-    });
+
     return (
         <>
             <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'true' : 'false'}</button>
             <Tag>这是一个标签</Tag>
-            <Space size="mini">{Content()}</Space>
+            <Space
+                size="mini"
+                transition={{
+                    enterActiveClass: 'animated fadeInDown',
+                    exitActiveClass: 'animated fadeOutUp',
+                }}
+            >
+                {/*  必须使用 For 循环才能使用动画 */}
+                <For each={data}>
+                    {(item) => {
+                        return (
+                            <Tag
+                                color={item.color}
+                                checked={item.value}
+                                visible={item.visible}
+                                onClose={item.onClose}
+                                {...props}
+                            >
+                                {item.name}
+                            </Tag>
+                        );
+                    }}
+                </For>
+            </Space>
         </>
     );
 };

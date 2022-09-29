@@ -99,7 +99,7 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         const exitToClasses = classnames().exitToClass!.split(' ');
         for (let i = 0; i < c.length; i++) {
             const el = c[i];
-            if (!first && !prev.has(el)) {
+            if (!first && !prev.has(el) && el) {
                 onBeforeEnter && onBeforeEnter(el);
                 el.classList.add(...enterClasses);
                 el.classList.add(...enterActiveClasses);
@@ -192,6 +192,7 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         }
         c.forEach((child) => {
             const c = nodes!.get(child)!;
+            if (!c) return;
             const oldPos = c.pos;
             const newPos = c.newPos!;
             const dx = oldPos.left - newPos.left;
@@ -206,6 +207,7 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         document.body.offsetHeight;
         c.forEach((child) => {
             const c = nodes!.get(child)!;
+            if (!c) return;
             if (c.moved) {
                 c.moved = false;
                 const s = (child as HTMLElement | SVGElement).style;

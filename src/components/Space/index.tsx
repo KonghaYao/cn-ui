@@ -18,11 +18,9 @@ export const Space: Component<SpaceProps> = (baseProps) => {
         return { ...props.style, '--space-size': size };
     });
 
-    const classNames = createMemo(() => cs('cn-space', props.className));
-
     return (
         <div
-            class={classNames()}
+            class={cs('cn-space', 'flex items-center', props.className)}
             classList={{
                 vertical: props.vertical,
                 [`wrap`]: props.wrap,

@@ -1,6 +1,6 @@
 import { Portal, render } from 'solid-js/web';
 import { Mask } from '../Mask/index';
-import { createServer, SlotMap } from '../Server';
+import { createServer, SlotMap } from '../../Server';
 
 const { Template, register, DataContext } = createServer<{}, 'Drawer', 'Inner'>();
 

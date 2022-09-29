@@ -10,14 +10,18 @@ import { IconProps } from './interface';
  */
 export const loadIcon = async (iconFontPath?: string) => {
     if (loaded) return true;
-    const path = iconFontPath || 'https://unpkg.com/@fontsource/material-icons/index.css';
-    return loadLink(path).then((res) => {
-        loaded = true;
-        return res;
-    });
+    loaded = true;
+    const path =
+        iconFontPath || 'https://fastly.jsdelivr.net/npm/@fontsource/material-icons/index.css';
+    return loadLink(path)
+        .then((res) => {
+            return res;
+        })
+        .catch(() => {
+            loaded = false;
+        });
 };
 export let loaded = false;
-import cs from '../_util/classNames';
 /**
  * @zh 如果你在项目中不想使用我们提供的 CDN 加载方案，那么可以取消它，然后自己加载 CSS 文件
  *  */
