@@ -10,14 +10,12 @@ export const Mask: Component<MaskProps & { children: JSXElement }> = (props) => 
 
     const merged = mergeProps(componentConfig?.Mask, props);
 
-    const classNames = createMemo(() => cs('cn-mask', merged.className));
-
     return (
         <div
             classList={{
                 rtl: rtl,
             }}
-            class={classNames()}
+            class={cs('cn-mask relative w-fit h-fit', merged.className)}
             {...merged}
         >
             {props.children}

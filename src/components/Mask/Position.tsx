@@ -18,5 +18,5 @@ export const Position: Component<{
         width: props.full && '100%',
         height: props.full && '100%',
     });
-    return <span class="position" style={Style} {...others}></span>;
+    return <span class="cn-position absolute" style={Style} {...others}></span>;
 };

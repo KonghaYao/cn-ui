@@ -1,4 +1,4 @@
-import { Avatar } from '../Avatar/index';
+import { Image } from '../Image/index';
 import { Icon } from '../Icon';
 import { Badge } from './Badge';
 import { Mask } from './index';
@@ -6,10 +6,12 @@ import { Position } from './Position';
 export const Controller = [];
 export default (props) => {
     const avatar = () => (
-        <Avatar
+        <Image
             src="https://foruda.gitee.com/avatar/1663940152493388167/5342313_dongzhongzhidong_1663940152.png"
-            size={60}
-        ></Avatar>
+            height={60}
+            width={60}
+            round
+        ></Image>
     );
     return (
         <>
@@ -17,9 +19,8 @@ export default (props) => {
                 {avatar()}
                 <Position right="0" bottom="0">
                     <div
+                        class="bg-gray-900 text-white"
                         style={{
-                            background: '#00000099',
-                            color: 'white',
                             'border-radius': '4px',
                         }}
                     >
