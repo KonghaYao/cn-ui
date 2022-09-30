@@ -1,4 +1,5 @@
 import { Component, JSXElement } from 'solid-js';
+import { OriginComponent } from '../_util/OriginComponent';
 
 /**
  * @zh Box 是将内部元素居中显示的展示组件, 一般用于空状态使用

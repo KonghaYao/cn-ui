@@ -5,9 +5,8 @@ import { IconNames } from './IconNames';
 /**
  * @title Icon
  */
-export interface IconProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'className' | 'ref'> {
+export interface IconProps extends JSX.HTMLAttributes<HTMLDivElement> {
     size?: string | number;
     name: IconNames;
     spin?: boolean;
-    style?: JSX.CSSProperties;
 }

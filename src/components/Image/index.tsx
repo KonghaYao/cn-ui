@@ -3,6 +3,8 @@ import { atom } from 'solid-use';
 import { Icon } from '../Icon';
 import { Box } from '../Box';
 import './style/index.less';
+import { OriginComponent } from '../_util/OriginComponent';
+import { classNames, PropsToAttr } from '../_util/classNames';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
@@ -23,7 +25,7 @@ export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
     loadingIcon?: JSXElement;
 }
 
-export const Image: Component<ImageProps> = (props) => {
+export const Image: Component<ImageProps> = OriginComponent((props) => {
     props = mergeProps(
         {
             alt: 'This is an Image',
@@ -38,17 +40,20 @@ export const Image: Component<ImageProps> = (props) => {
     const loading = atom(true);
     return (
         <div
-            class="cn-image"
-            classList={{
-                round: props.round,
-                loading: loading(),
-                error: error(),
-            }}
+            class={classNames(
+                'cn-image',
+                {
+                    round: props.round,
+                    loading: loading(),
+                    error: error(),
+                },
+                props.class
+            )}
             style={{
-                ...props.style,
                 display: props.block ? 'block' : 'inline-block',
                 height: props.height + 'px',
                 width: props.width + 'px',
+                ...props.style,
             }}
         >
             <Switch>
@@ -83,4 +88,4 @@ export const Image: Component<ImageProps> = (props) => {
             )}
         </div>
     );
-};
+});
