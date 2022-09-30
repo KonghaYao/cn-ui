@@ -1,5 +1,4 @@
 import { Component, JSXElement } from 'solid-js';
-import { classNames } from '../_util/classNames';
 import { OriginComponent } from '../_util/OriginComponent';
 
 /**

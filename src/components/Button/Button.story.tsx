@@ -1,3 +1,4 @@
+import { createSignal } from 'solid-js';
 import { Button } from './index';
 export const Controller = [
     {
@@ -45,11 +46,27 @@ export const Controller = [
     },
 ];
 export default (props) => {
+    const [type, setType] = createSignal<'success' | 'danger'>('success');
+    const [loading, setLoading] = createSignal(false);
+    console.log('刷新组件');
     return (
         <>
             <Button {...props}>按钮一个</Button>
             <br />
             <Button {...props} block>
+                按钮一个
+            </Button>
+            <Button
+                status={type()}
+                loading={loading()}
+                block
+                onclick={() => {
+                    setLoading((i) => {
+                        setType(i ? 'success' : 'danger');
+                        return !i;
+                    });
+                }}
+            >
                 按钮一个
             </Button>
         </>

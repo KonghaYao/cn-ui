@@ -1,38 +1,18 @@
 import cs from '../_util/classNames';
 import { ButtonProps } from './interface';
 import { Icon } from '../Icon';
-import { createMemo, mergeProps } from 'solid-js';
+import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.less';
 import { GlobalConfigStore } from '../GlobalConfigStore';
+import { OriginComponent } from '../_util/OriginComponent';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',
 };
 
-export const Button = (baseProps: ButtonProps) => {
+export const Button = OriginComponent<ButtonProps>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
-    const props: ButtonProps = mergeProps(defaultProps, componentConfig?.Button, baseProps);
-    const iconNode = createMemo(() => (props.loading ? <Icon name="refresh" spin /> : props.icon));
-
-    const classNames = createMemo(() => {
-        return cs(
-            'cn-btn',
-            props.type ?? 'secondary',
-            props.size ?? 'normal',
-            props.shape ?? 'square',
-            props.status,
-            {
-                [`loading`]: props.loading,
-                [`disabled`]: props.disabled,
-                [`block`]: props.block,
-
-                // 暂时未控制
-                [`link`]: props.href,
-                [`rtl`]: rtl,
-            },
-            props.className
-        );
-    });
+    const props = mergeProps(defaultProps, componentConfig?.Button, baseProps);
 
     const handleClick = (event: Event): void => {
         if (props.loading) {
@@ -47,28 +27,52 @@ export const Button = (baseProps: ButtonProps) => {
     });
     const InnerContent = (
         <>
-            {iconNode}
+            <Show when={props.loading}>
+                <Icon name="refresh" spin />
+            </Show>
+            {props.icon}
             {!props.iconOnly && children}
         </>
     );
+    const classNames = createMemo(() =>
+        props.class(
+            'cn-btn',
+            props.type ?? 'secondary',
+            props.size ?? 'normal',
+            props.shape ?? 'square',
+            props.status,
+            {
+                [`loading`]: props.loading,
+                [`disabled`]: props.disabled,
+                [`block`]: props.block,
 
+                // 暂时未控制
+                [`link`]: props.href,
+                [`rtl`]: rtl,
+            }
+        )
+    );
     if (props.href) {
         const _anchorProps = { ...props.anchorProps };
         if (props.disabled) {
             delete _anchorProps.href;
-        } else {
-            _anchorProps.href = props.href;
         }
         return (
-            <a {...props} {..._anchorProps} className={classNames()} onClick={handleClick}>
+            <a {...props} class={classNames()} {..._anchorProps} onClick={handleClick}>
                 {InnerContent}
             </a>
         );
     }
 
     return (
-        <button {...props} class={classNames()} type={props.htmlType} onClick={handleClick}>
+        <button
+            {...props}
+            class={classNames()}
+            style={props.style}
+            type={props.htmlType}
+            onClick={handleClick}
+        >
             {InnerContent}
         </button>
     );
-};
+});

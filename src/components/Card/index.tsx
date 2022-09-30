@@ -1,10 +1,11 @@
 import { Component, mergeProps } from 'solid-js';
 import { Mask } from '../Mask';
 import { Position } from '../Mask/Position';
-import { Space } from '../Space';
+
 import { CardProps } from './interface';
 import cs from '../_util/classNames';
-export const Card: Component<CardProps> = (baseProps) => {
+import { OriginComponent } from '../_util/OriginComponent';
+export const Card: Component<CardProps> = OriginComponent((baseProps) => {
     const props = mergeProps({}, baseProps);
     const defaultPos = { left: '0', right: '0' };
     const classNames = cs('cn-card', props.className, props.class);
@@ -25,4 +26,4 @@ export const Card: Component<CardProps> = (baseProps) => {
             </Position>
         </Mask>
     );
-};
+});
