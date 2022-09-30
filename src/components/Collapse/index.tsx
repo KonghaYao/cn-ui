@@ -13,7 +13,6 @@ import { Atom, atom } from 'solid-use';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { CollapseItemProps, CollapseProps } from './interface';
 
-import cs from '../_util/classNames';
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 type Controller = { [key: string]: Atom<boolean> };

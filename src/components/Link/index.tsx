@@ -1,4 +1,3 @@
-import cs from '../_util/classNames';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { LinkProps } from './interface';
 import { Component, createMemo, mergeProps, Show } from 'solid-js';

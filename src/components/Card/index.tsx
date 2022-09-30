@@ -3,14 +3,13 @@ import { Mask } from '../Mask';
 import { Position } from '../Mask/Position';
 
 import { CardProps } from './interface';
-import cs from '../_util/classNames';
+
 import { OriginComponent } from '../_util/OriginComponent';
 export const Card: Component<CardProps> = OriginComponent((baseProps) => {
     const props = mergeProps({}, baseProps);
     const defaultPos = { left: '0', right: '0' };
-    const classNames = cs('cn-card', props.className, props.class);
     return (
-        <Mask className={classNames} style={props.style}>
+        <Mask class={props.class('cn-card')} style={props.style}>
             <Position
                 zIndex={0}
                 {...defaultPos}

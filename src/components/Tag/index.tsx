@@ -1,5 +1,4 @@
 // import React, { useState, useContext, forwardRef, CSSProperties } from 'react';
-import cs from '../_util/classNames';
 
 import { TagProps } from './interface';
 import { GlobalConfigStore } from '../GlobalConfigStore';

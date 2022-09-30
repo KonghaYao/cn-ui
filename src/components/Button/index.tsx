@@ -1,4 +1,3 @@
-import cs from '../_util/classNames';
 import { ButtonProps } from './interface';
 import { Icon } from '../Icon';
 import { createMemo, mergeProps, Show } from 'solid-js';

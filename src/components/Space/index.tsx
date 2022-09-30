@@ -1,4 +1,3 @@
-import cs from '../_util/classNames';
 import { SpaceSize, SpaceProps } from './interface';
 import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
