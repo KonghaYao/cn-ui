@@ -34,7 +34,9 @@ export const Icon: Component<IconProps> = (props) => {
     return (
         <nav
             {...props}
-            class={'cn-icon-font inline-block select-none leading-none origin-center' + props.class}
+            class={
+                'cn-icon-font inline-block select-none leading-none origin-center ' + props.class
+            }
             style={{ ...props?.style, 'font-size': fontSize() }}
             classList={{
                 spin: props.spin ?? false,

@@ -45,6 +45,7 @@ export const Image: Component<ImageProps> = (props) => {
                 error: error(),
             }}
             style={{
+                ...props.style,
                 display: props.block ? 'block' : 'inline-block',
                 height: props.height + 'px',
                 width: props.width + 'px',
@@ -67,7 +68,7 @@ export const Image: Component<ImageProps> = (props) => {
 
             {!error() && (
                 <img
-                    {...props}
+                    class="m-auto h-full"
                     src={props.src}
                     style={{
                         'object-fit': props.fit,
