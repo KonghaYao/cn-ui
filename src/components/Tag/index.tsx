@@ -49,10 +49,11 @@ const defaultProps: TagProps = {
     checked: false,
 };
 import './style/index.less';
-export const Tag: Component<TagProps> = (baseProps) => {
+import { OriginComponent } from '../_util/OriginComponent';
+export const Tag = OriginComponent<TagProps>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
 
-    const props: TagProps = mergeProps(defaultProps, componentConfig?.Tag, baseProps);
+    const props = mergeProps(defaultProps, componentConfig?.Tag, baseProps);
 
     const visible =
         typeof props.visible === 'boolean' ? atom<boolean>(props.visible) : props.visible;
@@ -75,20 +76,20 @@ export const Tag: Component<TagProps> = (baseProps) => {
         <Show when={visible()}>
             <div
                 style={props.style}
-                className={cs(
+                class={props.class(
                     'cn-tag',
                     'inline-flex box-border items-center px-2 py-1 rounded-md font-light text-sm leading-none select-none cursor-pointer ',
+                    {
+                        [`loading`]: closing(),
+
+                        [`checked`]: checked(),
+                        [`bordered`]: props.bordered,
+                        [`rtl`]: rtl,
+                    },
                     props.size,
                     props.className,
                     _color()
                 )}
-                classList={{
-                    [`loading`]: closing(),
-
-                    [`checked`]: checked(),
-                    [`bordered`]: props.bordered,
-                    [`rtl`]: rtl,
-                }}
                 onClick={() => {
                     if (props.checkable) {
                         const state = !checked();
@@ -96,7 +97,6 @@ export const Tag: Component<TagProps> = (baseProps) => {
                         props.onCheck && props.onCheck(state);
                     }
                 }}
-                {...props}
             >
                 <div class="content">{props.children}</div>
                 <Switch>
@@ -110,4 +110,4 @@ export const Tag: Component<TagProps> = (baseProps) => {
             </div>
         </Show>
     );
-};
+});

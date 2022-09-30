@@ -15,8 +15,6 @@ export interface SpaceProps {
      *  */
     transition?: TransitionGroupProps;
 
-    style?: JSX.CSSProperties;
-    className?: string | string[];
     /**
      * @zh 对齐方式
      * @en Alignment of items

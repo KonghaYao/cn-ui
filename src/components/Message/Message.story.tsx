@@ -1,6 +1,4 @@
-import { Avatar } from '../Avatar/index';
 import { Button } from '../Button';
-import { Icon } from '../Icon';
 import { Message } from './index';
 export const Controller = [];
 export default (props) => {

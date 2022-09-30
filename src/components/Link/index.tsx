@@ -1,41 +1,33 @@
 import cs from '../_util/classNames';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { LinkProps } from './interface';
-import { Component, createMemo, mergeProps } from 'solid-js';
+import { Component, createMemo, mergeProps, Show } from 'solid-js';
 import { Icon } from '../Icon';
 import './style/index.less';
+import { OriginComponent } from '../_util/OriginComponent';
 const defaultProps: LinkProps = {
     hoverable: true,
 };
-export const Link: Component<LinkProps> = (baseProps) => {
+export const Link = OriginComponent<LinkProps>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
-    const props: LinkProps = mergeProps(defaultProps, componentConfig?.Link, baseProps);
-    const { style, children, icon, status, disabled, hoverable, ...rest } = props;
-
-    // const TagWrapper = 'href' in props ? 'a' : 'span';
-    const className = createMemo(() => {
-        return cs(
-            'cn-link',
-
-            props.className
-        );
+    const props = mergeProps(defaultProps, componentConfig?.Link, baseProps);
+    const children = createMemo(() => {
+        const children = props.children;
+        return typeof children === 'string' ? <span>{children}</span> : children;
     });
     return (
         <span
-            className={className()}
-            classList={{
-                [`disabled`]: disabled,
-                [status]: !!status,
-                [`with-icon`]: !!icon,
-                hoverless: !hoverable,
+            class={props.class('cn-link', {
+                [`disabled`]: props.disabled,
+                [props.status]: !!props.status,
+                [`with-icon`]: !!props.icon,
+                hoverless: !props.hoverable,
                 [`rtl`]: rtl,
-            }}
+            })}
             ref={props.ref}
-            {...rest}
-            style={style}
-            tabIndex={disabled ? -1 : undefined}
+            style={props.style}
             onClick={(e) => {
-                if (disabled) {
+                if (props.disabled) {
                     e.preventDefault();
                     e.stopPropagation();
                 } else {
@@ -43,8 +35,11 @@ export const Link: Component<LinkProps> = (baseProps) => {
                 }
             }}
         >
-            {icon ? icon === true ? <Icon name="link" /> : icon : null}
-            {typeof children === 'string' ? <span>{children}</span> : children}
+            <Show when={props.icon}>
+                {typeof props.icon !== 'boolean' ? props.icon : <Icon name="link" />}
+            </Show>
+
+            {children()}
         </span>
     );
-};
+});
