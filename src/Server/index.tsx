@@ -34,10 +34,13 @@ export function createServer<
 
         if (list) {
             // 更新状态
+            /** @ts-ignore */
             setSlotList(slot, (list) => {
+                /** @ts-ignore */
                 return [...(list || []), wrapper];
             });
         } else {
+            /** @ts-ignore */
             setSlots(slot, wrapper);
         }
     };
