@@ -3,12 +3,14 @@ import { classNames } from './classNames';
 
 export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
     comp: Component<
+        // 对内的类型注解
         Omit<T, 'style' | 'class'> & {
             style?: JSX.CSSProperties;
-            class?: string[];
+            class?: typeof classNames;
         }
     >
 ): Component<
+    // 对外的类型注解
     T & {
         style?: string | JSX.CSSProperties;
         className?: string | string[];
@@ -28,12 +30,12 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
             }
         });
         // 类名统一转化为数组
-        const classString = createMemo(() => {
-            return classNames(props.class, props.className);
-        });
+        const classString: typeof classNames = (...args) => {
+            return classNames(props.class, props.className, ...args);
+        };
         props = mergeProps(props, {
             style: style(),
-            class: classString(),
+            class: classString,
         }) as any;
         return comp(props as any);
     };

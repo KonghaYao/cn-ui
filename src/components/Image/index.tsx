@@ -40,15 +40,11 @@ export const Image: Component<ImageProps> = OriginComponent((props) => {
     const loading = atom(true);
     return (
         <div
-            class={classNames(
-                'cn-image',
-                {
-                    round: props.round,
-                    loading: loading(),
-                    error: error(),
-                },
-                props.class
-            )}
+            class={props.class('cn-image', {
+                round: props.round,
+                loading: loading(),
+                error: error(),
+            })}
             style={{
                 display: props.block ? 'block' : 'inline-block',
                 height: props.height + 'px',

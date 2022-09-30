@@ -1,4 +1,5 @@
 import { Component, JSXElement } from 'solid-js';
+import { classNames } from '../_util/classNames';
 import { OriginComponent } from '../_util/OriginComponent';
 
 /**
@@ -8,9 +9,13 @@ export const Box: Component<{
     children?: JSXElement;
     description?: string;
     icon: JSXElement;
-}> = (props) => {
+}> = OriginComponent((props) => {
     return (
-        <div class="cn-box h-full box-border flex flex-col justify-center items-center bg-gray-50">
+        <div
+            class={props.class(
+                'cn-box h-full box-border flex flex-col justify-center items-center bg-gray-50'
+            )}
+        >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}
                 <div class="description text-sm font-thin text-gray-400">{props.description}</div>
@@ -18,4 +23,4 @@ export const Box: Component<{
             </div>
         </div>
     );
-};
+});

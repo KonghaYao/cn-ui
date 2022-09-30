@@ -36,13 +36,9 @@ export const Icon: Component<IconProps> = OriginComponent((props) => {
     });
     return (
         <nav
-            class={classNames(
-                'cn-icon-font inline-block select-none leading-none origin-center',
-                {
-                    spin: props.spin ?? false,
-                },
-                props.class
-            )}
+            class={props.class('cn-icon-font inline-block select-none leading-none origin-center', {
+                spin: props.spin ?? false,
+            })}
             style={{ ...props.style, 'font-size': fontSize() }}
         >
             {props.name}
