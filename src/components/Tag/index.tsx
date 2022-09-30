@@ -19,17 +19,28 @@ import { Icon } from '../Icon';
 
 // 色板里的 12 个颜色
 export const COLORS = [
+    'slate',
+    'gray',
+    'zinc',
+    'neutral',
+    'stone',
     'red',
-    'orangered',
     'orange',
-    'gold',
+    'amber',
+    'yellow',
     'lime',
     'green',
+    'emerald',
+    'teal',
     'cyan',
+    'sky',
     'blue',
+    'indigo',
+    'violet',
     'purple',
-    'magenta',
-    'gray',
+    'fuchsia',
+    'pink',
+    'rose',
 ];
 
 const defaultProps: TagProps = {
@@ -48,7 +59,6 @@ export const Tag: Component<TagProps> = (baseProps) => {
     const checked =
         typeof props.checked === 'boolean' ? atom<boolean>(props.checked) : props.checked;
 
-    let firstTime = true;
     const closing = atom(false);
     const Close = async (e) => {
         closing(true);
@@ -61,27 +71,16 @@ export const Tag: Component<TagProps> = (baseProps) => {
         const color = props.color;
         return color ? (COLORS.indexOf(color) !== -1 ? color : '') : '';
     });
-
-    const style = createMemo(() => {
-        const Color = {
-            '--background-color': `var(--${_color()}-10)`,
-            '--background-color-checked': `var(--${_color()}-9)`,
-            '--color': `var(--${_color()}-3)`,
-        };
-        return {
-            ...props.style,
-            ...(_color() ? Color : {}),
-        };
-    });
     return (
         <Show when={visible()}>
             <div
-                style={style()}
+                style={props.style}
                 className={cs(
                     'cn-tag',
                     'inline-flex box-border items-center px-2 py-1 rounded-md font-light text-sm leading-none select-none cursor-pointer ',
                     props.size,
-                    props.className
+                    props.className,
+                    _color()
                 )}
                 classList={{
                     [`loading`]: closing(),
@@ -91,20 +90,21 @@ export const Tag: Component<TagProps> = (baseProps) => {
                     [`rtl`]: rtl,
                 }}
                 onClick={() => {
-                    const state = !checked();
-                    checked(state);
-                    props.onCheck && props.onCheck(state);
-                    console.log('click');
+                    if (props.checkable) {
+                        const state = !checked();
+                        checked(state);
+                        props.onCheck && props.onCheck(state);
+                    }
                 }}
                 {...props}
             >
                 <div class="content">{props.children}</div>
                 <Switch>
                     <Match when={closing()}>
-                        <Icon name="refresh" spin class={`loading-icon`} />
+                        <Icon name="refresh" spin class="loading-icon" />
                     </Match>
                     <Match when={props.closable && props.closeIcon !== null}>
-                        <Icon name="close" class={`close-icon`} onClick={() => Close()} />
+                        <Icon name="close" class={`close-icon`} onClick={Close} />
                     </Match>
                 </Switch>
             </div>
