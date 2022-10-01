@@ -1,5 +1,6 @@
 import { Accessor, Component, createMemo, JSXElement, Show } from 'solid-js';
 
+/** 取消组件的第一次渲染 */
 export const CancelFirstRender: Component<{
     children: JSXElement;
     trigger: Accessor<boolean>;

@@ -1,4 +1,4 @@
-import { Component, createMemo, JSX, mergeProps } from 'solid-js';
+import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
 import { classNames } from './classNames';
 
 export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
@@ -37,6 +37,7 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
             style: style(),
             class: classString,
         }) as any;
+
         return comp(props as any);
     };
 };

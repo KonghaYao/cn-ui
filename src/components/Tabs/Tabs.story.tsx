@@ -8,11 +8,6 @@ export const Controller = [
         default: true,
         prop: 'destroyOnHide',
     },
-    {
-        type: 'switch',
-        default: false,
-        prop: 'bordered',
-    },
 ];
 
 import 'animate.css/source/fading_entrances/fadeInDown.css';

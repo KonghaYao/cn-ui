@@ -4,6 +4,7 @@ import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.less';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { OriginComponent } from '../_util/OriginComponent';
+import { PropsToAttr } from '../_util/classNames';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',
@@ -57,7 +58,7 @@ export const Button = OriginComponent<ButtonProps>((baseProps) => {
             delete _anchorProps.href;
         }
         return (
-            <a {...props} class={classNames()} {..._anchorProps} onClick={handleClick}>
+            <a ref={props.ref} class={classNames()} {..._anchorProps} onClick={handleClick}>
                 {InnerContent}
             </a>
         );
@@ -65,7 +66,7 @@ export const Button = OriginComponent<ButtonProps>((baseProps) => {
 
     return (
         <button
-            {...props}
+            ref={props.ref}
             class={classNames()}
             style={props.style}
             type={props.htmlType}

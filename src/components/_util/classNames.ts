@@ -16,5 +16,3 @@ export const PropsToAttr = (props: any, omit: string[] = []) => {
         )
     )();
 };
-
-type ClassNamesArg = string | string[] | { [key: string]: any } | undefined | null | boolean;
