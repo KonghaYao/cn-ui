@@ -9,7 +9,7 @@ import {
     Show,
     useContext,
 } from 'solid-js';
-import { Atom, atom } from 'solid-use';
+import { Atom, atom } from '../_util/atom';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { CollapseItemProps, CollapseProps } from './interface';
 
@@ -99,7 +99,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
     onMount(() => {
         ctx.CommitController((val) => ({
             ...val,
-            [props.name]: _isExpanded,
+            [props.name]: _isExpanded as any, // 强制注入
         }));
     });
     onCleanup(() => {

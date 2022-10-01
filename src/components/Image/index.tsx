@@ -1,5 +1,5 @@
 import { Component, createSignal, JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
-import { atom } from 'solid-use';
+import { atom } from '../_util/atom';
 import { Icon } from '../Icon';
 import { Box } from '../Box';
 import './style/index.less';

@@ -4,7 +4,7 @@ import { Component, createMemo, JSXElement } from 'solid-js';
 import copy from 'copy-to-clipboard';
 import { Icon } from '../Icon';
 import './style/edit.less';
-import { atom } from 'solid-use';
+import { atom } from '../_util/atom';
 import { OriginComponent } from '../_util/OriginComponent';
 
 export const CopyText = OriginComponent<EditContentProps>((props) => {

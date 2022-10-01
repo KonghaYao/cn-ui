@@ -1,6 +1,4 @@
 import { For } from 'solid-js';
-import { atom } from 'solid-use';
-import { Space } from '../Space';
 import { Tabs, Tab, TabsHeader } from './tabs';
 export const Controller = [
     {

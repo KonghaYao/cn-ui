@@ -1,5 +1,8 @@
 import { createSignal, Setter, Accessor } from 'solid-js';
-export type Atom<T> = Setter<T> & Accessor<T>;
+export type Atom<T> = (<U extends T>(value: (prev: T) => U) => U) &
+    (<U extends T>(value: Exclude<U, Function>) => U) &
+    (<U extends T>(value: Exclude<U, Function> | ((prev: T) => U)) => U) &
+    Accessor<T>;
 
 type SignalOptions = Parameters<typeof createSignal>[1];
 

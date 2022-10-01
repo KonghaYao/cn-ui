@@ -1,5 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
-import { Atom } from 'solid-use';
+import { Atom } from '../_util/atom';
 
 /**
  * @title Collapse
