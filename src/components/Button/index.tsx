@@ -4,7 +4,7 @@ import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.less';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { OriginComponent } from '../_util/OriginComponent';
-import { PropsToAttr } from '../_util/classNames';
+import { PropsToAttr } from '../_util/PropsToAttr';
 
 const defaultProps: ButtonProps = {
     htmlType: 'button',

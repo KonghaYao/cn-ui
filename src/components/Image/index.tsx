@@ -4,7 +4,8 @@ import { Icon } from '../Icon';
 import { Box } from '../Box';
 import './style/index.less';
 import { OriginComponent } from '../_util/OriginComponent';
-import { classNames, PropsToAttr } from '../_util/classNames';
+import { classNames } from '../_util/classNames';
+import { PropsToAttr } from '../_util/PropsToAttr';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {

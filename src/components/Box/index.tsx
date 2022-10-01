@@ -4,16 +4,17 @@ import { OriginComponent } from '../_util/OriginComponent';
 /**
  * @zh Box 是将内部元素居中显示的展示组件, 一般用于空状态使用
  */
-export const Box: Component<{
+export const Box = OriginComponent<{
     children?: JSXElement;
     description?: string;
     icon: JSXElement;
-}> = OriginComponent((props) => {
+}>((props) => {
     return (
         <div
             class={props.class(
                 'cn-box h-full box-border flex flex-col justify-center items-center bg-gray-50'
             )}
+            style={props.style}
         >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}
