@@ -8,8 +8,6 @@ const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
-import tippy from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
 export default (props) => {
     const Comp: Component = () => {
         onMount(() => {
@@ -26,7 +24,7 @@ export default (props) => {
         );
     };
     const visible = atom(false);
-    const disabled = atom(true);
+    const disabled = atom(false);
     return (
         <Space>
             <Button
@@ -49,6 +47,7 @@ export default (props) => {
             <Button
                 onClick={() => {
                     disabled((i) => !i);
+                    console.log('点击');
                 }}
             >
                 {disabled() ? 'disabled' : 'enable'}
