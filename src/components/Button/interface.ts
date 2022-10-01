@@ -1,7 +1,7 @@
 import React, { CSSProperties, HTMLProps, ReactNode } from 'react';
 import { JSX, JSXElement } from 'solid-js';
 
-export interface BaseButtonProps {
+export interface BaseButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     children?: JSXElement;
     /**
      * @zh

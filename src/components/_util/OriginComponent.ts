@@ -1,10 +1,11 @@
 import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
 import { classNames } from './classNames';
 
-export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
+export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType = HTMLElement>(
     comp: Component<
         // 对内的类型注解
         Omit<T, 'style' | 'class'> & {
+            ref?: RefType | ((el: RefType) => void);
             style?: JSX.CSSProperties;
             class?: typeof classNames;
         }
@@ -12,6 +13,7 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<HTMLElement>>(
 ): Component<
     // 对外的类型注解
     T & {
+        ref?: RefType | ((el: RefType) => void);
         style?: string | JSX.CSSProperties;
         className?: string | string[];
         class?: string | string[];

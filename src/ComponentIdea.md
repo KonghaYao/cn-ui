@@ -8,9 +8,7 @@
 
 ```tsx
 // OriginComponent 将 style 和 class className 转化为了 style 对象 和 class 生成函数
-export const MyComp = OriginComponent<{
-    children?: JSXElement;
-}>((props) => {
+export const MyComp = OriginComponent<Props>((props) => {
     return (
         <div
             // 生成函数可以接受 string，string[]，classList 的参数，非常好用
@@ -28,9 +26,22 @@ export const MyComp = OriginComponent<{
 -   为了保证扩展性，至少保持最外层的 DOM 是可以获取的，除非没有 DOM 结构可以 ref
 
 ```tsx
-export const MyComp = OriginComponent<{
+export const MyComp = OriginComponent<Props>((props) => {
+    return <div ref={props.ref}></div>;
+});
+```
+
+## 3. Origin-Like <原始模样>
+
+-   组件的 Props 应该继承自一个合理的 HTML 标签类型，这样可以保证大多数行为可以被继承
+
+```tsx
+import { JSX } from 'solid-js';
+interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
-}>((props) => {
+}
+// OriginComponent 的第二参数可以保证 ref 的类型正确
+export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
     return <div ref={props.ref}></div>;
 });
 ```

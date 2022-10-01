@@ -10,7 +10,7 @@ const defaultProps: ButtonProps = {
     htmlType: 'button',
 };
 
-export const Button = OriginComponent<ButtonProps>((baseProps) => {
+export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props = mergeProps(defaultProps, componentConfig?.Button, baseProps);
 

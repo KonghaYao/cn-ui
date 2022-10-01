@@ -1,16 +1,18 @@
-import { Component, JSXElement } from 'solid-js';
+import { Component, JSX, JSXElement } from 'solid-js';
 import { OriginComponent } from '../_util/OriginComponent';
 
-/**
- * @zh Box 是将内部元素居中显示的展示组件, 一般用于空状态使用
- */
-export const Box = OriginComponent<{
+interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
     description?: string;
     icon: JSXElement;
-}>((props) => {
+}
+/**
+ * @zh Box 是将内部元素居中显示的展示组件, 一般用于空状态使用
+ */
+export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
     return (
         <div
+            ref={props.ref}
             class={props.class(
                 'cn-box h-full box-border flex flex-col justify-center items-center bg-gray-50'
             )}
