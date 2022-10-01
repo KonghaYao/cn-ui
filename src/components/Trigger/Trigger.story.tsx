@@ -1,6 +1,6 @@
 import { Component, For, onCleanup, onMount } from 'solid-js';
 import { atom } from '../_util/atom';
-import { createTrigger, Trigger } from '.';
+import { createTrigger } from '.';
 import { Button } from '../Button';
 import { Space } from '../Space';
 export const Controller = [];
@@ -26,6 +26,7 @@ export default (props) => {
         );
     };
     const visible = atom(false);
+    const disabled = atom(true);
     return (
         <Space>
             <Button
@@ -33,17 +34,24 @@ export default (props) => {
                     content: Comp,
                     trigger: 'mouseenter click',
                     visible,
+                    disabled,
                 })}
             >
                 hover
             </Button>
             <Button
                 onClick={() => {
-                    console.log('点击事件');
                     visible((i) => !i);
                 }}
             >
-                click
+                {visible() ? 'showing' : 'hiding'}
+            </Button>
+            <Button
+                onClick={() => {
+                    disabled((i) => !i);
+                }}
+            >
+                {disabled() ? 'disabled' : 'enable'}
             </Button>
         </Space>
     );
