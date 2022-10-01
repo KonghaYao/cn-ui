@@ -4,10 +4,8 @@ import { Atom } from 'solid-use';
 /**
  * @title Collapse
  */
-export interface CollapseProps {
+export interface CollapseProps extends JSX.HTMLAttributes<HTMLElement> {
     children: JSXElement;
-    style?: JSX.CSSProperties;
-    className?: string | string[];
 
     /**
      * @zh 是否是手风琴模式
@@ -30,13 +28,13 @@ export interface CollapseProps {
      * @zh 展开面板改变时触发
      * @en Callback when the active panel changes
      */
-    onChange?: (key: string, e) => void;
+    onPanelChange?: (key: string, e) => void;
 }
 
 /**
  * @title Collapse.Item
  */
-export interface CollapseItemProps {
+export interface CollapseItemProps extends JSX.HTMLAttributes<HTMLElement> {
     children: JSXElement;
     style?: JSX.CSSProperties;
     className?: string | string[];

@@ -6,7 +6,7 @@ type CSSProperties = JSX.CSSProperties;
 /**
  * @title Tabs
  */
-export interface TabsProps extends JSX.HTMLAttributes<HTMLElement> {
+export interface TabsProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
 
     /**

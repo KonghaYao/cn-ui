@@ -41,7 +41,7 @@ export default (props) => {
             <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'true' : 'false'}</button>
             <Collapse
                 {...props}
-                onChange={(...args) => {
+                onPanelChange={(...args) => {
                     console.log(args);
                 }}
             >

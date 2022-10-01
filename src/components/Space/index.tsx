@@ -8,7 +8,7 @@ const defaultProps: SpaceProps = {
     size: 'mini',
 };
 
-export const Space = OriginComponent<SpaceProps>((baseProps) => {
+export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props = mergeProps(defaultProps, componentConfig?.Space, baseProps);
 
@@ -21,6 +21,7 @@ export const Space = OriginComponent<SpaceProps>((baseProps) => {
 
     return (
         <div
+            ref={props.ref}
             class={props.class('cn-space', 'flex items-center')}
             classList={{
                 vertical: props.vertical,

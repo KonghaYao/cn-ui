@@ -9,7 +9,7 @@ export const Card: Component<CardProps> = OriginComponent((baseProps) => {
     const props = mergeProps({}, baseProps);
     const defaultPos = { left: '0', right: '0' };
     return (
-        <Mask class={props.class('cn-card')} style={props.style}>
+        <Mask ref={props.ref} class={props.class('cn-card')} style={props.style}>
             <Position
                 zIndex={0}
                 {...defaultPos}

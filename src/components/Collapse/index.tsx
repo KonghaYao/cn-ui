@@ -15,6 +15,8 @@ import { CollapseItemProps, CollapseProps } from './interface';
 
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
+import { OriginComponent } from '../_util/OriginComponent';
+
 type Controller = { [key: string]: Atom<boolean> };
 const CollapseContext = createContext<{
     lazyload?: boolean;
@@ -22,9 +24,10 @@ const CollapseContext = createContext<{
     onToggle?: (_key: string, state: boolean, _e) => void;
     CommitController: (c: (c: Controller) => Controller) => void;
 }>();
-export const Collapse: Component<CollapseProps> = (baseProps) => {
+
+export const Collapse = OriginComponent<CollapseProps, HTMLElement>((props) => {
     const { componentConfig, rtl } = GlobalConfigStore;
-    const props: CollapseProps = mergeProps({}, componentConfig?.Collapse, baseProps);
+    props = mergeProps({}, componentConfig?.Collapse, props);
 
     const [controllers, CommitController] = createSignal<Controller>({}, { equals: false });
     const { lazyload, destroyOnHide } = props;
@@ -42,23 +45,23 @@ export const Collapse: Component<CollapseProps> = (baseProps) => {
                             if (key !== name) toggle(false);
                         });
                     }
-                    props.onChange && props.onChange(key, e);
+                    props.onPanelChange && props.onPanelChange(key, e);
                 },
                 destroyOnHide,
             }}
         >
             <article
-                {...(props as any)}
-                class={cs('cn-collapse', props.className)}
+                class={props.class('cn-collapse')}
                 classList={{ rtl: rtl }}
                 style={props.style}
+                ref={props.ref}
             >
                 {props.children}
             </article>
         </CollapseContext.Provider>
     );
-};
-export const CollapseItem: Component<CollapseItemProps> = (props) => {
+});
+export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((props) => {
     const ctx = useContext(CollapseContext);
     props = mergeProps({}, props);
     /** 用于取消下一次 toggle 避免回环 */
@@ -115,10 +118,9 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
     };
     return (
         <details
-            class={cs(
-                'cn-collapse-item border-b border-solid border-gray-200 box-border',
-                props.className
-            )}
+            ref={props.ref as any}
+            class={props.class('cn-collapse-item border-b border-solid border-gray-200 box-border')}
+            style={props.style}
             open={isExpanded()}
             classList={{
                 disabled: props.disabled,
@@ -137,7 +139,6 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
                     ctx.onToggle(props.name, state, e);
                 }
             }}
-            style={props.style}
         >
             <summary class="cn-collapse-summary select-none cursor-pointer leading-none px-4 py-2">
                 {props.header}
@@ -160,4 +161,4 @@ export const CollapseItem: Component<CollapseItemProps> = (props) => {
             </div>
         </details>
     );
-};
+});

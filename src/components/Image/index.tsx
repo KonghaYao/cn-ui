@@ -26,7 +26,7 @@ export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
     loadingIcon?: JSXElement;
 }
 
-export const Image: Component<ImageProps> = OriginComponent((props) => {
+export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
     props = mergeProps(
         {
             alt: 'This is an Image',
@@ -41,11 +41,13 @@ export const Image: Component<ImageProps> = OriginComponent((props) => {
     const loading = atom(true);
     return (
         <div
-            class={props.class('cn-image', {
+            ref={props.ref}
+            class={props.class('cn-image')}
+            classList={{
                 round: props.round,
                 loading: loading(),
                 error: error(),
-            })}
+            }}
             style={{
                 display: props.block ? 'block' : 'inline-block',
                 height: props.height + 'px',

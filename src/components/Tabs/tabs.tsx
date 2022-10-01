@@ -24,11 +24,11 @@ const TabsContext = createContext<{
     TabsData: Atom<TabPaneProps[]>;
 }>();
 
-export const TabsHeader = OriginComponent<{}>((props) => {
+export const TabsHeader = OriginComponent<{}, HTMLDivElement>((props) => {
     const { activeId, TabsData } = useContext(TabsContext);
     // TODO Tab 增删
     return (
-        <Space size={4} class={props.class('cn-tabs-header')} style={props.style}>
+        <Space ref={props.ref} size={4} class={props.class('cn-tabs-header')} style={props.style}>
             <For each={TabsData()}>
                 {(data) => {
                     return (
@@ -46,7 +46,7 @@ export const TabsHeader = OriginComponent<{}>((props) => {
     );
 });
 
-export const Tabs = OriginComponent<TabsProps>((props) => {
+export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
     props = mergeProps({}, props);
 
     const TabsData = atom<TabPaneProps[]>([]);
@@ -66,14 +66,14 @@ export const Tabs = OriginComponent<TabsProps>((props) => {
                 TabsData,
             }}
         >
-            <div class={props.class('cn-tabs')} style={props.style}>
+            <div ref={props.ref} class={props.class('cn-tabs')} style={props.style}>
                 {props.children}
             </div>
         </TabsContext.Provider>
     );
 });
 
-export const Tab = OriginComponent<TabPaneProps>((props) => {
+export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
     const { activeId, register } = useContext(TabsContext);
     props = mergeProps(
         {
@@ -91,6 +91,7 @@ export const Tab = OriginComponent<TabPaneProps>((props) => {
     return (
         <Show when={show()}>
             <div
+                ref={props.ref}
                 class={props.class()}
                 style={{ display: activeId() === props.id ? 'block' : 'none', ...props.style }}
             >

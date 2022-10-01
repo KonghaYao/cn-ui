@@ -1,8 +1,7 @@
 import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
 import { OriginComponent } from '../_util/OriginComponent';
 import './style/index.less';
-/** @zh 将组件布局到指定的位置 */
-export const Position = OriginComponent<{
+export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     left?: string;
     right?: string;
     top?: string;
@@ -12,14 +11,16 @@ export const Position = OriginComponent<{
 
     zIndex?: number;
     children: JSXElement;
-}>((props) => {
+}
+/** @zh 将组件布局到指定的位置 */
+export const Position = OriginComponent<PositionProps>((props) => {
     const [style, others] = splitProps(props, ['left', 'right', 'top', 'bottom', 'zIndex']);
     let Style = mergeProps(style, others.style, {
         width: props.full && '100%',
         height: props.full && '100%',
     });
     return (
-        <span class={others.class('cn-position absolute')} style={Style}>
+        <span ref={props.ref} class={others.class('cn-position absolute')} style={Style}>
             {others.children}
         </span>
     );

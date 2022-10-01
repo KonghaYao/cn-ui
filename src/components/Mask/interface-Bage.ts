@@ -4,9 +4,7 @@ import { JSX } from 'solid-js/jsx-runtime';
 /**
  * @title Badge
  */
-export interface BadgeProps extends Omit<JSX.HTMLAttributes<HTMLElement>, 'className'> {
-    style?: JSX.CSSProperties;
-    className?: string | string[];
+export interface BadgeProps extends JSX.HTMLAttributes<HTMLDivElement> {
     /**
      * @zh 徽标显示的数字
      * @en Number to show in badge

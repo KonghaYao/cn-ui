@@ -30,13 +30,14 @@ export let loaded = false;
  *  */
 export const ignoreAutoLoad = () => (loaded = true);
 
-export const Icon: Component<IconProps> = OriginComponent((props) => {
+export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
     if (!loaded) loadIcon();
     const fontSize = createMemo(() => {
         return typeof props.size === 'number' ? props.size + 'px' : props.size;
     });
     return (
         <nav
+            ref={props.ref}
             class={props.class('cn-icon-font inline-block select-none leading-none origin-center', {
                 spin: props.spin ?? false,
             })}

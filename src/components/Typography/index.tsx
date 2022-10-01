@@ -12,13 +12,11 @@ export const Typography = OriginComponent<TypographyProps>((props) => {
     return (
         <div class="cn-typography-wrapper">
             <article
-                class={props.class(
-                    'cn-typography',
-                    {
-                        [`rtl`]: rtl,
-                    },
-                    props.className
-                )}
+                ref={props.ref}
+                class={props.class('cn-typography')}
+                classList={{
+                    [`rtl`]: rtl,
+                }}
                 style={{
                     ...props.style,
                     'max-width':

@@ -49,7 +49,7 @@ const defaultProps: TagProps = {
 };
 import './style/index.less';
 import { OriginComponent } from '../_util/OriginComponent';
-export const Tag = OriginComponent<TagProps>((baseProps) => {
+export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
 
     const props = mergeProps(defaultProps, componentConfig?.Tag, baseProps);
@@ -74,6 +74,7 @@ export const Tag = OriginComponent<TagProps>((baseProps) => {
     return (
         <Show when={visible()}>
             <div
+                ref={props.ref}
                 style={props.style}
                 class={props.class(
                     'cn-tag',

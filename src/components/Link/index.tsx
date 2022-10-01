@@ -7,7 +7,7 @@ import { OriginComponent } from '../_util/OriginComponent';
 const defaultProps: LinkProps = {
     hoverable: true,
 };
-export const Link = OriginComponent<LinkProps>((baseProps) => {
+export const Link = OriginComponent<LinkProps, HTMLSpanElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props = mergeProps(defaultProps, componentConfig?.Link, baseProps);
     const children = createMemo(() => {
@@ -16,13 +16,14 @@ export const Link = OriginComponent<LinkProps>((baseProps) => {
     });
     return (
         <span
-            class={props.class('cn-link', {
+            class={props.class('cn-link')}
+            classList={{
                 [`disabled`]: props.disabled,
                 [props.status]: !!props.status,
                 [`with-icon`]: !!props.icon,
                 hoverless: !props.hoverable,
                 [`rtl`]: rtl,
-            })}
+            }}
             ref={props.ref}
             style={props.style}
             onClick={(e) => {

@@ -3,10 +3,7 @@ import { JSX, JSXElement } from 'solid-js';
 /**
  * @title Message
  */
-export interface MessageProps {
-    style?: JSX.CSSProperties;
-    className?: string | string[];
-
+export interface MessageProps extends JSX.HTMLAttributes<HTMLDivElement> {
     type?: 'info' | 'success' | 'warning' | 'error' | 'normal' | 'loading';
 
     /**
