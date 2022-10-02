@@ -9,22 +9,44 @@ export interface CheckGroupControllerProps
     data: CheckGroupData[];
     children?: JSXElement;
 }
+export const useCheckGroup = (data: CheckGroupData[]) => {
+    const state = reflect(() => {
+        let isPart = false;
+        let allChecked = data.every((i) => {
+            let isChecked = i.value();
+            if (isChecked) isPart = true;
+            return isChecked;
+        });
+        return allChecked ? 'all' : isPart ? 'part' : 'none';
+    });
+    return {
+        state,
+        inverse() {
+            data.forEach((i) => i.value((i) => !i));
+        },
+        setAll(value: boolean) {
+            data.forEach((i) => i.value(value));
+        },
+    };
+};
+
 /** 数据驱动的 生成组件 */
 export const CheckGroupController = OriginComponent<CheckGroupControllerProps, HTMLDivElement>(
     (props) => {
-        const checkedListState = reflect(() => props.data.some((i) => i.value()));
-        const indeterminate = reflect(() => !props.data.every((i) => i.value()));
+        const { state, setAll } = useCheckGroup(props.data);
         return (
             <CheckBox
                 {...props}
-                value={checkedListState}
-                indeterminate={indeterminate}
+                value={reflect(() => state() !== 'none')}
+                indeterminate={reflect(() => state() === 'part')}
                 onValueInput={async (e, value) => {
-                    if (indeterminate()) {
-                        props.data.forEach((i) => i.value(true));
-                        return false;
+                    switch (state()) {
+                        case 'none':
+                            setAll(true);
+                        case 'all':
+                        case 'part':
+                            setAll(false);
                     }
-                    props.data.forEach((i) => i.value(value));
                     return false;
                 }}
             >
