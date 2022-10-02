@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { atom } from '../_util/atom';
+import { atom } from '@cn-ui/use';
 import { Collapse, CollapseItem } from './index';
 export const Controller = [
     {

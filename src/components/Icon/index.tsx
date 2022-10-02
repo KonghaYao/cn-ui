@@ -4,7 +4,7 @@ import './style/index.css';
 import { loadLink } from '../_util/loadLink';
 import { IconProps } from './interface';
 import { OriginComponent } from '../_util/OriginComponent';
-import { classNames } from '../_util/classNames';
+import { classNames } from '@cn-ui/use';
 import { PropsToAttr } from '../_util/PropsToAttr';
 /**
  * @zh 用于加载 Icon CSS，如果用户没有加载，那么将会在 Icon 第一次加载时加载

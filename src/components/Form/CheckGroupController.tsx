@@ -1,5 +1,5 @@
 import { JSXElement } from 'solid-js';
-import { reflect } from '../_util/atom';
+import { reflect } from '@cn-ui/use';
 import { OriginComponent } from '../_util/OriginComponent';
 import { CheckBoxProps, CheckBox } from './CheckBox';
 import { CheckGroupData } from './CheckGroupData';

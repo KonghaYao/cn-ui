@@ -11,7 +11,7 @@ import {
     Show,
     useContext,
 } from 'solid-js';
-import { atom, Atom } from '../_util/atom';
+import { atom, Atom } from '@cn-ui/use';
 import { Button } from '../Button';
 import { Space } from '../Space';
 import { Tag } from '../Tag';

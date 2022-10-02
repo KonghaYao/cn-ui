@@ -1,5 +1,5 @@
 import { Component, For, onCleanup, onMount } from 'solid-js';
-import { atom } from '../_util/atom';
+import { atom } from '@cn-ui/use';
 import { createTrigger } from '.';
 import { Button } from '../Button';
 import { Space } from '../Space';

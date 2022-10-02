@@ -1,7 +1,7 @@
 // import { CSSProperties, ReactNode } from 'react';
 
 import { JSX, JSXElement } from 'solid-js';
-import { Atom } from '../_util/atom';
+import { Atom } from '@cn-ui/use';
 
 /**
  * @title Tag

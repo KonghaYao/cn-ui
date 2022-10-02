@@ -1,7 +1,7 @@
 import { createMemo } from 'solid-js';
 import { Message } from '../Message';
 import { Space } from '../Space';
-import { atom, reflect } from '../_util/atom';
+import { atom, reflect } from '@cn-ui/use';
 import { CheckBox } from './CheckBox';
 import { CheckGroup } from './CheckGroupData';
 import { CheckGroupController } from './CheckGroupController';

@@ -1,10 +1,10 @@
 import { Component, createSignal, JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
-import { atom } from '../_util/atom';
+import { atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
 import { Box } from '../Box';
 import './style/index.less';
 import { OriginComponent } from '../_util/OriginComponent';
-import { classNames } from '../_util/classNames';
+import { classNames } from '@cn-ui/use';
 import { PropsToAttr } from '../_util/PropsToAttr';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;

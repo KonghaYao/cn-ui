@@ -1,5 +1,5 @@
 import { Component, createMemo, onCleanup } from 'solid-js';
-import { atom, Atom } from '../_util/atom';
+import { atom, Atom } from '@cn-ui/use';
 import { createIgnoreHead } from '../_util/createIgnoreHead';
 
 export type TriggerProps = Omit<Partial<Props>, 'content'> & {

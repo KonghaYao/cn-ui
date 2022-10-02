@@ -1,5 +1,5 @@
 import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
-import { classNames } from './classNames';
+import { classNames } from '@cn-ui/use';
 
 export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType = HTMLElement>(
     comp: Component<

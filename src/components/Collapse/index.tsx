@@ -9,7 +9,7 @@ import {
     Show,
     useContext,
 } from 'solid-js';
-import { Atom, atom } from '../_util/atom';
+import { Atom, atom } from '@cn-ui/use';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import { CollapseItemProps, CollapseProps } from './interface';
 

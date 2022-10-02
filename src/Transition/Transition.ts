@@ -10,7 +10,7 @@ import {
 } from 'solid-js';
 import { nextFrame } from './nextFrame';
 
-type TransitionProps = {
+export type TransitionProps = {
     name?: string;
     enterActiveClass?: string;
     enterClass?: string;

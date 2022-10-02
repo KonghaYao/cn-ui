@@ -13,7 +13,7 @@ import {
     Show,
     Switch,
 } from 'solid-js';
-import { atom } from '../_util/atom';
+import { atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
 
 // 色板里的 12 个颜色

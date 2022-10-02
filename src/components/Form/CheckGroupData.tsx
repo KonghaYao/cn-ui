@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import { Atom } from '../_util/atom';
+import { Atom } from '@cn-ui/use';
 import { OriginComponent } from '../_util/OriginComponent';
 import { Space } from '../Space';
 import { SpaceProps } from '../Space/interface';

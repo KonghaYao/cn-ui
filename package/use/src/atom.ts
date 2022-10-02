@@ -1,4 +1,4 @@
-import { createSignal, Setter, Accessor, createMemo, createEffect } from 'solid-js';
+import { createSignal, Accessor, createEffect } from 'solid-js';
 export type Atom<T> = (<U extends T>(value: (prev: T) => U) => U) &
     (<U extends T>(value: Exclude<U, Function>) => U) &
     (<U extends T>(value: Exclude<U, Function> | ((prev: T) => U)) => U) &
