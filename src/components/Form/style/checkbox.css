@@ -5,12 +5,16 @@
     font-display: auto;
     content: attr(checked-char);
     text-align: center;
-    line-height: 1em;
-    height: 1em;
+    font-size: 0.8em;
+    line-height: 1rem;
+    height: 1rem;
     color: white;
 }
 .cn-check[checked='false']::before {
     color: gray;
+}
+.cn-check.indeterminate::before {
+    content: '-';
 }
 .cn-check[checked='true'] {
     @apply bg-blue-600 border-blue-600;

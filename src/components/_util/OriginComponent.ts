@@ -12,11 +12,11 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
     >
 ): Component<
     // 对外的类型注解
-    T & {
+    Omit<T, 'style' | 'class'> & {
         ref?: RefType | ((el: RefType) => void);
         style?: string | JSX.CSSProperties;
-        className?: string | string[];
-        class?: string | string[];
+        className?: string | string[] | ((...args: any[]) => string);
+        class?: string | string[] | ((...args: any[]) => string);
     }
 > => {
     return (props) => {
@@ -38,7 +38,10 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
         // 类名统一转化为数组
         const classString: typeof classNames = (...args) => {
             return createMemo(() => {
-                return classNames(props.class, props.className, ...args);
+                const c = typeof props.class === 'function' ? props.class() : props.class;
+                const cn =
+                    typeof props.className === 'function' ? props.className() : props.className;
+                return classNames(c, cn, ...args);
             })();
         };
         let _props_ = mergeProps(props, {

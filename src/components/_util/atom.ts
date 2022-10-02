@@ -1,4 +1,4 @@
-import { createSignal, Setter, Accessor } from 'solid-js';
+import { createSignal, Setter, Accessor, createMemo, createEffect } from 'solid-js';
 export type Atom<T> = (<U extends T>(value: (prev: T) => U) => U) &
     (<U extends T>(value: Exclude<U, Function>) => U) &
     (<U extends T>(value: Exclude<U, Function> | ((prev: T) => U)) => U) &
@@ -16,6 +16,16 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
         /** @ts-ignore */
         setState(...args);
     }) as Atom<T>;
+};
+
+/** 通过一个 Memo 函数创建 atom */
+export const reflect = <T>(memoFunc: () => T) => {
+    const a = atom<T>(false as T);
+    createEffect(() => {
+        /** @ts-ignore */
+        a(memoFunc());
+    });
+    return a;
 };
 
 /** @zh 将prop 中的静态属性或者是 atom 统一为 atom */
