@@ -16,6 +16,7 @@ import { CollapseItemProps, CollapseProps } from './interface';
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '../_util/OriginComponent';
+import { Transition } from '../../Transition/Transition';
 
 type Controller = { [key: string]: Atom<boolean> };
 const CollapseContext = createContext<{
@@ -25,7 +26,7 @@ const CollapseContext = createContext<{
     CommitController: (c: (c: Controller) => Controller) => void;
 }>();
 
-export const Collapse = OriginComponent<CollapseProps, HTMLElement>((props) => {
+export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     props = mergeProps({}, componentConfig?.Collapse, props);
 
@@ -50,14 +51,14 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement>((props) => {
                 destroyOnHide,
             }}
         >
-            <article
+            <div
                 class={props.class('cn-collapse')}
                 classList={{ rtl: rtl }}
                 style={props.style}
                 ref={props.ref}
             >
                 {props.children}
-            </article>
+            </div>
         </CollapseContext.Provider>
     );
 });
@@ -66,40 +67,13 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
     props = mergeProps({}, props);
     /** 用于取消下一次 toggle 避免回环 */
     let cancelNext = false;
-    const isExpanded = atom(false);
-
-    /** 阻止回环的函数 */
-    const _isExpanded = (a?: boolean, _cancelNext = true) => {
-        if (typeof a === 'boolean') {
-            if (isExpanded() !== a) cancelNext = _cancelNext;
-        }
-        return isExpanded(a);
-    };
-
-    const initExpanded = () => {
-        if (props.open) return true;
-        return props.value && props.value();
-    };
-    _isExpanded(initExpanded());
-
-    if (props.value) {
-        let outlet = undefined;
-        createEffect(() => {
-            const val = (props.value as Atom<boolean>)();
-            // 取消重复触发
-            if (outlet === val) return;
-            outlet = val;
-            // console.log('监听到 value 变化', outlet, val);
-            // * 取消下一次是防止 value 回环
-            _isExpanded(val);
-        });
-    }
+    const isExpanded = props.value ?? atom(false);
 
     // 移交 Expanded 的控制权
     onMount(() => {
         ctx.CommitController((val) => ({
             ...val,
-            [props.name]: _isExpanded as any, // 强制注入
+            [props.name]: isExpanded, // 强制注入
         }));
     });
     onCleanup(() => {
@@ -117,37 +91,34 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
         );
     };
     return (
-        <details
+        <div
             ref={props.ref as any}
-            class={props.class('cn-collapse-item border-b border-solid border-gray-200 box-border')}
+            class={props.class(
+                'cn-collapse-item border-b border-solid border-gray-200 box-border flex flex-col overflow-hidden h-full'
+            )}
             style={props.style}
-            open={isExpanded()}
             classList={{
                 disabled: props.disabled,
             }}
-            // ! ontoggle 是 open 被改变后就会触发，所以函数也也可以触发导致回环
-            ontoggle={(e) => {
-                const state = !isExpanded();
-                if (cancelNext) {
-                    cancelNext = false;
-                } else {
-                    isExpanded(state);
-                    props.value && props.value(state);
-                }
-                props.onTrigger && props.onTrigger(props.name, state, e);
-                if (!e.cancelBubble) {
-                    ctx.onToggle(props.name, state, e);
-                }
-            }}
         >
-            <summary class="cn-collapse-summary select-none cursor-pointer leading-none px-4 py-2">
+            <nav
+                class="cn-collapse-summary select-none cursor-pointer leading-none px-4 py-2"
+                onclick={(e) => {
+                    const state = !isExpanded();
+                    isExpanded(state);
+                    props.onTrigger && props.onTrigger(props.name, state, e);
+                    if (!e.cancelBubble) {
+                        ctx.onToggle(props.name, state, e);
+                    }
+                }}
+            >
                 {props.header}
-            </summary>
-            {/* TODO Collapse 的动态效果没有实现 */}
-            <div
-                class="cn-collapse-container bg-gray-100 px-4 py-2"
+            </nav>
+            <nav
+                class="cn-collapse-container bg-gray-100 "
                 classList={{
                     show: isExpanded(),
+                    hide: !isExpanded(),
                 }}
                 style={props.contentStyle}
             >
@@ -158,7 +129,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
                 ) : (
                     <Content></Content>
                 )}
-            </div>
-        </details>
+            </nav>
+        </div>
     );
 });

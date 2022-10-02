@@ -1,19 +1,18 @@
 .cn-collapse {
     .cn-collapse-item {
-        .cn-collapse-summary {
-        }
-        .cn-collapse-container {
-            display: none;
-            height: auto;
-
-            transition: height 2s cubic-bezier(0.34, 0.69, 0.1, 1);
-            &.show {
-                display: block;
-                // height: 500px;
-            }
-        }
         &:last-of-type {
             border-bottom: none;
         }
+    }
+}
+.cn-collapse-container {
+    transition: max-height 0.3s ease, opacity 0.3s linear;
+    &.show {
+        max-height: 100vh;
+        opacity: 1;
+    }
+    &.hide {
+        max-height: 0;
+        opacity: 0;
     }
 }

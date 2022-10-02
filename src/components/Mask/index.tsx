@@ -13,10 +13,10 @@ export const Mask = OriginComponent<MaskProps & { children: JSXElement }, HTMLDi
 
         return (
             <div
+                class={props.class('cn-mask relative w-fit h-fit')}
                 classList={{
                     rtl: rtl,
                 }}
-                class={props.class('cn-mask relative w-fit h-fit')}
                 style={props.style}
                 ref={props.ref}
             >

@@ -5,9 +5,10 @@ import { Position } from '../Mask/Position';
 import { CardProps } from './interface';
 
 import { OriginComponent } from '../_util/OriginComponent';
-export const Card: Component<CardProps> = OriginComponent((baseProps) => {
-    const props = mergeProps({}, baseProps);
+export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
+    props = mergeProps({}, props);
     const defaultPos = { left: '0', right: '0' };
+
     return (
         <Mask ref={props.ref} class={props.class('cn-card')} style={props.style}>
             <Position

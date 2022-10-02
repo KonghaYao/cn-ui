@@ -4,7 +4,7 @@ import { Atom } from '../_util/atom';
 /**
  * @title Collapse
  */
-export interface CollapseProps extends JSX.HTMLAttributes<HTMLElement> {
+export interface CollapseProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children: JSXElement;
 
     /**

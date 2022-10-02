@@ -24,7 +24,11 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
         const style = createMemo<JSX.CSSProperties>(() => {
             switch (typeof props.style) {
                 case 'string':
-                    return Object.fromEntries(props.style.split(';').map((i) => i.split(':')));
+                    return createMemo(() =>
+                        Object.fromEntries(
+                            (props.style as string).split(';').map((i) => i.split(':'))
+                        )
+                    )();
                 case 'object':
                     return props.style;
                 default:
@@ -33,13 +37,15 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
         });
         // 类名统一转化为数组
         const classString: typeof classNames = (...args) => {
-            return classNames(props.class, props.className, ...args);
+            return createMemo(() => {
+                return classNames(props.class, props.className, ...args);
+            })();
         };
-        props = mergeProps(props, {
+        let _props_ = mergeProps(props, {
             style: style(),
             class: classString,
         }) as any;
 
-        return comp(props as any);
+        return comp(_props_ as any);
     };
 };

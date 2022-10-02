@@ -1,4 +1,3 @@
-import { Avatar } from '../Avatar/index';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Card } from './index';
@@ -15,14 +14,7 @@ export default (props) => {
                 />
             }
         >
-            <div
-                class="col"
-                style={{
-                    height: '100%',
-                    width: '100%',
-                    padding: '1em',
-                }}
-            >
+            <div class="flex flex-col h-full w-full p-4">
                 <header>中文</header>
                 <div class="flex-1" style={{ 'min-height': '2em' }}></div>
 
