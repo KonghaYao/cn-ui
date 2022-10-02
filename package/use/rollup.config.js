@@ -12,7 +12,7 @@ export default {
         multi({ relative: 'src/' }),
         nodeResolve({
             browser: true,
-            extensions: ['.js', '.ts'],
+            extensions: ['.js', '.ts', '.tsx'],
         }),
         babel({
             presets: ['babel-preset-solid', '@babel/preset-typescript'],

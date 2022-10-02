@@ -1,8 +1,8 @@
 import { Portal, render } from 'solid-js/web';
 import { Mask } from '../Mask/index';
-import { createServer, SlotMap } from '../../Server';
+import { createTemplate, SlotMap } from '@cn-ui/use';
 
-const { Template, register, DataContext } = createServer<{}, 'Drawer', 'Inner'>();
+const { Template, register, DataContext } = createTemplate<{}, 'Drawer', 'Inner'>();
 
 export { register as OuterSpaceRegister, DataContext as OuterSpaceContext };
 const OuterSpace = Template(({ Slots, SlotList }) => {

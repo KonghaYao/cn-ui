@@ -14,7 +14,39 @@ type SlotType = Component;
 type SlotsType<Key extends string> = Record<Key, SlotType>;
 type SlotListType<Key extends string> = Record<Key, SlotType[]>;
 
-export function createServer<
+/**
+ *
+ * @zh 创建类似于 Template，Slot 的编程体验！
+ * @en Create a programming experience similar to Template, Slot!
+ * @example
+import { createTemplate, SlotMap } from '@cn-ui/use';
+
+
+// Drawer is the key of Object Slots
+// Inner is the key of Object SlotsList
+// Slots is like { [key:string]: Component }
+// SlotsList is like  Component[]
+const { Template, register } = createTemplate<{}, 'Drawer', 'Inner'>();
+
+const Comp = Template((props) => {
+    // Template will add Slots and SlotList to props,
+    const { Slots, SlotList } = props
+    return (
+        <div>
+            <SlotMap list={SlotList.Inner}></SlotMap>
+        </div>
+    );
+});
+
+// anyway anytime you could register a component to any component decorated by Template!
+register({
+  slot: 'Inner', // key which will be used to get in the Template Slots
+  list: true, // if true, this component will add to SlotsList rather then Slots
+  component: Comp
+});
+
+ */
+export function createTemplate<
     DataType extends {},
     SlotNames extends string,
     SlotListNames extends string
