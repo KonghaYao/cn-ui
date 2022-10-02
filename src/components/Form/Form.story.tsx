@@ -2,7 +2,9 @@ import { createMemo } from 'solid-js';
 import { Message } from '../Message';
 import { Space } from '../Space';
 import { atom, reflect } from '../_util/atom';
-import { CheckBox, CheckGroup, CheckGroupController } from './CheckBox';
+import { CheckBox } from './CheckBox';
+import { CheckGroup } from './CheckGroupData';
+import { CheckGroupController } from './CheckGroupController';
 
 export const Controller = [
     {

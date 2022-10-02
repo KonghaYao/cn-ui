@@ -1,5 +1,5 @@
-import { For, JSX, JSXElement } from 'solid-js';
-import { atom, Atom, atomization, reflect } from '../_util/atom';
+import { JSX, JSXElement } from 'solid-js';
+import { atom, Atom, atomization } from '../_util/atom';
 import { OriginComponent } from '../_util/OriginComponent';
 
 interface LabelProps extends JSX.HTMLAttributes<HTMLLabelElement> {
@@ -17,7 +17,7 @@ export const DefaultLabel = OriginComponent<LabelProps, HTMLLabelElement>((props
         </label>
     );
 });
-interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onValueInput'> {
+export interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onValueInput'> {
     children?: JSXElement;
     extra?: JSXElement;
     value: boolean | Atom<boolean>;
@@ -30,8 +30,6 @@ interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onValu
 }
 import './style/checkbox.css';
 import { useSingleAsync } from '../_util/useSingleAsync';
-import { Space } from '../Space';
-import { SpaceProps } from '../Space/interface';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
     const disabled = atomization(props.disabled);
@@ -73,49 +71,5 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             <DefaultLabel for={props.id}>{props.children}</DefaultLabel>
             {props.extra}
         </div>
-    );
-});
-
-export type CheckGroupData = Omit<CheckBoxProps, 'value'> & { value: Atom<boolean> };
-interface CheckGroupProps extends SpaceProps {
-    data: CheckGroupData[];
-}
-
-export const CheckGroup = OriginComponent<CheckGroupProps, HTMLDivElement>((props) => {
-    return (
-        <Space {...props}>
-            <For each={props.data}>
-                {(it) => {
-                    return <CheckBox {...it}></CheckBox>;
-                }}
-            </For>
-        </Space>
-    );
-});
-
-interface CheckGroupProps extends Omit<CheckBoxProps, 'onValueInput' | 'value' | 'indeterminate'> {
-    data: CheckGroupData[];
-    children?: JSXElement;
-}
-/** 数据驱动的 生成组件 */
-export const CheckGroupController = OriginComponent<CheckGroupProps, HTMLDivElement>((props) => {
-    const checkedListState = reflect(() => props.data.some((i) => i.value()));
-    const indeterminate = reflect(() => !props.data.every((i) => i.value()));
-    return (
-        <CheckBox
-            {...props}
-            value={checkedListState}
-            indeterminate={indeterminate}
-            onValueInput={async (e, value) => {
-                if (indeterminate()) {
-                    props.data.forEach((i) => i.value(true));
-                    return false;
-                }
-                props.data.forEach((i) => i.value(value));
-                return false;
-            }}
-        >
-            {props.children}
-        </CheckBox>
     );
 });
