@@ -21,11 +21,40 @@ interface CheckBoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
     value?: boolean | Atom<boolean>;
     checkedChar?: string;
-    onValueChange?: (e, value: boolean) => void;
+    onValueChange?: (e, value: boolean) => void | Promise<boolean>;
 }
+enum PROMISE_STATE {
+    PENDING = 'pending',
+    FULFILLED = 'fulfilled',
+    REJECTED = 'rejected',
+}
+const getPromiseState = async (promise: Promise<unknown>): Promise<PROMISE_STATE> => {
+    const t = {};
+    return Promise.race([promise, t])
+        .then((v) => (v === t ? PROMISE_STATE.PENDING : PROMISE_STATE.FULFILLED))
+        .catch(() => PROMISE_STATE.REJECTED);
+};
+const useSingleAsync = () => {
+    let line = Promise.resolve();
+
+    return {
+        async newChannel<T, D extends Array<unknown>>(
+            asyncFunc: (...args: D) => T,
+            ...args: D
+        ): Promise<Awaited<T>> {
+            const state = await getPromiseState(line);
+            if (state === 'pending') return;
+            const it = asyncFunc(...args);
+            line = it as any;
+            return await it;
+        },
+    };
+};
+
 import './style/checkbox.css';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
+    const { newChannel: ClickChannel } = useSingleAsync();
     return (
         <div class={props.class('cn-form-check')} style={props.style}>
             <span
@@ -33,8 +62,12 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                 /** @ts-ignore */
                 attr:checked={value()}
                 onClick={(e) => {
-                    value((i) => !i);
-                    props.onInput && props.onValueChange(e, value());
+                    ClickChannel(async (e) => {
+                        const old = value();
+                        const keep = props.onValueChange && (await props.onValueChange(e, !old));
+                        if (keep === false) return;
+                        value(!old);
+                    }, e);
                 }}
                 checked-char={props.checkedChar ?? '√'}
             ></span>
