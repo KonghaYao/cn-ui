@@ -39,8 +39,13 @@ const Root = () => {
 OuterSpaceRegister({ slot: 'Inner', list: true, component: Root });
 
 const sendMessage = (config: MessageData | string, ...over: Partial<MessageData>[]) => {
-    const _config: MessageData =
-        typeof config === 'string' ? { content: config } : Object.assign({}, ...over, config);
+    const _config: MessageData = Object.assign(
+        {
+            id: Math.random().toString(),
+        },
+        ...over,
+        typeof config === 'string' ? { content: config } : config
+    );
     // 1. 加入消息队列
     setMessage((items) => {
         const index = items.findIndex((i) => {
@@ -51,7 +56,7 @@ const sendMessage = (config: MessageData | string, ...over: Partial<MessageData>
     // 2. 添加删除信息
 
     const close = () => setMessage((list) => list.filter((i) => i.id !== _config.id));
-    console.log(_config);
+    // console.log(_config);
     if (_config.duration > 0) {
         setTimeout(() => {
             close();

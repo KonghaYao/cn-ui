@@ -16,8 +16,9 @@ export default (props) => {
                 value={checkbox}
                 onValueChange={async () => {
                     console.log('请等待 1000s');
-                    Message.loading('加载中');
+                    const c = Message.loading('加载中');
                     await sleep(1000);
+                    c();
                     Message.success('成功');
                     return true;
                 }}

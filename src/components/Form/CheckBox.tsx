@@ -23,35 +23,8 @@ interface CheckBoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     checkedChar?: string;
     onValueChange?: (e, value: boolean) => void | Promise<boolean>;
 }
-enum PROMISE_STATE {
-    PENDING = 'pending',
-    FULFILLED = 'fulfilled',
-    REJECTED = 'rejected',
-}
-const getPromiseState = async (promise: Promise<unknown>): Promise<PROMISE_STATE> => {
-    const t = {};
-    return Promise.race([promise, t])
-        .then((v) => (v === t ? PROMISE_STATE.PENDING : PROMISE_STATE.FULFILLED))
-        .catch(() => PROMISE_STATE.REJECTED);
-};
-const useSingleAsync = () => {
-    let line = Promise.resolve();
-
-    return {
-        async newChannel<T, D extends Array<unknown>>(
-            asyncFunc: (...args: D) => T,
-            ...args: D
-        ): Promise<Awaited<T>> {
-            const state = await getPromiseState(line);
-            if (state === 'pending') return;
-            const it = asyncFunc(...args);
-            line = it as any;
-            return await it;
-        },
-    };
-};
-
 import './style/checkbox.css';
+import { useSingleAsync } from '../_util/useSingleAsync';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
     const { newChannel: ClickChannel } = useSingleAsync();
