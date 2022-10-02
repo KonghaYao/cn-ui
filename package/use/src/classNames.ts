@@ -24,11 +24,14 @@ declare namespace IClassNames {
     type Argument = Value | Mapping | ArgumentArray;
 }
 export { IClassNames };
-/**
- * A simple JavaScript utility for conditionally joining classNames together.
- */
 
 let hasOwn = {}.hasOwnProperty;
+/**
+ * @category classNames
+ * @en A simple JavaScript utility for conditionally joining classNames together.
+ * @zh 合成 className 和 class 为字符串的一个库
+ * @description 源自 classnames 库
+ */
 export function classNames(...args: IClassNames.ArgumentArray) {
     let classes = [];
 
@@ -67,6 +70,22 @@ export function classNames(...args: IClassNames.ArgumentArray) {
     return classes.join(' ');
 }
 
+/**
+ * @category classNames
+ * @en A simple JavaScript utility for conditionally joining classNames together.
+ * @zh 合成 className 和 class 为字符串的一个库
+ * @description 源自 classnames 库
+ * @example
+ *
+import styles from './submit-button.css';
+let cx = classNames.bind(styles); // bind css module Object
+let className = cx({
+  base: true,
+  inProgress: props.submissionInProgress,
+  error: props.errorOccurred,
+  disabled: props.form.valid,
+});
+ */
 export function classNamesWithModule(
     this: { [key: string | number]: string },
     ...args: IClassNames.ArgumentArray
