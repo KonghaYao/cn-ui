@@ -5,7 +5,7 @@ import { loadLink } from '../_util/loadLink';
 import { IconProps } from './interface';
 import { OriginComponent } from '../_util/OriginComponent';
 import { classNames } from '@cn-ui/use';
-import { PropsToAttr } from '../_util/PropsToAttr';
+import { PropsToAttr } from '@cn-ui/use';
 /**
  * @zh 用于加载 Icon CSS，如果用户没有加载，那么将会在 Icon 第一次加载时加载
  * @param iconFontPath 覆盖内置的路径，可以更改为 cdn

@@ -5,7 +5,7 @@ import { Box } from '../Box';
 import './style/index.less';
 import { OriginComponent } from '../_util/OriginComponent';
 import { classNames } from '@cn-ui/use';
-import { PropsToAttr } from '../_util/PropsToAttr';
+import { PropsToAttr } from '@cn-ui/use';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
