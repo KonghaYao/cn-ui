@@ -17,3 +17,9 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
         setState(...args);
     }) as Atom<T>;
 };
+
+/** @zh 将prop 中的静态属性或者是 atom 统一为 atom */
+export const atomization = <T>(prop: T | Atom<T>): Atom<T> => {
+    /**@ts-ignore */
+    return typeof prop === 'function' ? prop : atom(prop);
+};
