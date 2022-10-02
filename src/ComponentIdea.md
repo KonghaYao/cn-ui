@@ -45,3 +45,25 @@ export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
     return <div ref={props.ref}></div>;
 });
 ```
+
+## 4. Just-Newest <维持最新态>
+
+-   在特定时候，锁定组件的状态，阻止多余的并发操作。
+
+-   总的来说，用户认为一个搜索框是单独的
+
+-   那么搜索框就应该只有统一的一个状态，维持最新的状态是我们应该达成的要求
+
+```tsx
+<div
+    onClick={(e) => {
+        // ClickChannel 将会使得一个组件同一时间只有一个异步执行函数，在执行完成之前结束多余函数
+        ClickChannel(async (e) => {
+            // 这里执行异步函数
+            // 这里承接外部的事件函数，控制权交由外侧
+            const keep = props.onValueChange && (await props.onValueChange(e, !old));
+            // 通过 keep 数据，控制权交由内侧
+        }, e);
+    }}
+></div>
+```

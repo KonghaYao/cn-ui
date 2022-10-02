@@ -20,6 +20,7 @@ export const DefaultLabel = OriginComponent<LabelProps, HTMLLabelElement>((props
 interface CheckBoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
     value?: boolean | Atom<boolean>;
+    disabled?: boolean | Atom<boolean>;
     checkedChar?: string;
     onValueChange?: (e, value: boolean) => void | Promise<boolean>;
 }
@@ -27,6 +28,7 @@ import './style/checkbox.css';
 import { useSingleAsync } from '../_util/useSingleAsync';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
+    const disabled = atomization(props.disabled);
     const { newChannel: ClickChannel } = useSingleAsync();
     return (
         <div class={props.class('cn-form-check')} style={props.style}>
@@ -44,7 +46,13 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                 }}
                 checked-char={props.checkedChar ?? '√'}
             ></span>
-            <input class="hidden" type="checkbox" checked={value()} id={props.id}></input>
+            <input
+                class="hidden"
+                type="checkbox"
+                checked={value()}
+                id={props.id}
+                disabled={disabled()}
+            ></input>
             <DefaultLabel for={props.id}>{props.children}</DefaultLabel>
         </div>
     );
