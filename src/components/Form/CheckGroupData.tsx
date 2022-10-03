@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { Atom } from '@cn-ui/use';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { Space } from '../Space';
 import { SpaceProps } from '../Space/interface';
 import { CheckBoxProps, CheckBox } from './CheckBox';

@@ -3,7 +3,7 @@ import { atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
 import { Box } from '../Box';
 import './style/index.less';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { classNames } from '@cn-ui/use';
 import { PropsToAttr } from '@cn-ui/use';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';

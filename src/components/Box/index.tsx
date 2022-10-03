@@ -1,5 +1,5 @@
 import { Component, JSX, JSXElement } from 'solid-js';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 
 interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;

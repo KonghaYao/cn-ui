@@ -48,7 +48,7 @@ const defaultProps: TagProps = {
     checked: false,
 };
 import './style/index.less';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
 

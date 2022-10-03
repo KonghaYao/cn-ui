@@ -4,7 +4,7 @@ import { Position } from '../Mask/Position';
 
 import { CardProps } from './interface';
 
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
     props = mergeProps({}, props);
     const defaultPos = { left: '0', right: '0' };

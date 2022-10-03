@@ -3,7 +3,7 @@ import './style/index.css';
 
 import { loadLink } from '../_util/loadLink';
 import { IconProps } from './interface';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { classNames } from '@cn-ui/use';
 import { PropsToAttr } from '@cn-ui/use';
 /**

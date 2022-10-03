@@ -1,5 +1,5 @@
 import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import './style/index.less';
 export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     left?: string;

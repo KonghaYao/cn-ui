@@ -5,7 +5,7 @@ import copy from 'copy-to-clipboard';
 import { Icon } from '../Icon';
 import './style/edit.less';
 import { atom } from '@cn-ui/use';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 
 export const CopyText = OriginComponent<EditContentProps>((props) => {
     let container: HTMLSpanElement;

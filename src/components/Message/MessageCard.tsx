@@ -1,7 +1,7 @@
 import { ComponentProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { MessageProps } from './interface';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { DefaultIcon } from './DefaultIcon';
 
 /** 渲染存在的数据 */

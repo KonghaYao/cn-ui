@@ -1,6 +1,6 @@
 import { JSXElement } from 'solid-js';
 import { reflect } from '@cn-ui/use';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { CheckBoxProps, CheckBox } from './CheckBox';
 import { CheckGroupData } from './CheckGroupData';
 

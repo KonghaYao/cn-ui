@@ -3,7 +3,7 @@ import { LinkProps } from './interface';
 import { Component, createMemo, mergeProps, Show } from 'solid-js';
 import { Icon } from '../Icon';
 import './style/index.less';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 const defaultProps: LinkProps = {
     hoverable: true,
 };

@@ -1,5 +1,5 @@
 import { Component, Match, Switch } from 'solid-js';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { BadgeProps } from './interface-Bage';
 import './style/index.less';
 const preCount = (count: number, maxCount: number = 99) => {

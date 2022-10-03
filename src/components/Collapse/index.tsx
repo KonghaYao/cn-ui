@@ -15,7 +15,7 @@ import { CollapseItemProps, CollapseProps } from './interface';
 
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { Transition } from '../../Transition/Transition';
 
 type Controller = { [key: string]: Atom<boolean> };

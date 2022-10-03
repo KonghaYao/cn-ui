@@ -2,7 +2,7 @@ import { Component, createEffect, JSXElement, mergeProps, createMemo, JSX } from
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 import { MaskProps } from './interface';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 
 /** @zh 将组件内部变为绝对定位, 可以配合 Position 实现角落位置 */
 export const Mask = OriginComponent<MaskProps & { children: JSXElement }, HTMLDivElement>(

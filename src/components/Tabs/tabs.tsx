@@ -15,7 +15,7 @@ import { atom, Atom } from '@cn-ui/use';
 import { Button } from '../Button';
 import { Space } from '../Space';
 import { Tag } from '../Tag';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps, TabsProps } from './interface';
 const TabsContext = createContext<{
     /** 注册一个 Tabs */

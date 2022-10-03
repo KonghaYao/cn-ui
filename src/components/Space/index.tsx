@@ -3,7 +3,7 @@ import { Component, createMemo, For, mergeProps, JSX, onMount, children } from '
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 import { TransitionGroup } from '../../Transition/TransitionGroup';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 const defaultProps: SpaceProps = {
     size: 'mini',
 };

@@ -1,6 +1,6 @@
 import { Component, createMemo, JSXElement, ParentComponent } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { TypographyProps } from './interface';
 import './style/index.less';
 /**

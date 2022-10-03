@@ -3,7 +3,7 @@ import { Icon } from '../Icon';
 import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.less';
 import { GlobalConfigStore } from '../GlobalConfigStore';
-import { OriginComponent } from '../_util/OriginComponent';
+import { OriginComponent } from '@cn-ui/use';
 import { PropsToAttr } from '@cn-ui/use';
 
 const defaultProps: ButtonProps = {
