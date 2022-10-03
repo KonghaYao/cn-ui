@@ -1,4 +1,4 @@
-import { createSignal, Accessor, createEffect } from 'solid-js';
+import { createSignal, Accessor, createEffect, untrack } from 'solid-js';
 export type Atom<T> = (<U extends T>(value: (prev: T) => U) => U) &
     (<U extends T>(value: Exclude<U, Function>) => U) &
     (<U extends T>(value: Exclude<U, Function> | ((prev: T) => U)) => U) &
@@ -43,9 +43,12 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
  *
  * A(true) // when A changed newAtom will synchronous update
  *
+ * // 自定义初始值
+ * const b = reflect(()=>a(),false,'I am a string')
+ * b() // 'I am a string'
  */
-export const reflect = <T>(memoFunc: () => T) => {
-    const a = atom<T>(false as T);
+export const reflect = <T>(memoFunc: () => T, immediately = true, initValue?: T) => {
+    const a = atom<T>(immediately ? untrack(memoFunc) : initValue);
     createEffect(() => {
         /** @ts-ignore */
         a(memoFunc());
