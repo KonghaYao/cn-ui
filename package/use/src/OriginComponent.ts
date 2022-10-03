@@ -6,8 +6,8 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
         // 对内的类型注解
         Omit<T, 'style' | 'class'> & {
             ref?: RefType | ((el: RefType) => void);
-            style?: JSX.CSSProperties;
-            class?: typeof classNames;
+            style: JSX.CSSProperties;
+            class: typeof classNames;
         }
     >
 ): Component<
