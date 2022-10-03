@@ -4,3 +4,4 @@ export * from './PropsToAttr';
 export * from './useSingleAsync';
 export * from './createIgnoreHead';
 export * from './createTemplate';
+export * from './OriginComponent';
