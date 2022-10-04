@@ -3,17 +3,29 @@ import { For, JSX } from 'solid-js';
 import zxcvbn from 'zxcvbn';
 import { Icon } from '../Icon';
 import { Space } from '../Space';
-interface PasswordProps extends PasswordScoreProps {}
+interface PasswordProps extends PasswordScoreProps {
+    disabled?: boolean | Atom<boolean>;
+}
 export const Password = OriginComponent<PasswordProps>((props) => {
+    const disabled = atomization(props.disabled ?? false);
     const canShow = atom(false);
     const value = atomization(props.value ?? '');
 
     return (
         <>
-            <Space vertical class={props.class()} style={props.style} ref={props.ref}>
+            <Space
+                vertical
+                class={props.class(disabled() && 'cursor-not-allowed')}
+                style={props.style}
+                ref={props.ref}
+            >
                 <div class="w-full flex bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 ">
                     <input
+                        disabled={disabled()}
                         class="flex-1  outline-none bg-gray-100 text-gray-600"
+                        classList={{
+                            'cursor-not-allowed': disabled(),
+                        }}
                         type={canShow() ? 'text' : 'password'}
                         value={value()}
                         oninput={(e) => {
@@ -23,6 +35,7 @@ export const Password = OriginComponent<PasswordProps>((props) => {
                     <div
                         class="flex items-center "
                         onClick={() => {
+                            if (disabled()) return;
                             canShow((i) => !i);
                         }}
                     >
