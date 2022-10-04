@@ -1,16 +1,25 @@
-import { Atom, atom, atomization, classNames, OriginComponent, reflect } from '@cn-ui/use';
-import { For, JSX } from 'solid-js';
-import zxcvbn from 'zxcvbn';
-import { Icon } from '../Icon';
-import { Space } from '../Space';
+import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
+import { JSX, lazy, Suspense } from 'solid-js';
+
+import { Icon } from '../../Icon';
+import { Space } from '../../Space';
+export interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
+    userInputs?: string[];
+    value?: Atom<string>;
+}
 interface PasswordProps extends PasswordScoreProps {
-    disabled?: boolean | Atom<boolean>;
+    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
+    value?: Atom<string>;
+    score?: boolean;
 }
 export const Password = OriginComponent<PasswordProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const canShow = atom(false);
     const value = atomization(props.value ?? '');
-
+    const ScoreComp = lazy(async () => {
+        const comp = await import('./PasswordScore');
+        return { default: comp.PasswordScore };
+    });
     return (
         <>
             <Space
@@ -45,38 +54,12 @@ export const Password = OriginComponent<PasswordProps>((props) => {
                         ></Icon>
                     </div>
                 </div>
-                <PasswordScore value={value}></PasswordScore>
+                {props.score && (
+                    <Suspense>
+                        <ScoreComp value={value} userInputs={props.userInputs}></ScoreComp>
+                    </Suspense>
+                )}
             </Space>
         </>
-    );
-});
-interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    userInputs?: string[];
-    /** 这里不允许注入静态参数 */
-    value?: Atom<string>;
-}
-export const PasswordScore = OriginComponent<PasswordScoreProps>((props) => {
-    const score = reflect<number>(() => {
-        return props.value() ? zxcvbn(props.value(), props.userInputs ?? []).score + 1 : 0;
-    });
-    const color = reflect(() => {
-        const s = score();
-        return s > 3 ? 'bg-green-400' : s > 1 ? 'bg-orange-400' : 'bg-red-400';
-    });
-    return (
-        <div class={props.class('w-full my-0 flex ')} style={props.style} ref={props.ref}>
-            <For each={[...Array(5).keys()]}>
-                {(item) => {
-                    return (
-                        <div
-                            class={'h-1 flex-1 mx-1 rounded bg-gray-300 transition'}
-                            classList={{
-                                [color()]: item < score(),
-                            }}
-                        ></div>
-                    );
-                }}
-            </For>
-        </div>
     );
 });

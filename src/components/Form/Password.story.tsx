@@ -6,12 +6,15 @@ import { CheckBox } from './CheckBox';
 import { CheckGroup } from './CheckGroupData';
 import { CheckGroupController } from './CheckGroupController';
 
-export const Controller = [{ type: 'switch', default: false, prop: 'disabled' }];
+export const Controller = [
+    { type: 'switch', default: false, prop: 'disabled' },
+    { type: 'switch', default: true, prop: 'score' },
+];
 const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
-import { Password } from './Password';
+import { Password } from './Password/Password';
 export default (props) => {
     return (
         <div>
