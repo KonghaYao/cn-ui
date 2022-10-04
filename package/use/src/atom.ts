@@ -35,7 +35,7 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
 
 /**
  * @category atom
- * @zh 通过类似 createMemo的方式创建 atom
+ * @zh 通过类似 createMemo 的方式创建 atom
  * @en create an atom like createMemo
  * @example
  * const A = atom(true)
@@ -46,6 +46,10 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
  * // 自定义初始值
  * const b = reflect(()=>a(),false,'I am a string')
  * b() // 'I am a string'
+ *
+ * b('Hi, I am a hack'); // casually changed the value,
+ * // It will updated the lower course of source without change the source
+ *
  */
 export const reflect = <T>(memoFunc: () => T, immediately = true, initValue?: T) => {
     const a = atom<T>(immediately ? untrack(memoFunc) : initValue);
