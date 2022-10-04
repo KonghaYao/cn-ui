@@ -39,7 +39,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
         <div
             ref={props.ref}
             class={props.class(
-                'cn-form-check select-none cursor-pointer',
+                'cn-form-check select-none cursor-pointer flex-none',
                 disabled() && 'pointer-events-none opacity-70 cursor-not-allowed'
             )}
             style={props.style}
