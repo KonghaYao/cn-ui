@@ -67,3 +67,33 @@ export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
     }}
 ></div>
 ```
+
+## Reactive Props <响应式参数>
+
+-   组件应该像 Vue 那样进行一个响应式的动态的参数管理，使用方可以注入静态对象或者响应式对象作为组件的启动参数
+-   不同于 Vue，响应式对象统一在组件内部进行数据交换，这样子使用者就不需要像 Vue 一样进行事件绑定。
+
+-   我们使用自己的响应式参数库 @cn-ui/use，使用相应数据源流的概念进行数据的统一。
+
+```tsx
+import { Atom, atomization, atom, reflect } from '@cn-ui/use';
+export interface CompProps {
+    /** Yes, Support Original Type and Atom Type */
+    data: string[] | Atom<string[]>;
+}
+
+export const Comp = OriginComponent<CompProps, HTMLDivElement>((props) => {
+    // if send an Original Object, This will wrapper it and return an atom!
+    const data = atomization(props.data);
+
+    // reflect is like useMemo | createMemo | Computed
+    const computed = reflect(() => data().join(' '));
+    return <div>{computed()}</div>;
+});
+
+const UserComp = () => {
+    const tags = atom<string[]>(['A', 'B', 'C']);
+    // You can keep to use tags to generate many active atom or
+    return <Comp data={tags}></Comp>;
+};
+```

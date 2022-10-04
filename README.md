@@ -1,7 +1,7 @@
 -   [x] swiper
--   [ ] Tippy.js
--   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [x] https://www.npmjs.com/package/viewerjs
+-   [x] https://github.com/itaditya/solid-command-palette
+-   [x] Tippy.js
+-   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
--   [ ] https://github.com/itaditya/solid-command-palette
--   [ ] https://www.npmjs.com/package/form-gear
+-   [ ] https://github.com/upload-io/uploader#installation
