@@ -4,9 +4,11 @@ import { atom, reflect } from '@cn-ui/use';
 import { onMount } from 'solid-js';
 import { Button } from './Button';
 import { CheckBox } from './Form/CheckBox';
+import { CheckGroupController } from './Form/CheckGroupController';
 import { CheckGroup } from './Form/CheckGroupData';
 import { Image } from './Image';
 import { Message } from './Message';
+import { Space } from './Space';
 export const Controller = [];
 
 const initActions = [
@@ -47,20 +49,33 @@ export default (props) => {
                 subtitle: 'Click Me',
                 keywords: ['Message'],
                 run() {
-                    selectingKeyWords((i) => (i === 'Message' ? '' : 'Message'));
                     return true;
                 },
             },
         ]);
     });
 
-    const selectingKeyWords = atom('');
+    // transform origin actions' keywords to checkbox props
+    const keywords = reflect(() =>
+        [...new Set(actions().flatMap((i) => i.keywords))].map((i) => {
+            return { value: atom(false), children: i };
+        })
+    );
+
+    // generate the keywords selected
+    const selectedKeyWords = reflect(() => [
+        ...new Set(
+            keywords()
+                .filter((i) => i.value())
+                .map((i) => i.children)
+        ),
+    ]);
 
     /** static Filter Function */
-    const keywordsFilter = (action) => {
+    const keywordsFilter = (action: Action) => {
         /** But use reactive Object! Every search will be auto update! */
-        if (selectingKeyWords()) {
-            return action.keywords.includes(selectingKeyWords());
+        if (selectedKeyWords().length) {
+            return selectedKeyWords().every((i) => action.keywords.includes(i));
         } else {
             return true;
         }
@@ -79,6 +94,14 @@ export default (props) => {
                                 src={(action as any).icon}
                                 class="h-10 w-10 rounded-lg overflow-hidden mr-4"
                             ></Image>
+                        );
+                    },
+                    Main() {
+                        return (
+                            <Space>
+                                <CheckGroupController data={keywords}></CheckGroupController>
+                                <CheckGroup data={keywords}></CheckGroup>;
+                            </Space>
                         );
                     },
                 }}

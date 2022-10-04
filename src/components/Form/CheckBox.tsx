@@ -1,5 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
-import { atom, Atom, atomization } from '@cn-ui/use';
+import { Atom, atomization } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 
 interface LabelProps extends JSX.HTMLAttributes<HTMLLabelElement> {

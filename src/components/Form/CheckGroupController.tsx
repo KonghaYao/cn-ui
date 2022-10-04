@@ -1,31 +1,35 @@
 import { JSXElement } from 'solid-js';
-import { reflect } from '@cn-ui/use';
+import { Atom, atomization, reflect } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { CheckBoxProps, CheckBox } from './CheckBox';
 import { CheckGroupData } from './CheckGroupData';
 
 export interface CheckGroupControllerProps
     extends Omit<CheckBoxProps, 'onValueInput' | 'value' | 'indeterminate'> {
-    data: CheckGroupData[];
+    data: CheckGroupData[] | Atom<CheckGroupData[]>;
     children?: JSXElement;
 }
-export const useCheckGroup = (data: CheckGroupData[]) => {
+export const useCheckGroup = (data: Atom<CheckGroupData[]>) => {
     const state = reflect(() => {
         let isPart = false;
-        let allChecked = data.every((i) => {
+        let allChecked = true;
+        data().forEach((i) => {
             let isChecked = i.value();
-            if (isChecked) isPart = true;
-            return isChecked;
+            if (isChecked) {
+                isPart = true;
+            } else {
+                allChecked = false;
+            }
         });
         return allChecked ? 'all' : isPart ? 'part' : 'none';
     });
     return {
         state,
         inverse() {
-            data.forEach((i) => i.value((i) => !i));
+            data().forEach((i) => i.value((i) => !i));
         },
         setAll(value: boolean) {
-            data.forEach((i) => i.value(value));
+            data().forEach((i) => i.value(value));
         },
     };
 };
@@ -33,7 +37,8 @@ export const useCheckGroup = (data: CheckGroupData[]) => {
 /** 数据驱动的 生成组件 */
 export const CheckGroupController = OriginComponent<CheckGroupControllerProps, HTMLDivElement>(
     (props) => {
-        const { state, setAll } = useCheckGroup(props.data);
+        const data = atomization(props.data);
+        const { state, setAll } = useCheckGroup(data);
         return (
             <CheckBox
                 {...props}
@@ -43,9 +48,11 @@ export const CheckGroupController = OriginComponent<CheckGroupControllerProps, H
                     switch (state()) {
                         case 'none':
                             setAll(true);
+                            break;
                         case 'all':
                         case 'part':
                             setAll(false);
+                            break;
                     }
                     return false;
                 }}
