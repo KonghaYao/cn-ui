@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@cn-ui/command-palette': 'workspace:'
       '@cn-ui/palette': 'workspace:'
       '@cn-ui/swiper': 'workspace:'
       '@cn-ui/use': 'workspace:'
@@ -33,6 +34,7 @@ importers:
       vite: ^3.0.9
       vite-plugin-solid: ^2.3.0
     dependencies:
+      '@cn-ui/command-palette': link:package/command-palette
       '@cn-ui/palette': link:package/palette
       '@cn-ui/swiper': link:package/swiper
       '@cn-ui/use': link:package/use

@@ -36,7 +36,7 @@ export default (props) => {
                 </CheckBox>
                 <CheckBox
                     value={checkbox}
-                    onInput={async () => {
+                    onValueInput={async () => {
                         console.log('请等待 1000s');
                         const c = Message.loading('加载中');
                         await sleep(1000);
