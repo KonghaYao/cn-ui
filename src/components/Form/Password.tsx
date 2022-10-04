@@ -1,6 +1,7 @@
 import { Atom, atom, atomization, classNames, OriginComponent, reflect } from '@cn-ui/use';
 import { For, JSX } from 'solid-js';
 import zxcvbn from 'zxcvbn';
+import { Icon } from '../Icon';
 import { Space } from '../Space';
 interface PasswordProps extends PasswordScoreProps {}
 export const Password = OriginComponent<PasswordProps>((props) => {
@@ -10,15 +11,26 @@ export const Password = OriginComponent<PasswordProps>((props) => {
     return (
         <>
             <Space vertical class={props.class()} style={props.style} ref={props.ref}>
-                <div class="w-full flex">
+                <div class="w-full flex bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 ">
                     <input
-                        class="flex-1 bg-gray-100 outline-none px-4 py-1 focus:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300"
+                        class="flex-1  outline-none bg-gray-100 text-gray-600"
                         type={canShow() ? 'text' : 'password'}
                         value={value()}
                         oninput={(e) => {
                             value((e.target as any).value);
                         }}
                     ></input>
+                    <div
+                        class="flex items-center "
+                        onClick={() => {
+                            canShow((i) => !i);
+                        }}
+                    >
+                        <Icon
+                            class="text-gray-400"
+                            name={canShow() ? 'visibility_off' : 'visibility'}
+                        ></Icon>
+                    </div>
                 </div>
                 <PasswordScore value={value}></PasswordScore>
             </Space>
