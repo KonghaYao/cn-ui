@@ -28,7 +28,7 @@ export interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 
 
     onValueInput?: (e, value: boolean) => void | Promise<boolean>;
 }
-import './style/checkbox.css';
+import '../style/checkbox.css';
 import { useSingleAsync } from '@cn-ui/use';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
