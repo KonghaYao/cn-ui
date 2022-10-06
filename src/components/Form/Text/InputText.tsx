@@ -25,7 +25,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
 
     return (
         <div class="w-full flex items-center bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-gray-500">
-            {props.icon ?? <Icon name="border_color" class="pr-4"></Icon>}
+            {props.icon !== undefined ? props.icon : <Icon name="border_color" class="pr-4"></Icon>}
             <input
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
@@ -60,6 +60,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
                         : value().length}
                 </div>
             )}
+            {props.children}
         </div>
     );
 });

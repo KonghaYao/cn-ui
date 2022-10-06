@@ -16,13 +16,25 @@ const sleep = (ms) =>
         setTimeout(() => resolve(null), ms);
     });
 import { InputText } from './InputText';
+import { Button } from '../../Button';
+import { Icon } from '../../Icon';
 export default (props) => {
     const val = atom('');
     return (
         <div>
             <InputText {...props}></InputText>
             <InputText {...props} maxLength={10} value={val}></InputText>
-            {val()}
+            <InputText
+                {...props}
+                value={val}
+                allowClear={false}
+                icon={'https://'}
+                showWordLimit={false}
+            >
+                <Button size="mini" type="primary">
+                    <Icon name="search"></Icon>
+                </Button>
+            </InputText>
         </div>
     );
 };
