@@ -42,6 +42,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
                 spin: props.spin ?? false,
             })}
             style={{ ...props.style, 'font-size': fontSize() }}
+            onClick={props.onClick}
         >
             {props.name}
         </nav>

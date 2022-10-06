@@ -97,3 +97,7 @@ const UserComp = () => {
     return <Comp data={tags}></Comp>;
 };
 ```
+
+## Box-Like-Style <盒式组件样式>
+
+-   组件最外层 DOM 应该使用 padding，margin 属性统一留给外部去扩展
