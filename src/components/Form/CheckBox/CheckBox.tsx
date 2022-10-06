@@ -1,4 +1,4 @@
-import { JSX, JSXElement } from 'solid-js';
+import { batch, JSX, JSXElement } from 'solid-js';
 import { Atom, atomization } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 
@@ -45,10 +45,12 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             style={props.style}
             onClick={(e) => {
                 ClickChannel(async (e) => {
-                    const old = value();
-                    const keep = props.onValueInput && (await props.onValueInput(e, !old));
-                    if (keep === false) return;
-                    value(!old);
+                    await batch(async () => {
+                        const old = value();
+                        const keep = props.onValueInput && (await props.onValueInput(e, !old));
+                        if (keep === false) return;
+                        value(!old);
+                    });
                 }, e);
             }}
         >

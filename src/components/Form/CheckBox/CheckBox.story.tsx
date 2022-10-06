@@ -3,7 +3,8 @@ import { Space } from '../../Space';
 import { atom, reflect } from '@cn-ui/use';
 import { CheckBox } from './CheckBox';
 import { CheckGroup } from './CheckGroupData';
-import { CheckGroupController } from './CheckGroupController';
+import { CheckGroupController, useCheckGroup } from './CheckGroupController';
+import { Button } from '../../Button';
 
 export const Controller = [
     {
@@ -26,7 +27,7 @@ export default (props) => {
     const groupController = ['用户', '姓名', '操作'].map((i) => {
         return { value: atom(false), children: i };
     });
-
+    const { inverse } = useCheckGroup(groupController);
     return (
         <>
             <Space vertical>
@@ -50,8 +51,21 @@ export default (props) => {
 
             <Space>
                 <CheckGroupController data={groupController}></CheckGroupController>
+                <Button onClick={inverse} size="mini">
+                    反选
+                </Button>
             </Space>
             <CheckGroup data={groupController}></CheckGroup>
+            <h3>单选框</h3>
+            <CheckGroup data={groupController} maxCheck={1}></CheckGroup>
+            <h3>二选框</h3>
+            <CheckGroup
+                data={groupController}
+                maxCheck={2}
+                onOverCheck={() => {
+                    Message.info('先关闭它吧');
+                }}
+            ></CheckGroup>
         </>
     );
 };

@@ -36,7 +36,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
     );
     const classNames = createMemo(() =>
         props.class(
-            'cn-btn',
+            'cn-btn ',
             props.type ?? 'secondary',
             props.size ?? 'normal',
             props.shape ?? 'square',
