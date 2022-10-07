@@ -31,3 +31,14 @@ export const useEventController = (props: { disabled?: Atom<boolean> }) => {
         return options.batch ? (...args: Parameters<T>) => batch(() => final(...args)) : final;
     };
 };
+
+/** 在 control 中向组件外暴露事件 */
+export const emitEvent = <
+    Input extends any[],
+    T extends (...args: any[]) => void | boolean | Promise<void | boolean>
+>(
+    event: T | undefined,
+    propsChanger?: (args: Input) => Readonly<Parameters<T>>
+) => {
+    return (...args: Input) => event && event.apply(null, propsChanger ? propsChanger(args) : args);
+};

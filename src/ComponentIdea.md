@@ -46,29 +46,7 @@ export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
 });
 ```
 
-## 4. Just-Newest <维持最新态>
-
--   在特定时候，锁定组件的状态，阻止多余的并发操作。
-
--   总的来说，用户认为一个搜索框是单独的
-
--   那么搜索框就应该只有统一的一个状态，维持最新的状态是我们应该达成的要求
-
-```tsx
-<div
-    onClick={(e) => {
-        // ClickChannel 将会使得一个组件同一时间只有一个异步执行函数，在执行完成之前结束多余函数
-        ClickChannel(async (e) => {
-            // 这里执行异步函数
-            // 这里承接外部的事件函数，控制权交由外侧
-            const keep = props.onValueChange && (await props.onValueChange(e, !old));
-            // 通过 keep 数据，控制权交由内侧
-        }, e);
-    }}
-></div>
-```
-
-## Reactive Props <响应式参数>
+## 4. Reactive Props <响应式参数>
 
 -   组件应该像 Vue 那样进行一个响应式的动态的参数管理，使用方可以注入静态对象或者响应式对象作为组件的启动参数
 -   不同于 Vue，响应式对象统一在组件内部进行数据交换，这样子使用者就不需要像 Vue 一样进行事件绑定。
@@ -95,6 +73,24 @@ const UserComp = () => {
     const tags = atom<string[]>(['A', 'B', 'C']);
     // You can keep to use tags to generate many active atom or
     return <Comp data={tags}></Comp>;
+};
+```
+
+## 4. Closable Event <可熔断事件流>
+
+```tsx
+const Comp = (props) => {
+    const disabled = atomization(props.disabled ?? false);
+    const control = useEventController({ disabled });
+    <div
+        class="sub flex items-center"
+        onClick={control(
+            (...args) => props.onClick && props.onClick(...args),
+            () => {}
+        )}
+    >
+        这是一个组件
+    </div>;
 };
 ```
 

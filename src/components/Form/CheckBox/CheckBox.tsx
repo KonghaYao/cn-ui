@@ -29,7 +29,7 @@ export interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 
     onValueInput?: (e, value: boolean) => void | Promise<boolean>;
 }
 import '../style/checkbox.css';
-import { useEventController } from '../../_util/defaultSlot';
+import { emitEvent, useEventController } from '../../_util/defaultSlot';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
     const disabled = atomization(props.disabled);
@@ -45,7 +45,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             style={props.style}
             onClick={control(
                 [
-                    async (e) => props.onValueInput && props.onValueInput(e, !value()),
+                    emitEvent(props.onValueInput, ([e]: [Event]) => [e, !value()] as const),
                     async (e) => {
                         value((i) => !i);
                     },
