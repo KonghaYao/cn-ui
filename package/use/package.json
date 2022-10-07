@@ -28,5 +28,13 @@
     },
     "peerDependencies": {
         "solid-js": "^1.5.7"
-    }
+    },
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ]
 }
