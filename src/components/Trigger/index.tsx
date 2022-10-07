@@ -14,7 +14,9 @@ import 'tippy.js/animations/scale.css';
 const defaultProps = {
     animation: 'scale',
 };
-/** 用于在 ref 上使用的 Trigger 函数 */
+/** 用于在 ref 上使用的 Trigger 函数
+ * @link https://atomiks.github.io/tippyjs/v6/tippy-instance/
+ */
 export const createTrigger = (props: TriggerProps) => {
     return (el: Element) => {
         const p = Object.assign(defaultProps, props, {

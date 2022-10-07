@@ -9,6 +9,7 @@ const sleep = (ms) =>
         setTimeout(() => resolve(null), ms);
     });
 export default (props) => {
+    // 注意，这个函数的环境作用域必须在这里面才行
     const Comp: Component = () => {
         onMount(() => {
             console.log('初始化');

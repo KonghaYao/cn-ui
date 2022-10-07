@@ -10,6 +10,7 @@ importers:
       '@cn-ui/use': 'workspace:'
       '@fontsource/material-icons': ^4.5.4
       '@solidjs/router': ^0.4.3
+      '@tailwindcss/line-clamp': ^0.4.2
       '@types/fs-extra': ^9.0.13
       '@types/lodash': ^4.14.185
       '@types/lodash-es': ^4.17.6
@@ -51,6 +52,7 @@ importers:
       zxcvbn: 4.4.2
     devDependencies:
       '@solidjs/router': 0.4.3_solid-js@1.5.7
+      '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.1.8
       '@types/fs-extra': 9.0.13
       '@types/lodash': 4.14.185
       '@types/lodash-es': 4.17.6
@@ -1826,6 +1828,14 @@ packages:
 
   /@stackblitz/sdk/1.8.0:
     resolution: {integrity: sha512-hbS4CpQVF3bxJ+ZD8qu8lAjTZVLTPToLbMtgxbxUmp1AIgqm7i0gMFM1POBA8BqY84CT1A3z74gdCd1bsro7qA==}
+    dev: true
+
+  /@tailwindcss/line-clamp/0.4.2_tailwindcss@3.1.8:
+    resolution: {integrity: sha512-HFzAQuqYCjyy/SX9sLGB1lroPzmcnWv1FHkIpmypte10hptf4oPUfucryMKovZh2u0uiS9U5Ty3GghWfEJGwVw==}
+    peerDependencies:
+      tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
+    dependencies:
+      tailwindcss: 3.1.8_postcss@8.4.16
     dev: true
 
   /@trysound/sax/0.2.0:
