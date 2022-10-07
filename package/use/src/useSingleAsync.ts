@@ -8,6 +8,7 @@ onClick={(e) => {
         // async function
     }, e);
 }}
+@deprecated
  */
 export const useSingleAsync = () => {
     let running = false;

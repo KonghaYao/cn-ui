@@ -5,6 +5,7 @@ import { Icon } from '../../Icon';
 import { Space } from '../../Space';
 import { defaultSlot } from '../../_util/defaultSlot';
 import { useEventController } from '@cn-ui/use';
+import { useStep } from './useStep';
 export interface InputNumberProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: number | Atom<number>;
@@ -18,22 +19,6 @@ export interface InputNumberProps extends JSX.HTMLAttributes<HTMLDivElement> {
     step?: number;
 }
 
-const useStep = (value: Atom<number>, props: Pick<InputNumberProps, 'min' | 'max' | 'step'>) => {
-    return {
-        add() {
-            value((i) => {
-                const result = i + (props.step || 1);
-                return Math.min(result, props.max ?? Infinity);
-            });
-        },
-        sub() {
-            value((i) => {
-                const result = i - (props.step || 1);
-                return Math.max(result, props.min ?? -Infinity);
-            });
-        },
-    };
-};
 export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const value = atomization(props.value ?? 0);
@@ -42,7 +27,11 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const { add, sub } = useStep(value, props);
     return (
         <div
-            class="w-full flex items-center  bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-gray-500"
+            class={props.class(
+                'w-full flex items-center  bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-gray-500'
+            )}
+            style={props.style}
+            ref={props.ref}
             classList={{
                 'cursor-not-allowed': disabled(),
             }}

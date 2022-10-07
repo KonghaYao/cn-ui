@@ -10,16 +10,19 @@ export const useEventController = (props: { disabled?: Atom<boolean> }) => {
         func: T | T[],
         options: {
             batch?: boolean;
+            loading?: Atom<boolean>;
         } = {}
     ) => {
         const F = func instanceof Array ? func : [func];
         const channel = F.filter((i) => i);
         const final = async (...args: Parameters<T>) => {
             if (props.disabled && props.disabled()) return false;
+            options.loading && options.loading(true);
             for (const iterator of channel) {
                 const result = await iterator(...args);
                 if (result === false) return false;
             }
+            options.loading && options.loading(false);
             return true;
         };
         return options.batch ? (...args: Parameters<T>) => batch(() => final(...args)) : final;

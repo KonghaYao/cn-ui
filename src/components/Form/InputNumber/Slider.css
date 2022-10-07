@@ -1,0 +1,45 @@
+input[type='range'] {
+    position: relative;
+    padding: 0 1em;
+}
+input[type='range']::-webkit-slider-thumb {
+    appearance: none;
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    @apply bg-blue-400;
+}
+input[type='range']::-webkit-slider-thumb:before {
+    appearance: none;
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    @apply bg-blue-400;
+}
+
+input[type='range']::-moz-range-thumb {
+    appearance: none;
+    width: 1em;
+    height: 1em;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: transform 0.3s;
+    @apply bg-blue-400;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+    transform: scale(1.4);
+}
+/*设置滑动条的样式*/
+input[type='range']::-webkit-slider-runnable-track {
+    border-radius: 1em;
+    @apply bg-gray-100;
+}
+input[type='range']::-moz-range-track {
+    border-radius: 1em;
+    @apply bg-gray-100;
+}
