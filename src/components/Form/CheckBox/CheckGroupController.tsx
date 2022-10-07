@@ -2,7 +2,7 @@ import { JSXElement } from 'solid-js';
 import { Atom, atomization, reflect } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { CheckBoxProps, CheckBox } from './CheckBox';
-import { CheckGroupData } from './CheckGroupData';
+import { CheckGroupData } from './CheckGroup';
 
 export interface CheckGroupControllerProps
     extends Omit<CheckBoxProps, 'onValueInput' | 'value' | 'indeterminate'> {

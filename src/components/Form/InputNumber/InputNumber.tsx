@@ -3,7 +3,8 @@ import { JSX, JSXElement, lazy, mergeProps, Suspense } from 'solid-js';
 
 import { Icon } from '../../Icon';
 import { Space } from '../../Space';
-import { defaultSlot, useEventController } from '../../_util/defaultSlot';
+import { defaultSlot } from '../../_util/defaultSlot';
+import { useEventController } from '@cn-ui/use';
 export interface InputNumberProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: number | Atom<number>;

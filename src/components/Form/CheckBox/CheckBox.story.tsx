@@ -2,7 +2,7 @@ import { Message } from '../../Message';
 import { Space } from '../../Space';
 import { atom, reflect } from '@cn-ui/use';
 import { CheckBox } from './CheckBox';
-import { CheckGroup } from './CheckGroupData';
+import { CheckGroup } from './CheckGroup';
 import { CheckGroupController, useCheckGroup } from './CheckGroupController';
 import { Button } from '../../Button';
 

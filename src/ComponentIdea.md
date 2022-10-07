@@ -79,14 +79,22 @@ const UserComp = () => {
 ## 4. Closable Event <可熔断事件流>
 
 ```tsx
+import { useEventController, emitEvent } from '@cn-ui/use';
 const Comp = (props) => {
     const disabled = atomization(props.disabled ?? false);
     const control = useEventController({ disabled });
     <div
         class="sub flex items-center"
         onClick={control(
-            (...args) => props.onClick && props.onClick(...args),
-            () => {}
+            [
+                // 向外部暴露事件，同时如果外部返回 false， 熔断执行
+                emitEvent(props.onValueInput, ([e]: [Event]) => [e, !value()] as const),
+                async (e) => {
+                    value((i) => !i);
+                },
+            ],
+            // 是否采用 batch 更新
+            { batch: true }
         )}
     >
         这是一个组件

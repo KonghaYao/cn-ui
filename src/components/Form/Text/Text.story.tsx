@@ -3,7 +3,7 @@ import { Message } from '../../Message';
 import { Space } from '../../Space';
 import { atom, reflect } from '@cn-ui/use';
 import { CheckBox } from '../CheckBox/CheckBox';
-import { CheckGroup } from '../CheckBox/CheckGroupData';
+import { CheckGroup } from '../CheckBox/CheckGroup';
 import { CheckGroupController } from '../CheckBox/CheckGroupController';
 
 export const Controller = [
