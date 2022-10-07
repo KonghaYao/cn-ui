@@ -3,7 +3,7 @@ import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon } from '../../Icon';
 import { Space } from '../../Space';
-export interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
+interface TextProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<string>;
     placeholder?: string;
@@ -18,7 +18,6 @@ export interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
     showWordLimit?: boolean;
     icon?: JSXElement;
 }
-interface TextProps extends PasswordScoreProps {}
 export const InputText = OriginComponent<TextProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const value = atomization(props.value ?? '');

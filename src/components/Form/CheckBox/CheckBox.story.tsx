@@ -25,7 +25,7 @@ const sleep = (ms) =>
 export default (props) => {
     const checkbox = atom(true);
     const groupController = ['用户', '姓名', '操作'].map((i) => {
-        return { value: atom(false), children: i };
+        return { value: atom(false), disabled: props.disabled, children: i };
     });
     const { inverse } = useCheckGroup(groupController);
     return (
