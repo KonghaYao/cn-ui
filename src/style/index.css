@@ -1,4 +1,5 @@
 @import url('./tailwind.css');
 @import url('./element.less');
 @import url('./setting.css');
+@import url('./scrollbar.css');
 @import url('animate.css/source/_base.css');

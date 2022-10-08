@@ -16,9 +16,14 @@
     appearance: none;
     width: 20px;
     height: 20px;
+    border-radius: 50%;
+
     border: 1px solid transparent;
     margin-top: -8px;
     border-image: linear-gradient(var(--range-color, #3b82f6), var(--range-color, #3b82f6)) 0 fill /
         10 20 10 0 / 0px 0px 0 100vw;
-    @apply bg-blue-500;
+    @apply bg-blue-500 transition-transform;
+}
+[type='range']::-webkit-slider-thumb:hover {
+    transform: scale(0.7);
 }

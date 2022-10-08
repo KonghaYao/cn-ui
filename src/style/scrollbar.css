@@ -1,0 +1,24 @@
+::-webkit-scrollbar {
+    width: 10px;
+    height: 0;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-right: 4px solid transparent;
+    background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.16);
+}
+
+.scroll-box:hover::-webkit-scrollbar-thumb,
+main:hover::-webkit-scrollbar-thumb,
+div:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.16);
+}
+.scroll-box-none::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}

@@ -15,11 +15,11 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
             <For each={options()}>
                 {(subArray, index) => {
                     return (
-                        <div class="flex-1 flex flex-col overflow-x-auto">
+                        <div class="flex-1 flex flex-col overflow-x-auto scroll-box-none">
                             <For each={subArray}>
                                 {(item) => (
                                     <div
-                                        class="text-center"
+                                        class="text-center  text-ellipsis whitespace-nowrap"
                                         classList={{
                                             'bg-gray-100': item === value()[index()],
                                         }}

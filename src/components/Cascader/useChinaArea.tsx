@@ -38,9 +38,10 @@ export const useChinaArea = (value: Atom<string[]>) => {
             .filter((i) => i[0].startsWith(provinceCode))
             .map((i) => i[1]);
 
-        const cityCode = (
-            findCodeByName(city, areaList.county_list) || provinceCode + '0101'
-        ).slice(0, 4);
+        const cityCode = (findCodeByName(city, areaList.city_list) || provinceCode + '0101').slice(
+            0,
+            4
+        );
         const countyList = countyEntry.filter((i) => i[0].startsWith(cityCode)).map((i) => i[1]);
         // console.log(cityList);
         return [provinceList, cityList, countyList];
