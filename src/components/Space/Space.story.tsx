@@ -13,7 +13,7 @@ export const Controller = [
 
     {
         type: 'select',
-        default: 'medium',
+        default: 'mini',
         prop: 'size',
         options: ['mini', 'small', 'medium', 'large'].map((i) => ({
             value: i,
