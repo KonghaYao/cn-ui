@@ -9,7 +9,7 @@ import { Icon } from '../Icon';
 import { DefaultIcon } from '../Icon/DefaultIcon';
 
 const CompMap = new Map<stringTag, JSXElement>([
-    ['success', () => <DefaultIcon name="check" color="green" size={50}></DefaultIcon>],
+    ['success', () => <DefaultIcon name="check_circle" color="green" size={50}></DefaultIcon>],
     ['error', () => <DefaultIcon name="close" color="red" size={50}></DefaultIcon>],
     ['info', () => <DefaultIcon name="info" color="blue" size={50}></DefaultIcon>],
     ['warning', () => <DefaultIcon name="info" color="orange" size={50}></DefaultIcon>],

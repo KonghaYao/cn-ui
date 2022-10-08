@@ -36,6 +36,7 @@
         "@cn-ui/swiper": "workspace:",
         "@cn-ui/use": "workspace:",
         "@fontsource/material-icons": "^4.5.4",
+        "@fontsource/material-icons-rounded": "^4.5.4",
         "animate.css": "3",
         "copy-to-clipboard": "^3.3.2",
         "lodash-es": "^4.17.21",

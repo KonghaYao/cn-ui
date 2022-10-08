@@ -1,29 +1,5 @@
 import { Box } from './index';
-export const Controller = [
-    {
-        type: 'switch',
-        default: false,
-        prop: 'wrap',
-    },
-    {
-        type: 'switch',
-        default: false,
-        prop: 'vertical',
-    },
-
-    {
-        type: 'select',
-        default: 'medium',
-        prop: 'size',
-        options: ['mini', 'small', 'medium', 'large'].map((i) => ({
-            value: i,
-        })),
-    },
-];
-
-import 'animate.css/source/fading_entrances/fadeInDown.css';
-import 'animate.css/source/fading_exits/fadeOutUp.css';
-import { Icon } from '../Icon';
+export const Controller = [];
 import { Image } from '../Image';
 import { Result } from './Result';
 export default (props) => {
@@ -42,16 +18,16 @@ export default (props) => {
                 ></Box>
             </div>
             <div style={baseStyle}>
-                <Result icon="success" title="数据为空"></Result>
+                <Result icon="success" title="数据为空" subTitle="这是一些描述信息"></Result>
             </div>
             <div style={baseStyle}>
-                <Result icon="error" title="数据为空"></Result>
+                <Result icon="error" title="数据为空" subTitle="这是一些描述信息"></Result>
             </div>
             <div style={baseStyle}>
-                <Result icon="info" title="数据为空"></Result>
+                <Result icon="info" title="数据为空" subTitle="这是一些描述信息"></Result>
             </div>
             <div style={baseStyle}>
-                <Result icon="warning" title="数据为空"></Result>
+                <Result icon="warning" title="数据为空" subTitle="这是一些描述信息"></Result>
             </div>
         </>
     );

@@ -9,6 +9,7 @@ importers:
       '@cn-ui/swiper': 'workspace:'
       '@cn-ui/use': 'workspace:'
       '@fontsource/material-icons': ^4.5.4
+      '@fontsource/material-icons-rounded': ^4.5.4
       '@solidjs/router': ^0.4.3
       '@tailwindcss/line-clamp': ^0.4.2
       '@types/fs-extra': ^9.0.13
@@ -41,6 +42,7 @@ importers:
       '@cn-ui/swiper': link:package/swiper
       '@cn-ui/use': link:package/use
       '@fontsource/material-icons': registry.npmmirror.com/@fontsource/material-icons/4.5.4
+      '@fontsource/material-icons-rounded': 4.5.4
       animate.css: 3.7.2
       copy-to-clipboard: 3.3.2
       lodash-es: 4.17.21
@@ -1665,6 +1667,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@fontsource/material-icons-rounded/4.5.4:
+    resolution: {integrity: sha512-zBrzaDzj//EJiuz9+yaL3uvYhqGcGXxewrwWy0fqHibOivNE9mlYtIjgibNRjEmS0eRXUu9h3TNmahlLwj3JvQ==}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.7:
     resolution: {integrity: sha512-MDl6D6sBsaV452/QSdX+4CXIjZhIcI0PELsxUjk4U828yd58vk3bTIvk/6w5FY+4hIy9sLW0sfrV7K7Kc++j/w==}

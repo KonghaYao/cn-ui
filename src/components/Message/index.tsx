@@ -73,7 +73,7 @@ export class Message {
     static success(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'success',
-            icon: () => DefaultIcon({ name: 'check', color: 'green' }),
+            icon: () => DefaultIcon({ name: 'check_circle', color: 'green' }),
         });
     }
     static loading(config: MessageData | string) {

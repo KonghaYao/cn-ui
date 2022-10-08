@@ -1,6 +1,6 @@
-/* @import url('@fontsource/material-icons/index.css'); */
+@import url('@fontsource/material-icons-rounded/index.css');
 .cn-icon-font {
-    font-family: var(--cn-icon, 'Material Icons');
+    font-family: var(--cn-icon, 'Material Icons Rounded');
 }
 .cn-icon-font.spin {
     animation: rotate-center 1s linear infinite both;
