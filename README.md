@@ -2,12 +2,13 @@
 -   [x] https://www.npmjs.com/package/viewerjs
 -   [x] https://github.com/itaditya/solid-command-palette
 -   [x] Tippy.js
+-   [x] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
 -   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
 -   [ ] https://github.com/upload-io/uploader#installation
 -   [ ] http://sortablejs.github.io/Sortable/
--   [ ] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/
 -   [ ] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/
 -   [ ] spinners https://github.com/craigjennings11/wc-spinners
+-   [ ] https://perfectscrollbar.com/#section-intro

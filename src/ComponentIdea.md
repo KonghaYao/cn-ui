@@ -76,7 +76,7 @@ const UserComp = () => {
 };
 ```
 
-## 4. Closable Event <可熔断事件流>
+## 4. Closable Event Flow <可熔断事件流>
 
 ```tsx
 import { useEventController, emitEvent } from '@cn-ui/use';

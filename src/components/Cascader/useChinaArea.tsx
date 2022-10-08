@@ -11,6 +11,8 @@ const findCodeByName = (name: string, obj: { [k: string]: string }) => {
 };
 
 const countyEntry = Object.entries(areaList.county_list);
+
+/** @zh 搜索中国省市区域 */
 export const searchChinaArea = () => {
     /** 因为地区不长，没有必要进行 fuse.js 加载 */
     return (searchText: string) => {
@@ -20,6 +22,9 @@ export const searchChinaArea = () => {
     };
 };
 
+/**
+ * @zh 中国地区的数据查询，配合 Cascader 使用
+ */
 export const useChinaArea = (value: Atom<string[]>) => {
     const provinceList = Object.values(areaList.province_list);
     const options = reflect(() => {
