@@ -43,7 +43,7 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
                 const cn =
                     typeof props.className === 'function' ? props.className() : props.className;
                 const cl =
-                    typeof props.classList === 'function' ? props.classList() : props.className;
+                    typeof props.classList === 'function' ? props.classList() : props.classList;
                 return classNames(c, cn, cl, ...args);
             })();
         };

@@ -12,6 +12,7 @@ import { Icon } from '../../Icon';
 interface RateProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<number>;
+
     allowHalf?: boolean;
 }
 
@@ -21,10 +22,17 @@ export const Rate = OriginComponent<RateProps>((props) => {
     let keepVal = value();
     const control = useEventController({ disabled });
     let colorRef: HTMLInputElement;
+    const getRate = (e) => {
+        if (props.allowHalf && e.offsetX < 12) {
+            return 0.5;
+        } else {
+            return 1;
+        }
+    };
     return (
         <>
             <div
-                class="w-fit text-gray-100 text-2xl"
+                class="w-fit text-gray-200 text-2xl"
                 onmouseenter={() => {
                     keepVal = value();
                 }}
@@ -36,27 +44,30 @@ export const Rate = OriginComponent<RateProps>((props) => {
                     return (
                         <Icon
                             name="star"
+                            class="cursor-pointer relative"
                             classList={{
-                                'text-orange-400': value() > i,
+                                'text-yellow-400': value() > i,
                             }}
                             onMouseMove={(e) => {
-                                if (props.allowHalf && e.offsetX < 12) {
-                                    value(i + 0.5);
-                                } else {
-                                    value(i + 1);
-                                }
+                                value(getRate(e) + i);
                             }}
                             onClick={(e) => {
-                                if (props.allowHalf && e.offsetX < 12) {
-                                    value(i + 0.5);
-                                } else {
-                                    value(i + 1);
-                                }
+                                value(getRate(e) + i);
                                 keepVal = value();
                             }}
-                        ></Icon>
+                        >
+                            <div
+                                class="absolute right-0 top-0 h-full pointer-events-none"
+                                classList={{
+                                    'backdrop-grayscale': value() === i + 0.5,
+                                }}
+                                style="width:50%"
+                            >
+                                half
+                            </div>
+                        </Icon>
                     );
-                })}{' '}
+                })}
                 {value()}
             </div>
         </>

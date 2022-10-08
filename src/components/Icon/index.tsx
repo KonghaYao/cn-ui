@@ -46,6 +46,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
             onMouseMove={props.onMouseMove}
         >
             {props.name}
+            {props.children}
         </nav>
     );
 });
