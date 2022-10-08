@@ -22,10 +22,10 @@ export interface InputNumberProps extends JSX.HTMLAttributes<HTMLDivElement> {
 export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const value = atomization(props.value ?? 0);
-
+    let inputRef: HTMLInputElement;
     const control = useEventController({ disabled });
-    // TODO 这里有精度问题！
-    const { add, sub } = useStep(value, props);
+    // fixed 这里有精度问题！所以采用原生的加减以解决
+    // const { add, sub } = useStep(value, props);
     return (
         <div
             class={props.class(
@@ -37,7 +37,12 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 'cursor-not-allowed': disabled(),
             }}
         >
-            <div class="sub flex items-center" onClick={control(sub)}>
+            <div
+                class="sub flex items-center"
+                onClick={control(() => {
+                    inputRef.stepDown();
+                })}
+            >
                 {props.button &&
                     defaultSlot(
                         <Icon
@@ -49,6 +54,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
             </div>
 
             <input
+                ref={inputRef}
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
                 class="flex-1 appearance-none outline-none bg-gray-100 "
@@ -57,12 +63,18 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 step={props.step}
                 type={'number'}
                 value={value()}
+                inputmode="decimal"
                 oninput={control((e) => {
                     let newValue = (e.target as any).value;
                     value(newValue);
                 })}
             ></input>
-            <div class="add flex items-center" onClick={control(add)}>
+            <div
+                class="add flex items-center"
+                onClick={control(() => {
+                    inputRef.stepUp();
+                })}
+            >
                 {props.button &&
                     defaultSlot(
                         <Icon name="add" class="px-2 hover:bg-gray-200 transition-colors"></Icon>,
