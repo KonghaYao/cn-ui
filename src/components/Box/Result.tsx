@@ -6,8 +6,14 @@ interface ResultProps extends Omit<BoxProps, 'icon'> {
 }
 import { Box, BoxProps } from './index';
 import { Icon } from '../Icon';
+import { DefaultIcon } from '../Icon/DefaultIcon';
 
-const CompMap = new Map<stringTag, JSXElement>([['success', () => <Icon name="check"></Icon>]]);
+const CompMap = new Map<stringTag, JSXElement>([
+    ['success', () => <DefaultIcon name="check" color="green" size={50}></DefaultIcon>],
+    ['error', () => <DefaultIcon name="close" color="red" size={50}></DefaultIcon>],
+    ['info', () => <DefaultIcon name="info" color="blue" size={50}></DefaultIcon>],
+    ['warning', () => <DefaultIcon name="info" color="orange" size={50}></DefaultIcon>],
+]);
 /**
  * @zh Result 是状态标识页面
  */

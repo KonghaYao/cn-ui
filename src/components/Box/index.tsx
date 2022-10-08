@@ -21,7 +21,7 @@ export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
         >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}
-                <div>{props.title}</div>
+                <div class="text-gray-600 font-bold">{props.title}</div>
                 <div class="description text-sm font-thin text-gray-400">{props.subTitle}</div>
                 {props.children}
             </div>

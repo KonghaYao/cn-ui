@@ -22,7 +22,12 @@ export const MessageCard = OriginComponent<MessageProps>((props) => {
             <span>{props.icon}</span>
             <span>{props.content}</span>
             {props.closable && (
-                <DefaultIcon name="close" color="gray" onClick={close}></DefaultIcon>
+                <DefaultIcon
+                    class="h-5 w-5"
+                    name="close"
+                    color="gray"
+                    onClick={close}
+                ></DefaultIcon>
             )}
         </div>
     );

@@ -38,9 +38,12 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
     return (
         <nav
             ref={props.ref}
-            class={props.class('cn-icon-font inline-block select-none leading-none origin-center', {
-                spin: props.spin ?? false,
-            })}
+            class={props.class(
+                'cn-icon-font inline-flex items-center justify-center select-none leading-none origin-center',
+                {
+                    spin: props.spin ?? false,
+                }
+            )}
             style={{ ...props.style, 'font-size': fontSize() }}
             onClick={props.onClick}
             onMouseMove={props.onMouseMove}

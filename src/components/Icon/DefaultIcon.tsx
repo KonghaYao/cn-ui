@@ -2,10 +2,12 @@ import { Component, JSX } from 'solid-js';
 import { Icon } from './index';
 import { IconProps } from './interface';
 
-export const DefaultIcon: Component<IconProps & { color: string }> = (props) => {
+export const DefaultIcon: Component<
+    IconProps & { color: 'red' | 'green' | 'orange' | 'gray' | 'blue' }
+> = (props) => {
     return (
         <span
-            class="cn-icon-wrapper h-5 w-5 inline-flex justify-center items-center rounded-full cursor-pointer"
+            class="cn-icon-wrapper p-2 inline-flex justify-center items-center rounded-full cursor-pointer"
             classList={{
                 'bg-red-100 text-red-500': props.color === 'red',
                 'bg-green-100 text-green-500': props.color === 'green',

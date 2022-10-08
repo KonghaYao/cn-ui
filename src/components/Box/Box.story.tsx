@@ -25,16 +25,11 @@ import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { Icon } from '../Icon';
 import { Image } from '../Image';
+import { Result } from './Result';
 export default (props) => {
     const baseStyle = { height: '200px', width: '100%' };
     return (
         <>
-            <div style={baseStyle}>
-                <Box
-                    icon={<Icon name="error" size={50} class="text-red-400"></Icon>}
-                    subTitle="发生了错误"
-                ></Box>
-            </div>
             <div style={baseStyle}>
                 <Box
                     icon={
@@ -45,6 +40,18 @@ export default (props) => {
                     }
                     subTitle="数据为空"
                 ></Box>
+            </div>
+            <div style={baseStyle}>
+                <Result icon="success" title="数据为空"></Result>
+            </div>
+            <div style={baseStyle}>
+                <Result icon="error" title="数据为空"></Result>
+            </div>
+            <div style={baseStyle}>
+                <Result icon="info" title="数据为空"></Result>
+            </div>
+            <div style={baseStyle}>
+                <Result icon="warning" title="数据为空"></Result>
             </div>
         </>
     );
