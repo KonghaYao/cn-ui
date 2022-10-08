@@ -43,6 +43,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
             })}
             style={{ ...props.style, 'font-size': fontSize() }}
             onClick={props.onClick}
+            onMouseMove={props.onMouseMove}
         >
             {props.name}
         </nav>

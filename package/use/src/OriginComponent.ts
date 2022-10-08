@@ -15,8 +15,9 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
     Omit<T, 'style' | 'class'> & {
         ref?: RefType | ((el: RefType) => void);
         style?: string | JSX.CSSProperties;
-        className?: string | string[] | ((...args: any[]) => string);
-        class?: string | string[] | ((...args: any[]) => string);
+        className?: string | string[] | typeof classNames;
+        class?: string | string[] | typeof classNames;
+        classList?: { [k: string]: boolean } | typeof classNames;
     }
 > => {
     return (props) => {
@@ -41,7 +42,9 @@ export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType =
                 const c = typeof props.class === 'function' ? props.class() : props.class;
                 const cn =
                     typeof props.className === 'function' ? props.className() : props.className;
-                return classNames(c, cn, ...args);
+                const cl =
+                    typeof props.classList === 'function' ? props.classList() : props.className;
+                return classNames(c, cn, cl, ...args);
             })();
         };
         let _props_ = mergeProps(props, {

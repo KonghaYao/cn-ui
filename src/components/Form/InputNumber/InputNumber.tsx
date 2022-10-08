@@ -24,6 +24,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const value = atomization(props.value ?? 0);
 
     const control = useEventController({ disabled });
+    // TODO 这里有精度问题！
     const { add, sub } = useStep(value, props);
     return (
         <div
