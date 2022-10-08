@@ -1,7 +1,6 @@
 import { Component, createMemo } from 'solid-js';
 import './style/index.css';
 
-import { loadLink } from '../_util/loadLink';
 import { IconProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
 export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
