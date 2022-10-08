@@ -26,15 +26,16 @@ import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { Icon } from '../Icon';
 import { Image } from '../Image';
 export default (props) => {
+    const baseStyle = { height: '200px', width: '100%' };
     return (
         <>
-            <div style={{ height: '200px', width: '100%' }}>
+            <div style={baseStyle}>
                 <Box
                     icon={<Icon name="error" size={50} class="text-red-400"></Icon>}
-                    description="发生了错误"
+                    subTitle="发生了错误"
                 ></Box>
             </div>
-            <div style={{ height: '200px', width: '100%' }}>
+            <div style={baseStyle}>
                 <Box
                     icon={
                         <Image
@@ -42,7 +43,7 @@ export default (props) => {
                             style={{ 'max-width': '70%', 'max-height': '70%', overflow: 'hidden' }}
                         ></Image>
                     }
-                    description="数据为空"
+                    subTitle="数据为空"
                 ></Box>
             </div>
         </>

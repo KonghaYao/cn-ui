@@ -8,24 +8,32 @@ const defaultProps: SpaceProps = {
     size: 'mini',
 };
 
+const spaceSize = {
+    mini: 0.25,
+    small: 0.5,
+    medium: 0.75,
+    large: 1,
+};
 export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => {
     const { componentConfig, rtl } = GlobalConfigStore;
     const props = mergeProps(defaultProps, componentConfig?.Space, baseProps);
 
     const style = createMemo(() => {
         // 需要在 CSS 中进行层叠计算，故使用变量方式
-        const size =
-            typeof props.size === 'string' ? `var(--spacing-${props.size})` : props.size + 'px';
+        const size = (typeof props.size === 'string' ? spaceSize[props.size] : props.size) + 'em';
         return { ...props.style, '--space-size': size };
     });
 
     return (
         <div
             ref={props.ref}
-            class={props.class('cn-space', 'flex items-center')}
+            class={props.class(
+                'cn-space',
+                props.vertical && 'w-fit flex-col inline-flex',
+                'flex items-center',
+                props.wrap && 'flex-wrap'
+            )}
             classList={{
-                vertical: props.vertical,
-                [`wrap`]: props.wrap,
                 [`rtl`]: rtl,
             }}
             style={style()}

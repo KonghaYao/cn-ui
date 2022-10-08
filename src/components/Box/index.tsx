@@ -1,9 +1,10 @@
 import { Component, JSX, JSXElement } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 
-interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
-    description?: string;
+    title?: string;
+    subTitle?: string;
     icon: JSXElement;
 }
 /**
@@ -20,7 +21,8 @@ export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
         >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}
-                <div class="description text-sm font-thin text-gray-400">{props.description}</div>
+                <div>{props.title}</div>
+                <div class="description text-sm font-thin text-gray-400">{props.subTitle}</div>
                 {props.children}
             </div>
         </div>

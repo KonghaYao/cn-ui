@@ -7,7 +7,7 @@ import './style/index.less';
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
-import { DefaultIcon } from './DefaultIcon';
+import { DefaultIcon } from '../Icon/DefaultIcon';
 const Root = () => {
     return (
         <Position

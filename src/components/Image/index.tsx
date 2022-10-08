@@ -59,13 +59,13 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
                 <Match when={props.showLoading && loading()}>
                     <Box
                         icon={<Icon name="refresh" spin size={props.iconSize}></Icon>}
-                        description="加载中"
+                        subTitle="加载中"
                     ></Box>
                 </Match>
                 <Match when={props.showError && error()}>
                     <Box
                         icon={<Icon name="error" size={props.iconSize}></Icon>}
-                        description="图片加载错误"
+                        subTitle="图片加载错误"
                     ></Box>
                 </Match>
             </Switch>

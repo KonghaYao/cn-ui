@@ -1,10 +1,8 @@
 import { Component, JSX } from 'solid-js';
-import { Icon } from '../Icon';
-import { IconNames } from '../Icon/IconNames';
+import { Icon } from './index';
+import { IconProps } from './interface';
 
-export const DefaultIcon: Component<
-    JSX.HTMLAttributes<HTMLSpanElement> & { name: IconNames; color: string; spin?: boolean }
-> = (props) => {
+export const DefaultIcon: Component<IconProps & { color: string }> = (props) => {
     return (
         <span
             class="cn-icon-wrapper h-5 w-5 inline-flex justify-center items-center rounded-full cursor-pointer"
@@ -15,9 +13,8 @@ export const DefaultIcon: Component<
                 'bg-gray-100 text-gray-500': props.color === 'gray',
                 'bg-blue-100 text-blue-500': props.color === 'blue',
             }}
-            {...props}
         >
-            <Icon name={props.name} spin={props.spin}></Icon>
+            <Icon {...props}></Icon>
         </span>
     );
 };

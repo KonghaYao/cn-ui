@@ -2,7 +2,7 @@ import { ComponentProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { MessageProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
-import { DefaultIcon } from './DefaultIcon';
+import { DefaultIcon } from '../Icon/DefaultIcon';
 
 /** 渲染存在的数据 */
 export const [MessageQueue, setMessage] = createStore<MessageData[]>([]);
@@ -22,7 +22,7 @@ export const MessageCard = OriginComponent<MessageProps>((props) => {
             <span>{props.icon}</span>
             <span>{props.content}</span>
             {props.closable && (
-                <DefaultIcon name="close" color="gray" onclick={close}></DefaultIcon>
+                <DefaultIcon name="close" color="gray" onClick={close}></DefaultIcon>
             )}
         </div>
     );

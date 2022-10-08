@@ -1,14 +1,6 @@
 .cn-space {
-    --space-size: var(--spacing-medium);
-    display: flex;
-    &.wrap {
-        flex-wrap: wrap;
-    }
+    --space-size: 4px;
     & > * {
         margin: calc(var(--space-size) / 2) var(--space-size);
-    }
-    &.vertical {
-        flex-direction: column;
-        width: fit-content;
     }
 }
