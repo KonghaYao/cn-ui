@@ -25,7 +25,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
     return (
         <div
             class={props.class(
-                'w-full flex items-center bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-gray-500'
+                'w-full flex items-center bg-slate-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-slate-500'
             )}
             style={props.style}
             ref={props.ref}
@@ -34,7 +34,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
             <input
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 outline-none bg-gray-100 "
+                class="flex-1 outline-none bg-slate-100 "
                 classList={{
                     'cursor-not-allowed': disabled(),
                 }}

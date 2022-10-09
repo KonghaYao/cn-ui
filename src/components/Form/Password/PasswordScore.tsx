@@ -14,7 +14,7 @@ export const PasswordScore = OriginComponent<PasswordScoreProps>((props) => {
                 {(item) => {
                     return (
                         <div
-                            class=" h-1 flex-1 mx-1 rounded bg-gray-300 transition"
+                            class=" h-1 flex-1 mx-1 rounded bg-slate-300 transition"
                             classList={{
                                 // tailwind 的一个毛病，只有写在 class 中才会被识别。。。
                                 [reflect(() => {

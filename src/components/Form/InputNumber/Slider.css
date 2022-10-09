@@ -6,7 +6,7 @@
 }
 [type='range']::-webkit-slider-runnable-track {
     height: 4px;
-    @apply bg-gray-200;
+    @apply bg-slate-200;
 }
 [type='range' i]::-webkit-slider-container {
     height: 20px;

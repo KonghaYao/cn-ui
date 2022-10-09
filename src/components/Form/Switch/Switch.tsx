@@ -20,7 +20,7 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
     return (
         <button
             class={props.class(
-                'rounded-2xl w-12 h-6 shadow-inner bg-gray-200 transition-all duration-300 ease-in-out'
+                'rounded-2xl w-12 h-6 shadow-inner bg-slate-200 transition-all duration-300 ease-in-out'
             )}
             classList={{
                 'bg-blue-500': value(),

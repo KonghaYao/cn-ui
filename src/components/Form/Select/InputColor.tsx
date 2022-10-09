@@ -21,7 +21,7 @@ export const InputColor = OriginComponent<InputColorProps>((props) => {
     return (
         <>
             <div
-                class="h-6 w-6 inline-block leading-0 border-2 border-solid border-gray-400 rounded-full"
+                class="h-6 w-6 inline-block leading-0 border-2 border-solid border-slate-400 rounded-full"
                 style={{
                     'background-color': value(),
                 }}

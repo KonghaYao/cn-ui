@@ -94,7 +94,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
         <div
             ref={props.ref as any}
             class={props.class(
-                'cn-collapse-item border-b border-solid border-gray-200 box-border flex flex-col overflow-hidden h-full'
+                'cn-collapse-item border-b border-solid border-slate-200 box-border flex flex-col overflow-hidden h-full'
             )}
             style={props.style}
             classList={{
@@ -115,7 +115,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
                 {props.header}
             </nav>
             <nav
-                class="cn-collapse-container bg-gray-100 "
+                class="cn-collapse-container bg-slate-100 "
                 classList={{
                     show: isExpanded(),
                     hide: !isExpanded(),

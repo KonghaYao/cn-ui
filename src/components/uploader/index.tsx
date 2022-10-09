@@ -64,7 +64,7 @@ export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props)
             }}
         >
             <Mask
-                class={props.class('cn-uploader  w-full h-full bg-gray-50 p-4')}
+                class={props.class('cn-uploader  w-full h-full bg-slate-50 p-4')}
                 style={props.style}
                 ref={props.ref}
                 {...useDragUpload({
@@ -91,7 +91,7 @@ export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props)
                 ></input>
                 <Position full class="p-4 " top="0" left="0" inactive>
                     <div
-                        class=" h-full w-full  duration-300 transition-colors border-2 border-dashed  border-gray-300 rounded-xl "
+                        class=" h-full w-full  duration-300 transition-colors border-2 border-dashed  border-slate-300 rounded-xl "
                         classList={{
                             'border-blue-600': isDragging(),
                         }}

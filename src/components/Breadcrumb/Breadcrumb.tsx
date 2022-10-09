@@ -13,7 +13,7 @@ export const Breadcrumb = OriginComponent<BreadcrumbProps>((props) => {
     return (
         <div
             class={props.class(
-                'flex px-4 py-1 cursor-pointer bg-slate-100 rounded-lg text-gray-600'
+                'flex px-4 py-1 cursor-pointer bg-slate-100 rounded-lg text-slate-600'
             )}
             style={props.style}
             ref={props.ref}

@@ -10,7 +10,7 @@ export const DefaultLabel = OriginComponent<LabelProps, HTMLLabelElement>((props
     return (
         <label
             {...props}
-            class={props.class('cn-form-label inline-block text-gray-800')}
+            class={props.class('cn-form-label inline-block text-slate-800')}
             style={props.style}
         >
             {props.children}
@@ -54,7 +54,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             )}
         >
             <span
-                class="cn-check appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 "
+                class="cn-check appearance-none h-4 w-4 border border-slate-300 rounded-sm bg-white  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 "
                 classList={{
                     indeterminate: indeterminate(),
                 }}

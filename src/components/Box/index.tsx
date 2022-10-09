@@ -15,14 +15,14 @@ export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
         <div
             ref={props.ref}
             class={props.class(
-                'cn-box h-full box-border flex flex-col justify-center items-center bg-gray-50'
+                'cn-box h-full box-border flex flex-col justify-center items-center bg-slate-50'
             )}
             style={props.style}
         >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}
-                <div class="text-gray-600 font-bold my-2">{props.title}</div>
-                <div class="description text-sm font-thin text-gray-400">{props.subTitle}</div>
+                <div class="text-slate-600 font-bold my-2">{props.title}</div>
+                <div class="description text-sm font-thin text-slate-400">{props.subTitle}</div>
                 {props.children}
             </div>
         </div>

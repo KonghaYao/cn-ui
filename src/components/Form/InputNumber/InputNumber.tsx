@@ -30,7 +30,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     return (
         <div
             class={props.class(
-                'w-full flex items-center  bg-gray-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-gray-500'
+                'w-full flex items-center  bg-slate-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-slate-500'
             )}
             style={props.style}
             ref={props.ref}
@@ -48,7 +48,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                     defaultSlot(
                         <Icon
                             name="subject"
-                            class="px-2 hover:bg-gray-200 transition-colors"
+                            class="px-2 hover:bg-slate-200 transition-colors"
                         ></Icon>,
                         props.left
                     )}
@@ -58,7 +58,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 ref={inputRef}
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 appearance-none outline-none bg-gray-100 "
+                class="flex-1 appearance-none outline-none bg-slate-100 "
                 min={props.min}
                 max={props.max}
                 step={props.step}
@@ -78,7 +78,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
             >
                 {props.button &&
                     defaultSlot(
-                        <Icon name="add" class="px-2 hover:bg-gray-200 transition-colors"></Icon>,
+                        <Icon name="add" class="px-2 hover:bg-slate-200 transition-colors"></Icon>,
                         props.right
                     )}
             </div>

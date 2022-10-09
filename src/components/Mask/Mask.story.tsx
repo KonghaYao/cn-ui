@@ -21,7 +21,7 @@ export default (props) => {
                 {avatar()}
                 <Position right="0" bottom="0">
                     <div
-                        class="bg-gray-900 text-white"
+                        class="bg-slate-900 text-white"
                         style={{
                             'border-radius': '4px',
                         }}

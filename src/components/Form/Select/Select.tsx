@@ -26,7 +26,7 @@ const createOptionsList: () => Component<{
                 {(item) => {
                     return (
                         <div
-                            class="cursor-pointer hover:bg-gray-600 transition-colors duration-300 px-2 "
+                            class="cursor-pointer hover:bg-slate-600 transition-colors duration-300 px-2 "
                             onclick={() => props.onSelect(item)}
                         >
                             {item}
@@ -47,7 +47,7 @@ export const Select = OriginComponent<SelectProps>((props) => {
     return (
         <button
             class={props.class(
-                ' px-2 text-gray-700 rounded h-6 text-ellipsis overflow-hidden whitespace-nowrap bg-gray-200 transition-all duration-300 ease-in-out'
+                ' px-2 text-slate-700 rounded h-6 text-ellipsis overflow-hidden whitespace-nowrap bg-slate-200 transition-all duration-300 ease-in-out'
             )}
             classList={{
                 'opacity-70': disabled() || loading(),

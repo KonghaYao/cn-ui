@@ -32,7 +32,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
     return (
         <>
             <div
-                class="w-fit text-gray-200 text-2xl"
+                class="w-fit text-slate-200 text-2xl"
                 onmouseenter={() => {
                     keepVal = value();
                 }}
