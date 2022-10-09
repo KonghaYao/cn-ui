@@ -20,7 +20,8 @@ import { UploadWidget } from './UploaderWidget';
 import { Atom } from '@cn-ui/use';
 import { sha256 } from '../_util/sha256/sha256';
 import { UploadList } from './UploadList';
-import { ExFile, useDragUpload } from './useDragUpload';
+import { useDragUpload } from './useDragUpload';
+import { ExFile } from './ExFile';
 interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
 }

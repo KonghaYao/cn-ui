@@ -1,8 +1,5 @@
 import { Atom } from '@cn-ui/use';
-
-export interface ExFile extends File {
-    fullPath: string;
-}
+import { ExFile } from './ExFile';
 
 function readDirectory(directory: FileSystemDirectoryEntry) {
     return new Promise((resolve, reject) => {

@@ -1,10 +1,10 @@
 import { JSX, For } from 'solid-js';
 import { atom, OriginComponent, reflect } from '@cn-ui/use';
 import { Space } from '../Space';
-import { ExFile } from './useDragUpload';
+import { ExFile } from '../uploader/ExFile';
 import { Atom } from 'solid-use';
 import { Icon } from '../Icon';
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
 
 export interface ExplorerProps extends JSX.HTMLAttributes<HTMLDivElement> {
     Files: Atom<ExFile[]>;
