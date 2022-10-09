@@ -1,5 +1,5 @@
 import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
-import { OriginComponent } from '@cn-ui/use';
+import { OriginComponent, reflect } from '@cn-ui/use';
 import './style/index.less';
 export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     left?: string;
@@ -13,7 +13,7 @@ export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     /** @zh 是否触发 pointer-event */
     inactive?: boolean;
     'z-index'?: string;
-    children: JSXElement;
+    children?: JSXElement;
 }
 /** @zh 将组件布局到指定的位置 */
 export const Position = OriginComponent<PositionProps>((props) => {
@@ -25,16 +25,18 @@ export const Position = OriginComponent<PositionProps>((props) => {
         'z-index',
         'inset',
     ]);
-    let Style = mergeProps(style, others.style, {
-        width: props.full && '100%',
-        height: props.full && '100%',
+    const Style = reflect(() => {
+        return Object.assign({}, style, others.style, {
+            width: props.full && '100%',
+            height: props.full && '100%',
+        });
     });
     return (
         <span
             ref={props.ref}
             class={others.class('cn-position absolute')}
             classList={{ 'pointer-events-none': props.inactive }}
-            style={Style}
+            style={Style()}
         >
             {others.children}
         </span>

@@ -21,16 +21,17 @@ import { Atom } from '@cn-ui/use';
 import { UploadList } from './UploadList';
 import { useDragUpload } from './useDragUpload';
 import { ExFile } from './ExFile';
-interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
+export interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
     Files?: Atom<ExFile[]>;
 }
+
 export const UploaderContext = createContext<{
     Files: Atom<ExFile[]>;
     isDragging: Atom<boolean>;
     inputRef: Atom<HTMLInputElement | null>;
 }>();
-/** @zh  上传组件*/
+/** @zh  复合上传组件 */
 export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props) => {
     props = mergeProps(props);
     const Files = atomization(props.Files || []);
