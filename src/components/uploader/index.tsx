@@ -11,39 +11,20 @@ import {
 } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 
-import { atom, OriginComponent, reflect } from '@cn-ui/use';
+import { atom, atomization, OriginComponent, reflect } from '@cn-ui/use';
 import { Mask } from '../Mask';
 import { Position } from '../Mask/Position';
 import { Box } from '../Box';
 import { Button } from '../Button';
 import { UploadWidget } from './UploaderWidget';
 import { Atom } from '@cn-ui/use';
-import { sha256 } from '../_util/sha256/sha256';
 import { UploadList } from './UploadList';
 import { useDragUpload } from './useDragUpload';
 import { ExFile } from './ExFile';
 interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
+    Files?: Atom<ExFile[]>;
 }
-export type UploadFunc = (notify: UploaderNotify) => Promise<boolean>;
-export class UploaderNotify {}
-
-export class UploadController {
-    private shaStore = new WeakMap<ExFile, string>();
-    private shaList = new Set<string>();
-    uploadState: {} = {};
-    constructor(public uploader: UploadFunc) {}
-
-    async calcSha(file: ExFile) {
-        if (this.shaStore.has(file)) return this.shaStore.get(file);
-        const result = sha256(await file.arrayBuffer());
-        this.shaStore.set(file, result);
-        this.shaList.add(result);
-        return result;
-    }
-    upload(filePath: string) {}
-}
-
 export const UploaderContext = createContext<{
     Files: Atom<ExFile[]>;
     isDragging: Atom<boolean>;
@@ -52,7 +33,7 @@ export const UploaderContext = createContext<{
 /** @zh  上传组件*/
 export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props) => {
     props = mergeProps(props);
-    const Files = atom<ExFile[]>([]);
+    const Files = atomization(props.Files || []);
     const isDragging = atom(false);
     let inputRef = atom<HTMLInputElement | null>(null);
     return (

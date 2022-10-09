@@ -1,14 +1,23 @@
-import { JSX, For } from 'solid-js';
+import { JSX, For, JSXElement } from 'solid-js';
 import { atom, OriginComponent, reflect } from '@cn-ui/use';
 import { Space } from '../Space';
 import { ExFile } from '../Uploader/ExFile';
 import { Atom } from 'solid-use';
 import { Icon } from '../Icon';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
+import { useEventController } from '../_util/useEventController';
+interface Folder {
+    name: string;
+    fullPath: string;
+    isDirectory: true;
+}
 
 export interface ExplorerProps extends JSX.HTMLAttributes<HTMLDivElement> {
     Files: Atom<ExFile[]>;
-    onOpenFile?: (file: ExFile) => void;
+    onOpenFile?: (file: ExFile) => void | Promise<void>;
+    FolderExtra?: (folder: Folder) => JSXElement;
+    FileExtra?: (file: ExFile) => JSXElement;
+    onOpenFolder?: (folder: Folder) => void | Promise<void>;
 }
 
 export const Explorer = OriginComponent<ExplorerProps>((props) => {
@@ -30,34 +39,23 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
             return true;
         });
         return (
-            [...directorySet.values()]
-                .map((i) => {
-                    return { name: i, isDirectory: true };
-                })
-                // @ts-ignore
-                .concat(last)
-        );
+            [...directorySet.values()].map((i) => {
+                return { name: i, fullPath: nowPath + i, isDirectory: true };
+            }) as (Folder | ExFile)[]
+        ).concat(last);
     });
+    const control = useEventController({});
     return (
-        <div class="p-2">
+        <div class="p-2 h-full w-full flex flex-col">
             <Breadcrumb
                 list={now}
                 onTrigger={(index) => now((i) => i.slice(0, index))}
             ></Breadcrumb>
-            <Space vertical class="w-full">
+            <Space vertical class="w-full h-full overflow-auto flex-1">
                 <For each={nowList()}>
                     {(item) => {
                         return (
-                            <div
-                                class="text-left w-full flex items-center cursor-pointer"
-                                onClick={() => {
-                                    if (item.isDirectory) {
-                                        now((i) => i.concat(item.name));
-                                    } else {
-                                        props.onOpenFile && props.onOpenFile(item as any as ExFile);
-                                    }
-                                }}
-                            >
+                            <div class="text-left w-full flex items-center cursor-pointer">
                                 <Icon
                                     class="px-2"
                                     size="1.5em"
@@ -67,7 +65,29 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
                                         'text-teal-600': !item.isDirectory,
                                     }}
                                 ></Icon>
-                                <span>{item.name}</span>
+                                <span
+                                    class="flex-1 text-ellipsis overflow-hidden whitespace-nowrap"
+                                    onClick={control([
+                                        async () => {
+                                            if (item.isDirectory) {
+                                                return (
+                                                    props.onOpenFolder &&
+                                                    props.onOpenFolder(item as Folder)
+                                                );
+                                            } else {
+                                                props.onOpenFile &&
+                                                    (await props.onOpenFile(item as ExFile));
+                                                return false;
+                                            }
+                                        },
+                                        () => !!now((i) => i.concat(item.name)),
+                                    ])}
+                                >
+                                    {item.name}
+                                </span>
+                                {item.isDirectory
+                                    ? props.FolderExtra(item)
+                                    : props.FileExtra(item as ExFile)}
                             </div>
                         );
                     }}

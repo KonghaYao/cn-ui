@@ -2,18 +2,36 @@ import { JSX, useContext } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 import { UploaderContext } from './index';
 import { Explorer } from '../Explorer/Explorer';
+import { DefaultIcon } from '../Icon/DefaultIcon';
 
 export interface UploaderListProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 export const UploadList = OriginComponent<UploaderListProps>((props) => {
     const { Files } = useContext(UploaderContext);
     return (
-        <div class="h-full w-full overflow-auto">
-            <Explorer
-                Files={Files}
-                onOpenFile={(file) => {
-                    console.log(file);
-                }}
-            ></Explorer>
-        </div>
+        <Explorer
+            Files={Files}
+            onOpenFile={(file) => {
+                console.log(file);
+            }}
+            FileExtra={(file) => (
+                <DefaultIcon
+                    name="file_upload"
+                    color="blue"
+                    onClick={() => {
+                        // TODO 上传未完成
+                        console.log(file);
+                    }}
+                ></DefaultIcon>
+            )}
+            FolderExtra={(folder) => (
+                <DefaultIcon
+                    name="drive_folder_upload"
+                    color="blue"
+                    onClick={() => {
+                        console.log(folder);
+                    }}
+                ></DefaultIcon>
+            )}
+        ></Explorer>
     );
 });
