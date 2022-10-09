@@ -29,7 +29,7 @@ export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => 
             ref={props.ref}
             class={props.class(
                 'cn-space',
-                props.vertical && 'w-fit flex-col inline-flex',
+                props.vertical && 'flex-col inline-flex',
                 'flex items-center',
                 props.wrap && 'flex-wrap'
             )}
