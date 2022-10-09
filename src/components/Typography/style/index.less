@@ -11,12 +11,11 @@
 
     margin-top: 24px;
     padding: 48px;
-    color: var(--text-1);
-    background-color: var(--bg-5);
     border-radius: 2px 2px 0 0;
     font-family: var(--default-font);
     font-weight: 100;
     box-sizing: border-box;
+    @apply text-slate-800;
     /* 默认不显示下划线，保持页面简洁 */
     ins,
     a {
@@ -36,8 +35,7 @@
 
     /* 标记，类似于手写的荧光笔的作用 */
     mark {
-        background: var(--yellow-10);
-        border-bottom: 1px solid var(--yellow-8);
+        @apply bg-yellow-200 border-b border-solid border-yellow-600;
         padding: 2px;
         margin: 0 5px;
     }
@@ -49,10 +47,9 @@
         font-family: Courier, 'Courier New', monospace;
     }
     code {
-        background-color: var(--slate-10);
         border-radius: 0.2em;
         padding: 0 0.3em;
-        color: var(--success-5);
+        @apply bg-slate-100;
     }
 
     pre {
@@ -76,11 +73,10 @@
     }
     blockquote {
         position: relative;
-        color: var(--text-2);
         font-weight: 400;
-        border-left: 1px solid var(--link-4);
         padding-left: 1em;
         margin: 1em 3em 1em 2em;
+        @apply text-slate-400 border-l-4 border-solid border-slate-400;
     }
 
     /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
@@ -142,17 +138,9 @@
     table th,
     table td,
     table caption {
-        border: 1px solid var(--text-3);
         padding: 0.5em 1em;
-        color: var(--border);
-    }
 
-    table th {
-        background: var(--bg-4);
-    }
-
-    table thead th {
-        background: var(--bg-4);
+        @apply text-slate-700 border border-solid border-slate-700;
     }
 
     table caption {
@@ -162,14 +150,13 @@
     /* 去除 webkit 中 input 和 textarea 的默认样式  */
     input,
     textarea {
-        -webkit-appearance: none;
+        appearance: none;
         border-radius: 0;
     }
 
     em,
     legend,
     caption {
-        color: var(--text-1);
         font-weight: inherit;
     }
 
