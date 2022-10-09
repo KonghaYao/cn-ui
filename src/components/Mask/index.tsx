@@ -1,4 +1,12 @@
-import { Component, createEffect, JSXElement, mergeProps, createMemo, JSX } from 'solid-js';
+import {
+    Component,
+    createEffect,
+    JSXElement,
+    mergeProps,
+    createMemo,
+    JSX,
+    splitProps,
+} from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 import { MaskProps } from './interface';
@@ -10,15 +18,22 @@ export const Mask = OriginComponent<MaskProps & { children: JSXElement }, HTMLDi
         const { componentConfig, rtl } = GlobalConfigStore;
 
         props = mergeProps(componentConfig?.Mask, props);
+        const [events, others] = splitProps(props, [
+            'onClick',
+            'onDrop',
+            'onDragOver',
+            'onDragLeave',
+        ]);
 
         return (
             <div
-                class={props.class('cn-mask relative w-fit h-fit')}
+                class={props.class('cn-mask relative')}
                 classList={{
                     rtl: rtl,
                 }}
                 style={props.style}
                 ref={props.ref}
+                {...events}
             >
                 {props.children}
             </div>

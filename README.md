@@ -5,7 +5,7 @@
 -   [x] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
 -   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
--   [ ] https://github.com/upload-io/uploader#installation
+-   [ ] 借鉴 https://github.com/upload-io/uploader#installation
 -   [ ] http://sortablejs.github.io/Sortable/
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/

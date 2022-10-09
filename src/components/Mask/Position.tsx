@@ -6,21 +6,36 @@ export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     right?: string;
     top?: string;
     bottom?: string;
+    inset?: JSX.CSSProperties['inset'];
     /** @zh Mask 覆盖整个外框 */
     full?: boolean;
 
-    zIndex?: number;
+    /** @zh 是否触发 pointer-event */
+    inactive?: boolean;
+    'z-index'?: string;
     children: JSXElement;
 }
 /** @zh 将组件布局到指定的位置 */
 export const Position = OriginComponent<PositionProps>((props) => {
-    const [style, others] = splitProps(props, ['left', 'right', 'top', 'bottom', 'zIndex']);
+    const [style, others] = splitProps(props, [
+        'left',
+        'right',
+        'top',
+        'bottom',
+        'z-index',
+        'inset',
+    ]);
     let Style = mergeProps(style, others.style, {
         width: props.full && '100%',
         height: props.full && '100%',
     });
     return (
-        <span ref={props.ref} class={others.class('cn-position absolute')} style={Style}>
+        <span
+            ref={props.ref}
+            class={others.class('cn-position absolute')}
+            classList={{ 'pointer-events-none': props.inactive }}
+            style={Style}
+        >
             {others.children}
         </span>
     );
