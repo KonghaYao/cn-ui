@@ -1,5 +1,5 @@
 import { Component, JSX } from 'solid-js';
-import { Icon } from './index';
+import { Icon } from './Icon';
 import { IconProps } from './interface';
 
 export const DefaultIcon: Component<
