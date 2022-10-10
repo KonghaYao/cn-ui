@@ -6,12 +6,12 @@ import { UploadWidget } from './UploaderWidget';
 import { UploadExplorer } from './UploadExplorer';
 import { useDragUpload } from '../base/useDragUpload';
 import { UploaderContext } from '../base/UploaderContext';
-export interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
+export interface UploadPanelProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
 }
 
 /** @zh  复合上传组件 */
-export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props) => {
+export const UploadPanel = OriginComponent<UploadPanelProps, HTMLInputElement>((props) => {
     const { Files, isDragging } = useContext(UploaderContext);
 
     return (

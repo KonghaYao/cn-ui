@@ -7,14 +7,14 @@ import { UploadExplorer } from './UploadPanel/UploadExplorer';
 import { useDragUpload } from './base/useDragUpload';
 import { ExFile } from './base/ExFile';
 import { Icon } from '../Icon';
-import { UploaderProps } from './UploadPanel/UploadPanel';
+import { UploadPanelProps } from './UploadPanel/UploadPanel';
 import { UploaderContext } from './base/UploaderContext';
 import { UploadController, UploadFunc } from './base/UploadController';
 export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;
 }>();
-interface SimpleUploader extends UploaderProps {
+interface SimpleUploader extends UploadPanelProps {
     accept?: string;
     multiple?: boolean;
     limit?: number;

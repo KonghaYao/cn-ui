@@ -5,10 +5,8 @@ import { ExFile } from './ExFile';
 
 /** 开发者自定义的 Uploader，只需要进行上传和通知即可 */
 export type UploadFunc = (notify: UploaderNotify, files: ExFile[]) => Promise<boolean>;
-export interface UploaderNotify {
-    (a: number): void;
-    (error: Error): void;
-}
+/** 通知视图更新，如果设置了 sha，只更新sha 值，没有更新，那么全部更新 */
+export type UploaderNotify = (a: number | Error, sha?: string) => void;
 
 export class UploadController {
     uploadState: {
@@ -44,12 +42,16 @@ export class UploadController {
         );
     }
     async upload(files: ExFile[]) {
-        const notify: UploaderNotify = (data) => {
-            files.forEach((i) => {
-                this.calcSha(i).then((sha) => {
-                    this.uploadState[sha](data);
+        const notify: UploaderNotify = (data: number | Error, sha?: string) => {
+            if (sha) {
+                this.uploadState[sha](data);
+            } else {
+                files.forEach((i) => {
+                    this.calcSha(i).then((sha) => {
+                        this.uploadState[sha](data);
+                    });
                 });
-            });
+            }
         };
         // 没错，置 1 表示开始
         notify(1);
