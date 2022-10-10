@@ -9,6 +9,7 @@ export const UploadExplorer = OriginComponent<UploaderExplorerProps>((props) => 
     const { Files } = useContext(UploaderContext);
     return (
         <Explorer
+            {...props}
             Files={Files}
             onOpenFile={(file) => {
                 console.log(file);

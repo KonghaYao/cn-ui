@@ -1,5 +1,5 @@
 import { batch, JSX, JSXElement } from 'solid-js';
-import { Atom, atomization } from '@cn-ui/use';
+import { Atom, atomization, extendsEvent } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 
 interface LabelProps extends JSX.HTMLAttributes<HTMLLabelElement> {
@@ -43,6 +43,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                 disabled() && 'pointer-events-none opacity-70 cursor-not-allowed'
             )}
             style={props.style}
+            {...extendsEvent(props)}
             onClick={control(
                 [
                     emitEvent(props.onValueInput, ([e]: [Event]) => [e, !value()] as const),

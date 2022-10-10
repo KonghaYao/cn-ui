@@ -2,15 +2,13 @@ import { ButtonProps } from './interface';
 import { Icon } from '../Icon';
 import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.less';
-import { GlobalConfigStore } from '../GlobalConfigStore';
-import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
 const defaultProps: ButtonProps = {
     htmlType: 'button',
 };
 
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
-    const { componentConfig, rtl } = GlobalConfigStore;
-    const props = mergeProps(defaultProps, componentConfig?.Button, baseProps);
+    const props = mergeProps(defaultProps, baseProps);
 
     const handleClick = (event: Event): void => {
         if (props.loading) {
@@ -46,7 +44,6 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
 
                 // 暂时未控制
                 [`link`]: props.href,
-                [`rtl`]: rtl,
             }
         )
     );
@@ -61,6 +58,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
                 ref={props.ref}
                 class={classNames()}
                 style={props.style}
+                {...extendsEvent(props)}
                 onClick={handleClick}
             >
                 {InnerContent}
@@ -74,6 +72,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
             class={classNames()}
             style={props.style}
             type={props.htmlType}
+            {...extendsEvent(props)}
             onClick={handleClick}
         >
             {InnerContent}

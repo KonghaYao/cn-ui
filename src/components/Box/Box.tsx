@@ -1,6 +1,6 @@
 import { Component, JSX, JSXElement } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
-import { extendsEvent } from '../_util/extendsEvent';
+import { extendsEvent } from '@cn-ui/use';
 
 export interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;

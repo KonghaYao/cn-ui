@@ -3,13 +3,14 @@ import {
     atom,
     atomization,
     emitEvent,
+    extendsEvent,
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
 import { Icon } from '../../Icon';
 
-interface RateProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+interface RateProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<number>;
 
@@ -30,46 +31,47 @@ export const Rate = OriginComponent<RateProps>((props) => {
         }
     };
     return (
-        <>
-            <div
-                class="w-fit text-slate-200 text-2xl"
-                onmouseenter={() => {
-                    keepVal = value();
-                }}
-                onmouseleave={() => {
-                    value(keepVal);
-                }}
-            >
-                {[...Array(5).keys()].map((i) => {
-                    return (
-                        <Icon
-                            name="star"
-                            class="cursor-pointer relative"
+        <div
+            class={props.class('w-fit text-slate-200 text-2xl')}
+            style={props.style}
+            ref={props.ref}
+            {...extendsEvent(props)}
+            onmouseenter={() => {
+                keepVal = value();
+            }}
+            onmouseleave={() => {
+                value(keepVal);
+            }}
+        >
+            {[...Array(5).keys()].map((i) => {
+                return (
+                    <Icon
+                        name="star"
+                        class="cursor-pointer relative"
+                        classList={{
+                            'text-yellow-400': value() > i,
+                        }}
+                        onMouseMove={(e) => {
+                            value(getRate(e) + i);
+                        }}
+                        onClick={(e) => {
+                            value(getRate(e) + i);
+                            keepVal = value();
+                        }}
+                    >
+                        <div
+                            class="absolute right-0 top-0 h-full pointer-events-none"
                             classList={{
-                                'text-yellow-400': value() > i,
+                                'backdrop-grayscale': value() === i + 0.5,
                             }}
-                            onMouseMove={(e) => {
-                                value(getRate(e) + i);
-                            }}
-                            onClick={(e) => {
-                                value(getRate(e) + i);
-                                keepVal = value();
-                            }}
+                            style="width:50%"
                         >
-                            <div
-                                class="absolute right-0 top-0 h-full pointer-events-none"
-                                classList={{
-                                    'backdrop-grayscale': value() === i + 0.5,
-                                }}
-                                style="width:50%"
-                            >
-                                half
-                            </div>
-                        </Icon>
-                    );
-                })}
-                {value()}
-            </div>
-        </>
+                            half
+                        </div>
+                    </Icon>
+                );
+            })}
+            {value()}
+        </div>
     );
 });

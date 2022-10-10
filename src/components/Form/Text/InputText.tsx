@@ -1,4 +1,4 @@
-import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
+import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon } from '../../Icon';
@@ -29,6 +29,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
             )}
             style={props.style}
             ref={props.ref}
+            {...extendsEvent(props)}
         >
             {props.icon !== undefined ? props.icon : <Icon name="border_color" class="pr-4"></Icon>}
             <input

@@ -3,7 +3,7 @@ import { LinkProps } from './interface';
 import { createMemo, mergeProps, Show } from 'solid-js';
 import { Icon } from '../Icon';
 import './style/index.less';
-import { OriginComponent } from '@cn-ui/use';
+import { emitEvent, extendsEvent, OriginComponent, useEventController } from '@cn-ui/use';
 const defaultProps: LinkProps = {
     hoverable: true,
 };
@@ -13,6 +13,7 @@ export const Link = OriginComponent<LinkProps, HTMLSpanElement>((baseProps) => {
         const children = props.children;
         return typeof children === 'string' ? <span>{children}</span> : children;
     });
+    const control = useEventController({});
     return (
         <span
             class={props.class('cn-link')}
@@ -24,14 +25,18 @@ export const Link = OriginComponent<LinkProps, HTMLSpanElement>((baseProps) => {
             }}
             ref={props.ref}
             style={props.style}
-            onClick={(e) => {
-                if (props.disabled) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                } else {
-                    props.onClick && (props.onClick as any)(e);
-                }
-            }}
+            {...extendsEvent(props)}
+            onClick={control([
+                emitEvent(props.onClick),
+                (e) => {
+                    if (props.disabled) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    } else {
+                        props.onClick && (props.onClick as any)(e);
+                    }
+                },
+            ])}
         >
             <Show when={props.icon}>
                 {typeof props.icon !== 'boolean' ? props.icon : <Icon name="link" />}

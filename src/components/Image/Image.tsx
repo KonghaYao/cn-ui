@@ -4,7 +4,7 @@ import { Icon } from '../Icon';
 import { Box } from '../Box/Box';
 import './style/index.less';
 import { OriginComponent } from '@cn-ui/use';
-import { extendsEvent } from '../_util/extendsEvent';
+import { extendsEvent } from '@cn-ui/use';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {

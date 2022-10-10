@@ -11,7 +11,7 @@ import {
     Show,
     useContext,
 } from 'solid-js';
-import { atom, Atom } from '@cn-ui/use';
+import { atom, Atom, extendsEvent } from '@cn-ui/use';
 import { Button } from '../Button';
 import { Space } from '../Space';
 import { Tag } from '../Tag';
@@ -28,7 +28,7 @@ export const TabsHeader = OriginComponent<{}, HTMLDivElement>((props) => {
     const { activeId, TabsData } = useContext(TabsContext);
     // TODO Tab 增删
     return (
-        <Space ref={props.ref} size={4} class={props.class('cn-tabs-header')} style={props.style}>
+        <Space {...props} size={4} class={props.class('cn-tabs-header')}>
             <For each={TabsData()}>
                 {(data) => {
                     return (
@@ -66,7 +66,12 @@ export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
                 TabsData,
             }}
         >
-            <div ref={props.ref} class={props.class('cn-tabs')} style={props.style}>
+            <div
+                ref={props.ref}
+                class={props.class('cn-tabs')}
+                style={props.style}
+                {...extendsEvent(props)}
+            >
                 {props.children}
             </div>
         </TabsContext.Provider>

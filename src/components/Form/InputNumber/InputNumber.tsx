@@ -1,4 +1,4 @@
-import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
+import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, mergeProps, Suspense } from 'solid-js';
 
 import { Icon } from '../../Icon';
@@ -24,7 +24,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const value = atomization(props.value ?? 0);
     let inputRef: HTMLInputElement;
     const control = useEventController({ disabled });
-    // fixed 这里有精度问题！所以采用原生的加减以解决
+    // * fixed 这里有精度问题！所以采用原生的加减以解决
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/stepUp
     // const { add, sub } = useStep(value, props);
     return (
@@ -37,6 +37,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
             classList={{
                 'cursor-not-allowed': disabled(),
             }}
+            {...extendsEvent(props)}
         >
             <div
                 class="sub flex items-center"

@@ -3,6 +3,7 @@ import {
     atom,
     atomization,
     emitEvent,
+    extendsEvent,
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
@@ -28,6 +29,7 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
             }}
             style={props.style}
             ref={props.ref}
+            {...extendsEvent(props)}
             onClick={control(
                 [
                     emitEvent(props.onClick as () => boolean),

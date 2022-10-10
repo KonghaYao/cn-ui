@@ -1,6 +1,6 @@
 import { Component, createMemo, JSXElement, ParentComponent } from 'solid-js';
 import { GlobalConfigStore } from '../GlobalConfigStore';
-import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { TypographyProps } from './interface';
 import './style/index.less';
 /**
@@ -21,6 +21,7 @@ export const Typography = OriginComponent<TypographyProps>((props) => {
                             ? props.maxWidth + 'px'
                             : `var(--container-${props.maxWidth || 'md'})`,
                 }}
+                {...extendsEvent(props)}
             >
                 {props.children}
             </article>

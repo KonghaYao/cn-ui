@@ -10,7 +10,7 @@ export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
     const defaultPos = { left: '0', right: '0' };
 
     return (
-        <Mask ref={props.ref} class={props.class('cn-card')} style={props.style}>
+        <Mask ref={props.ref} class={props.class('cn-card')} {...props}>
             <Position
                 z-index="0"
                 {...defaultPos}

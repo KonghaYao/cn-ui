@@ -9,14 +9,12 @@ import {
     Show,
     useContext,
 } from 'solid-js';
-import { Atom, atom } from '@cn-ui/use';
-import { GlobalConfigStore } from '../GlobalConfigStore';
+import { Atom, atom, extendsEvent } from '@cn-ui/use';
 import { CollapseItemProps, CollapseProps } from './interface';
 
 import './style/index.less';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '@cn-ui/use';
-import { Transition } from '../../Transition/Transition';
 
 type Controller = { [key: string]: Atom<boolean> };
 const CollapseContext = createContext<{
@@ -27,8 +25,7 @@ const CollapseContext = createContext<{
 }>();
 
 export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) => {
-    const { componentConfig, rtl } = GlobalConfigStore;
-    props = mergeProps({}, componentConfig?.Collapse, props);
+    props = mergeProps({}, props);
 
     const [controllers, CommitController] = createSignal<Controller>({}, { equals: false });
     const { lazyload, destroyOnHide } = props;
@@ -53,9 +50,9 @@ export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) =
         >
             <div
                 class={props.class('cn-collapse')}
-                classList={{ rtl: rtl }}
                 style={props.style}
                 ref={props.ref}
+                {...extendsEvent(props)}
             >
                 {props.children}
             </div>
@@ -100,6 +97,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
             classList={{
                 disabled: props.disabled,
             }}
+            {...extendsEvent(props)}
         >
             <nav
                 class="cn-collapse-summary select-none cursor-pointer leading-none px-4 py-2"

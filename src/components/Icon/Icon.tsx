@@ -2,7 +2,7 @@ import { Component, createMemo } from 'solid-js';
 import './style/index.css';
 
 import { IconProps } from './interface';
-import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
 export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
     const fontSize = createMemo(() => {
         return typeof props.size === 'number' ? props.size + 'px' : props.size;
@@ -17,8 +17,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
                 }
             )}
             style={{ ...props.style, 'font-size': fontSize() }}
-            onClick={props.onClick}
-            onMouseMove={props.onMouseMove}
+            {...extendsEvent(props)}
         >
             {props.name}
             {props.children}

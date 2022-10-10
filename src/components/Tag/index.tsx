@@ -13,7 +13,7 @@ import {
     Show,
     Switch,
 } from 'solid-js';
-import { atom } from '@cn-ui/use';
+import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { Icon } from '../Icon';
 
 // 色板里的 12 个颜色
@@ -69,6 +69,7 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
         const color = props.color;
         return color ? (COLORS.indexOf(color) !== -1 ? color : '') : '';
     });
+    const control = useEventController({});
     return (
         <Show when={visible()}>
             <div
@@ -87,13 +88,17 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
                     props.className,
                     _color()
                 )}
-                onClick={() => {
-                    if (props.checkable) {
-                        const state = !checked();
-                        checked(state);
-                        props.onCheck && props.onCheck(state);
-                    }
-                }}
+                {...extendsEvent(props)}
+                onClick={control([
+                    emitEvent(props.onClick),
+                    () => {
+                        if (props.checkable) {
+                            const state = !checked();
+                            checked(state);
+                            props.onCheck && props.onCheck(state);
+                        }
+                    },
+                ])}
             >
                 <div class="content">{props.children}</div>
                 <Switch>

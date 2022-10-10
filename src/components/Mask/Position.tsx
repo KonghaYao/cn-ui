@@ -1,5 +1,5 @@
 import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
-import { OriginComponent, reflect } from '@cn-ui/use';
+import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import './style/index.less';
 export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     left?: string;
@@ -37,6 +37,7 @@ export const Position = OriginComponent<PositionProps>((props) => {
             class={others.class('cn-position absolute')}
             classList={{ 'pointer-events-none': props.inactive }}
             style={Style()}
+            {...extendsEvent(props)}
         >
             {others.children}
         </span>

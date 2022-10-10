@@ -16,6 +16,7 @@ export const UploadPanel = OriginComponent<UploadPanelProps, HTMLInputElement>((
 
     return (
         <Mask
+            {...props}
             class={props.class('cn-uploader  w-full h-full bg-slate-50 p-4')}
             style={props.style}
             ref={props.ref}

@@ -56,7 +56,12 @@ export default (props) => {
             <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position right="0" bottom="0">
-                    <Badge count="1"></Badge>
+                    <Badge
+                        count="1"
+                        onclick={() => {
+                            console.log('点击成功');
+                        }}
+                    ></Badge>
                 </Position>
             </Mask>
             <Mask {...props} class="w-fit">

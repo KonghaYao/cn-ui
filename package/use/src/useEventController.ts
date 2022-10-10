@@ -28,14 +28,22 @@ export const useEventController = (props: { disabled?: Atom<boolean> }) => {
         return options.batch ? (...args: Parameters<T>) => batch(() => final(...args)) : final;
     };
 };
-/** 在 control 中向组件外暴露事件 */
-
+import { JSX } from 'solid-js';
+/** @zh 在 control 中向组件外暴露事件
+ *
+ * @example
+ *
+ * control([
+ *    emitEvent(props.onClick)
+ * ])
+ */
 export const emitEvent = <
     Input extends any[],
-    T extends (...args: any[]) => void | boolean | Promise<void | boolean>
+    T extends (...args: Input) => void | boolean | Promise<void | boolean>
 >(
-    event: T | undefined,
+    event: T | JSX.EventHandlerUnion<any, any> | undefined,
     propsChanger?: (args: Input) => Readonly<Parameters<T>>
 ) => {
-    return (...args: Input) => event && event.apply(null, propsChanger ? propsChanger(args) : args);
+    return (...args: Input) =>
+        event && (event as T).apply(null, propsChanger ? propsChanger(args) : args);
 };

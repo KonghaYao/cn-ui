@@ -1,4 +1,4 @@
-import { OriginComponent, reflect } from '@cn-ui/use';
+import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { For, JSX, Match, Show, Switch, useContext } from 'solid-js';
 import { UploaderContext } from './base/UploaderContext';
 import { Icon } from '../Icon';
@@ -10,7 +10,12 @@ interface UploaderListProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 export const UploadList = OriginComponent<UploaderListProps>((props) => {
     const { Files } = useContext(UploaderContext);
     return (
-        <div class={props.class('flex flex-col')} style={props.style} ref={props.ref}>
+        <div
+            class={props.class('flex flex-col')}
+            style={props.style}
+            ref={props.ref}
+            {...extendsEvent(props)}
+        >
             <For each={Files()}>
                 {(file) => {
                     const { uploadControl } = useContext(UploaderContext);

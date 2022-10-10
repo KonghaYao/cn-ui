@@ -1,5 +1,5 @@
 import { For, JSX } from 'solid-js';
-import { Atom, atomization } from '@cn-ui/use';
+import { Atom, atomization, extendsEvent } from '@cn-ui/use';
 
 import { OriginComponent } from '@cn-ui/use';
 
@@ -11,7 +11,12 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
     const options = atomization(props.options);
     const value = atomization(props.value);
     return (
-        <div class={props.class('flex max-h-64')} style={props.style} ref={props.ref}>
+        <div
+            class={props.class('flex max-h-64')}
+            style={props.style}
+            ref={props.ref}
+            {...extendsEvent(props)}
+        >
             <For each={options()}>
                 {(subArray, index) => {
                     return (

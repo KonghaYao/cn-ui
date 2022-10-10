@@ -29,6 +29,7 @@ export const SimpleUploader = OriginComponent<SimpleUploader, HTMLInputElement>(
 
     return (
         <Mask
+            {...props}
             class={props.class('cn-uploader w-fit h-fit  p-4')}
             style={props.style}
             ref={props.ref}

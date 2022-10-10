@@ -1,5 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
-import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { Space } from '../Space';
 import { Atom } from 'solid-use';
 
@@ -17,13 +17,17 @@ export const Breadcrumb = OriginComponent<BreadcrumbProps>((props) => {
             )}
             style={props.style}
             ref={props.ref}
+            {...extendsEvent(props)}
         >
             {props.separator ?? '>'}
             {props.list().map((i, index) => {
                 return (
                     <>
                         {index === 0 ? null : props.separator ?? '>'}
-                        <span class=" px-2" onclick={() => props.onTrigger(index)}>
+                        <span
+                            class=" px-2"
+                            onclick={() => props.onTrigger && props.onTrigger(index)}
+                        >
                             {i}
                         </span>
                     </>

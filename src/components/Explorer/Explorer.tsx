@@ -1,5 +1,5 @@
 import { JSX, For, JSXElement } from 'solid-js';
-import { atom, OriginComponent, reflect } from '@cn-ui/use';
+import { atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { Space } from '../Space';
 import { ExFile } from '../Uploader/base/ExFile';
 import { Atom } from 'solid-use';
@@ -45,7 +45,12 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
     });
     const control = useEventController({});
     return (
-        <div class="p-2 h-full w-full flex flex-col">
+        <div
+            class={props.class('cn-explorer p-2 h-full w-full flex flex-col')}
+            style={props.style}
+            ref={props.ref}
+            {...extendsEvent(props)}
+        >
             <Breadcrumb
                 list={now}
                 onTrigger={(index) => now((i) => i.slice(0, index))}

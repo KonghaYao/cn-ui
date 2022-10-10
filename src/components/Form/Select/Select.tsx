@@ -3,6 +3,7 @@ import {
     atom,
     atomization,
     emitEvent,
+    extendsEvent,
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
@@ -80,6 +81,7 @@ export const Select = OriginComponent<SelectProps>((props) => {
                 visible,
                 disabled,
             })}
+            {...extendsEvent(props)}
         >
             {value()}
         </button>
