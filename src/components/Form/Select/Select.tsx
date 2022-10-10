@@ -14,12 +14,12 @@ interface SelectProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     value?: Atom<string>;
     options: Atom<string[]>;
 }
-
-const createOptionsList: () => Component<{
+interface ListProps {
     options: Atom<string[]>;
     onSelect: (val: string) => void;
-}> = () => (props) => {
-    console.log('渲染', props.options());
+}
+const OptionsList: Component<ListProps> = (props) => {
+    // console.log('渲染', props.options());
     return (
         <div class="overflow-y-auto overflow-x-hidden" style="max-height:50vh; max-width:20em">
             <For each={props.options()}>
@@ -43,7 +43,22 @@ export const Select = OriginComponent<SelectProps>((props) => {
     const control = useEventController({ disabled });
     const loading = atom(false);
     const visible = atom(false);
-    const List = createOptionsList();
+    const popupContent = (
+        <OptionsList
+            options={props.options}
+            onSelect={control(
+                [
+                    emitEvent(props.onClick as () => boolean),
+
+                    (val) => {
+                        value(val);
+                        visible(false);
+                    },
+                ],
+                { loading }
+            )}
+        ></OptionsList>
+    );
     return (
         <button
             class={props.class(
@@ -59,24 +74,8 @@ export const Select = OriginComponent<SelectProps>((props) => {
                 onClickOutside() {
                     visible(false);
                 },
-                content: () => {
-                    return (
-                        <List
-                            options={props.options}
-                            onSelect={control(
-                                [
-                                    emitEvent(props.onClick as () => boolean),
-
-                                    (val) => {
-                                        value(val);
-                                        visible(false);
-                                    },
-                                ],
-                                { loading }
-                            )}
-                        ></List>
-                    );
-                },
+                placement: 'bottom',
+                content: popupContent,
                 trigger: 'click',
                 visible,
                 disabled,

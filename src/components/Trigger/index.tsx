@@ -1,8 +1,8 @@
-import { Component, createMemo, onCleanup } from 'solid-js';
+import { Component, createMemo, JSXElement, onCleanup } from 'solid-js';
 import { atom, Atom } from '@cn-ui/use';
 
 export type TriggerProps = Omit<Partial<Props>, 'content'> & {
-    content: string | Component;
+    content: JSXElement;
     /** 控制 Trigger 能否被触发，交由外部控制，返回的值可能不正确 */
     disabled?: Atom<boolean>;
     /** 控制 Trigger 的显示 */
