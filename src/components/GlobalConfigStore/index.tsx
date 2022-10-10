@@ -1,7 +1,6 @@
-import { ConfigProviderProps } from './interface';
 import { createStore } from 'solid-js/store';
 
-const defaultProps: ConfigProviderProps = {
+const defaultProps = {
     // locale: defaultLocale,
     prefixCls: 'cn',
     getPopupContainer: () => document.body,
@@ -16,6 +15,7 @@ const defaultProps: ConfigProviderProps = {
     },
 };
 
-const [store, setStore] = createStore<ConfigProviderProps>(defaultProps);
+const [store, setStore] = createStore(defaultProps);
 export const GlobalConfigStore = store;
 export const setGlobalConfig = setStore;
+export * from './OuterSpace';

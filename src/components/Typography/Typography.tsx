@@ -8,15 +8,12 @@ import './style/index.less';
  *
  */
 export const Typography = OriginComponent<TypographyProps>((props) => {
-    const { rtl } = GlobalConfigStore;
     return (
         <div class="cn-typography-wrapper">
             <article
                 ref={props.ref}
                 class={props.class('cn-typography')}
-                classList={{
-                    [`rtl`]: rtl,
-                }}
+                classList={{}}
                 style={{
                     ...props.style,
                     'max-width':

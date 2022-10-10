@@ -50,9 +50,7 @@ const defaultProps: TagProps = {
 import './style/index.less';
 import { OriginComponent } from '@cn-ui/use';
 export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
-    const { componentConfig, rtl } = GlobalConfigStore;
-
-    const props = mergeProps(defaultProps, componentConfig?.Tag, baseProps);
+    const props = mergeProps(defaultProps, baseProps);
 
     const visible =
         typeof props.visible === 'boolean' ? atom<boolean>(props.visible) : props.visible;
@@ -84,7 +82,6 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
 
                         [`checked`]: checked(),
                         [`bordered`]: props.bordered,
-                        [`rtl`]: rtl,
                     },
                     props.size,
                     props.className,

@@ -1,11 +1,9 @@
-import { Component, createSignal, JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
+import { JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
 import { atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
 import { Box } from '../Box/Box';
 import './style/index.less';
 import { OriginComponent } from '@cn-ui/use';
-import { classNames } from '@cn-ui/use';
-import { PropsToAttr } from '@cn-ui/use';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {

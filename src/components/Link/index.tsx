@@ -8,8 +8,7 @@ const defaultProps: LinkProps = {
     hoverable: true,
 };
 export const Link = OriginComponent<LinkProps, HTMLSpanElement>((baseProps) => {
-    const { componentConfig, rtl } = GlobalConfigStore;
-    const props = mergeProps(defaultProps, componentConfig?.Link, baseProps);
+    const props = mergeProps(defaultProps, baseProps);
     const children = createMemo(() => {
         const children = props.children;
         return typeof children === 'string' ? <span>{children}</span> : children;
@@ -22,7 +21,6 @@ export const Link = OriginComponent<LinkProps, HTMLSpanElement>((baseProps) => {
                 [props.status]: !!props.status,
                 [`with-icon`]: !!props.icon,
                 hoverless: !props.hoverable,
-                [`rtl`]: rtl,
             }}
             ref={props.ref}
             style={props.style}

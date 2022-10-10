@@ -1,6 +1,5 @@
 import { SpaceSize, SpaceProps } from './interface';
 import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
-import { GlobalConfigStore } from '../GlobalConfigStore';
 import './style/index.less';
 import { TransitionGroup } from '../../Transition/TransitionGroup';
 import { OriginComponent } from '@cn-ui/use';
@@ -15,8 +14,7 @@ const spaceSize = {
     large: 1,
 };
 export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => {
-    const { componentConfig, rtl } = GlobalConfigStore;
-    const props = mergeProps(defaultProps, componentConfig?.Space, baseProps);
+    const props = mergeProps(defaultProps, baseProps);
 
     const style = createMemo(() => {
         // 需要在 CSS 中进行层叠计算，故使用变量方式
@@ -33,9 +31,7 @@ export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => 
                 'flex items-center',
                 props.wrap && 'flex-wrap'
             )}
-            classList={{
-                [`rtl`]: rtl,
-            }}
+            classList={{}}
             style={style()}
         >
             {props.transition ? (

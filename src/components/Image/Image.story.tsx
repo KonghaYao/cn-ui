@@ -1,7 +1,6 @@
 import { Icon } from '../Icon';
 import { Space } from '../Space';
-import { Image } from './index';
-import { useViewer } from './Viewer';
+import { Image, useViewer } from './index';
 export const Controller = [
     {
         type: 'switch',
