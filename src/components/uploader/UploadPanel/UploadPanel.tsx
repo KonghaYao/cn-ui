@@ -1,42 +1,17 @@
-import {
-    Component,
-    createEffect,
-    JSXElement,
-    mergeProps,
-    createMemo,
-    JSX,
-    createContext,
-    Switch,
-    Match,
-    useContext,
-} from 'solid-js';
-import { GlobalConfigStore } from '../GlobalConfigStore';
-
+import { JSXElement, JSX, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent, reflect } from '@cn-ui/use';
-import { Mask } from '../Mask';
-import { Position } from '../Mask/Position';
-import { Box } from '../Box';
-import { Button } from '../Button';
+import { Mask } from '../../Mask';
+import { Position } from '../../Mask/Position';
 import { UploadWidget } from './UploaderWidget';
-import { Atom } from '@cn-ui/use';
-import { UploadList } from './UploadList';
-import { useDragUpload } from './useDragUpload';
-import { ExFile } from './ExFile';
-import { UploadController } from './UploadController';
+import { UploadExplorer } from './UploadExplorer';
+import { useDragUpload } from '../base/useDragUpload';
+import { UploaderContext } from '../base/UploaderContext';
 export interface UploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
-    Files?: Atom<ExFile[]>;
 }
 
-export const UploaderContext = createContext<{
-    Files: Atom<ExFile[]>;
-    isDragging: Atom<boolean>;
-    inputRef: Atom<HTMLInputElement | null>;
-    uploadControl: UploadController;
-}>();
 /** @zh  复合上传组件 */
 export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props) => {
-    props = mergeProps(props);
     const { Files, isDragging } = useContext(UploaderContext);
 
     return (
@@ -59,7 +34,11 @@ export const Uploader = OriginComponent<UploaderProps, HTMLInputElement>((props)
                     }}
                 ></div>
             </Position>
-            {Files().length === 0 ? <UploadWidget></UploadWidget> : <UploadList></UploadList>}
+            {Files().length === 0 ? (
+                <UploadWidget></UploadWidget>
+            ) : (
+                <UploadExplorer></UploadExplorer>
+            )}
         </Mask>
     );
 });

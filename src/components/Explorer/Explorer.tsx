@@ -1,7 +1,7 @@
 import { JSX, For, JSXElement } from 'solid-js';
 import { atom, OriginComponent, reflect } from '@cn-ui/use';
 import { Space } from '../Space';
-import { ExFile } from '../Uploader/ExFile';
+import { ExFile } from '../Uploader/base/ExFile';
 import { Atom } from 'solid-use';
 import { Icon } from '../Icon';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';

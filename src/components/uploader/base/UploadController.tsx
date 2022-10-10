@@ -1,6 +1,6 @@
 import { atom } from '@cn-ui/use';
 import { Atom } from 'solid-use';
-import { sha256 } from '../_util/sha256/sha256';
+import { sha256 } from '../../_util/sha256/sha256';
 import { ExFile } from './ExFile';
 
 /** 开发者自定义的 Uploader，只需要进行上传和通知即可 */
@@ -10,8 +10,6 @@ export interface UploaderNotify {
     (error: Error): void;
 }
 
-const shaStore = new WeakMap<ExFile, string>();
-const shaList = new Set<string>();
 export class UploadController {
     uploadState: {
         // -1 错误 0-100 为进度
@@ -19,23 +17,24 @@ export class UploadController {
     } = {};
     constructor(public uploader: UploadFunc) {}
 
+    /** 计算 sha 值，并进行缓存 */
     async calcSha(file: ExFile) {
-        if (shaStore.has(file)) return shaStore.get(file);
-        const result = sha256(await file.arrayBuffer());
-        shaStore.set(file, result);
-        shaList.add(result);
-        return result;
+        if (file.sha) return file.sha;
+        return sha256(await file.arrayBuffer());
     }
 
     async createSlot(file: ExFile) {
         const sha = await this.calcSha(file);
-        this.uploadState[sha] = atom(0);
-        file.sha = sha;
-        file.progress = this.uploadState[sha];
+        if (!this.uploadState[sha]) {
+            this.uploadState[sha] = atom(0);
+            file.sha = sha;
+            file.progress = this.uploadState[sha];
+        }
         return this.uploadState[sha];
     }
     getNotice(sha: string) {
-        return this.uploadState[sha];
+        const data = this.uploadState[sha];
+        return data ? data() : -1;
     }
     async createSlots(files: ExFile[]) {
         return Promise.all(
@@ -52,7 +51,11 @@ export class UploadController {
                 });
             });
         };
-        // 没错，不监听异步返回
-        return this.uploader(notify, files);
+        // 没错，置 1 表示开始
+        notify(1);
+        return this.uploader(notify, files).then((i) => {
+            notify(100);
+            return i;
+        });
     }
 }

@@ -1,10 +1,9 @@
 import { atom, Atom } from '@cn-ui/use';
 import { Component, JSXElement, useContext } from 'solid-js';
-import { UploaderContext } from '.';
+import { UploaderContext } from './UploaderContext';
 import { ExFile } from './ExFile';
 import { UploadController, UploadFunc } from './UploadController';
-
-export const UploaderRoot: Component<{
+interface UploaderRootProps {
     accept?: string;
     multiple?: boolean;
     limit?: number;
@@ -13,9 +12,10 @@ export const UploaderRoot: Component<{
     Files: Atom<ExFile[]>;
     children?: JSXElement;
 
-    /** @zh 文件模式，replace 将会替换掉上次的结果 */
+    /** @zh 文件模式，默认 replace 将会替换掉上次的结果 */
     mode?: 'replace' | 'add';
-}> = (props) => {
+}
+export const UploaderRoot: Component<UploaderRootProps> = (props) => {
     const uploadControl = new UploadController(props.uploading);
     // const { uploading, Files } = useContext(UploadingContext);
     const isDragging = atom(false);

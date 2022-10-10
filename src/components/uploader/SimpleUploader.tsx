@@ -3,12 +3,13 @@ import { atom, atomization, OriginComponent } from '@cn-ui/use';
 import { Mask } from '../Mask';
 import { Position } from '../Mask/Position';
 import { Atom } from '@cn-ui/use';
-import { UploadList } from './UploadList';
-import { useDragUpload } from './useDragUpload';
-import { ExFile } from './ExFile';
+import { UploadExplorer } from './UploadPanel/UploadExplorer';
+import { useDragUpload } from './base/useDragUpload';
+import { ExFile } from './base/ExFile';
 import { Icon } from '../Icon';
-import { UploaderProps, UploaderContext } from './index';
-import { UploadController, UploadFunc } from './UploadController';
+import { UploaderProps } from './UploadPanel/UploadPanel';
+import { UploaderContext } from './base/UploaderContext';
+import { UploadController, UploadFunc } from './base/UploadController';
 export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;

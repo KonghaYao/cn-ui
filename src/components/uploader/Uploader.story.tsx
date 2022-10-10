@@ -1,15 +1,12 @@
 export const Controller = [];
 
 import { atom, reflect } from '@cn-ui/use';
-import { useContext } from 'solid-js';
-import { Uploader, UploaderContext } from '.';
-import { Icon } from '../Icon';
-import { Mask } from '../Mask';
-import { Position } from '../Mask/Position';
+import { Uploader } from './UploadPanel/UploadPanel';
 import { Space } from '../Space';
 import { SimpleUploader, UploadingContext } from './SimpleUploader';
-import { UploadController } from './UploadController';
-import { UploaderRoot } from './UploaderRoot';
+import { UploaderRoot } from './base/UploaderRoot';
+import { UploadList } from './UploadList';
+
 export default () => {
     const Files = atom([]);
     return (
@@ -33,38 +30,9 @@ export default () => {
         >
             <Space vertical class="w-full">
                 <SimpleUploader></SimpleUploader>
-                {Files().map((i) => {
-                    const { uploadControl } = useContext(UploaderContext);
-                    const height = reflect(() => {
-                        return uploadControl.getNotice(i.sha)() + '%';
-                    });
-                    return (
-                        <Mask class="w-full justify-between">
-                            <Position full bottom="0" left="0" class=" " inactive>
-                                <div
-                                    class="pointer-events-none bg-blue-400 opacity-10 h-full"
-                                    style={{
-                                        width: height(),
-                                    }}
-                                ></div>
-                            </Position>
-                            <Space>
-                                <Icon
-                                    name="insert_drive_file"
-                                    size={32}
-                                    onClick={() => {
-                                        uploadControl.upload([i]);
-                                    }}
-                                ></Icon>
-                                {i.name}
-                                <div class="flex-1"></div>
-                                <div>{height()}</div>
-                            </Space>
-                        </Mask>
-                    );
-                })}
+                <UploadList></UploadList>
             </Space>
-            <Uploader Files={Files}></Uploader>
+            <Uploader></Uploader>
         </UploaderRoot>
     );
 };
