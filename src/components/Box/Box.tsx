@@ -1,5 +1,6 @@
 import { Component, JSX, JSXElement } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent } from '../_util/extendsEvent';
 
 export interface BoxProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
@@ -18,6 +19,7 @@ export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
                 'cn-box h-full box-border flex flex-col justify-center items-center bg-slate-50'
             )}
             style={props.style}
+            {...extendsEvent(props)}
         >
             <div class="flex flex-col items-center overflow-hidden">
                 {props.icon}

@@ -5,13 +5,12 @@ import { ExFile } from '../Uploader/base/ExFile';
 import { Atom } from 'solid-use';
 import { Icon } from '../Icon';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
-import { useEventController } from '../_util/useEventController';
+import { useEventController } from '@cn-ui/use';
 interface Folder {
     name: string;
     fullPath: string;
     isDirectory: true;
 }
-
 export interface ExplorerProps extends JSX.HTMLAttributes<HTMLDivElement> {
     Files: Atom<ExFile[]>;
     onOpenFile?: (file: ExFile) => void | Promise<void>;

@@ -4,6 +4,7 @@ import { Icon } from '../Icon';
 import { Box } from '../Box/Box';
 import './style/index.less';
 import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent } from '../_util/extendsEvent';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
@@ -52,7 +53,7 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
                 width: props.width + 'px',
                 ...props.style,
             }}
-            onClick={props.onClick}
+            {...extendsEvent(props)}
         >
             <Switch>
                 <Match when={props.showLoading && loading()}>

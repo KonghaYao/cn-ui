@@ -39,10 +39,19 @@ export const MyComp = OriginComponent<Props>((props) => {
 import { JSX } from 'solid-js';
 interface Props extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
+    // 不使用与原生事件同名的事件，避免混淆错乱
+    onValueInput?: () => void;
 }
 // OriginComponent 的第二参数可以保证 ref 的类型正确
 export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
-    return <div ref={props.ref}></div>;
+    return (
+        <div
+            ref={props.ref}
+            class={props.class()}
+            style={props.style}
+            {...extendsEvent(props)} // 保持原生事件的传递
+        ></div>
+    );
 });
 ```
 

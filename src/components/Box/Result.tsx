@@ -7,6 +7,7 @@ interface ResultProps extends Omit<BoxProps, 'icon'> {
 import { Box, BoxProps } from './Box';
 import { Icon } from '../Icon';
 import { DefaultIcon } from '../Icon/DefaultIcon';
+import { extendsEvent } from '../_util/extendsEvent';
 
 const CompMap = new Map<stringTag, JSXElement>([
     ['success', () => <DefaultIcon name="check_circle" color="green" size={50}></DefaultIcon>],

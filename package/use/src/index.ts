@@ -6,3 +6,4 @@ export * from './createIgnoreHead';
 export * from './createTemplate';
 export * from './OriginComponent';
 export * from './useEventController';
+export * from './extendsEvent';
