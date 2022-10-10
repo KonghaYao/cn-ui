@@ -1,7 +1,7 @@
 import { Component, createSignal, JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
 import { atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
-import { Box } from '../Box';
+import { Box } from '../Box/Box';
 import './style/index.less';
 import { OriginComponent } from '@cn-ui/use';
 import { classNames } from '@cn-ui/use';

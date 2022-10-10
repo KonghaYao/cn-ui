@@ -1,4 +1,4 @@
-import { Accessor, createEffect, For } from 'solid-js';
+import { For } from 'solid-js';
 import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
 import { useNavigate } from '@solidjs/router';

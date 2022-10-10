@@ -1,28 +1,33 @@
 import { Portal, render } from 'solid-js/web';
 import { Mask } from '../Mask/index';
 import { createTemplate, SlotMap } from '@cn-ui/use';
+import { memoize } from 'lodash-es';
 
-const { Template, register, DataContext } = createTemplate<{}, 'Drawer', 'Inner'>();
+export const getOutSpace = memoize(() => {
+    const Server = createTemplate<{}, 'Drawer', 'Inner'>();
 
-export { register as OuterSpaceRegister, DataContext as OuterSpaceContext };
-const OuterSpace = Template(({ Slots, SlotList }) => {
-    return (
-        <Mask
-            style={{
-                'z-index': 1000,
-                width: '100vw',
-                height: '100vh',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                'pointer-events': 'none',
-            }}
-        >
-            <SlotMap list={SlotList.Inner}></SlotMap>
-        </Mask>
-    );
+    // 注意，这个没有被导出
+    const OuterSpace = Server.Template(({ Slots, SlotList }) => {
+        return (
+            <Mask
+                style={{
+                    'z-index': 1000,
+                    width: '100vw',
+                    height: '100vh',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    'pointer-events': 'none',
+                }}
+            >
+                <SlotMap list={SlotList.Inner}></SlotMap>
+            </Mask>
+        );
+    });
+    /** 向全局注入一个默认的 Layer 空间，生命周期为 solid 全生命 */
+    render(() => {
+        return <OuterSpace></OuterSpace>;
+    }, document.body);
+
+    return Server;
 });
-/** 向全局注入一个默认的 Layer 空间，生命周期为 solid 全生命 */
-render(() => {
-    return <OuterSpace></OuterSpace>;
-}, document.body);

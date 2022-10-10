@@ -4,7 +4,7 @@ type stringTag = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500
 interface ResultProps extends Omit<BoxProps, 'icon'> {
     icon: stringTag | JSX.FunctionElement | JSX.ArrayElement;
 }
-import { Box, BoxProps } from './index';
+import { Box, BoxProps } from './Box';
 import { Icon } from '../Icon';
 import { DefaultIcon } from '../Icon/DefaultIcon';
 

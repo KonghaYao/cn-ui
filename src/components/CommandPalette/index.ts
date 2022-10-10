@@ -1,7 +1,7 @@
 import { Action } from '@cn-ui/command-palette';
 import { reflect, Atom } from '@cn-ui/use';
 import { atom } from 'solid-use';
-
+export * from '@cn-ui/command-palette';
 /**
  *
  * @zh 用于构造 关键字 Filter 的 Hook

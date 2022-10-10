@@ -12,7 +12,7 @@ export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
     return (
         <Mask ref={props.ref} class={props.class('cn-card')} style={props.style}>
             <Position
-                zIndex={0}
+                z-index="0"
                 {...defaultPos}
                 style={{
                     height: '100%',
@@ -21,7 +21,7 @@ export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
             >
                 {props.background}
             </Position>
-            <Position zIndex={1} {...defaultPos} full>
+            <Position z-index="1" {...defaultPos} full>
                 {props.children}
             </Position>
         </Mask>

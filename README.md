@@ -3,9 +3,9 @@
 -   [x] https://github.com/itaditya/solid-command-palette
 -   [x] Tippy.js
 -   [x] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
+-   [x] 借鉴 https://github.com/upload-io/uploader#installation
 -   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
--   [ ] 借鉴 https://github.com/upload-io/uploader#installation
 -   [ ] http://sortablejs.github.io/Sortable/
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/

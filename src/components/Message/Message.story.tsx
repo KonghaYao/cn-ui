@@ -1,5 +1,9 @@
 import { Button } from '../Button';
 import { Message } from './index';
+
+//! 必须先注册
+
+Message.init();
 export const Controller = [];
 export default (props) => {
     const Content = ['info', 'success', 'warning', 'error', 'normal', 'loading'].map((i) => {

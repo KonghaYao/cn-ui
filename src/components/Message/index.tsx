@@ -1,5 +1,5 @@
 import { createSignal, For } from 'solid-js';
-import { OuterSpaceRegister } from '../GlobalConfigStore/OuterSpace';
+import { getOutSpace } from '../GlobalConfigStore/OuterSpace';
 import { Position } from '../Mask/Position';
 import { Space } from '../Space';
 import './style/index.less';
@@ -36,7 +36,6 @@ const Root = () => {
         </Position>
     );
 };
-OuterSpaceRegister({ slot: 'Inner', list: true, component: Root });
 
 const sendMessage = (config: MessageData | string, ...over: Partial<MessageData>[]) => {
     const _config: MessageData = Object.assign(
@@ -66,6 +65,12 @@ const sendMessage = (config: MessageData | string, ...over: Partial<MessageData>
 };
 
 export class Message {
+    static inited = false;
+    static init() {
+        if (Message.inited) return;
+        getOutSpace().register({ slot: 'Inner', list: true, component: Root });
+        Message.inited = true;
+    }
     static DefaultConfig: Partial<MessageData> = {
         duration: 3000,
         closable: false,

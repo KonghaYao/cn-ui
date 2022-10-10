@@ -1,6 +1,6 @@
 import { JSX, useContext } from 'solid-js';
 import { OriginComponent, Atom } from '@cn-ui/use';
-import { Box } from '../../Box';
+import { Box } from '../../Box/Box';
 import { Button } from '../../Button';
 import { UploaderContext } from '../base/UploaderContext';
 

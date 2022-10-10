@@ -1,16 +1,5 @@
-// import defaultLocale from '../locale/default';
-// import Message from '../Message';
-// import Notification from '../Notification';
-// import Empty from '../Empty';
 import { ConfigProviderProps } from './interface';
 import { createStore } from 'solid-js/store';
-
-// function renderEmpty(componentName?: string) {
-//     switch (componentName) {
-//         default:
-//             return <Empty />;
-//     }
-// }
 
 const defaultProps: ConfigProviderProps = {
     // locale: defaultLocale,

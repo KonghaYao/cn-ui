@@ -1,4 +1,4 @@
-import { Box } from './index';
+import { Box } from './Box';
 export const Controller = [];
 import { Image } from '../Image';
 import { Result } from './Result';

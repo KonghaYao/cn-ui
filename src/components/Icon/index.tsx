@@ -25,3 +25,4 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
         </nav>
     );
 });
+export * from './DefaultIcon';
