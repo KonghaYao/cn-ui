@@ -14,7 +14,7 @@ import { SimpleUploader, UploadingContext } from './SimpleUploader';
 import { UploaderRoot } from './base/UploaderRoot';
 import { UploadList } from './UploadList';
 
-const fakeUpload = async (notify, files) => {
+const fakeUpload = async (notify, files, onCancel) => {
     await new Promise((resolve) => {
         let count = 0;
         const close = setInterval(() => {
@@ -26,17 +26,25 @@ const fakeUpload = async (notify, files) => {
                 resolve(null);
             }
         }, 100);
+        onCancel(() => {
+            clearInterval(close);
+        });
     });
     return true;
 };
 import { Upload } from 'upload-js';
 import { ExFile } from './base/ExFile';
 const upload = Upload({ apiKey: 'free' });
-const mockUpload = async (notify, files: ExFile[]) => {
+const mockUpload = async (notify, files: ExFile[], onCancel) => {
     const data = await Promise.all(
         files.map(async (i) => {
             const { fileUrl } = await upload.uploadFile(i, {
-                onBegin: ({ cancel }) => console.log('File upload started!'),
+                onBegin: ({ cancel }) => {
+                    // 注意，upload-js 的 cancel 本身失效
+                    onCancel(() => {
+                        cancel();
+                    });
+                },
                 onProgress: ({ progress }) => notify(progress, i.sha),
             });
             return fileUrl;

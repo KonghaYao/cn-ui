@@ -17,7 +17,6 @@ interface UploaderRootProps {
 }
 export const UploaderRoot: Component<UploaderRootProps> = (props) => {
     const uploadControl = new UploadController(props.uploading);
-    // const { uploading, Files } = useContext(UploadingContext);
     const isDragging = atom(false);
     let inputRef = atom<HTMLInputElement | null>(null);
     return (

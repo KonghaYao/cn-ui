@@ -15,8 +15,9 @@ export const DefaultIcon: Component<
                 'bg-slate-100 text-slate-500': props.color === 'gray',
                 'bg-blue-100 text-blue-500': props.color === 'blue',
             }}
+            onClick={props.onClick}
         >
-            <Icon {...props}></Icon>
+            <Icon {...{ ...props, onClick: undefined }}></Icon>
         </span>
     );
 };
