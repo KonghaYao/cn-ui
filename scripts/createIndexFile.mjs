@@ -5,9 +5,9 @@ const file = list
         return !i.startsWith('_');
     })
     .map((i) => {
-        return `export {${i}} from './components/${i}'`;
+        return `export * from './components/${i}/index'`;
     })
     .join('\n');
 console.log(file);
 
-fs.writeFileSync('./src/index.ts', file);
+fs.writeFileSync('./src/index.ts', file + "\nexport * from './extraEntry'");
