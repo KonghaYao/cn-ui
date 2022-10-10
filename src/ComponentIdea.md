@@ -71,7 +71,7 @@ export const Comp = OriginComponent<CompProps, HTMLDivElement>((props) => {
 
 const UserComp = () => {
     const tags = atom<string[]>(['A', 'B', 'C']);
-    // You can keep to use tags to generate many active atom or
+    // You can keep to use tags to generate many active atom
     return <Comp data={tags}></Comp>;
 };
 ```

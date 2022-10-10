@@ -52,6 +52,7 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
                 width: props.width + 'px',
                 ...props.style,
             }}
+            onClick={props.onClick}
         >
             <Switch>
                 <Match when={props.showLoading && loading()}>

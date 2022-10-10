@@ -48,7 +48,7 @@ export default (props) => {
                 width={100}
                 src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
                 {...props}
-                onclick={() => getViewer().show()}
+                onClick={() => getViewer().show()}
             ></Image>
         </Space>
     );

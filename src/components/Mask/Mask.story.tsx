@@ -17,7 +17,7 @@ export default (props) => {
     );
     return (
         <>
-            <Mask {...props}>
+            <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position right="0" bottom="0">
                     <div
@@ -30,7 +30,7 @@ export default (props) => {
                     </div>
                 </Position>
             </Mask>
-            <Mask {...props}>
+            <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position full right="0" bottom="0">
                     <div
@@ -47,19 +47,19 @@ export default (props) => {
                     </div>
                 </Position>
             </Mask>
-            <Mask {...props}>
+            <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position right="0" bottom="0">
                     <Badge count="100"></Badge>
                 </Position>
             </Mask>
-            <Mask {...props}>
+            <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position right="0" bottom="0">
                     <Badge count="1"></Badge>
                 </Position>
             </Mask>
-            <Mask {...props}>
+            <Mask {...props} class="w-fit">
                 {avatar()}
                 <Position top="0.2em" right="0.2em">
                     <Badge dot></Badge>
