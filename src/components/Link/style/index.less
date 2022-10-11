@@ -1,21 +1,21 @@
 .cn-link {
     transition: background-color 0.3s;
-    @apply inline-flex px-1 cursor-pointer rounded-sm items-center text-lime-500;
+    @apply inline-flex px-1 cursor-pointer rounded-sm items-center text-sky-500;
 
     &.disabled {
         @apply cursor-not-allowed opacity-50;
     }
     &.warning {
-        @apply text-orange-600;
+        @apply text-yellow-500;
     }
     &.danger {
-        @apply text-red-600;
+        @apply text-red-500;
     }
     &.success {
-        @apply text-green-600;
+        @apply text-green-500;
     }
     &:hover:not(.hoverless) {
-        @apply bg-lime-100;
+        @apply bg-sky-100;
     }
     .cn-icon-font {
         @apply mx-2 text-lg;

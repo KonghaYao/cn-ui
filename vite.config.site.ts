@@ -10,7 +10,11 @@ export default defineConfig({
     server: {
         port: 3000,
     },
-
+    resolve: {
+        alias: {
+            '@cn-ui/core': '/dist/index.mjs',
+        },
+    },
     optimizeDeps: {
         include: ['lodash-es', 'copy-to-clipboard', 'solid-use', 'swiper/solid'],
     },

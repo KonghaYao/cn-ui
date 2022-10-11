@@ -1,41 +1,43 @@
-import { batch, Component, createMemo, createResource, createSignal } from 'solid-js';
+import { batch, Component, createEffect, createMemo, createResource, createSignal } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import Index from '../src/story.index.json';
-import { useLocation } from '@solidjs/router';
+import { useSearchParams } from '@solidjs/router';
+import { atom, createIgnoreFirst, reflect } from '@cn-ui/use';
 
 const modules = import.meta.glob('/src/components/**/*.story.tsx');
 
 export const useStory = () => {
-    const location = useLocation();
+    const [searchParams] = useSearchParams();
+    const path = reflect(() => {
+        return searchParams.path || Index[0];
+    });
     /** 注入组件的参数 */
-    const [props, setProps] = createSignal({});
+    const Props = atom({});
     /** 组件的表单选择器 */
-    const [Controller, setController] = createSignal([]);
-    const [Content, { refetch }] = createResource<Component<any>>(async () => {
-        return modules[new URLSearchParams(location.search).get('path') || Index[0]]().then(
-            (module: any) => {
-                batch(() => {
-                    setController(module.Controller || []);
-                    const props =
-                        module.Controller.reduce((col, cur) => {
-                            col[cur.prop] = cur.default;
-                            return col;
-                        }, {}) || {};
-                    setProps(props);
-                });
-                return module.default;
-            }
-        );
+    const Controller = atom([]);
+    const Content = atom(() => {
+        return <div></div>;
     });
-    /** 展示 Story 组件的一个东西 */
-    const ContentComp = createMemo(() => {
-        // * 维持依赖追踪
-        const p = props();
-        return <Dynamic component={Content()} {...p}></Dynamic>;
-    });
+    const refetch = async () => {
+        const loader = modules[path()];
+        console.log(path());
+        if (!loader) return;
+        const module: any = await loader();
+        Controller(module.Controller || []);
+        const props =
+            module.Controller.reduce((col, cur) => {
+                col[cur.prop] = cur.default;
+                return col;
+            }, {}) || {};
+        Props(props);
+
+        Content(() => module.default);
+    };
+    refetch();
+
     return {
-        updateProps: setProps,
-        ContentComp,
+        Props,
+
         Controller,
         refreshStory: refetch,
         Content,

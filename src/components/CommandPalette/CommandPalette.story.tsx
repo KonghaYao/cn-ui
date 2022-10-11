@@ -1,5 +1,6 @@
 import { atom, reflect } from '@cn-ui/use';
 import { onMount } from 'solid-js';
+import '@cn-ui/command-palette/pkg-dist/style.css';
 import { CommandPalette, PaletteRoot, Action, defineAction } from '@cn-ui/command-palette';
 import {
     useKeyWordsFilter,

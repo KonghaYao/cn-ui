@@ -1,16 +1,17 @@
 import { For } from 'solid-js';
 import Index from '../src/story.index.json';
 import { ControllerGenerator } from './ControllerGenerator';
-import { useNavigate } from '@solidjs/router';
+import { useNavigate, useSearchParams } from '@solidjs/router';
 import { useStory } from './useStory';
+import { Dynamic } from 'solid-js/web';
 // import 'animate.css';
 export const App = () => {
-    const { updateProps, ContentComp, Controller, refreshStory, Content } = useStory();
-
+    const { Props, Controller, refreshStory, Content } = useStory();
+    const [_, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     return (
         <main class="flex flex-col" id="app">
-            <header>StoryBook</header>
+            <header>StoryBook </header>
             <main class="flex flex-row flex-1">
                 <nav>
                     <For each={Index}>
@@ -18,7 +19,7 @@ export const App = () => {
                             return (
                                 <div
                                     onclick={() => {
-                                        navigate('/path?path=' + i);
+                                        setSearchParams({ path: i });
                                         refreshStory();
                                     }}
                                 >
@@ -42,13 +43,13 @@ export const App = () => {
                             'max-height': '80vh',
                         }}
                     >
-                        {Content.loading ? '加载中' : ContentComp()}
+                        <Dynamic component={Content()} {...Props()}></Dynamic>
                     </main>
                     <nav>
                         <ControllerGenerator
                             controller={Controller()}
                             onChange={(name, value) => {
-                                updateProps((props) => {
+                                Props((props) => {
                                     props[name] = value;
                                     return { ...props };
                                 });

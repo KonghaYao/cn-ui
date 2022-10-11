@@ -5,26 +5,20 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             solidPlugin(),
-            mode === 'analyze' && visualizer({ open: true, filename: 'visualizer/stat.html' }),
+            mode === 'analyze' &&
+                (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
             port: 3000,
         },
         resolve: {
             alias: {
+                '@cn-ui/core/index.css': '/src/style/index.css',
                 '@cn-ui/core': '/src/index.ts',
             },
         },
         optimizeDeps: {
-            include: [
-                'lodash-es',
-                'copy-to-clipboard',
-                'viewerjs',
-                '@vant/area-data',
-                'tinykeys',
-                'fuse.js',
-                'mitt',
-            ],
+            include: ['lodash-es', 'copy-to-clipboard', 'viewerjs', '@vant/area-data', 'mitt'],
         },
 
         build: {

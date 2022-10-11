@@ -17,5 +17,5 @@
             "@cn-ui/core": ["./src/index"]
         }
     },
-    "include": ["src/**/*", "src/**/*.story.tsx"]
+    "include": ["src/**/*", "story/**/*"]
 }
