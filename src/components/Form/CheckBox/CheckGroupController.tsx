@@ -9,11 +9,11 @@ export interface CheckGroupControllerProps
     data: CheckGroupData[] | Atom<CheckGroupData[]>;
     children?: JSXElement;
 }
-export const useCheckGroup = (data: CheckGroupData[]) => {
+export const useCheckGroup = (data: Atom<CheckGroupData[]>) => {
     const state = reflect(() => {
         let isPart = false;
         let allChecked = true;
-        data.forEach((i) => {
+        data().forEach((i) => {
             let isChecked = i.value();
             if (isChecked) {
                 isPart = true;
@@ -26,10 +26,10 @@ export const useCheckGroup = (data: CheckGroupData[]) => {
     return {
         state,
         inverse() {
-            data.forEach((i) => i.value((i) => !i));
+            data().forEach((i) => i.value((i) => !i));
         },
         setAll(value: boolean) {
-            data.forEach((i) => i.value(value));
+            data().forEach((i) => i.value(value));
         },
     };
 };
@@ -38,7 +38,8 @@ export const useCheckGroup = (data: CheckGroupData[]) => {
 export const CheckGroupController = OriginComponent<CheckGroupControllerProps, HTMLDivElement>(
     (props) => {
         const data = atomization(props.data);
-        const { state, setAll } = useCheckGroup(data());
+        // ! 必须传递 Atom 在内部进行动态绑定
+        const { state, setAll } = useCheckGroup(data);
         return (
             <CheckBox
                 {...props}

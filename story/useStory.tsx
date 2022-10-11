@@ -16,7 +16,7 @@ export const useStory = () => {
     /** 组件的表单选择器 */
     const Controller = atom([]);
     const Content = atom(() => {
-        return <div></div>;
+        return <div>Loading</div>;
     });
     const refetch = async () => {
         const loader = modules[path()];
@@ -30,14 +30,13 @@ export const useStory = () => {
                 return col;
             }, {}) || {};
         Props(props);
-
+        // 当 Atom 为函数时，只能够以函数的方式改变其值
         Content(() => module.default);
     };
     refetch();
 
     return {
         Props,
-
         Controller,
         refreshStory: refetch,
         Content,
