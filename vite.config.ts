@@ -10,9 +10,21 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
         },
-        resolve: {},
+        resolve: {
+            alias: {
+                '@cn-ui/core': '/src/index.ts',
+            },
+        },
         optimizeDeps: {
-            include: ['lodash-es', 'solid-use', 'copy-to-clipboard'],
+            include: [
+                'lodash-es',
+                'copy-to-clipboard',
+                'viewerjs',
+                '@vant/area-data',
+                'tinykeys',
+                'fuse.js',
+                'mitt',
+            ],
         },
 
         build: {
@@ -22,8 +34,8 @@ export default defineConfig(({ mode }) => {
             cssCodeSplit: true,
             lib: {
                 entry: './src/index.ts',
-                name: 'cn-ui',
-                fileName: 'cn-ui',
+                name: 'index',
+                fileName: 'index',
                 formats: ['es'],
             },
             sourcemap: false,

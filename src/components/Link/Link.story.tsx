@@ -1,5 +1,5 @@
-import { Icon } from '../Icon';
-import { Link } from './index';
+import { Icon } from '@cn-ui/core';
+import { Link } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

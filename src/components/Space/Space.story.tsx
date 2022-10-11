@@ -1,4 +1,4 @@
-import { Space } from './index';
+import { Space } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

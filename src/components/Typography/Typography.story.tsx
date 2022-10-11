@@ -1,4 +1,4 @@
-import { Typography } from '.';
+import { Typography } from '@cn-ui/core';
 export const Controller = [];
 export default (props) => {
     return <Typography>{Demo}</Typography>;

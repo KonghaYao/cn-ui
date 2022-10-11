@@ -1,4 +1,4 @@
-import { Icon } from '.';
+import { Icon } from '@cn-ui/core';
 
 import IconNames from './IconNames.json';
 export const Controller = [

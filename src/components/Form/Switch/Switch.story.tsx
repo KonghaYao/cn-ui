@@ -1,12 +1,11 @@
 import { atom, reflect } from '@cn-ui/use';
-import { Icon } from '../../Icon';
 
 export const Controller = [{ type: 'switch', default: false, prop: 'disabled' }];
 const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
-import { Switch } from './Switch';
+import { Switch } from '@cn-ui/core';
 export default (props) => {
     const val = atom(false);
     return (

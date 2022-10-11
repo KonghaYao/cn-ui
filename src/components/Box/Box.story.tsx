@@ -1,7 +1,5 @@
-import { Box } from './Box';
 export const Controller = [];
-import { Image } from '../Image';
-import { Result } from './Result';
+import { Image, Result, Box } from '@cn-ui/core';
 export default (props) => {
     const baseStyle = { height: '200px', width: '100%' };
     return (

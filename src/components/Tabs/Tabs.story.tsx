@@ -1,5 +1,8 @@
 import { For } from 'solid-js';
-import { Tabs, Tab, TabsHeader } from './tabs';
+import { Tabs, Tab, TabsHeader } from '@cn-ui/core';
+import 'animate.css/source/fading_entrances/fadeInDown.css';
+import 'animate.css/source/fading_exits/fadeOutUp.css';
+import { TransitionGroup } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -8,13 +11,6 @@ export const Controller = [
     },
 ];
 
-import 'animate.css/source/fading_entrances/fadeInDown.css';
-import 'animate.css/source/fading_exits/fadeOutUp.css';
-import { TransitionGroup } from '../../Transition/TransitionGroup';
-const sleep = (ms) =>
-    new Promise((resolve) => {
-        setTimeout(() => resolve(null), ms);
-    });
 export default (props) => {
     const data = [...Array(5).keys()];
     return (

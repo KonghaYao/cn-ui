@@ -1,8 +1,6 @@
-import { For } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Cascader } from './Cascader';
+import { Cascader, useChinaArea } from '@cn-ui/core';
 export const Controller = [];
-import { useChinaArea } from './useChinaArea';
 
 export default (props) => {
     const value = atom(['北京市', '北京市', '东城区']);

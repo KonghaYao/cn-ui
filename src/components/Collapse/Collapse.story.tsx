@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Collapse, CollapseItem } from './index';
+import { Collapse, CollapseItem } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

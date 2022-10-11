@@ -1,6 +1,4 @@
-import { Icon } from '../Icon';
-import { Space } from '../Space';
-import { Image, useViewer } from './index';
+import { Image, useViewer, Space } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

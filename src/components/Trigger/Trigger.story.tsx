@@ -1,13 +1,8 @@
-import { Component, For, onCleanup, onMount } from 'solid-js';
+import { Component, onCleanup, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { createTrigger } from '.';
-import { Button } from '../Button';
-import { Space } from '../Space';
+import { createTrigger, Button, Space } from '@cn-ui/core';
 export const Controller = [];
-const sleep = (ms) =>
-    new Promise((resolve) => {
-        setTimeout(() => resolve(null), ms);
-    });
+
 export default (props) => {
     // 注意，这个函数的环境作用域必须在这里面才行
     const Comp: Component = () => {
@@ -30,7 +25,7 @@ export default (props) => {
         <Space>
             <Button
                 ref={createTrigger({
-                    content: Comp,
+                    content: <Comp></Comp>,
                     trigger: 'mouseenter click',
                     visible,
                     disabled,

@@ -2,12 +2,9 @@ export const Controller = [];
 
 import { atom, reflect } from '@cn-ui/use';
 import { createResource } from 'solid-js';
-import { InputText } from '../Form/Text/InputText';
 
-import { DefaultIcon } from '../Icon/DefaultIcon';
-import { Message } from '../Message';
-import { Space } from '../Space';
-import { Explorer } from './Explorer';
+import { InputText, DefaultIcon, Message, Space, Explorer } from '@cn-ui/core';
+
 export default () => {
     const packageNames = atom<string>('jquery@3.2.1');
     const [resource, { refetch }] = createResource(async () => {

@@ -1,5 +1,4 @@
-import { Button } from '../Button';
-import { Message } from './index';
+import { Button, Message } from '@cn-ui/core';
 
 //! 必须先注册
 

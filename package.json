@@ -1,13 +1,14 @@
 {
-    "name": "vite-template-solid",
+    "name": "@cn-ui/core",
     "version": "0.0.0",
+    "main": "./dist/index.js",
     "description": "",
     "scripts": {
         "dev": "pnpm node ./scripts/createStoryIndex.mjs && vite",
         "build": "pnpm dev:index && vite build",
         "build:site": "vite build -c vite.config.site.ts",
         "build:type": "tsc --config tsconfig.node.json",
-        "serve": "vite preview",
+        "preview": "vite preview",
         "dev:analyze": "node ./scripts/analyzeSrc.mjs",
         "dev:index": "node ./scripts/createIndexFile.mjs",
         "build:analyze": "vite build --mode analyze"

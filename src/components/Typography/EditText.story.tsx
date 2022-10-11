@@ -1,6 +1,6 @@
 import { Button } from '../Button';
 import { CopyText, EllipsisText } from './EditText';
-import { useFont } from './useFont';
+import { useFont } from '@cn-ui/core';
 export const Controller = [];
 export default (props) => {
     return (

@@ -1,6 +1,4 @@
-import { Button } from '../Button';
-import { Icon } from '../Icon';
-import { Card } from './index';
+import { Card } from '@cn-ui/core';
 export const Controller = [];
 import './Story.less';
 export default (props) => {

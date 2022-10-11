@@ -1,14 +1,8 @@
 import { atom, reflect } from '@cn-ui/use';
-import { Icon } from '../../Icon';
-import { InputColor } from './InputColor';
-import { Rate } from './Rate';
+import { Select, InputColor, Rate } from '@cn-ui/core';
 
 export const Controller = [{ type: 'switch', default: false, prop: 'disabled' }];
-const sleep = (ms) =>
-    new Promise((resolve) => {
-        setTimeout(() => resolve(null), ms);
-    });
-import { Select } from './Select';
+
 export default (props) => {
     const val = atom('');
     const options = atom(

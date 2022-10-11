@@ -1,7 +1,6 @@
 import { For } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Space } from '../Space';
-import { COLORS, Tag } from './index';
+import { Space, COLORS, Tag } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

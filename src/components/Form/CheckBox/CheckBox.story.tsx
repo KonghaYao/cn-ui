@@ -1,11 +1,13 @@
-import { Message } from '../../Message';
-import { Space } from '../../Space';
 import { atom, reflect } from '@cn-ui/use';
-import { CheckBox } from './CheckBox';
-import { CheckGroup } from './CheckGroup';
-import { CheckGroupController, useCheckGroup } from './CheckGroupController';
-import { Button } from '../../Button';
-
+import {
+    CheckGroupController,
+    useCheckGroup,
+    Message,
+    Space,
+    CheckBox,
+    CheckGroup,
+    Button,
+} from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

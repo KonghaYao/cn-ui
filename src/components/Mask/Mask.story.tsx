@@ -1,8 +1,4 @@
-import { Image } from '../Image/index';
-import { Icon } from '../Icon';
-import { Badge } from './Badge';
-import { Mask } from './index';
-import { Position } from './Position';
+import { Image, Icon, Badge, Mask, Position } from '@cn-ui/core';
 export const Controller = [];
 export default (props) => {
     const avatar = () => (

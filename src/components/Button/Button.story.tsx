@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button } from './index';
+import { Button } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

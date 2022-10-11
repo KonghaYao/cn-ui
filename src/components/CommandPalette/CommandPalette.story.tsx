@@ -1,13 +1,15 @@
-import { CommandPalette, Root, Action, defineAction } from '@cn-ui/command-palette/src/lib/index';
 import { atom, reflect } from '@cn-ui/use';
 import { onMount } from 'solid-js';
-import { useKeyWordsFilter } from './index';
-import { Button } from '../Button';
-import { CheckGroupController } from '../Form/CheckBox/CheckGroupController';
-import { CheckGroup } from '../Form/CheckBox/CheckGroup';
-import { Image } from '../Image';
-import { Message } from '../Message';
-import { Space } from '../Space';
+import { CommandPalette, PaletteRoot, Action, defineAction } from '@cn-ui/command-palette';
+import {
+    useKeyWordsFilter,
+    Button,
+    CheckGroupController,
+    CheckGroup,
+    Image,
+    Message,
+    Space,
+} from '@cn-ui/core';
 export const Controller = [];
 
 const initActions = [
@@ -58,7 +60,7 @@ export default (props) => {
     const { keywordsFilter, keywords } = useKeyWordsFilter(actions);
     return (
         <div>
-            <Root
+            <PaletteRoot
                 filters={[keywordsFilter]}
                 visibility={visible}
                 actions={actions}
@@ -89,7 +91,7 @@ export default (props) => {
                 }}
             >
                 <CommandPalette></CommandPalette>
-            </Root>
+            </PaletteRoot>
             {/* Control the reactive visible easier */}
             <Button onClick={() => visible((i) => !i)}>{visible() ? '打开' : '关闭'}</Button>
         </div>

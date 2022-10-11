@@ -8,11 +8,7 @@ export const Controller = [
 ];
 
 import { atom, reflect } from '@cn-ui/use';
-import { UploadPanel } from './UploadPanel/UploadPanel';
-import { Space } from '../Space';
-import { SimpleUploader, UploadingContext } from './SimpleUploader';
-import { UploaderRoot } from './base/UploaderRoot';
-import { UploadList } from './UploadList';
+import { UploadPanel, Space, SimpleUploader, UploaderRoot, UploadList, ExFile } from '@cn-ui/core';
 
 const fakeUpload = async (notify, files, onCancel) => {
     await new Promise((resolve) => {
@@ -33,7 +29,6 @@ const fakeUpload = async (notify, files, onCancel) => {
     return true;
 };
 import { Upload } from 'upload-js';
-import { ExFile } from './base/ExFile';
 const upload = Upload({ apiKey: 'free' });
 const mockUpload = async (notify, files: ExFile[], onCancel) => {
     const data = await Promise.all(
