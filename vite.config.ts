@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
         },
 
         build: {
-            assetsInlineLimit: 8 * 1024,
+            assetsInlineLimit: 1024,
             target: 'es6',
 
             cssCodeSplit: true,

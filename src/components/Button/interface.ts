@@ -1,4 +1,3 @@
-import React, { CSSProperties, HTMLProps, ReactNode } from 'react';
 import { JSX, JSXElement } from 'solid-js';
 
 export interface BaseButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
@@ -30,21 +29,13 @@ export interface BaseButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
      * @defaultValue square
      */
     shape?: 'circle' | 'round' | 'square';
-    /**
-     * @zh 添加跳转链接，设置此属性，button表现跟a标签一致
-     * @en The button behaves like `<a>` with href as target url.
-     */
-    href?: string;
+
     /**
      * @zh a 链接的 target 属性，href 存在时生效
      * @en The target attribute of the link, which takes effect when href exists.
      */
     target?: string;
-    /**
-     * @zh a 链接的原生属性，href 存在时生效
-     * @en The native attribute of the link, which takes effect when href exists
-     */
-    anchorProps?: JSX.HTMLAttributes<HTMLAnchorElement>;
+
     /**
      * @zh 是否禁用
      * @en Whether to disable the button
@@ -81,7 +72,7 @@ export interface BaseButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
 export type AnchorButtonProps = {
     href: string;
     target?: string;
-    anchorProps?: HTMLProps<HTMLAnchorElement>;
+    anchorProps?: JSX.HTMLAttributes<HTMLAnchorElement>;
 } & BaseButtonProps &
     Omit<JSX.HTMLAttributes<HTMLAnchorElement>, 'type' | 'onClick' | 'className'>;
 
@@ -93,7 +84,7 @@ export type FinalButtonProps = {
      */
     htmlType?: 'button' | 'submit' | 'reset';
 } & BaseButtonProps &
-    Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick' | 'className'>;
+    Omit<JSX.HTMLAttributes<HTMLButtonElement>, 'type' | 'onClick' | 'className'>;
 
 /**
  * @title Button

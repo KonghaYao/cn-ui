@@ -8,12 +8,14 @@
         "jsx": "preserve",
         "jsxImportSource": "solid-js",
         "types": ["vite/client"],
-        "noEmit": true,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./dist",
+        "declaration": true,
         "isolatedModules": true,
         "resolveJsonModule": true,
         "paths": {
-            "self": ["."]
+            "@": ["."]
         }
     },
-    "include": ["src/**/*", "story/**/*"]
+    "include": ["src/**/*", "src/**/*.story.tsx"]
 }

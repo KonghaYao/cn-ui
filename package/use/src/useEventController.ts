@@ -1,5 +1,5 @@
 import { batch } from 'solid-js';
-import { Atom } from 'solid-use';
+import { Atom } from './atom';
 
 /**
  * @zh 异步管式事件接管

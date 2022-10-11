@@ -1,8 +1,16 @@
 import { Portal, render } from 'solid-js/web';
 import { Mask } from '../Mask/index';
 import { createTemplate, SlotMap } from '@cn-ui/use';
-import { memoize } from 'lodash-es';
 
+/** simple memorize result of getOutSpace */
+const memoize = function <T extends Function>(func: T) {
+    let result = undefined;
+    return (...args: any[]) => {
+        if (result) return result;
+        result = func(...args);
+        return result;
+    };
+};
 export const getOutSpace = memoize(() => {
     const Server = createTemplate<{}, 'Drawer', 'Inner'>();
 

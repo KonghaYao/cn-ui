@@ -12,7 +12,7 @@ export const UploadWidget = OriginComponent<UploaderWidgetProps>((props) => {
             {...props}
             title={isDragging() ? '放下即可上传' : '拖拽或者点击上传文件'}
             icon={
-                <Button type="primary" shape="rounded" onClick={() => inputRef().click()}>
+                <Button type="primary" shape="round" onClick={() => inputRef().click()}>
                     上传文件
                 </Button>
             }

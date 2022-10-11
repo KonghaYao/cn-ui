@@ -1,6 +1,6 @@
 import { atom, reflect } from '@cn-ui/use';
 import { createEffect } from 'solid-js';
-import { Atom } from 'solid-use';
+import { Atom } from '@cn-ui/use';
 import { sha256 } from '../../_util/sha256/sha256';
 import { ExFile } from './ExFile';
 

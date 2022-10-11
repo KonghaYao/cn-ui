@@ -1,6 +1,6 @@
 import { reflect } from '@cn-ui/use';
 import { areaList } from '@vant/area-data';
-import { Atom } from 'solid-use';
+import { Atom } from '@cn-ui/use';
 
 const findCodeByName = (name: string, obj: { [k: string]: string }) => {
     if (!name) return null;

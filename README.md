@@ -4,11 +4,12 @@
 -   [x] Tippy.js
 -   [x] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
 -   [x] 借鉴 https://github.com/upload-io/uploader#installation
--   [ ] datepicker https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
+-   [ ] 时间选择器 https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
--   [ ] http://sortablejs.github.io/Sortable/
+-   [ ] 可拖拽组件 http://sortablejs.github.io/Sortable/
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/
--   [ ] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/
+-   [ ] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/v2/
 -   [ ] spinners https://github.com/craigjennings11/wc-spinners
 -   [ ] https://perfectscrollbar.com/#section-intro
+-   [ ] 高亮库 https://prismjs.com/#plugins

@@ -47,25 +47,6 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
             }
         )
     );
-    if (props.href) {
-        const _anchorProps = { ...props.anchorProps };
-        if (props.disabled) {
-            delete _anchorProps.href;
-        }
-        return (
-            <a
-                {..._anchorProps}
-                ref={props.ref}
-                class={classNames()}
-                style={props.style}
-                {...extendsEvent(props)}
-                onClick={handleClick}
-            >
-                {InnerContent}
-            </a>
-        );
-    }
-
     return (
         <button
             ref={props.ref}

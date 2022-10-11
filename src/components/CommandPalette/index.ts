@@ -1,6 +1,6 @@
 import { Action } from '@cn-ui/command-palette';
 import { reflect, Atom } from '@cn-ui/use';
-import { atom } from 'solid-use';
+import { atom } from '@cn-ui/use';
 export * from '@cn-ui/command-palette';
 /**
  *

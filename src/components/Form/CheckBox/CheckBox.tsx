@@ -46,7 +46,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             {...extendsEvent(props)}
             onClick={control(
                 [
-                    emitEvent(props.onValueInput, ([e]: [Event]) => [e, !value()] as const),
+                    emitEvent(props.onValueInput, ([e]) => [e, !value()] as const),
                     async (e) => {
                         value((i) => !i);
                     },

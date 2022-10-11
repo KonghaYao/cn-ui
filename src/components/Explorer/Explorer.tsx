@@ -2,7 +2,7 @@ import { JSX, For, JSXElement } from 'solid-js';
 import { atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { Space } from '../Space';
 import { ExFile } from '../Uploader/base/ExFile';
-import { Atom } from 'solid-use';
+import { Atom } from '@cn-ui/use';
 import { Icon } from '../Icon';
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
 import { useEventController } from '@cn-ui/use';

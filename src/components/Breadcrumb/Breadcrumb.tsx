@@ -1,7 +1,7 @@
 import { JSX, JSXElement } from 'solid-js';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { Space } from '../Space';
-import { Atom } from 'solid-use';
+import { Atom } from '@cn-ui/use';
 
 export interface BreadcrumbProps extends JSX.HTMLAttributes<HTMLDivElement> {
     separator?: JSXElement;
