@@ -1,5 +1,3 @@
-import { Component, createMemo, JSXElement, ParentComponent } from 'solid-js';
-import { GlobalConfigStore } from '../GlobalConfigStore';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { TypographyProps } from './interface';
 import './style/index.less';
@@ -12,14 +10,9 @@ export const Typography = OriginComponent<TypographyProps>((props) => {
         <div class="cn-typography-wrapper">
             <article
                 ref={props.ref}
-                class={props.class('cn-typography')}
-                classList={{}}
+                class={props.class('cn-typography max-w-2xl md:max-w-2xl')}
                 style={{
                     ...props.style,
-                    'max-width':
-                        typeof props.maxWidth === 'number'
-                            ? props.maxWidth + 'px'
-                            : `var(--container-${props.maxWidth || 'md'})`,
                 }}
                 {...extendsEvent(props)}
             >

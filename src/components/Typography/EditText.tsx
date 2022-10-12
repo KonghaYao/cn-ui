@@ -32,8 +32,10 @@ export const EllipsisText = OriginComponent<{ line: number; children: string }>(
     return (
         <span
             ref={props.ref}
-            class={props.class()}
+            class={props.class('text-ellipsis')}
             style={{
+                display: '-webkit-box',
+                '-webkit-box-orient': 'vertical',
                 'line-clamp': line(),
                 '-webkit-line-clamp': line(),
                 overflow: 'hidden',
@@ -42,7 +44,7 @@ export const EllipsisText = OriginComponent<{ line: number; children: string }>(
             {...extendsEvent(props)}
         >
             <span
-                class="edit-text-icon"
+                class="px-1 cursor-pointer text-sky-500"
                 onclick={() => (isOpen() ? line('unset') : line(props.line))}
             >
                 <Icon name={isOpen() ? 'arrow_drop_down' : 'arrow_drop_up'}></Icon>

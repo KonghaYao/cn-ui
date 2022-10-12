@@ -1,7 +1,7 @@
 import { Typography } from '@cn-ui/core';
 export const Controller = [];
 export default (props) => {
-    return <Typography>{Demo}</Typography>;
+    return <Typography class="bg-white">{Demo()}</Typography>;
 };
 
 const code = `
@@ -21,7 +21,7 @@ h5,h6{font-size:1em;}
 }
 `;
 
-const Demo = (
+const Demo = () => (
     <>
         <h1>
             中文网页重设与排版：<i class="serif">Typo.css</i>
