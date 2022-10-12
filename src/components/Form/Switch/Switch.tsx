@@ -6,7 +6,7 @@ import {
     extendsEvent,
     OriginComponent,
     useEventController,
-} from '@cn-ui/use';
+} from '@cn-ui/use/src/index';
 import { JSX } from 'solid-js';
 
 interface SwitchProps extends JSX.HTMLAttributes<HTMLButtonElement> {
@@ -32,8 +32,7 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
             {...extendsEvent(props)}
             onClick={control(
                 [
-                    emitEvent(props.onClick as () => boolean),
-
+                    emitEvent(props.onClick),
                     () => {
                         value((i) => !i);
                     },

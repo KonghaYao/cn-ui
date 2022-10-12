@@ -8,21 +8,16 @@ onClick={(e) => {
         // async function
     }, e);
 }}
-@deprecated
  */
-export const useSingleAsync = () => {
+export const useSingleAsync = <T, D extends Array<unknown>>(asyncFunc: (...args: D) => T) => {
     let running = false;
-    return {
-        async newChannel<T, D extends Array<unknown>>(
-            asyncFunc: (...args: D) => T,
-            ...args: D
-        ): Promise<Awaited<T>> {
+    return function (...args: D) {
+        return async () => {
             if (running) return;
             running = true;
-            const it = asyncFunc(...args);
-            await it;
+            const it = await asyncFunc(...args);
             running = false;
-            return await it;
-        },
+            return it;
+        };
     };
 };

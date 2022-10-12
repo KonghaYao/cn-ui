@@ -8,7 +8,7 @@ import { Button } from '../src/components/Button';
 import { Space } from '../src/components/Space';
 const NavBar = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    console.log('重绘');
+
     return (
         <Space vertical class="HeaderFont overflow-auto py-4 px-2 scroll-box-none">
             <For each={Index}>
@@ -32,7 +32,7 @@ const NavBar = () => {
 
 // import 'animate.css';
 export const App = () => {
-    const { Props, Controller, refreshStory, Content } = useStory();
+    const { Props, Controller, Content } = useStory();
 
     return (
         <main class="flex flex-col" id="app">

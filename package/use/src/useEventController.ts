@@ -5,7 +5,7 @@ import { Atom } from './atom';
  * @zh 异步管式事件接管
  */
 
-export const useEventController = (props: { disabled?: Atom<boolean> }) => {
+export const useEventController = (props: { disabled?: Atom<boolean>; oneLine?: boolean }) => {
     return <T extends (...args: any[]) => void | boolean | Promise<void | boolean>>(
         func: T | T[],
         options: {
@@ -18,8 +18,10 @@ export const useEventController = (props: { disabled?: Atom<boolean> }) => {
         const final = async (...args: Parameters<T>) => {
             if (props.disabled && props.disabled()) return false;
             options.loading && options.loading(true);
-            for (const iterator of channel) {
+            for await (const iterator of channel) {
+                console.log('开始');
                 const result = await iterator(...args);
+                console.log('结束', result);
                 if (result === false) return false;
             }
             options.loading && options.loading(false);
@@ -45,5 +47,5 @@ export const emitEvent = <
     propsChanger?: (args: Input) => Readonly<Parameters<T>>
 ) => {
     return (...args: Input) =>
-        event && (event as T).apply(null, propsChanger ? propsChanger(args) : args);
+        event ? (event as T).apply(null, propsChanger ? propsChanger(args) : args) : undefined;
 };

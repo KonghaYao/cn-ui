@@ -7,7 +7,6 @@ import { App } from './App';
 import { Router, hashIntegration, Route, Routes } from '@solidjs/router';
 
 render(() => {
-    console.log('全局重绘');
     return (
         <Router source={hashIntegration()}>
             {/* <App></App> */}
