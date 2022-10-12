@@ -56,7 +56,6 @@ export const Split = OriginComponent<SplitProps>((props) => {
             // 推迟更新，等待 DOM 完成挂载
             setTimeout(() => {
                 lastSplit.destroy();
-                console.log('重构', children.length);
                 lastSplit = OriginSplit(children as any as HTMLElement[], message);
             }, 10);
         }

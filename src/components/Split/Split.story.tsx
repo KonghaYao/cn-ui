@@ -5,7 +5,7 @@ export const Controller = [
         prop: 'vertical',
     },
 ];
-import { Split } from '@cn-ui/split/src/index';
+import { Split } from '@cn-ui/split';
 import { atom } from '@cn-ui/use';
 import { For } from 'solid-js';
 import { Button } from '../Button';
