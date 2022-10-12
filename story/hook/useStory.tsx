@@ -1,16 +1,15 @@
-import Index from '../src/story.index.json';
+import Index from '../story.index.json';
 import { useSearchParams } from '@solidjs/router';
 import { atom, reflect } from '@cn-ui/use';
 import { batch } from 'solid-js';
+import { useViewing } from './useViewing';
 
 const modules = import.meta.glob('/src/components/**/*.story.tsx');
 
 /** 将项目中的 story 文件抽取出来 */
 export const useStory = () => {
-    const [searchParams] = useSearchParams();
-    const path = reflect(() => {
-        return searchParams.path || Index[0];
-    });
+    const { viewing } = useViewing();
+
     /** 注入组件的参数 */
     const Props = atom({});
     /** 组件的表单选择器 */
@@ -20,8 +19,8 @@ export const useStory = () => {
     });
     const refetch = async () => {
         return batch(async () => {
-            const loader = modules[path()];
-            console.log(path());
+            const loader = modules['/' + viewing().path];
+            console.log(viewing().path);
             if (!loader) return;
 
             const module: any = await loader();

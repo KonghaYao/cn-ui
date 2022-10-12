@@ -1,4 +1,5 @@
 import { Typography } from '@cn-ui/core';
+import { Code } from '@cn-ui/highlight';
 export const Controller = [];
 export default (props) => {
     return <Typography class="bg-white">{Demo()}</Typography>;
@@ -322,7 +323,7 @@ const Demo = () => (
             it。it will works nice as the demo you're watching now. The following code is the best
             way to render typo in Chinese:
         </p>
-        <pre>{code}</pre>
+        <Code>{code}</Code>
 
         <h3 id="section3">三、附录</h3>
 

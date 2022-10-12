@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 import { ControllerGenerator } from './ControllerGenerator';
-import { useStory } from './useStory';
+import { useStory } from './hook/useStory';
 import { Dynamic } from 'solid-js/web';
 import { NavBar } from './NavBar';
 import { Split } from '@cn-ui/split';
@@ -35,17 +35,16 @@ export const App = () => {
                     >
                         <Dynamic component={Content()} {...Props()}></Dynamic>
                     </main>
-                    <nav>
-                        <ControllerGenerator
-                            controller={Controller()}
-                            onChange={(name, value) => {
-                                Props((props) => {
-                                    props[name] = value;
-                                    return { ...props };
-                                });
-                            }}
-                        ></ControllerGenerator>
-                    </nav>
+
+                    <ControllerGenerator
+                        controller={Controller()}
+                        onChange={(name, value) => {
+                            Props((props) => {
+                                props[name] = value;
+                                return { ...props };
+                            });
+                        }}
+                    ></ControllerGenerator>
                 </Split>
             </main>
         </main>

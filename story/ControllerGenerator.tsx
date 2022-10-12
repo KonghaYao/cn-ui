@@ -1,11 +1,15 @@
 import { Component, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
 import { Tab, Tabs, TabsHeader } from '@cn-ui/core';
-
+import { Code, refractor } from '@cn-ui/highlight/src/index';
+import tsx from 'refractor/lang/tsx.js';
+refractor.register(tsx);
+import { useViewing } from './hook/useViewing';
 export const ControllerGenerator: Component<{
     controller: any[];
     onChange: (key: string, value: any) => void;
 }> = (props) => {
+    const { viewing } = useViewing();
     const map = {
         select: ({
             default: defaultValue,
@@ -61,7 +65,7 @@ export const ControllerGenerator: Component<{
         },
     };
     return (
-        <Tabs>
+        <Tabs class="flex flex-col overflow-hidden">
             <TabsHeader></TabsHeader>
             <Tab id="Props">
                 <For each={props.controller}>
@@ -76,7 +80,11 @@ export const ControllerGenerator: Component<{
                     }}
                 </For>
             </Tab>
-            <Tab id="Actions">暂无 Actions</Tab>
+            <Tab id="Story" class="flex-1 overflow-auto">
+                <div class="overflow-auto p-4">
+                    <Code lang="tsx">{viewing().code}</Code>
+                </div>
+            </Tab>
         </Tabs>
     );
 };

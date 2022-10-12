@@ -1,5 +1,5 @@
 import { For } from 'solid-js';
-import Index from '../src/story.index.json';
+import Index from './story.index.json';
 import { useSearchParams } from '@solidjs/router';
 import { Button } from '../src/components/Button';
 import { Space } from '../src/components/Space';
@@ -13,7 +13,7 @@ export const NavBar = () => {
     const filteredIndex = reflect(() => {
         if (searchText() === '') return Index;
         const reg = new RegExp(searchText());
-        return Index.filter((i) => reg.test(i));
+        return Index.filter((i) => reg.test(i.path));
     });
     return (
         <div class="flex flex-col border-r border-solid border-gray-200 p-1">
@@ -24,12 +24,12 @@ export const NavBar = () => {
                         return (
                             <Button
                                 class="w-full transition-colors"
-                                type={searchParams.path === i ? 'primary' : 'text'}
+                                type={searchParams.path === i.path ? 'primary' : 'text'}
                                 onClick={() => {
-                                    setSearchParams({ path: i });
+                                    setSearchParams({ path: i.path });
                                 }}
                             >
-                                {i.replace(/.*\/(.*?).story.tsx$/, '$1')}
+                                {i.path.replace(/.*\/(.*?).story.tsx$/, '$1')}
                             </Button>
                         );
                     }}
