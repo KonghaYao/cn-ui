@@ -29,7 +29,7 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
             }}
             style={props.style}
             ref={props.ref}
-            {...extendsEvent(props)}
+            {...extendsEvent(props, ['onClick'])}
             onClick={control(
                 [
                     emitEvent(props.onClick),

@@ -47,7 +47,7 @@ export default (props) => {
                         return true;
                     }}
                 >
-                    {checkbox() ? '选中' : '没选中'}
+                    异步更新{checkbox() ? '选中' : '没选中'}
                 </CheckBox>
             </Space>
 

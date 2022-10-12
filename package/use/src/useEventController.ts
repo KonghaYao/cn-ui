@@ -3,8 +3,8 @@ import { Atom } from './atom';
 
 /**
  * @zh 异步管式事件接管
+ * @param props.oneLine 是否锁定态执行函数，默认锁定执行
  */
-
 export const useEventController = (props: { disabled?: Atom<boolean>; oneLine?: boolean }) => {
     return <T extends (...args: any[]) => void | boolean | Promise<void | boolean>>(
         func: T | T[],
@@ -15,23 +15,30 @@ export const useEventController = (props: { disabled?: Atom<boolean>; oneLine?: 
     ) => {
         const F = func instanceof Array ? func : [func];
         const channel = F.filter((i) => i);
-        const final = async (...args: Parameters<T>) => {
+
+        /** 主体执行函数 */
+        let final = async (...args: Parameters<T>) => {
             if (props.disabled && props.disabled()) return false;
+
             options.loading && options.loading(true);
             for await (const iterator of channel) {
-                console.log('开始');
                 const result = await iterator(...args);
-                console.log('结束', result);
                 if (result === false) return false;
             }
             options.loading && options.loading(false);
             return true;
         };
-        return options.batch ? (...args: Parameters<T>) => batch(() => final(...args)) : final;
+
+        // 以下为修饰器
+        if (props.oneLine !== false) final = useSingleAsync(final);
+        if (options.batch) final = (...args: Parameters<T>) => batch(() => final(...args));
+        return final;
     };
 };
 import { JSX } from 'solid-js';
-/** @zh 在 control 中向组件外暴露事件
+import { useSingleAsync } from './useSingleAsync';
+/**
+ * @zh 配合 useEventController 向组件外暴露异步事件流
  *
  * @example
  *

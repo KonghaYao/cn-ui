@@ -102,8 +102,12 @@ const Comp = (props) => {
                     value((i) => !i);
                 },
             ],
-            // 是否采用 batch 更新
-            { batch: true }
+            {
+                // 是否采用 batch 更新
+                batch: true,
+                // 在异步事件运行中时，自动取消发生的事件
+                oneLine: true,
+            }
         )}
     >
         这是一个组件
