@@ -90,8 +90,8 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
                                     {item.name}
                                 </span>
                                 {item.isDirectory
-                                    ? props.FolderExtra(item)
-                                    : props.FileExtra(item as ExFile)}
+                                    ? props.FolderExtra && props.FolderExtra(item)
+                                    : props.FileExtra && props.FileExtra(item as ExFile)}
                             </div>
                         );
                     }}
