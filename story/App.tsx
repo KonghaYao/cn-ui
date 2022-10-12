@@ -1,43 +1,19 @@
-import { Component, For } from 'solid-js';
-import Index from '../src/story.index.json';
+import { Component } from 'solid-js';
 import { ControllerGenerator } from './ControllerGenerator';
-import { useNavigate, useSearchParams } from '@solidjs/router';
+import { useNavigate } from '@solidjs/router';
 import { useStory } from './useStory';
 import { Dynamic } from 'solid-js/web';
-import { Button } from '../src/components/Button';
-import { Space } from '../src/components/Space';
-const NavBar = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    return (
-        <Space vertical class="HeaderFont overflow-auto py-4 px-2 scroll-box-none">
-            <For each={Index}>
-                {(i) => {
-                    return (
-                        <Button
-                            class="w-full transition-colors"
-                            type={searchParams.path === i ? 'primary' : 'text'}
-                            onClick={() => {
-                                setSearchParams({ path: i });
-                            }}
-                        >
-                            {i.replace(/.*\/(.*?).story.tsx$/, '$1')}
-                        </Button>
-                    );
-                }}
-            </For>
-        </Space>
-    );
-};
-
+import { NavBar } from './NavBar';
 // import 'animate.css';
 export const App = () => {
     const { Props, Controller, Content } = useStory();
 
     return (
-        <main class="flex flex-col" id="app">
-            <header class="HeaderFont font-bold px-8 py-2 select-none text-xl bg-gradient-to-r from-rose-100 to-teal-100">
-                <span class=" text-gray-600 text-2xl">Story Of CNUI</span>
+        <main class="flex flex-col bg-gray-50" id="app">
+            <header class="HeaderFont  px-8 py-1 select-none text-xl bg-gray-800 ">
+                <span class=" bg-clip-text text-transparent text-3xl bg-gradient-to-r from-rose-100 to-teal-100">
+                    Story Of CNUI
+                </span>
             </header>
             <main class="flex flex-row flex-1 h-full overflow-hidden bg-conic-to-r from-indigo-200 via-slate-600 to-indigo-200">
                 <NavBar></NavBar>

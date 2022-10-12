@@ -6,7 +6,7 @@ import {
     extendsEvent,
     OriginComponent,
     useEventController,
-} from '@cn-ui/use/src/index';
+} from '@cn-ui/use';
 import { JSX } from 'solid-js';
 
 interface SwitchProps extends JSX.HTMLAttributes<HTMLButtonElement> {

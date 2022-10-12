@@ -5,6 +5,7 @@ import { batch } from 'solid-js';
 
 const modules = import.meta.glob('/src/components/**/*.story.tsx');
 
+/** 将项目中的 story 文件抽取出来 */
 export const useStory = () => {
     const [searchParams] = useSearchParams();
     const path = reflect(() => {

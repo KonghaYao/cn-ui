@@ -1,4 +1,5 @@
 @import url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/cormorant-sc/index.css');
 body {
     margin: 0;
     overflow: hidden;
@@ -7,10 +8,12 @@ body {
     height: 100vh;
     width: 100vw;
 }
-.HeaderFont {
+.TextFont {
     font-family: 'IBM Plex Sans Condensed', sans-serif;
 }
-
+.HeaderFont {
+    font-family: 'Cormorant SC', sans-serif;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
