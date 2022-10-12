@@ -1,48 +1,45 @@
 import {
-    children,
+    Accessor,
     createContext,
     createEffect,
-    createMemo,
     For,
+    JSX,
     JSXElement,
     mergeProps,
-    onCleanup,
-    onMount,
-    Show,
     useContext,
 } from 'solid-js';
 import { atom, Atom, extendsEvent } from '@cn-ui/use';
 import { Button } from '../Button';
-import { Space } from '../Space';
-import { Tag } from '../Tag';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps, TabsProps } from './interface';
-const TabsContext = createContext<{
+export const TabsContext = createContext<{
     /** 注册一个 Tabs */
     register: (data: TabPaneProps) => void;
     activeId: Atom<string>;
     TabsData: Atom<TabPaneProps[]>;
 }>();
-
-export const TabsHeader = OriginComponent<{}, HTMLDivElement>((props) => {
+export interface TabsHeaderProps extends JSX.HTMLAttributes<HTMLDivElement> {
+    tab?: (props: TabPaneProps, index: Accessor<number>) => JSXElement;
+}
+export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((props) => {
     const { activeId, TabsData } = useContext(TabsContext);
     // TODO Tab 增删
     return (
-        <Space {...props} size={4} class={props.class('cn-tabs-header')}>
+        <div class={props.class('cn-tabs-header flex')}>
             <For each={TabsData()}>
-                {(data) => {
-                    return (
-                        <Button
-                            size="mini"
-                            type={data.id === activeId() ? 'primary' : 'text'}
-                            onClick={() => activeId(data.id)}
-                        >
-                            {data.id}
-                        </Button>
-                    );
-                }}
+                {props.tab ??
+                    ((data) => {
+                        return (
+                            <Button
+                                type={data.id === activeId() ? 'primary' : 'text'}
+                                onClick={() => activeId(data.id)}
+                            >
+                                {data.id}
+                            </Button>
+                        );
+                    })}
             </For>
-        </Space>
+        </div>
     );
 });
 
@@ -75,33 +72,5 @@ export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
                 {props.children}
             </div>
         </TabsContext.Provider>
-    );
-});
-
-export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
-    const { activeId, register } = useContext(TabsContext);
-    props = mergeProps(
-        {
-            destroyOnHide: true,
-        },
-        props
-    );
-    register(props as any);
-
-    const show = createMemo(() => {
-        if (!props.destroyOnHide) return true;
-        return props.destroyOnHide && activeId() === props.id;
-    });
-
-    return (
-        <Show when={show()}>
-            <div
-                ref={props.ref}
-                class={props.class()}
-                style={{ display: activeId() === props.id ? 'block' : 'none', ...props.style }}
-            >
-                {props.children}
-            </div>
-        </Show>
     );
 });

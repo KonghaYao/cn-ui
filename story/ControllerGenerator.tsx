@@ -1,5 +1,6 @@
 import { Component, For } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
+import { Tab, Tabs, TabsHeader } from '@cn-ui/core';
 
 export const ControllerGenerator: Component<{
     controller: any[];
@@ -60,18 +61,22 @@ export const ControllerGenerator: Component<{
         },
     };
     return (
-        <main>
-            <For each={props.controller}>
-                {(i) => {
-                    // console.log(i);
-                    return (
-                        <div>
-                            {i.prop}
-                            <Dynamic component={map[i.type]} {...i}></Dynamic>
-                        </div>
-                    );
-                }}
-            </For>
-        </main>
+        <Tabs>
+            <TabsHeader></TabsHeader>
+            <Tab id="Props">
+                <For each={props.controller}>
+                    {(i) => {
+                        // console.log(i);
+                        return (
+                            <div id={i.prop}>
+                                {i.prop}
+                                <Dynamic component={map[i.type]} {...i}></Dynamic>
+                            </div>
+                        );
+                    }}
+                </For>
+            </Tab>
+            <Tab id="Actions">暂无 Actions</Tab>
+        </Tabs>
     );
 };

@@ -125,7 +125,7 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         }
         for (let i = 0; i < p.length; i++) {
             const old = p[i];
-            if (!next.has(old) && old.parentNode) {
+            if (old && !next.has(old) && old.parentNode) {
                 comb.splice(i, 0, old);
                 onBeforeExit && onBeforeExit(old);
                 old.classList.add(...exitClasses);

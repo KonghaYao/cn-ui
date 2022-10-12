@@ -1,10 +1,9 @@
 import { Component } from 'solid-js';
 import { ControllerGenerator } from './ControllerGenerator';
-import { useNavigate } from '@solidjs/router';
 import { useStory } from './useStory';
 import { Dynamic } from 'solid-js/web';
 import { NavBar } from './NavBar';
-// import 'animate.css';
+import { Split } from '@cn-ui/split';
 export const App = () => {
     const { Props, Controller, Content } = useStory();
 
@@ -18,12 +17,14 @@ export const App = () => {
             <main class="flex flex-row flex-1 h-full overflow-hidden bg-conic-to-r from-indigo-200 via-slate-600 to-indigo-200">
                 <NavBar></NavBar>
 
-                <div
-                    class="flex flex-col flex-1"
+                <Split
+                    class=" flex-1"
                     style={{
                         width: '100%',
                         overflow: 'hidden',
                     }}
+                    sizes={[75, 25]}
+                    vertical
                 >
                     <main
                         class="flex-1 bg-grid"
@@ -45,7 +46,7 @@ export const App = () => {
                             }}
                         ></ControllerGenerator>
                     </nav>
-                </div>
+                </Split>
             </main>
         </main>
     );
