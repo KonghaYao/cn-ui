@@ -1,7 +1,7 @@
 import { atom, reflect } from '@cn-ui/use';
 import { createResource, onMount } from 'solid-js';
 import { Select } from '../Form';
-import { Code } from './index';
+import { Code } from '@cn-ui/highlight';
 const themes = [
     'one-dark',
     'a11y-dark',

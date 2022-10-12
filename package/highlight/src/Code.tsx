@@ -1,7 +1,7 @@
 import { refractor } from 'refractor';
 import { toHtml } from 'hast-util-to-html';
 import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-export { refractor };
+export * from 'refractor';
 export const Code = OriginComponent<
     {
         /** 代码作为 字符串写入 */

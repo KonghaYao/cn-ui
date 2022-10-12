@@ -1,0 +1,33 @@
+{
+    "name": "@cn-ui/highlight",
+    "version": "1.0.0",
+    "description": "A Code Highlight Component base on SolidJS",
+    "main": "./dist/index.mjs",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "build": "vite build && tsc"
+    },
+    "license": "MIT",
+    "devDependencies": {},
+    "peerDependencies": {
+        "solid-js": "^1.5.7",
+        "@cn-ui/use": "^1.5.0"
+    },
+    "keywords": [
+        "solid",
+        "solid-js",
+        "syntax",
+        "lowlight",
+        "highlighting",
+        "prism",
+        "highlight",
+        "ast"
+    ],
+    "dependencies": {
+        "hast-util-to-html": "^8.0.3",
+        "refractor": "^4.8.0"
+    }
+}
