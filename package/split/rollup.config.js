@@ -4,9 +4,9 @@ import postcss from 'rollup-plugin-postcss';
 import multi from 'rollup-plugin-multi-input';
 import fse from 'fs-extra';
 fse.emptyDirSync('./dist/');
-const external = ['solid-js', 'solid-js/web', 'solid-js/store'];
+const external = ['solid-js', 'solid-js/web', 'solid-js/store', '@cn-ui/use'];
 export default {
-    input: ['src/index.ts'],
+    input: ['src/index.tsx'],
     output: { dir: 'dist' },
     plugins: [
         multi({ relative: 'src/' }),
@@ -19,7 +19,7 @@ export default {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         }),
         postcss({
-            extract: true,
+            extract: false,
             // Or with custom file name
             // extract: path.resolve('dist/my-custom-file-name.css'),
         }),
