@@ -26,7 +26,7 @@ export const App = () => {
                     }}
                 >
                     <main
-                        class="flex-1"
+                        class="flex-1 bg-grid"
                         style={{
                             overflow: 'auto',
                             'max-height': '80vh',

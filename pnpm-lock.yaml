@@ -9,6 +9,7 @@ importers:
       '@babel/plugin-transform-typescript': ^7.19.3
       '@babel/preset-env': ^7.19.3
       '@cn-ui/command-palette': 'workspace:'
+      '@cn-ui/split': 'workspace:'
       '@cn-ui/swiper': 'workspace:'
       '@cn-ui/use': 'workspace:'
       '@fontsource/material-icons-rounded': ^4.5.4
@@ -43,6 +44,7 @@ importers:
       zxcvbn: ^4.4.2
     dependencies:
       '@cn-ui/command-palette': link:package/command-palette
+      '@cn-ui/split': link:package/split
       '@cn-ui/swiper': link:package/swiper
       '@cn-ui/use': link:package/use
       '@fontsource/material-icons-rounded': 4.5.4
@@ -120,6 +122,37 @@ importers:
       chroma-js: ^2.4.2
     dependencies:
       chroma-js: 2.4.2
+
+  package/split:
+    specifiers:
+      '@babel/core': ^7.19.3
+      '@babel/plugin-transform-runtime': ^7.19.1
+      '@babel/plugin-transform-typescript': ^7.19.3
+      '@babel/preset-env': ^7.19.3
+      '@rollup/plugin-babel': ^5.3.1
+      '@rollup/plugin-node-resolve': ^14.1.0
+      babel-preset-solid: ^1.4.6
+      fs-extra: ^10.1.0
+      postcss: ^8.4.16
+      rollup: ^2.79.1
+      rollup-plugin-multi-input: ^1.3.1
+      rollup-plugin-postcss: ^4.0.2
+      split.js: ^1.6.5
+    dependencies:
+      split.js: 1.6.5
+    devDependencies:
+      '@babel/core': 7.19.3
+      '@babel/plugin-transform-runtime': 7.19.1_@babel+core@7.19.3
+      '@babel/plugin-transform-typescript': 7.19.3_@babel+core@7.19.3
+      '@babel/preset-env': 7.19.3_@babel+core@7.19.3
+      '@rollup/plugin-babel': 5.3.1_vy4anxjpv2s44kyfi2kxqu576u
+      '@rollup/plugin-node-resolve': 14.1.0_rollup@2.79.1
+      babel-preset-solid: 1.4.6_@babel+core@7.19.3
+      fs-extra: 10.1.0
+      postcss: 8.4.16
+      rollup: 2.79.1
+      rollup-plugin-multi-input: 1.3.1
+      rollup-plugin-postcss: 4.0.2_postcss@8.4.16
 
   package/swiper:
     specifiers:
@@ -4914,6 +4947,10 @@ packages:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
     engines: {node: '>= 8'}
     dev: true
+
+  /split.js/1.6.5:
+    resolution: {integrity: sha512-mPTnGCiS/RiuTNsVhCm9De9cCAUsrNFFviRbADdKiiV+Kk8HKp/0fWu7Kr8pi3/yBmsqLFHuXGT9UUZ+CNLwFw==}
+    dev: false
 
   /ssr-window/4.0.2:
     resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}

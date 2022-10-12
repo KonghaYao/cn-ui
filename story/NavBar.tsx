@@ -16,8 +16,8 @@ export const NavBar = () => {
         return Index.filter((i) => reg.test(i));
     });
     return (
-        <div class="flex flex-col">
-            <InputText value={searchText}></InputText>
+        <div class="flex flex-col border-r border-solid border-gray-200 p-1">
+            <InputText value={searchText} icon={null}></InputText>
             <Space vertical class="TextFont overflow-auto py-4 px-2 scroll-box-none">
                 <For each={filteredIndex()}>
                     {(i) => {

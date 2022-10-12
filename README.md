@@ -4,6 +4,7 @@
 -   [x] Tippy.js
 -   [x] 中国地区 https://vant-contrib.gitee.io/vant/#/zh-CN/area
 -   [x] 借鉴 https://github.com/upload-io/uploader#installation
+-   [ ] https://www.npmjs.com/package/solid-split-component
 -   [ ] 时间选择器 https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] @thisbeyond/solid-select
 -   [ ] 可拖拽组件 http://sortablejs.github.io/Sortable/
