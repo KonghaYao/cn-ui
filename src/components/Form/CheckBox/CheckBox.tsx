@@ -50,8 +50,9 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                     async (e) => {
                         value((i) => !i);
                     },
-                ],
-                { batch: true }
+                ]
+                // 使用 batch 会报错
+                // { batch: false }
             )}
         >
             <span
