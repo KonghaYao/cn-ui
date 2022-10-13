@@ -2,9 +2,7 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
-const deps = [Package.dependencies, Package.devDependencies, Package.peerDependencies].flatMap(
-    (i) => Object.keys(i)
-);
+const deps = [Package.devDependencies, Package.peerDependencies].flatMap((i) => Object.keys(i));
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
@@ -26,23 +24,6 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
         },
-        resolve: {
-            alias: {
-                '@cn-ui/core/index.css': '/src/style/index.css',
-                '@cn-ui/core': '/src/index.ts',
-            },
-        },
-        optimizeDeps: {
-            include: [
-                'lodash-es',
-                'copy-to-clipboard',
-                'viewerjs',
-                '@vant/area-data',
-                'mitt',
-                'zxcvbn',
-            ],
-        },
-
         build: {
             assetsInlineLimit: 0,
             target: 'es6',
@@ -53,14 +34,6 @@ export default defineConfig(({ mode }) => {
                 formats: ['es'],
             },
             sourcemap: true,
-            rollupOptions: {
-                external: [
-                    'solid-js',
-                    'solid-js/web',
-                    'solid-js/store',
-                    '@fontsource/material-icons-rounded/index.css',
-                ],
-            },
         },
     };
 });

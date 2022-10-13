@@ -13,6 +13,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@cn-ui/core': '/dist/index.mjs',
+            '@cn-ui/core/index.css': '/dist/assets/index.886d3236.css',
         },
     },
     optimizeDeps: {

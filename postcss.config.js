@@ -3,10 +3,5 @@ module.exports = {
     plugins: {
         tailwindcss: {},
         autoprefixer: {},
-        'postcss-import': {
-            filter(item) {
-                return;
-            },
-        },
     },
 };
