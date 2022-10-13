@@ -18,13 +18,13 @@ export const NavBar = () => {
     return (
         <div class="flex flex-col border-r border-solid border-gray-200 p-1">
             <InputText value={searchText} icon={null}></InputText>
-            <Space vertical class="TextFont overflow-auto py-4 px-2 scroll-box-none">
+            <Space vertical class="TextFont scroll-box-none overflow-auto py-4 px-2">
                 <For each={filteredIndex()}>
                     {(i) => {
                         return (
                             <Button
                                 class="w-full transition-colors"
-                                type={searchParams.path === i.path ? 'primary' : 'text'}
+                                color={searchParams.path === i.path ? 'blue' : 'white'}
                                 onClick={() => {
                                     setSearchParams({ path: i.path }, { resolve: false });
                                 }}

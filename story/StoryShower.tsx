@@ -21,7 +21,7 @@ export const StoryRoot = (props) => {
     );
 };
 export const StoryShower = () => {
-    const { Content } = useContext(StoryContext);
+    const { Content, Props } = useContext(StoryContext);
     return (
         <main
             class="bg-grid flex-1"
@@ -29,7 +29,7 @@ export const StoryShower = () => {
                 overflow: 'auto',
             }}
         >
-            <Dynamic component={Content()}></Dynamic>
+            <Dynamic component={Content()} {...Props()}></Dynamic>
         </main>
     );
 };
