@@ -24,7 +24,7 @@ export const StoryShower = () => {
     const { Content } = useContext(StoryContext);
     return (
         <main
-            class="flex-1 bg-grid"
+            class="bg-grid flex-1"
             style={{
                 overflow: 'auto',
             }}
