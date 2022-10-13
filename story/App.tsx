@@ -15,20 +15,11 @@ export const App = () => {
             </header>
             <main class="flex flex-row flex-1 h-full overflow-hidden bg-conic-to-r from-indigo-200 via-slate-600 to-indigo-200">
                 <NavBar></NavBar>
-                <Split
-                    class=" flex-1"
-                    style={{
-                        width: '100%',
-                        overflow: 'hidden',
-                    }}
-                    sizes={[75, 25]}
-                    vertical
-                >
-                    <StoryRoot>
-                        <StoryShower></StoryShower>
-                        <ControllerGenerator></ControllerGenerator>
-                    </StoryRoot>
-                </Split>
+
+                <StoryRoot>
+                    <StoryShower></StoryShower>
+                    <ControllerGenerator></ControllerGenerator>
+                </StoryRoot>
             </main>
         </main>
     );
