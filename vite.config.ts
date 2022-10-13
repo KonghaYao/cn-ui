@@ -8,9 +8,10 @@ const deps = [Package.dependencies, Package.devDependencies, Package.peerDepende
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
+    console.log(mode)
     return {
         plugins: [
-            {
+            mode !== 'development' &&{
                 name: 'shake',
                 enforce: 'pre',
                 resolveId(thisFile) {
@@ -58,7 +59,7 @@ export default defineConfig(({ mode }) => {
                     'solid-js',
                     'solid-js/web',
                     'solid-js/store',
-                    '@fontsource/material-icons-rounded/index.css',
+
                 ],
             },
         },
