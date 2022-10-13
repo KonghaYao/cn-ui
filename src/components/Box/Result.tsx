@@ -5,14 +5,53 @@ interface ResultProps extends Omit<BoxProps, 'icon'> {
     icon: stringTag | JSX.FunctionElement | JSX.ArrayElement;
 }
 import { Box, BoxProps } from './Box';
-import { Icon } from '../Icon';
 import { DefaultIcon } from '../Icon/DefaultIcon';
 
 const CompMap = new Map<stringTag, JSXElement>([
-    ['success', () => <DefaultIcon name="check_circle" color="green" size={50}></DefaultIcon>],
-    ['error', () => <DefaultIcon name="close" color="red" size={50}></DefaultIcon>],
-    ['info', () => <DefaultIcon name="info" color="blue" size={50}></DefaultIcon>],
-    ['warning', () => <DefaultIcon name="info" color="orange" size={50}></DefaultIcon>],
+    [
+        'success',
+        () => (
+            <DefaultIcon
+                class="shadow-lg shadow-green-500/50"
+                name="check_circle"
+                color="green"
+                size={50}
+            ></DefaultIcon>
+        ),
+    ],
+    [
+        'error',
+        () => (
+            <DefaultIcon
+                class="shadow-lg shadow-red-500/50"
+                name="close"
+                color="red"
+                size={50}
+            ></DefaultIcon>
+        ),
+    ],
+    [
+        'info',
+        () => (
+            <DefaultIcon
+                class="shadow-lg shadow-blue-500/50"
+                name="info"
+                color="blue"
+                size={50}
+            ></DefaultIcon>
+        ),
+    ],
+    [
+        'warning',
+        () => (
+            <DefaultIcon
+                class="shadow-lg shadow-orange-500/50"
+                name="info"
+                color="orange"
+                size={50}
+            ></DefaultIcon>
+        ),
+    ],
 ]);
 /**
  * @zh Result 是状态标识页面

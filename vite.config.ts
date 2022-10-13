@@ -25,7 +25,6 @@ export default defineConfig(({ mode }) => {
                 (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
-            hmr: false,
             port: 3000,
         },
         resolve: {

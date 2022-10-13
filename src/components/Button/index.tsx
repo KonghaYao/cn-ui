@@ -29,26 +29,23 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
         if (props.square) return 'rounded-none';
         return 'rounded';
     });
-    const classNames = createMemo(() =>
-        props.class(
-            'cn-btn',
-
-            reflect(() => SizeTrans[props.size])(),
-            reflect(() => getColorSet()[props.color])(),
-            props.text && 'hover:bg-slate-100/50 border-none',
-            loading() && 'pointer-events-none',
-            props.block && 'w-full',
-            props.disabled && 'opacity-90 cursor-not-allowed',
-            radius(),
-            'inline-flex items-center border border-gray-300 whitespace-nowrap px-4 py-2 text-sm  shadow-sm focus:outline-none  select-none hover:brightness-110 active:brightness-90 justify-center'
-        )
-    );
 
     const control = useEventController({});
     return (
         <button
             ref={props.ref}
-            class={classNames()}
+            class={props.class(
+                'cn-btn',
+                reflect(() => SizeTrans[props.size])(),
+                reflect(() => getColorSet()[props.color])(),
+                props.text && 'border-none hover:bg-slate-100/50',
+                loading() && 'pointer-events-none',
+                props.block && 'w-full',
+                props.disabled && 'cursor-not-allowed opacity-70',
+                radius(),
+                'inline-flex select-none items-center justify-center whitespace-nowrap border border-gray-300 px-4 py-2 text-sm ',
+                ' transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
+            )}
             style={{
                 ...props.style,
                 'border-radius': props.round ? '4em' : props.square ? '0' : '0.6em',

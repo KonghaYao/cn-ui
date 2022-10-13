@@ -1,5 +1,4 @@
 .cn-btn {
-    transition: filter 0.3s linear, background-color 0.3s linear;
     box-sizing: border-box;
 }
 .cn-btn .cn-icon-font {

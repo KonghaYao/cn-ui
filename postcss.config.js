@@ -1,5 +1,5 @@
 module.exports = {
-    // purge: ['./src/**/*.{vue,js,ts,jsx,tsx}'],
+    purge: ['./{src,story,package}/**/*.{ts,tsx}'],
     plugins: {
         tailwindcss: {},
         autoprefixer: {},
