@@ -1,5 +1,7 @@
 import fs from 'fs';
-fs.unlinkSync('./src/module.ts');
+try {
+    fs.unlinkSync('./src/module.ts');
+} catch (e) {}
 [
     'A11y',
     'Autoplay',
@@ -33,7 +35,7 @@ fs.unlinkSync('./src/module.ts');
 import 'swiper/css/${smallName}'
 export { ${name} } from 'swiper';`
     );
-    fs.writeFileSync('./src/module.ts', `export { ${name} } from './modules/${smallName}';\n`, {
+    fs.writeFileSync('./src/module.ts', `export { ${name} } from './modules/${smallName}.js';\n`, {
         flag: 'a',
     });
 });

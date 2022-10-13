@@ -2,7 +2,9 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
-const deps = [Package.devDependencies, Package.peerDependencies].flatMap((i) => Object.keys(i));
+const deps = [Package.dependencies, Package.devDependencies, Package.peerDependencies].flatMap(
+    (i) => Object.keys(i)
+);
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
@@ -24,13 +26,14 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
         },
+        css: {},
         build: {
-            assetsInlineLimit: 0,
             target: 'es6',
+            cssCodeSplit: false,
             lib: {
-                entry: './src/index.ts',
-                name: 'index',
-                fileName: 'index',
+                entry: './src/index.tsx',
+                name: 'chunk',
+                fileName: 'chunk',
                 formats: ['es'],
             },
             sourcemap: true,

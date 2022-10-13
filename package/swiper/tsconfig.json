@@ -10,8 +10,7 @@
         "types": ["vite/client"],
         "resolveJsonModule": true,
         "declaration": true,
-        "emitDeclarationOnly": true,
-        "declarationDir": "./dist"
+        "outDir": "./dist"
     },
     "include": ["src/**/*", "story/**/*"]
 }
