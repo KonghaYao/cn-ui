@@ -22,12 +22,7 @@ export default (props) => {
                     Add Number
                 </Button>
             </span>
-            {(() => {
-                onMount(() => {
-                    console.log('渲染 out');
-                });
-                return <div></div>;
-            })()}
+
             <Split
                 class="h-1/2 w-full bg-slate-50 "
                 {...props}

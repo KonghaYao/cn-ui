@@ -26,7 +26,7 @@ export const NavBar = () => {
                                 class="w-full transition-colors"
                                 type={searchParams.path === i.path ? 'primary' : 'text'}
                                 onClick={() => {
-                                    setSearchParams({ path: i.path });
+                                    setSearchParams({ path: i.path }, { resolve: false });
                                 }}
                             >
                                 {i.path.replace(/.*\/(.*?).story.tsx$/, '$1')}
