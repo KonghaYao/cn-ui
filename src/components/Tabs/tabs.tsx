@@ -31,7 +31,9 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                     ((data) => {
                         return (
                             <Button
-                                type={data.id === activeId() ? 'primary' : 'text'}
+                                class="border-none"
+                                color={data.id === activeId() ? 'sky' : 'white'}
+                                square
                                 onClick={() => activeId(data.id)}
                             >
                                 {data.id}

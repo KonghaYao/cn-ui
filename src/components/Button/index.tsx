@@ -12,16 +12,16 @@ import {
     useEventController,
 } from '@cn-ui/use';
 const defaultProps: ButtonProps = {
-    htmlType: 'button',
     color: 'blue',
+    size: 'normal',
 };
-import { Color, OutlineColor, SizeTrans } from './design';
+import { Color, TextColor, SizeTrans } from './design';
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);
     const loading = atomization(props.loading);
 
     const getColorSet = () => {
-        if (props.outline) return OutlineColor;
+        if (props.text) return TextColor;
         return Color;
     };
     const radius = reflect(() => {
@@ -32,15 +32,15 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
     const classNames = createMemo(() =>
         props.class(
             'cn-btn',
-            props.outline ? 'border border-solid hover:bg-slate-50/50' : 'border-transparent',
+
             reflect(() => SizeTrans[props.size])(),
             reflect(() => getColorSet()[props.color])(),
-
+            props.text && 'hover:bg-slate-100/50 border-none',
             loading() && 'pointer-events-none',
             props.block && 'w-full',
-            props.disabled && 'opacity-80 cursor-not-allowed',
+            props.disabled && 'opacity-90 cursor-not-allowed',
             radius(),
-            'inline-flex items-center justify-center relative outline-none select-none  cursor-pointer whitespace-nowrap box-border  px-4'
+            'inline-flex items-center border border-gray-300 whitespace-nowrap px-4 py-2 text-sm  shadow-sm focus:outline-none  select-none hover:brightness-110 active:brightness-90 justify-center'
         )
     );
 
@@ -49,8 +49,11 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
         <button
             ref={props.ref}
             class={classNames()}
-            style={props.style}
-            type={props.htmlType}
+            style={{
+                ...props.style,
+                'border-radius': props.round ? '4em' : props.square ? '0' : '0.6em',
+            }}
+            type={props.type}
             {...extendsEvent(props, ['onClick'])}
             onClick={control([() => loading(true), emitEvent(props.onClick), () => loading(false)])}
         >

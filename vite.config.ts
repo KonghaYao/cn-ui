@@ -8,10 +8,10 @@ const deps = [Package.dependencies, Package.devDependencies, Package.peerDepende
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
-    console.log(mode)
+    console.log(mode);
     return {
         plugins: [
-            mode !== 'development' &&{
+            mode !== 'development' && {
                 name: 'shake',
                 enforce: 'pre',
                 resolveId(thisFile) {
@@ -25,6 +25,7 @@ export default defineConfig(({ mode }) => {
                 (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
+            hmr: false,
             port: 3000,
         },
         resolve: {
@@ -42,6 +43,7 @@ export default defineConfig(({ mode }) => {
                 'mitt',
                 'zxcvbn',
             ],
+            exclude: ['@cn-ui/core'],
         },
 
         build: {
@@ -55,12 +57,7 @@ export default defineConfig(({ mode }) => {
             },
             sourcemap: true,
             rollupOptions: {
-                external: [
-                    'solid-js',
-                    'solid-js/web',
-                    'solid-js/store',
-
-                ],
+                external: ['solid-js', 'solid-js/web', 'solid-js/store'],
             },
         },
     };

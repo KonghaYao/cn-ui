@@ -22,13 +22,7 @@ export const Controller = [
     {
         type: 'switch',
         default: false,
-        prop: 'outline',
-    },
-
-    {
-        type: 'switch',
-        default: false,
-        prop: 'loading',
+        prop: 'text',
     },
 
     {
