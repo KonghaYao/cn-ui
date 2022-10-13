@@ -1,5 +1,5 @@
 import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
-import { createEffect, onCleanup, JSX, JSXElement } from 'solid-js';
+import { createEffect, onCleanup, JSX, JSXElement, onMount, untrack, splitProps } from 'solid-js';
 import OriginSplit from 'split.js';
 import './style.css';
 
@@ -31,7 +31,7 @@ import { children as getChildren } from 'solid-js';
  * @zh 分割面板，使用 split.js 作为基础进行封装
  */
 export const Split = OriginComponent<SplitProps>((props) => {
-    const ref = atom<HTMLDivElement | null>(null);
+    let ref: HTMLDivElement;
 
     let lastSplit = { destroy() {} };
     const childBind = getChildren(() => props.children);
@@ -39,8 +39,12 @@ export const Split = OriginComponent<SplitProps>((props) => {
         const children = childBind.toArray();
 
         if (children.length) {
+            console.log('开始 split');
+            //! 注意，props.children 是一个非常特殊的属性，
+            //! 触发其 Getter 的时候会重新绘制整个页面
+            const [_, others] = splitProps(props, ['children']);
             const message = {
-                ...props,
+                ...others,
                 direction: props.vertical ? 'vertical' : 'horizontal',
                 elementStyle(dimension, size, gutterSize) {
                     return {
@@ -65,7 +69,7 @@ export const Split = OriginComponent<SplitProps>((props) => {
         <div
             role="presentation"
             ref={(container: HTMLDivElement) => {
-                ref(container);
+                ref = container;
             }}
             class={props.class('flex')}
             classList={{

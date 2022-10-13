@@ -5,9 +5,9 @@ export const Controller = [
         prop: 'vertical',
     },
 ];
-import { Split } from '@cn-ui/split';
+import { Split } from '@cn-ui/split/src/index';
 import { atom } from '@cn-ui/use';
-import { For } from 'solid-js';
+import { For, onMount } from 'solid-js';
 import { Button } from '../Button';
 export default (props) => {
     const list = atom([...Array(2).keys()].map((i) => i));
@@ -22,6 +22,12 @@ export default (props) => {
                     Add Number
                 </Button>
             </span>
+            {(() => {
+                onMount(() => {
+                    console.log('渲染 out');
+                });
+                return <div></div>;
+            })()}
             <Split
                 class="h-1/2 w-full bg-slate-50 "
                 {...props}

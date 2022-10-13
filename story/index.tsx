@@ -9,7 +9,6 @@ import { Router, hashIntegration, Route, Routes } from '@solidjs/router';
 render(() => {
     return (
         <Router source={hashIntegration()}>
-            {/* <App></App> */}
             <Routes>
                 <Route path="/path" element={App}></Route>
                 <Route path="/" element={App}></Route>

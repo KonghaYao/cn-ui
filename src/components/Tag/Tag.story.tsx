@@ -1,4 +1,4 @@
-import { For } from 'solid-js';
+import { For, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
 import { Space, COLORS, Tag } from '@cn-ui/core';
 export const Controller = [

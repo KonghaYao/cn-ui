@@ -23,7 +23,6 @@ export const CheckGroup = OriginComponent<CheckGroupProps, HTMLDivElement>((prop
                         <CheckBox
                             {...it}
                             onValueInput={async (e, state) => {
-                                console.log(state);
                                 if (typeof props.maxCheck === 'number' && state) {
                                     if (props.maxCheck === 1) {
                                         // 单选特例

@@ -1,7 +1,7 @@
-import { Component } from 'solid-js';
+import { Component, createMemo, onMount } from 'solid-js';
 import { ControllerGenerator } from './ControllerGenerator';
 import { useStory } from './hook/useStory';
-import { Dynamic } from 'solid-js/web';
+import { Dynamic, memo } from 'solid-js/web';
 import { NavBar } from './NavBar';
 import { Split } from '@cn-ui/split';
 export const App = () => {
@@ -16,7 +16,14 @@ export const App = () => {
             </header>
             <main class="flex flex-row flex-1 h-full overflow-hidden bg-conic-to-r from-indigo-200 via-slate-600 to-indigo-200">
                 <NavBar></NavBar>
-
+                <main
+                    class="flex-1 bg-grid"
+                    style={{
+                        overflow: 'auto',
+                    }}
+                >
+                    <Dynamic component={Content()}></Dynamic>
+                </main>
                 <Split
                     class=" flex-1"
                     style={{
@@ -26,16 +33,6 @@ export const App = () => {
                     sizes={[75, 25]}
                     vertical
                 >
-                    <main
-                        class="flex-1 bg-grid"
-                        style={{
-                            overflow: 'auto',
-                            'max-height': '80vh',
-                        }}
-                    >
-                        <Dynamic component={Content()} {...Props()}></Dynamic>
-                    </main>
-
                     <ControllerGenerator
                         controller={Controller()}
                         onChange={(name, value) => {
