@@ -1,6 +1,5 @@
-import { createContext, createEffect, createMemo, useContext } from 'solid-js';
+import { createContext, createEffect, createMemo, createUniqueId } from 'solid-js';
 import { useStory } from './hook/useStory';
-import { Dynamic } from 'solid-js/web';
 import { Split } from '@cn-ui/split';
 import { useSearchParams } from '@solidjs/router';
 
@@ -21,35 +20,40 @@ export const StoryRoot = (props) => {
         </Split>
     );
 };
-import { wrap, windowEndpoint } from 'comlink';
+import { atom, Atom } from '@cn-ui/use';
+import { createIframe } from './Shower/createIframe';
+import { ResizeBar } from './Shower/ResizeBar';
+export const StoryControlContext = createContext<{
+    height: Atom<number>;
+    width: Atom<number>;
+    scale: Atom<number>;
+}>();
+
 export const StoryShower = () => {
     const [searchParams] = useSearchParams();
-    const { Props, Content } = useContext(StoryContext);
-    let cb = (any: any) => {};
-    createEffect(() => {
-        console.log(cb(Props()));
-    });
+
     return (
-        <main
-            class="bg-grid flex-1"
-            style={{
-                overflow: 'auto',
-            }}
-        >
-            <iframe
-                src={'./book.html#/?path=' + searchParams.path}
-                ref={(el) => {
-                    el.onload = () => {
-                        const api = wrap<{
-                            changeProps(any: any): void;
-                        }>(windowEndpoint(el.contentWindow));
-                        cb = api.changeProps;
-                        cb(Props());
-                        console.log('链接到 Book');
-                    };
+        <main class="flex flex-1 flex-col overflow-hidden">
+            <StoryControlContext.Provider
+                value={{
+                    height: atom(512),
+                    width: atom(512),
+                    scale: atom(100),
                 }}
-            ></iframe>
-            {/* <Dynamic component={Content()} {...Props()}></Dynamic> */}
+            >
+                <div class="bg-white shadow-md">
+                    <ResizeBar></ResizeBar>
+                </div>
+                <div
+                    class="bg-grid flex-1"
+                    style={{
+                        overflow: 'auto',
+                    }}
+                >
+                    {/* 这样子强制每次进行渲染 */}
+                    {createIframe('./book.html#/?path=' + searchParams.path)}
+                </div>
+            </StoryControlContext.Provider>
         </main>
     );
 };

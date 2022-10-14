@@ -10,6 +10,7 @@ const getURL: any = () => {
     };
 };
 import './index.css';
+import '@cn-ui/core/index.css';
 const Book = () => {
     const { Props, Content } = useStory(getURL);
     expose(
