@@ -22,9 +22,6 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
         >
             <For each={options}>
                 {(subArray, index) => {
-                    onMount(() => {
-                        console.log('rerend', index());
-                    });
                     return (
                         <div class="scroll-box-none flex flex-1 flex-col overflow-x-auto  ">
                             <For each={subArray()}>

@@ -86,7 +86,7 @@ export const atomization = <T>(prop: T | Atom<T>): Atom<T> => {
  *
  * const [atom1,atom2,atom3] =  AtomToArray(list)
  */
-export const AtomToArray = (atom: Atom<any[]>) => {
+export const AtomToArray = <T>(atom: Atom<T[]>) => {
     return atom().map((_, index) => {
         return reflect(() => atom()[index]);
     });

@@ -1,5 +1,5 @@
 import { atom } from '@cn-ui/use';
-import { Cascader, useChinaArea } from '@cn-ui/core';
+import { Breadcrumb, Cascader, Icon, useChinaArea } from '@cn-ui/core';
 export const Controller = [];
 
 export default (props) => {
@@ -7,8 +7,16 @@ export default (props) => {
     const { options } = useChinaArea(value);
     return (
         <>
-            <Cascader class="bg-white " options={options} value={value}></Cascader>
-            {value().join(' ')}
+            <Breadcrumb
+                class="m-4 bg-white shadow-xl"
+                list={value}
+                separator={<Icon name="arrow_right_alt"></Icon>}
+            ></Breadcrumb>
+            <Cascader
+                class="m-4 rounded-lg bg-white shadow-xl"
+                options={options}
+                value={value}
+            ></Cascader>
         </>
     );
 };
