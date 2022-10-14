@@ -1,4 +1,6 @@
 import { Image, useViewer, Space, Mask } from '@cn-ui/core';
+import { atom } from '@cn-ui/use';
+import { mockImages } from '../../mocks/images';
 export const Controller = [
     {
         type: 'switch',
@@ -23,38 +25,37 @@ export const Controller = [
         })),
     },
 ];
+
 export default (props) => {
     const { getViewer, addImages } = useViewer({});
-    addImages([
-        {
-            alt: '信息',
-            src: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
-        },
-    ]);
+    const img = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg';
+    const images = atom([]);
+    mockImages(5).then((res) => {
+        images(res);
+        console.log(images());
+        addImages(
+            images().map((i) => {
+                return {
+                    alt: '图片 ' + i,
+                    src: i,
+                };
+            })
+        );
+    });
     return (
         <Space vertical>
-            <Image
-                height={100}
-                width={100}
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                {...props}
-            ></Image>
+            <Image height={100} width={100} src={images()[0] || img} {...props}></Image>
             <Image height={100} width={100} src="" block {...props}></Image>
             <h3>点击预览</h3>
             <Image
                 height={100}
                 width={100}
-                src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                src={images()[1] || img}
                 {...props}
                 onClick={() => getViewer().show()}
             ></Image>
             <Mask squircle>
-                <Image
-                    height={100}
-                    width={100}
-                    src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
-                    {...props}
-                ></Image>
+                <Image height={100} width={100} src={images()[2] || img} {...props}></Image>
             </Mask>
         </Space>
     );
