@@ -1,14 +1,12 @@
-import Index from '../story.index.json';
-import { useSearchParams } from '@solidjs/router';
-import { atom, reflect, useSingleAsync } from '@cn-ui/use';
-import { batch, createEffect } from 'solid-js';
+import { atom, useSingleAsync } from '@cn-ui/use';
+import { batch, createEffect, createMemo } from 'solid-js';
 import { useViewing } from './useViewing';
 
 const modules = import.meta.glob('/src/components/**/*.story.tsx');
 
 /** 将项目中的 story 文件抽取出来 */
-export const useStory = () => {
-    const { viewing } = useViewing();
+export const useStory = (GetViewing = useViewing) => {
+    const { viewing } = GetViewing();
 
     /** 注入组件的参数 */
     const Props = atom({});
@@ -29,18 +27,16 @@ export const useStory = () => {
                 col[cur.prop] = cur.default;
                 return col;
             }, {}) || {};
+        // debugger;
         batch(() => {
             Controller(module.Controller || []);
             Props(props);
+            console.log('加载完成');
             // 当 Atom 为函数时，只能够以函数的方式改变其值
             Content(() => module.default);
         });
     });
-    createEffect(() => {
-        viewing(); // 依赖收集
-        refresh();
-    });
-
+    createEffect(refresh);
     return {
         Props,
         Controller,

@@ -19,4 +19,12 @@ export default defineConfig({
     optimizeDeps: {
         include: ['lodash-es', 'copy-to-clipboard', 'solid-use', 'swiper/solid'],
     },
+    build: {
+        rollupOptions: {
+            input: {
+                main: 'index.html',
+                book: 'story/book.html',
+            },
+        },
+    },
 });

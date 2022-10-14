@@ -26,6 +26,7 @@
         "autoprefixer": "^10.4.8",
         "babel-preset-solid": "^1.4.6",
         "browserslist": "^4.21.4",
+        "comlink": "^4.3.1",
         "fs-extra": "^10.1.0",
         "globby": "^13.1.2",
         "less": "^4.1.3",
