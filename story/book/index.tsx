@@ -23,7 +23,7 @@ const Book = () => {
         },
         windowEndpoint(self.parent)
     );
-    console.log('Book 部署完成');
+
     return (
         <>
             <Dynamic component={Content()} {...Props()}></Dynamic>

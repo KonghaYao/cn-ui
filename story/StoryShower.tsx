@@ -23,6 +23,7 @@ export const StoryRoot = (props) => {
 import { atom, Atom } from '@cn-ui/use';
 import { createIframe } from './Shower/createIframe';
 import { ResizeBar } from './Shower/ResizeBar';
+import { useViewing } from './hook/useViewing';
 export const StoryControlContext = createContext<{
     height: Atom<number>;
     width: Atom<number>;
@@ -30,8 +31,7 @@ export const StoryControlContext = createContext<{
 }>();
 
 export const StoryShower = () => {
-    const [searchParams] = useSearchParams();
-
+    const { viewing } = useViewing();
     return (
         <main class="flex flex-1 flex-col overflow-hidden">
             <StoryControlContext.Provider
@@ -50,8 +50,8 @@ export const StoryShower = () => {
                         overflow: 'auto',
                     }}
                 >
-                    {/* 这样子强制每次进行渲染 */}
-                    {createIframe('./book.html#/?path=' + searchParams.path)}
+                    {/* 强制每次进行渲染 */}
+                    {createIframe('./book.html#/?path=' + viewing().path)}
                 </div>
             </StoryControlContext.Provider>
         </main>

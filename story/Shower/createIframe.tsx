@@ -9,28 +9,41 @@ export const createIframe = (src: string) => {
     let api: Remote<{
         changeProps(any: any): void;
     }>;
+    let clear = () => {};
     createEffect(() => {
         cb(Props());
     });
     onCleanup(() => {
         api && api[releaseProxy]();
+        clear();
+        api = undefined;
+        cb = undefined;
+        clear = undefined;
+        console.log('组件卸载完成');
     });
     return (
         <iframe
-            class="origin-center bg-white transition-transform"
+            class="m-auto origin-center bg-white transition-transform"
             style={{
                 height: height() + 'px',
                 width: width() + 'px',
                 transform: `scale(${scale() / 100})`,
             }}
             src={src}
-            ref={(el) => {
-                el.onload = () => {
-                    api = wrap(windowEndpoint(el.contentWindow));
+            ref={(iframe) => {
+                iframe.onload = () => {
+                    api = wrap(windowEndpoint(iframe.contentWindow));
                     cb = api.changeProps;
                     cb(Props());
-
-                    console.log('链接到 Book');
+                };
+                clear = () => {
+                    iframe.src = 'about:blank';
+                    try {
+                        iframe.contentWindow.document.write('');
+                        iframe.contentWindow.document.clear();
+                    } catch (e) {
+                        console.log(e);
+                    }
                 };
             }}
         ></iframe>
