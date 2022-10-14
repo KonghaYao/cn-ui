@@ -28,7 +28,7 @@ export interface BadgeProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement;
 }
 
-import './style/index.less';
+import './style/index.css';
 const preCount = (count: number, maxCount: number = 99) => {
     return count > maxCount ? maxCount + '+' : count.toString();
 };

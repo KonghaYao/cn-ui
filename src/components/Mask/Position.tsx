@@ -1,6 +1,6 @@
 import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
 import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-import './style/index.less';
+import './style/index.css';
 export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {
     left?: string;
     right?: string;

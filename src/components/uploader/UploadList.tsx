@@ -2,7 +2,7 @@ import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { For, JSX, Match, Show, Switch, useContext } from 'solid-js';
 import { UploaderContext } from './base/UploaderContext';
 import { Icon } from '../Icon';
-import { Mask } from '../Mask';
+import { Relative } from '../Mask';
 import { Position } from '../Mask/Position';
 import { Space } from '../Space';
 import { DefaultIcon } from '../Icon/DefaultIcon';
@@ -21,7 +21,7 @@ export const UploadList = OriginComponent<UploaderListProps>((props) => {
                     const { uploadControl } = useContext(UploaderContext);
                     const progress = reflect(() => uploadControl.getNotice(file.sha));
                     return (
-                        <Mask class="w-full justify-between">
+                        <Relative class="w-full justify-between">
                             <Space class="cursor-default text-slate-700">
                                 <Icon
                                     name="insert_drive_file"
@@ -81,13 +81,13 @@ export const UploadList = OriginComponent<UploaderListProps>((props) => {
                             {/*  背景动画 */}
                             <Position full bottom="0" left="0" class=" " inactive>
                                 <div
-                                    class="pointer-events-none bg-blue-600 opacity-10 h-full"
+                                    class="pointer-events-none h-full bg-blue-600 opacity-10"
                                     style={{
                                         width: progress() + '%',
                                     }}
                                 ></div>
                             </Position>
-                        </Mask>
+                        </Relative>
                     );
                 }}
             </For>

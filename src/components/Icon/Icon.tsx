@@ -11,7 +11,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
         <nav
             ref={props.ref}
             class={props.class(
-                'cn-icon-font inline-flex items-center justify-center select-none leading-none origin-center',
+                'cn-icon-font inline-flex origin-center select-none items-center justify-center align-bottom',
                 {
                     spin: props.spin ?? false,
                 }

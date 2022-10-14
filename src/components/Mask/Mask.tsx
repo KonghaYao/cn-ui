@@ -1,21 +1,35 @@
-import { JSXElement, splitProps } from 'solid-js';
-import './style/index.less';
-import { MaskProps } from './interface';
-import { extendsEvent, OriginComponent } from '@cn-ui/use';
+import { JSX, JSXElement, splitProps } from 'solid-js';
+import './style/index.css';
 
-/** @zh 将组件内部变为绝对定位, 可以配合 Position 实现角落位置 */
-export const Mask = OriginComponent<MaskProps & { children: JSXElement }, HTMLDivElement>(
-    (props) => {
-        return (
-            <div
-                class={props.class('cn-mask relative')}
-                classList={{}}
-                style={props.style}
-                ref={props.ref}
-                {...extendsEvent(props)}
-            >
-                {props.children}
-            </div>
-        );
-    }
-);
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
+export interface MaskProps extends JSX.HTMLAttributes<HTMLDivElement> {
+    children?: JSXElement;
+    url?: string;
+    hexagon?: boolean;
+    squircle?: boolean;
+}
+/** @zh 遮罩切割，可以切割为指定形状 */
+export const Mask = OriginComponent<MaskProps, HTMLDivElement>((props) => {
+    return (
+        <span
+            class={props.class(
+                'cn-mask',
+                props.squircle && 'mask-squircle',
+                props.hexagon && 'mask-hexagon'
+            )}
+            style={Object.assign(
+                props.url
+                    ? {
+                          //! CSS Bug 直接使用 mask-image 属性无法下载到图片
+                          '--mask-image': `url('${props.url}')`,
+                      }
+                    : {},
+                props.style
+            )}
+            ref={props.ref}
+            {...extendsEvent(props)}
+        >
+            {props.children}
+        </span>
+    );
+});

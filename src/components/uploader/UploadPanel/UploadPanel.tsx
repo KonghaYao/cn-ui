@@ -1,6 +1,6 @@
 import { JSXElement, JSX, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent, reflect } from '@cn-ui/use';
-import { Mask } from '../../Mask';
+import { Relative } from '../../Mask';
 import { Position } from '../../Mask/Position';
 import { UploadWidget } from './UploaderWidget';
 import { UploadExplorer } from './UploadExplorer';
@@ -15,9 +15,9 @@ export const UploadPanel = OriginComponent<UploadPanelProps, HTMLInputElement>((
     const { Files, isDragging } = useContext(UploaderContext);
 
     return (
-        <Mask
+        <Relative
             {...props}
-            class={props.class('cn-uploader  w-full h-full bg-slate-50 p-4')}
+            class={props.class('cn-uploader  h-full w-full bg-slate-50 p-4')}
             style={props.style}
             ref={props.ref}
             {...useDragUpload({
@@ -29,7 +29,7 @@ export const UploadPanel = OriginComponent<UploadPanelProps, HTMLInputElement>((
         >
             <Position full class="p-4 " top="0" left="0" inactive>
                 <div
-                    class=" h-full w-full  duration-300 transition-colors border-2 border-dashed  border-slate-300 rounded-xl "
+                    class=" h-full w-full  rounded-xl border-2 border-dashed border-slate-300  transition-colors duration-300 "
                     classList={{
                         'border-blue-600': isDragging(),
                     }}
@@ -40,6 +40,6 @@ export const UploadPanel = OriginComponent<UploadPanelProps, HTMLInputElement>((
             ) : (
                 <UploadExplorer></UploadExplorer>
             )}
-        </Mask>
+        </Relative>
     );
 });

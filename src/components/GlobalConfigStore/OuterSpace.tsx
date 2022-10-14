@@ -1,5 +1,5 @@
 import { Portal, render } from 'solid-js/web';
-import { Mask } from '../Mask/index';
+import { Relative } from '../Mask/index';
 import { createTemplate, SlotMap } from '@cn-ui/use';
 
 /** simple memorize result of getOutSpace */
@@ -17,7 +17,7 @@ export const getOutSpace = memoize(() => {
     // 注意，这个没有被导出
     const OuterSpace = Server.Template(({ Slots, SlotList }) => {
         return (
-            <Mask
+            <Relative
                 style={{
                     'z-index': 1000,
                     width: '100vw',
@@ -29,7 +29,7 @@ export const getOutSpace = memoize(() => {
                 }}
             >
                 <SlotMap list={SlotList.Inner}></SlotMap>
-            </Mask>
+            </Relative>
         );
     });
     /** 向全局注入一个默认的 Layer 空间，生命周期为 solid 全生命 */

@@ -1,6 +1,6 @@
 import { createContext, mergeProps, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent } from '@cn-ui/use';
-import { Mask } from '../Mask';
+import { Relative } from '../Mask';
 import { Position } from '../Mask/Position';
 import { Atom } from '@cn-ui/use';
 import { UploadExplorer } from './UploadPanel/UploadExplorer';
@@ -28,9 +28,9 @@ export const SimpleUploader = OriginComponent<SimpleUploader, HTMLInputElement>(
     const { uploadControl, inputRef, Files, isDragging } = useContext(UploaderContext);
 
     return (
-        <Mask
+        <Relative
             {...props}
-            class={props.class('cn-uploader w-fit h-fit  p-4')}
+            class={props.class('cn-uploader h-fit w-fit  p-4')}
             style={props.style}
             ref={props.ref}
             {...useDragUpload({
@@ -43,7 +43,7 @@ export const SimpleUploader = OriginComponent<SimpleUploader, HTMLInputElement>(
         >
             <Position full class="p-2 " top="0" left="0" inactive>
                 <div
-                    class="h-full  duration-300 transition-colors border border-dashed  border-slate-300 rounded "
+                    class="h-full  rounded border border-dashed border-slate-300  transition-colors duration-300 "
                     classList={{
                         'border-blue-600': isDragging(),
                     }}
@@ -51,11 +51,11 @@ export const SimpleUploader = OriginComponent<SimpleUploader, HTMLInputElement>(
             </Position>
 
             <div
-                class="h-8 w-8 flex justify-center items-center  text-slate-500"
+                class="flex h-8 w-8 items-center justify-center  text-slate-500"
                 onclick={() => inputRef().click()}
             >
                 <Icon name="add" size="1.5em"></Icon>
             </div>
-        </Mask>
+        </Relative>
     );
 });

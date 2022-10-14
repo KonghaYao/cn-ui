@@ -1,4 +1,4 @@
-import { Image, useViewer, Space } from '@cn-ui/core';
+import { Image, useViewer, Space, Mask } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -48,6 +48,14 @@ export default (props) => {
                 {...props}
                 onClick={() => getViewer().show()}
             ></Image>
+            <Mask squircle>
+                <Image
+                    height={100}
+                    width={100}
+                    src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+                    {...props}
+                ></Image>
+            </Mask>
         </Space>
     );
 };

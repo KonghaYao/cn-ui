@@ -39,9 +39,9 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
     const error = atom(false);
     const loading = atom(true);
     return (
-        <div
+        <span
             ref={props.ref}
-            class={props.class('cn-image')}
+            class={props.class('cn-image align-bottom')}
             classList={{
                 round: props.round,
                 loading: loading(),
@@ -72,7 +72,7 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
 
             {!error() && (
                 <img
-                    class="m-auto h-full"
+                    class="m-auto h-full "
                     src={props.src}
                     style={{
                         'object-fit': props.fit,
@@ -85,6 +85,6 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
                     }}
                 />
             )}
-        </div>
+        </span>
     );
 });

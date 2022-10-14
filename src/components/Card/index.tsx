@@ -1,5 +1,5 @@
 import { Component, mergeProps } from 'solid-js';
-import { Mask } from '../Mask';
+import { Relative } from '../Mask';
 import { Position } from '../Mask/Position';
 
 import { CardProps } from './interface';
@@ -10,7 +10,7 @@ export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
     const defaultPos = { left: '0', right: '0' };
 
     return (
-        <Mask ref={props.ref} class={props.class('cn-card')} {...props}>
+        <Relative ref={props.ref} class={props.class('cn-card')} {...props}>
             <Position
                 z-index="0"
                 {...defaultPos}
@@ -24,6 +24,6 @@ export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
             <Position z-index="1" {...defaultPos} full>
                 {props.children}
             </Position>
-        </Mask>
+        </Relative>
     );
 });
