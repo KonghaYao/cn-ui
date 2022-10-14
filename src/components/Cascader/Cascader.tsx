@@ -29,7 +29,7 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
                                     const isSelect = createMemo(() => item === value()[index()]);
                                     return (
                                         <div
-                                            class="m-2 cursor-pointer text-ellipsis whitespace-nowrap rounded-md text-center transition-colors duration-300"
+                                            class="cursor-pointer text-ellipsis whitespace-nowrap rounded-md p-2 text-center transition-colors duration-300"
                                             classList={{
                                                 'bg-slate-50': isSelect(),
                                                 'text-blue-600': isSelect(),
