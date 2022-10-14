@@ -62,7 +62,10 @@ export const ControllerGenerator: Component<{}> = () => {
                     type="range"
                     {...Props}
                     value={parseInt(defaultValue)}
-                    onchange={(e) => onChange(prop, (e.target as any).value + (unit || 0))}
+                    onchange={(e) =>
+                        /**@ts-ignore */
+                        onChange(prop, parseInt((e.target as any).value) + (unit ?? 0))
+                    }
                 />
             );
         },

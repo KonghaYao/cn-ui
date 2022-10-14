@@ -1,4 +1,4 @@
-import { onCleanup, useContext } from 'solid-js';
+import { createEffect, onCleanup, useContext } from 'solid-js';
 import { wrap, windowEndpoint, releaseProxy, Remote } from 'comlink';
 import { StoryContext, StoryControlContext } from '../StoryShower';
 
@@ -9,6 +9,9 @@ export const createIframe = (src: string) => {
     let api: Remote<{
         changeProps(any: any): void;
     }>;
+    createEffect(() => {
+        cb(Props());
+    });
     onCleanup(() => {
         api && api[releaseProxy]();
     });

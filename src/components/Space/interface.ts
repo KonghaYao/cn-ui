@@ -9,7 +9,7 @@ export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
 /**
  * @title Space
  */
-export interface SpaceProps {
+export interface SpaceProps extends JSX.HTMLAttributes<HTMLDivElement> {
     /**
      * @zh 附加动画
      *  */
