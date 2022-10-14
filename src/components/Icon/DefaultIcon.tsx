@@ -1,5 +1,5 @@
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
-import { Component, JSX } from 'solid-js';
+import { Component, createMemo, JSX } from 'solid-js';
 import { Icon } from './Icon';
 import { IconProps } from './interface';
 
@@ -7,12 +7,15 @@ export interface DefaultIconProps extends IconProps {
     color: 'red' | 'green' | 'orange' | 'gray' | 'blue';
 }
 export const DefaultIcon = OriginComponent<DefaultIconProps>((props) => {
+    const fontSize = createMemo(() => {
+        return typeof props.size === 'number' ? props.size + 'px' : props.size;
+    });
     return (
         <span
             class={props.class(
-                'cn-icon-wrapper inline-flex cursor-pointer items-center justify-center rounded-full p-2 '
+                'cn-icon-wrapper inline-flex h-[1.5em] w-[1.5em] cursor-pointer items-center justify-center rounded-full p-2'
             )}
-            style={props.style}
+            style={{ ...props.style, 'font-size': fontSize() }}
             ref={props.ref}
             classList={{
                 'bg-red-50 text-red-500': props.color === 'red',

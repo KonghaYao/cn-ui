@@ -1,5 +1,6 @@
 export const mockImages = async (
     count: number,
+    /** 图片大小 512x512 */
     size: string = '512x512',
     /** 逗号分割的英文索引词 */
     words = '',

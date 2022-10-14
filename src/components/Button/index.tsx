@@ -43,7 +43,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
                 props.block && 'w-full',
                 props.disabled && 'cursor-not-allowed opacity-70',
                 radius(),
-                'inline-flex select-none items-center justify-center whitespace-nowrap border border-gray-300 px-4 py-2 text-sm ',
+                'inline-flex select-none items-center justify-center whitespace-nowrap px-4 py-2 text-sm ',
                 ' transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
             )}
             style={{

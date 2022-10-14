@@ -76,3 +76,18 @@ export const atomization = <T>(prop: T | Atom<T>): Atom<T> => {
     /**@ts-ignore */
     return typeof prop === 'function' ? prop : atom(prop);
 };
+
+/**
+ * @category atom
+ * @zh 将响应式数组转化为单个响应式对象组成的数组
+ * @en transform reactive array to an normal array includes reactive items
+ * @example
+ * const list atom([1,2,3])
+ *
+ * const [atom1,atom2,atom3] =  AtomToArray(list)
+ */
+export const AtomToArray = (atom: Atom<any[]>) => {
+    return atom().map((_, index) => {
+        return reflect(() => atom()[index]);
+    });
+};

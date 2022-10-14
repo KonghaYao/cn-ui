@@ -7,7 +7,7 @@ export default (props) => {
     const { options } = useChinaArea(value);
     return (
         <>
-            <Cascader options={options} value={value}></Cascader>
+            <Cascader class="bg-white " options={options} value={value}></Cascader>
             {value().join(' ')}
         </>
     );
