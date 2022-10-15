@@ -35,21 +35,15 @@
 
     /* 标记，类似于手写的荧光笔的作用 */
     mark {
-        @apply bg-yellow-200 border-b border-solid border-yellow-600;
+        @apply border-b border-solid border-yellow-600 bg-yellow-200;
         padding: 2px;
         margin: 0 5px;
     }
 
     /* 代码片断 */
     pre,
-    code,
     pre tt {
         font-family: Courier, 'Courier New', monospace;
-    }
-    code {
-        border-radius: 0.2em;
-        padding: 0 0.3em;
-        @apply bg-slate-100;
     }
 
     pre {
@@ -76,7 +70,7 @@
         font-weight: 400;
         padding-left: 1em;
         margin: 1em 3em 1em 2em;
-        @apply text-slate-400 border-l-4 border-solid border-slate-400;
+        @apply border-l-4 border-solid border-slate-400 text-slate-400;
     }
 
     /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
@@ -140,7 +134,7 @@
     table caption {
         padding: 0.5em 1em;
 
-        @apply text-slate-700 border border-solid border-slate-700;
+        @apply border border-solid border-slate-700 text-slate-700;
     }
 
     table caption {

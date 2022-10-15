@@ -1,6 +1,6 @@
 import { Component, onCleanup, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { createTrigger, Button, Space } from '@cn-ui/core';
+import { createTrigger, Button, Space, Message } from '@cn-ui/core';
 export const Controller = [];
 
 export default (props) => {
@@ -22,7 +22,7 @@ export default (props) => {
     const visible = atom(false);
     const disabled = atom(false);
     return (
-        <Space>
+        <Space wrap>
             <Button
                 ref={createTrigger({
                     content: <Comp></Comp>,
@@ -47,6 +47,29 @@ export default (props) => {
                 }}
             >
                 {disabled() ? 'disabled' : 'enable'}
+            </Button>
+
+            <Button
+                ref={createTrigger({
+                    interactive: true,
+                    content: (
+                        <div>
+                            <Button
+                                text
+                                onClick={() => {
+                                    Message.init();
+                                    Message.success('点击成功');
+                                }}
+                            >
+                                可以点击
+                            </Button>
+                        </div>
+                    ),
+                    trigger: 'mouseenter click',
+                })}
+                block
+            >
+                可交互点击层
             </Button>
         </Space>
     );
