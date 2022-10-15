@@ -25,9 +25,11 @@ export default (props) => {
                 {code.loading ? (
                     '加载中'
                 ) : (
-                    <Code lang="ts" class="max-h-[50vh] overflow-auto rounded-lg shadow-xl">
-                        {code()}
-                    </Code>
+                    <Code
+                        lang="ts"
+                        class="max-h-[50vh] overflow-auto rounded-lg p-2 shadow-xl"
+                        code={code()}
+                    ></Code>
                 )}
             </div>
             {link}

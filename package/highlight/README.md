@@ -16,7 +16,7 @@ import { Code, lowlight } from '@cn-ui/highlight';
 export default (props) => {
     return (
         <div>
-            <Code lang="ts">{'// TS code'}</Code>
+            <Code lang="ts" code={'// TS code'}></Code>
         </div>
     );
 };
