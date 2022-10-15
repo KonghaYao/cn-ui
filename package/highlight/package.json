@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/highlight",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "description": "A Code Highlight Component base on SolidJS",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",

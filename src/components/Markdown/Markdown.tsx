@@ -1,23 +1,30 @@
 import { OriginComponent } from '@cn-ui/use';
-import { createResource, JSX, JSXElement } from 'solid-js';
-import { remark } from 'remark';
+import { createResource, JSX } from 'solid-js';
+import { unified } from 'unified';
 export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: string;
-    remarkPlugins?: [];
+    remarkPlugins?: any[];
+    rehypePlugins?: any[];
 }
-import remarkHtml from 'remark-html';
+
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
     const [text] = createResource(async () => {
-        let source = remark();
-        if (props.remarkPlugins) {
-            for (const i of props.remarkPlugins) {
-                source = source.use(i);
-            }
+        let source = unified();
+        const plugins = [
+            remarkParse,
+            ...(props.remarkPlugins || []),
+            remarkRehype,
+            ...(props.rehypePlugins || []),
+            rehypeStringify,
+        ];
+
+        for (const i of plugins) {
+            source = source.use(i);
         }
-        return source
-            .use(remarkHtml)
-            .process(props.children)
-            .then((res) => res.toString());
+        return source.process(props.children).then((res) => res.toString());
     });
     return <div innerHTML={text()}></div>;
 });

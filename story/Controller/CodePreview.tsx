@@ -8,7 +8,7 @@ import {
     useCodeStyle,
 } from '../../src/components/Code/useCodeStyle';
 import { atom } from '@cn-ui/use';
-import { lowlight } from '@cn-ui/highlight/src/index';
+import { lowlight } from '@cn-ui/highlight';
 import tsx from 'highlight.js/lib/languages/typescript.js';
 import copy from 'copy-to-clipboard';
 // 需要使用 tsx 的解析
@@ -16,7 +16,7 @@ lowlight.registerLanguage('tsx', tsx);
 
 export const CodePreview = () => {
     const { viewing } = useViewing();
-    const themeValue = atom<AllowedCodeStyleNames>('atom-dark');
+    const themeValue = atom<AllowedCodeStyleNames>('github-dark');
     const { link } = useCodeStyle(themeValue);
     return (
         <Tab id="Code" class="flex-1 overflow-auto">

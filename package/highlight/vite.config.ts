@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
-const deps = [Package.devDependencies, Package.peerDependencies].flatMap((i) => Object.keys(i));
-const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
+const deps = [Package.dependencies, Package.peerDependencies].flatMap((i) => Object.keys(i));
+const warning = [].flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
     return {

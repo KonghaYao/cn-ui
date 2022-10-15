@@ -1,6 +1,4 @@
-import { Code, refractor } from '@cn-ui/highlight';
-import js from 'refractor/lang/js-extras';
-refractor.register(js);
+import { Code } from '@cn-ui/highlight';
 const code = `
 /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
 h1,h2,h3,h4,h5,h6 {
