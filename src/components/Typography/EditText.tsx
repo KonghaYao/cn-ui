@@ -2,25 +2,32 @@ import { EditContentProps } from './interface';
 
 import { Component, createMemo, JSXElement } from 'solid-js';
 import copy from 'copy-to-clipboard';
-import { Icon } from '../Icon';
+import { DefaultIcon, Icon } from '../Icon';
 import './style/edit.less';
-import { atom, extendsEvent } from '@cn-ui/use';
+import { atom, extendsEvent, useEventController } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
+import { sleep } from '../../mocks/sleep';
 
 export const CopyText = OriginComponent<EditContentProps>((props) => {
     let container: HTMLSpanElement;
+    const control = useEventController({});
+    const iconName = atom<'check' | 'content_copy'>('content_copy');
     return (
         <span ref={props.ref} class={props.class()} style={props.style} {...extendsEvent(props)}>
             <span ref={container!}>{props.children}</span>
-            <span
+            <DefaultIcon
+                name={iconName()}
                 class="edit-text-icon"
-                onclick={() => {
-                    copy(container.textContent, { format: 'text/plain' });
-                }}
-            >
-                {/* TODO 复制完成动画 */}
-                <Icon name="content_copy"></Icon>
-            </span>
+                onClick={control([
+                    () => {
+                        iconName('check');
+                        copy(container.textContent, { format: 'text/plain' });
+                    },
+                    () => sleep(1000),
+                    () => iconName('content_copy'),
+                ])}
+                color="green"
+            ></DefaultIcon>
         </span>
     );
 });
@@ -43,12 +50,11 @@ export const EllipsisText = OriginComponent<{ line: number; children: string }>(
             }}
             {...extendsEvent(props)}
         >
-            <span
-                class="px-1 cursor-pointer text-sky-500"
-                onclick={() => (isOpen() ? line('unset') : line(props.line))}
-            >
-                <Icon name={isOpen() ? 'arrow_drop_down' : 'arrow_drop_up'}></Icon>
-            </span>
+            <Icon
+                class="scale-150 cursor-pointer px-1 text-sky-500"
+                name={isOpen() ? 'arrow_drop_down' : 'arrow_drop_up'}
+                onClick={() => (isOpen() ? line('unset') : line(props.line))}
+            ></Icon>
             {props.children}
         </span>
     );
