@@ -1,4 +1,4 @@
-import { OriginComponent } from '@cn-ui/use';
+import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { createResource, JSX } from 'solid-js';
 import { unified } from 'unified';
 export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
@@ -26,5 +26,13 @@ export const Markdown = OriginComponent<MarkdownProps>((props) => {
         }
         return source.process(props.children).then((res) => res.toString());
     });
-    return <div innerHTML={text()}></div>;
+    return (
+        <div
+            class={props.class()}
+            style={props.style}
+            ref={props.ref}
+            {...extendsEvent(props)}
+            innerHTML={text()}
+        ></div>
+    );
 });
