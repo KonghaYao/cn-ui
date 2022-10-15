@@ -1,7 +1,7 @@
-import { refractor } from 'refractor';
+import { lowlight } from 'lowlight';
 import { toHtml } from 'hast-util-to-html';
 import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-export * from 'refractor';
+export * from 'lowlight';
 export const Code = OriginComponent<
     {
         /** 代码作为 字符串写入 */
@@ -10,10 +10,10 @@ export const Code = OriginComponent<
     },
     HTMLPreElement
 >((props) => {
-    const codes = reflect(() => toHtml(refractor.highlight(props.children, props.lang || 'js')));
+    const codes = reflect(() => toHtml(lowlight.highlight(props.lang || 'js', props.children)));
     return (
         <pre
-            class={props.class('language-' + props.lang)}
+            class={props.class('hljs language-' + props.lang)}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}

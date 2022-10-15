@@ -8,11 +8,11 @@ import {
     useCodeStyle,
 } from '../../src/components/Code/useCodeStyle';
 import { atom } from '@cn-ui/use';
-import { refractor } from '@cn-ui/highlight/src/index';
-import tsx from 'refractor/lang/tsx.js';
+import { lowlight } from '@cn-ui/highlight/src/index';
+import tsx from 'highlight.js/lib/languages/typescript.js';
 import copy from 'copy-to-clipboard';
 // 需要使用 tsx 的解析
-refractor.register(tsx);
+lowlight.registerLanguage('tsx', tsx);
 
 export const CodePreview = () => {
     const { viewing } = useViewing();

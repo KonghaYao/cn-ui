@@ -12,10 +12,9 @@
         "build": "vite build && tsc"
     },
     "license": "MIT",
-    "devDependencies": {},
     "peerDependencies": {
-        "solid-js": "^1.5.7",
-        "@cn-ui/use": "^1.5.0"
+        "@cn-ui/use": "^1.5.0",
+        "solid-js": "^1.5.7"
     },
     "keywords": [
         "solid",
@@ -25,10 +24,12 @@
         "highlighting",
         "prism",
         "highlight",
+        "highlight.js",
         "ast"
     ],
     "dependencies": {
         "hast-util-to-html": "^8.0.3",
+        "lowlight": "^2.7.0",
         "refractor": "^4.8.0"
     }
 }

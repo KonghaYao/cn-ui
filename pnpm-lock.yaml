@@ -28,13 +28,14 @@ importers:
       copy-to-clipboard: ^3.3.2
       fs-extra: ^10.1.0
       globby: ^13.1.2
+      highlight.js: ^11.6.0
       less: ^4.1.3
       lodash-es: ^4.17.21
+      lowlight: ^2.7.0
       mitt: ^3.0.0
       postcss: ^8.4.16
       prettier: 2.6.0
       prettier-plugin-tailwindcss: ^0.1.13
-      refractor: ^4.8.0
       remark: ^14.0.2
       remark-html: ^15.0.1
       rollup: ^2.79.1
@@ -61,9 +62,10 @@ importers:
       animate.css: 3.7.2
       consola: 2.15.3
       copy-to-clipboard: 3.3.2
+      highlight.js: 11.6.0
       lodash-es: 4.17.21
+      lowlight: 2.7.0
       mitt: 3.0.0
-      refractor: 4.8.0
       remark: 14.0.2
       remark-html: 15.0.1
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.7
@@ -136,9 +138,11 @@ importers:
   package/highlight:
     specifiers:
       hast-util-to-html: ^8.0.3
+      lowlight: ^2.7.0
       refractor: ^4.8.0
     dependencies:
       hast-util-to-html: 8.0.3
+      lowlight: 2.7.0
       refractor: 4.8.0
 
   package/palette:
@@ -3064,6 +3068,12 @@ packages:
       reusify: 1.0.4
     dev: true
 
+  /fault/2.0.1:
+    resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
+    dependencies:
+      format: 0.2.2
+    dev: false
+
   /file-entry-cache/6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -3114,6 +3124,11 @@ packages:
       combined-stream: 1.0.8
       mime-types: 2.1.35
     dev: true
+
+  /format/0.2.2:
+    resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
+    engines: {node: '>=0.4.x'}
+    dev: false
 
   /fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
@@ -3328,6 +3343,11 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
     dev: true
+
+  /highlight.js/11.6.0:
+    resolution: {integrity: sha512-ig1eqDzJaB0pqEvlPVIpSSyMaO92bH1N2rJpLMN/nX396wTpDA4Eq0uK+7I/2XG17pFaaKE0kjV/XPeGt7Evjw==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /html-entities/2.3.2:
     resolution: {integrity: sha512-c3Ab/url5ksaT0WyleslpBEthOzWhrjQbg75y7XUsfSzi3Dgzt0l8w5e7DylRn15MTlMMD58dTfzddNS2kcAjQ==}
@@ -3638,6 +3658,14 @@ packages:
     dependencies:
       get-func-name: 2.0.0
     dev: true
+
+  /lowlight/2.7.0:
+    resolution: {integrity: sha512-RRdrHalFfjpxL91ITTX7KhJYH3QmX5bW9Uie2D2E5GPIR3XBYDYhScBjE291ewFZkStz/k2PN9KC+8deNLiI3Q==}
+    dependencies:
+      '@types/hast': 2.3.4
+      fault: 2.0.1
+      highlight.js: 11.6.0
+    dev: false
 
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}

@@ -6,7 +6,6 @@ export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
     remarkPlugins?: [];
 }
 import remarkHtml from 'remark-html';
-import { RefractorBridge } from './refractor-bridge';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
     const [text] = createResource(async () => {
         let source = remark();
@@ -15,9 +14,7 @@ export const Markdown = OriginComponent<MarkdownProps>((props) => {
                 source = source.use(i);
             }
         }
-        console.log(props.children);
         return source
-            .use(RefractorBridge)
             .use(remarkHtml)
             .process(props.children)
             .then((res) => res.toString());

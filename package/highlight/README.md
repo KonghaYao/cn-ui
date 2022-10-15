@@ -3,15 +3,15 @@
 A Code Highlight Component base on SolidJS
 
 ```sh
-pnpm i @cn-ui/highlight prism-themes solid-js @cn-ui/use
+pnpm i @cn-ui/highlight highlight.js solid-js @cn-ui/use
 ```
 
 ```tsx
-// recommend to use prism-themes
-import 'prism-themes/themes/prism-atom-dark.css';
-import { Code, refractor } from '@cn-ui/highlight';
-// refractor is a syntax transformer!
-// https://www.npmjs.com/package/refractor#example-serializing-hast-as-html
+// recommend to use
+import 'highlight.js/styles/github-dark.css';
+import { Code, lowlight } from '@cn-ui/highlight';
+// lowlight is a syntax transformer!
+// https://www.npmjs.com/package/lowlight
 
 export default (props) => {
     return (
