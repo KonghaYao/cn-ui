@@ -4,72 +4,17 @@ import { Tab, Tabs, TabsHeader } from '@cn-ui/core';
 
 import { CodePreview } from './Controller/CodePreview';
 import { StoryContext } from './StoryShower';
-export const ControllerGenerator: Component<{}> = () => {
-    const { Controller, Props } = useContext(StoryContext);
+import { Inputs } from './Inputs/Inputs';
 
-    const onChange = (name, value) => {
+export const ControllerGenerator: Component<{}> = () => {
+    const { Controller, Props, refresh } = useContext(StoryContext);
+    const onChange = (name: string, value: unknown) => {
         Props((props) => {
             props[name] = value;
             return { ...props };
         });
     };
-    const map = {
-        select: ({
-            default: defaultValue,
-            options,
-            prop,
-        }: {
-            default: string;
-            options: { value: string; label?: string }[];
-            prop: string;
-        }) => {
-            return (
-                <select
-                    value={defaultValue}
-                    onchange={(e) => {
-                        onChange(prop, (e.target as any).value);
-                    }}
-                >
-                    <For each={options}>
-                        {(i) => {
-                            return <option value={i.value}>{i.label || i.value}</option>;
-                        }}
-                    </For>
-                </select>
-            );
-        },
-        switch: ({ default: defaultValue, prop }: { default: boolean; prop: string }) => {
-            return (
-                <input
-                    type="checkbox"
-                    checked={defaultValue}
-                    onchange={(e) => onChange(prop, (e.target as any).checked)}
-                />
-            );
-        },
-        range: ({
-            default: defaultValue,
-            prop,
-            unit,
-            ...Props
-        }: {
-            default: string;
-            prop: string;
-            unit?: string;
-        }) => {
-            return (
-                <input
-                    type="range"
-                    {...Props}
-                    value={parseInt(defaultValue)}
-                    onchange={(e) =>
-                        /**@ts-ignore */
-                        onChange(prop, parseInt((e.target as any).value) + (unit ?? 0))
-                    }
-                />
-            );
-        },
-    };
+
     return (
         <Tabs class="flex flex-col overflow-hidden border-t border-solid border-slate-300">
             <TabsHeader></TabsHeader>
@@ -80,7 +25,16 @@ export const ControllerGenerator: Component<{}> = () => {
                         return (
                             <div id={i.prop}>
                                 {i.prop}
-                                <Dynamic component={map[i.type]} {...i}></Dynamic>
+                                <Dynamic
+                                    component={Inputs[i.type]}
+                                    defaultValue={i.default}
+                                    {...i}
+                                    onChange={(...args) => {
+                                        i.refresh && refresh();
+                                        /** @ts-ignore */
+                                        return onChange(...args);
+                                    }}
+                                ></Dynamic>
                             </div>
                         );
                     }}

@@ -4,6 +4,7 @@ import { CollapseItemProps } from './interface';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '@cn-ui/use';
 import { CollapseContext } from './index';
+import { Icon } from '../Icon';
 
 export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((props) => {
     const ctx = useContext(CollapseContext);
@@ -25,19 +26,13 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
     });
 
     const Content = () => {
-        return ctx.destroyOnHide ? (
-            <Show when={isExpanded()}>{props.children}</Show>
-        ) : (
-            props.children
-        );
+        return <Show when={!ctx.destroyOnHide || isExpanded()}>{props.children}</Show>;
     };
     const control = useEventController({});
     return (
         <div
             ref={props.ref as any}
-            class={props.class(
-                'cn-collapse-item box-border flex h-full flex-col overflow-hidden border-b border-solid border-slate-200'
-            )}
+            class={props.class('cn-collapse-item box-border flex h-full flex-col overflow-hidden')}
             style={props.style}
             classList={{
                 disabled: props.disabled,
@@ -45,7 +40,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
             {...extendsEvent(props)}
         >
             <nav
-                class="cn-collapse-summary cursor-pointer select-none px-4 py-2 leading-none"
+                class="cn-collapse-summary cursor-pointer select-none px-4 py-3 leading-none active:backdrop-brightness-90 "
                 onClick={control([
                     (e) => {
                         const state = !isExpanded();
@@ -54,11 +49,18 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
                     },
                     emitEvent(props.onTrigger, ([e]) => [props.name, isExpanded(), e] as const),
                 ])}
+                /** @ts-ignore */
+                open={isExpanded()}
             >
                 {props.header}
+
+                <Icon
+                    class="float-right scale-125 text-slate-400"
+                    name={isExpanded() ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+                ></Icon>
             </nav>
             <main
-                class="cn-collapse-container bg-slate-50 "
+                class="cn-collapse-container "
                 classList={{
                     show: isExpanded(),
                     hide: !isExpanded(),

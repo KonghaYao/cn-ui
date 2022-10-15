@@ -1,6 +1,6 @@
 import { batch, For, useContext } from 'solid-js';
 import { createTrigger, Icon, InputNumber, Space } from '@cn-ui/core';
-import { StoryControlContext } from '../StoryShower';
+import { StoryContext } from '../StoryShower';
 
 const sizes = [
     { name: 'iPad Air', size: '820x1180' },
@@ -11,7 +11,7 @@ const sizes = [
 ];
 
 export const ResizeBar = () => {
-    const { height, width, scale } = useContext(StoryControlContext);
+    const { height, width, scale, refresh } = useContext(StoryContext);
     const IconSetting = { size: 20, class: 'cursor-pointer hover:scale-125 transition-transform' };
     const Devices = (
         <Space vertical>
@@ -41,7 +41,7 @@ export const ResizeBar = () => {
             size="large"
         >
             <Space>
-                <Icon name="refresh" {...IconSetting}></Icon>
+                <Icon name="refresh" onClick={() => refresh()} {...IconSetting}></Icon>
                 <Icon name="swipe_right" {...IconSetting}></Icon>
             </Space>
             <Space>

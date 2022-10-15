@@ -1,37 +1,43 @@
 import { windowEndpoint, expose } from 'comlink';
-import { onMount } from 'solid-js';
+import { batch, onMount, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 import { useStory } from '../hook/useStory';
+import { Client as console } from '../utils/log';
 const getURL: any = () => {
     const path = location.hash.split('path=')[1];
-    console.log(path);
     return {
         viewing: () => ({ path }),
     };
 };
 import './index.css';
 import '@cn-ui/core/index.css';
+import { atom } from '@cn-ui/use';
 const Book = () => {
-    const { Props, Content } = useStory(getURL);
+    const Props = atom(null);
+    const { Content } = useStory(getURL);
     expose(
         {
-            changeProps(props) {
-                Props(props);
-                console.log('传递 props', props);
+            changeProps(props: unknown) {
+                batch(() => {
+                    Props(props);
+                });
+
+                console.info('receive props', props);
                 return true;
             },
         },
         windowEndpoint(self.parent)
     );
-
+    onMount(() => {
+        console.success('build success', getURL().viewing().path);
+    });
     return (
-        <>
+        <Show when={Props()} fallback={'waiting for props'}>
             <Dynamic component={Content()} {...Props()}></Dynamic>
-        </>
+        </Show>
     );
 };
 const App = () => {
-    onMount(() => console.log('rerender'));
     return <Book></Book>;
 };
 render(App, document.body);

@@ -1,6 +1,7 @@
 .cn-collapse-item:last-of-type {
     border-bottom: none;
 }
+
 .cn-collapse-container {
     transition: max-height 0.3s ease, opacity 0.3s linear;
 }
@@ -11,4 +12,16 @@
 .cn-collapse-container.hide {
     max-height: 0;
     opacity: 0;
+}
+.cn-collapse-summary {
+    position: relative;
+}
+.cn-collapse-item:not(:last-of-type) .cn-collapse-summary::before {
+    content: '';
+    height: 1px;
+    width: 100%;
+    left: 3%;
+    bottom: 1%;
+    position: absolute;
+    @apply bg-slate-300;
 }

@@ -17,7 +17,6 @@ export const useStory = (GetViewing = useViewing) => {
     });
     const refresh = useSingleAsync(async () => {
         const loader = modules['/' + viewing().path];
-        console.log(viewing().path);
         if (!loader) return;
 
         const module: any = await loader();
@@ -30,10 +29,10 @@ export const useStory = (GetViewing = useViewing) => {
         // debugger;
         batch(() => {
             Controller(module.Controller || []);
-            Props(props);
-            console.log('加载完成');
             // 当 Atom 为函数时，只能够以函数的方式改变其值
             Content(() => module.default);
+            Props(props);
+            console.log('加载完成');
         });
     });
     createEffect(refresh);

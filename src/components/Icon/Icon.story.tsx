@@ -56,12 +56,7 @@ export default (props) => {
                 <For each={filtered()}>
                     {(item) => {
                         return (
-                            <Space
-                                vertical
-                                style={{
-                                    'content-visibility': 'auto',
-                                }}
-                            >
+                            <Space vertical>
                                 <Icon name={item} {...props}></Icon>
                             </Space>
                         );

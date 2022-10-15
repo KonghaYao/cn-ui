@@ -7,13 +7,12 @@ import './style/index.css';
 
 export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) => {
     const [controllers, CommitController] = createSignal<Controller>({}, { equals: false });
-    const { lazyload, destroyOnHide } = props;
-
     return (
         <CollapseContext.Provider
             value={{
                 CommitController,
-                lazyload,
+                lazyload: props.lazyload,
+                destroyOnHide: props.destroyOnHide,
                 onToggle: (key, state, e) => {
                     const c = controllers();
                     if (props.accordion && state) {
@@ -25,11 +24,10 @@ export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) =
                     }
                     props.onPanelChange && props.onPanelChange(key, e);
                 },
-                destroyOnHide,
             }}
         >
             <div
-                class={props.class('cn-collapse')}
+                class={props.class('cn-collapse w-full')}
                 style={props.style}
                 ref={props.ref}
                 {...extendsEvent(props)}
