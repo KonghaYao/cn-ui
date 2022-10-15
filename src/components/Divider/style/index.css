@@ -1,0 +1,24 @@
+.cn-divider::before,
+.cn-divider::after {
+    display: block;
+    flex: 1;
+    box-sizing: border-box;
+    height: 1px;
+    border-color: inherit;
+    border-style: inherit;
+    border-width: 1px 0 0;
+    transform: scaleY(0.5);
+    content: '';
+}
+.cn-divider[vertical='true']::before,
+.cn-divider[vertical='true']::after {
+    display: block;
+    flex: 1;
+    box-sizing: border-box;
+    width: 1px;
+    border-color: inherit;
+    border-style: inherit;
+    border-width: 0 1px;
+    transform: scaleX(0.5);
+    content: '';
+}
