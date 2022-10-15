@@ -1,5 +1,4 @@
-import { Divider, StyleDivider } from '@cn-ui/core';
-import { Space } from '../Space';
+import { Divider, StyleDivider, Space } from '@cn-ui/core';
 
 export default (props) => {
     return (

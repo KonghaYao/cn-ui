@@ -71,6 +71,16 @@
         padding-left: 1em;
         margin: 1em 3em 1em 2em;
         @apply border-l-4 border-solid border-slate-400 text-slate-400;
+        p {
+            margin: 0;
+            white-space: normal;
+        }
+    }
+    & :not(pre) code {
+        padding: 0.2em 0.4em;
+        margin: 0;
+        border-radius: 6px;
+        @apply bg-slate-100;
     }
 
     /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
@@ -157,6 +167,7 @@
     /* 着重号，只能在少量（少于100个字符）且全是全角字符的情况下使用 */
     em {
         position: relative;
+        margin: 0 0.2em;
     }
 
     em:after {
@@ -173,10 +184,16 @@
     img {
         max-width: 100%;
     }
-    p {
+    & > p {
         text-indent: 2em;
+        letter-spacing: 0.1em;
+        white-space: pre-wrap;
     }
     a {
         margin: 0 0.1em;
+        @apply text-sky-500 hover:text-sky-400;
+    }
+    strong {
+        margin: 0 0.2em;
     }
 }
