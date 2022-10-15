@@ -30,7 +30,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     return (
         <div
             class={props.class(
-                'w-full flex items-center  bg-slate-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-slate-500'
+                'flex w-full items-center  rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 text-slate-500 transition-colors duration-300 hover:border-blue-400'
             )}
             style={props.style}
             ref={props.ref}
@@ -48,8 +48,8 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 {props.button &&
                     defaultSlot(
                         <Icon
-                            name="subject"
-                            class="px-2 hover:bg-slate-200 transition-colors"
+                            name="horizontal_rule"
+                            class="px-2 transition-colors hover:bg-slate-200"
                         ></Icon>,
                         props.left
                     )}
@@ -59,7 +59,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 ref={inputRef}
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 appearance-none outline-none bg-slate-100 "
+                class="flex-1 appearance-none bg-slate-100 outline-none "
                 min={props.min}
                 max={props.max}
                 step={props.step}
@@ -79,7 +79,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
             >
                 {props.button &&
                     defaultSlot(
-                        <Icon name="add" class="px-2 hover:bg-slate-200 transition-colors"></Icon>,
+                        <Icon name="add" class="px-2 transition-colors hover:bg-slate-200"></Icon>,
                         props.right
                     )}
             </div>

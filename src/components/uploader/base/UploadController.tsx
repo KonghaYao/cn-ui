@@ -10,8 +10,10 @@ export type UploadFunc = (
     files: ExFile[],
     onCancel: (cb: (file: ExFile) => void) => void
 ) => Promise<boolean>;
+
 /** 通知视图更新，如果设置了 sha，只更新sha 值，没有更新，那么全部更新 */
 export type UploaderNotify = (a: number | Error, sha?: string) => void;
+
 import mitt from 'mitt';
 export class UploadController {
     uploadState: {

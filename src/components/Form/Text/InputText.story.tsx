@@ -1,5 +1,5 @@
 import { atom, reflect } from '@cn-ui/use';
-import { InputText, Button, Icon } from '@cn-ui/core';
+import { InputText, Button, Icon, Space } from '@cn-ui/core';
 
 export const Controller = [
     { type: 'switch', default: false, prop: 'disabled' },
@@ -9,7 +9,7 @@ export const Controller = [
 export default (props) => {
     const val = atom('');
     return (
-        <div>
+        <Space vertical class="m-4">
             <InputText {...props}></InputText>
             <InputText {...props} maxLength={10} value={val}></InputText>
             <InputText
@@ -19,10 +19,10 @@ export default (props) => {
                 icon={'https://'}
                 showWordLimit={false}
             >
-                <Button size="mini" type="primary">
+                <Button size="mini" color="blue">
                     <Icon name="search"></Icon>
                 </Button>
             </InputText>
-        </div>
+        </Space>
     );
 };
