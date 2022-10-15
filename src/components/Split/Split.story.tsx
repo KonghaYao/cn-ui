@@ -33,7 +33,7 @@ export default (props) => {
             >
                 <For each={list()}>
                     {(item) => {
-                        return <span>{item}</span>;
+                        return <span class="h-64 w-64">{item}</span>;
                     }}
                 </For>
             </Split>

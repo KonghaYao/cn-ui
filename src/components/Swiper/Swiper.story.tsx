@@ -1,8 +1,7 @@
 export const Controller = [];
 
 // 使用包内部的导出，原项目有 Bug
-// css 文件非常小，故直接导入
-import '@cn-ui/swiper/dist/index.css';
+// 所有 css 文件通过 js 直接导入
 import { Swiper, SwiperSlide } from '@cn-ui/swiper';
 import { Navigation, Pagination, Scrollbar, EffectFade, Lazy } from '@cn-ui/swiper/dist/module';
 
