@@ -1,3 +1,18 @@
+# 打包流程
+
+```sh
+pnpm dev # 开发者模式查看
+
+pnpm build # 打包 lite 版本
+pnpm build:full # 打包 full 版本
+
+pnpm preview # 使用 lite 版本查看
+pnpm preview:full # 使用 full 版本查看
+
+```
+
+# 借鉴插件
+
 -   [x] swiper
 -   [x] https://www.npmjs.com/package/viewerjs
 -   [x] https://github.com/itaditya/solid-command-palette

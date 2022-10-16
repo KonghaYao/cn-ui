@@ -12,7 +12,7 @@ const deps = [Package.dependencies, Package.devDependencies, Package.peerDepende
 );
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
 
-fse.emptyDirSync('./dist');
+fse.emptyDirSync('./dist/es/');
 import fg from 'fast-glob';
 
 const base = () => ({

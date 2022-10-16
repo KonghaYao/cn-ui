@@ -6,9 +6,11 @@
     "scripts": {
         "dev": "node node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && pnpm dev:index && vite",
         "build": "rollup -c rollup.config.js && node ./scripts/createDistIndex.mjs",
+        "build:full": "vite build -c vite.config.full.ts",
         "build:site": "vite build -c vite.config.site.ts",
         "build:type": "tsc --config tsconfig.node.json",
         "preview": "vite -c vite.config.site.ts",
+        "preview:full": "vite -c vite.config.site.ts --mode full",
         "dev:analyze": "node ./scripts/analyzeSrc.mjs",
         "build:analyze": "vite build --mode analyze"
     },
