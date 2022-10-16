@@ -3,13 +3,16 @@ import { atom, Atom, OriginComponent } from '@cn-ui/use';
 import CropperJS from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
-import { JSX, onCleanup, Show } from 'solid-js';
-import { Result } from '@cn-ui/core';
+import { JSX, JSXElement, onCleanup, Show } from 'solid-js';
+import { Box, DefaultIcon } from '@cn-ui/core';
 interface CropperProps extends JSX.HTMLAttributes<HTMLImageElement> {
     src: string;
     options?: CropperJS.Options;
     /** 用于暴露切割好的数据 */
     previewDataURL?: Atom<string>;
+    loading?: JSXElement;
+    /** 未完成错误态 */
+    error?: JSXElement;
 }
 export const Cropper = OriginComponent<CropperProps>((props) => {
     let cropper: CropperJS;
@@ -20,12 +23,14 @@ export const Cropper = OriginComponent<CropperProps>((props) => {
     return (
         <div class={props.class()} style={props.style}>
             <Show when={loading()}>
-                <Result
-                    class="bg-red-50"
-                    icon="success"
-                    title="加载中"
-                    subTitle="这是一些描述信息"
-                ></Result>
+                {props.loading ?? (
+                    <Box
+                        icon={
+                            <DefaultIcon name="replay" color="green" spin size={50}></DefaultIcon>
+                        }
+                        title="加载中"
+                    ></Box>
+                )}
             </Show>
             <img
                 class="cropper-hidden"

@@ -26,7 +26,7 @@ export const DefaultIcon = OriginComponent<DefaultIconProps>((props) => {
             }}
             {...extendsEvent(props)}
         >
-            <Icon name={props.name} size={props.size}></Icon>
+            <Icon name={props.name} size={props.size} spin={props.spin}></Icon>
         </span>
     );
 });
