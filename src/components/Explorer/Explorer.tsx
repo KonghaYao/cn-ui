@@ -1,10 +1,8 @@
 import { JSX, For, JSXElement } from 'solid-js';
 import { atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-import { Space } from '../Space';
+import { Space, Icon, Breadcrumb } from '@cn-ui/core';
 import { ExFile } from '../Uploader/base/ExFile';
 import { Atom } from '@cn-ui/use';
-import { Icon } from '../Icon';
-import { Breadcrumb } from '../Breadcrumb/Breadcrumb';
 import { useEventController } from '@cn-ui/use';
 interface Folder {
     name: string;
@@ -46,7 +44,7 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
     const control = useEventController({});
     return (
         <div
-            class={props.class('cn-explorer p-2 h-full w-full flex flex-col')}
+            class={props.class('cn-explorer flex h-full w-full flex-col p-2')}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}
@@ -55,11 +53,11 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
                 list={now}
                 onTrigger={(index) => now((i) => i.slice(0, index))}
             ></Breadcrumb>
-            <Space vertical class="w-full h-full overflow-auto flex-1">
+            <Space vertical class="h-full w-full flex-1 overflow-auto">
                 <For each={nowList()}>
                     {(item) => {
                         return (
-                            <div class="text-left w-full flex items-center cursor-pointer">
+                            <div class="flex w-full cursor-pointer items-center text-left">
                                 <Icon
                                     class="px-2"
                                     size="1.5em"
@@ -70,7 +68,7 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
                                     }}
                                 ></Icon>
                                 <span
-                                    class="flex-1 text-ellipsis overflow-hidden whitespace-nowrap"
+                                    class="flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
                                     onClick={control([
                                         async () => {
                                             if (item.isDirectory) {

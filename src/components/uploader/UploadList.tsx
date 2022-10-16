@@ -1,11 +1,8 @@
 import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { For, JSX, Match, Show, Switch, useContext } from 'solid-js';
 import { UploaderContext } from './base/UploaderContext';
-import { Icon } from '../Icon';
-import { Relative } from '../Mask';
-import { Position } from '../Mask/Position';
-import { Space } from '../Space';
-import { DefaultIcon } from '../Icon/DefaultIcon';
+import { Icon, Relative, Position, Space, DefaultIcon } from '@cn-ui/core';
+
 interface UploaderListProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 export const UploadList = OriginComponent<UploaderListProps>((props) => {
     const { Files } = useContext(UploaderContext);

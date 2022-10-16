@@ -1,8 +1,7 @@
 import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
 import { JSX, lazy, Suspense } from 'solid-js';
 
-import { Icon } from '../../Icon';
-import { Space } from '../../Space';
+import { Icon, Space } from '@cn-ui/core';
 export interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
     userInputs?: string[];
     value?: Atom<string>;
@@ -22,10 +21,10 @@ export const Password = OriginComponent<PasswordProps>((props) => {
     });
     return (
         <Space vertical class={props.class(disabled() && 'cursor-not-allowed')} {...props}>
-            <div class="w-full flex bg-slate-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 ">
+            <div class="flex w-full rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 transition-colors duration-300 hover:border-blue-400 ">
                 <input
                     disabled={disabled()}
-                    class="flex-1  outline-none bg-slate-100 text-slate-600"
+                    class="flex-1  bg-slate-100 text-slate-600 outline-none"
                     classList={{
                         'cursor-not-allowed': disabled(),
                     }}

@@ -1,13 +1,10 @@
 import { createSignal, For } from 'solid-js';
-import { getOutSpace } from '../GlobalConfigStore/OuterSpace';
-import { Position } from '../Mask/Position';
-import { Space } from '../Space';
+import { getOutSpace, Position, Space, DefaultIcon } from '@cn-ui/core';
 import './style/index.less';
 // 最小化动画载入
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
-import { DefaultIcon } from '../Icon/DefaultIcon';
 const Root = () => {
     return (
         <Position

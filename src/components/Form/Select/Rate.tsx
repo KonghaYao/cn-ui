@@ -8,7 +8,7 @@ import {
     useEventController,
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
-import { Icon } from '../../Icon';
+import { Icon } from '@cn-ui/core';
 
 interface RateProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
@@ -32,7 +32,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
     };
     return (
         <div
-            class={props.class('w-fit text-slate-200 text-2xl')}
+            class={props.class('w-fit text-2xl text-slate-200')}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}
@@ -47,7 +47,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
                 return (
                     <Icon
                         name="star"
-                        class="cursor-pointer relative"
+                        class="relative cursor-pointer"
                         classList={{
                             'text-yellow-400': value() > i,
                         }}
@@ -60,7 +60,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
                         }}
                     >
                         <div
-                            class="absolute right-0 top-0 h-full pointer-events-none"
+                            class="pointer-events-none absolute right-0 top-0 h-full"
                             classList={{
                                 'backdrop-grayscale': value() === i + 0.5,
                             }}

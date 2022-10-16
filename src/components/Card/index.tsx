@@ -1,6 +1,5 @@
 import { Component, mergeProps } from 'solid-js';
-import { Relative } from '../Mask';
-import { Position } from '../Mask/Position';
+import { Relative, Position } from '@cn-ui/core';
 
 import { CardProps } from './interface';
 

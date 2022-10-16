@@ -4,7 +4,7 @@ import { CollapseItemProps } from './interface';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '@cn-ui/use';
 import { CollapseContext } from './Controller';
-import { Icon } from '../Icon';
+import { Icon } from '@cn-ui/core';
 
 export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((props) => {
     const ctx = useContext(CollapseContext);

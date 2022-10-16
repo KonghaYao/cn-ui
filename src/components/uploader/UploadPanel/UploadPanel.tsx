@@ -1,7 +1,6 @@
 import { JSXElement, JSX, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent, reflect } from '@cn-ui/use';
-import { Relative } from '../../Mask';
-import { Position } from '../../Mask/Position';
+import { Relative, Position } from '@cn-ui/core';
 import { UploadWidget } from './UploaderWidget';
 import { UploadExplorer } from './UploadExplorer';
 import { useDragUpload } from '../base/useDragUpload';

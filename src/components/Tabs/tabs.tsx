@@ -9,7 +9,7 @@ import {
     useContext,
 } from 'solid-js';
 import { atom, Atom, extendsEvent } from '@cn-ui/use';
-import { Button } from '../Button';
+import { Button } from '@cn-ui/core';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps, TabsProps } from './interface';
 export const TabsContext = createContext<{

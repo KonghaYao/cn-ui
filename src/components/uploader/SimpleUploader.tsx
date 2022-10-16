@@ -1,12 +1,9 @@
 import { createContext, mergeProps, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent } from '@cn-ui/use';
-import { Relative } from '../Mask';
-import { Position } from '../Mask/Position';
+import { Icon, Relative, Position } from '@cn-ui/core';
 import { Atom } from '@cn-ui/use';
-import { UploadExplorer } from './UploadPanel/UploadExplorer';
 import { useDragUpload } from './base/useDragUpload';
 import { ExFile } from './base/ExFile';
-import { Icon } from '../Icon';
 import { UploadPanelProps } from './UploadPanel/UploadPanel';
 import { UploaderContext } from './base/UploaderContext';
 import { UploadController, UploadFunc } from './base/UploadController';

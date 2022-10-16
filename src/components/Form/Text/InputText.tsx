@@ -1,8 +1,7 @@
 import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
-import { Icon } from '../../Icon';
-import { Space } from '../../Space';
+import { Icon } from '@cn-ui/core';
 interface TextProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<string>;
@@ -25,7 +24,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
     return (
         <div
             class={props.class(
-                'w-full flex items-center bg-slate-100 px-4 py-1 hover:border-blue-400 border-solid border-transparent border-2 rounded transition-colors duration-300 text-slate-500'
+                'flex w-full items-center rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 text-slate-500 transition-colors duration-300 hover:border-blue-400'
             )}
             style={props.style}
             ref={props.ref}
@@ -35,7 +34,7 @@ export const InputText = OriginComponent<TextProps>((props) => {
             <input
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 outline-none bg-slate-100 "
+                class="flex-1 bg-slate-100 outline-none "
                 classList={{
                     'cursor-not-allowed': disabled(),
                 }}

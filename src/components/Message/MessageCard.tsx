@@ -2,7 +2,7 @@ import { ComponentProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { MessageProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
-import { DefaultIcon } from '../Icon/DefaultIcon';
+import { DefaultIcon } from '@cn-ui/core';
 
 /** 渲染存在的数据 */
 export const [MessageQueue, setMessage] = createStore<MessageData[]>([]);
@@ -15,7 +15,7 @@ export const MessageCard = OriginComponent<MessageProps>((props) => {
         <div
             ref={props.ref}
             class={props.class(
-                'cn-message relative flex flex-row justify-evenly items-center px-4 py-1 leading-none border border-solid border-slate-200 rounded-lg bg-white overflow-hidden pointer-events-auto shadow-md text-center'
+                'cn-message pointer-events-auto relative flex flex-row items-center justify-evenly overflow-hidden rounded-lg border border-solid border-slate-200 bg-white px-4 py-1 text-center leading-none shadow-md'
             )}
             style={props.style}
         >

@@ -1,7 +1,6 @@
 // import React, { useState, useContext, forwardRef, CSSProperties } from 'react';
 
 import { TagProps } from './interface';
-import { GlobalConfigStore } from '../GlobalConfigStore';
 import {
     Component,
     createEffect,
@@ -14,7 +13,7 @@ import {
     Switch,
 } from 'solid-js';
 import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
-import { Icon } from '../Icon';
+import { Icon } from '@cn-ui/core';
 
 // 色板里的 12 个颜色
 export const COLORS = [
@@ -77,7 +76,7 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
                 style={props.style}
                 class={props.class(
                     'cn-tag',
-                    'inline-flex box-border items-center px-2 py-1 rounded-md font-light text-sm leading-none select-none cursor-pointer ',
+                    'box-border inline-flex cursor-pointer select-none items-center rounded-md px-2 py-1 text-sm font-light leading-none ',
                     {
                         [`loading`]: closing(),
 

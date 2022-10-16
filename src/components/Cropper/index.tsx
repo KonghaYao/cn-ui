@@ -4,8 +4,7 @@ import CropperJS from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
 import { JSX, JSXElement, onCleanup, Show } from 'solid-js';
-import { Box } from '../Box';
-import { DefaultIcon } from '../Icon';
+import { Box, DefaultIcon } from '@cn-ui/core';
 
 export interface CropperProps extends JSX.HTMLAttributes<HTMLImageElement> {
     src: string;

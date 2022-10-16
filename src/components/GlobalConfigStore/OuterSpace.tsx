@@ -1,5 +1,5 @@
 import { Portal, render } from 'solid-js/web';
-import { Relative } from '../Mask/index';
+import { Relative } from '@cn-ui/core';
 import { createTemplate, SlotMap } from '@cn-ui/use';
 
 /** simple memorize result of getOutSpace */

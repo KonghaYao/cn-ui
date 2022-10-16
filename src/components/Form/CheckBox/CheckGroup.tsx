@@ -1,8 +1,7 @@
 import { For } from 'solid-js';
 import { Atom, atomization } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
-import { Space } from '../../Space';
-import { SpaceProps } from '../../Space/interface';
+import { Space, SpaceProps } from '@cn-ui/core';
 import { CheckBoxProps, CheckBox } from './CheckBox';
 
 export type CheckGroupData = Omit<CheckBoxProps, 'value'> & { value: Atom<boolean> };

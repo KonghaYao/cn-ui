@@ -1,7 +1,8 @@
-import { SpaceSize, SpaceProps } from './interface';
+import { SpaceProps } from './interface';
+export * from './interface';
 import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
 import './style/index.less';
-import { TransitionGroup } from '../../Transition/TransitionGroup';
+import { TransitionGroup } from '@cn-ui/core';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
 const defaultProps: SpaceProps = {
     size: 'mini',
@@ -27,7 +28,7 @@ export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => 
             ref={props.ref}
             class={props.class(
                 'cn-space',
-                props.vertical && 'flex-col inline-flex',
+                props.vertical && 'inline-flex flex-col',
                 'flex items-center',
                 props.wrap && 'flex-wrap'
             )}

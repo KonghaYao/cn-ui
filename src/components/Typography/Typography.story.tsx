@@ -1,5 +1,4 @@
-import { Typography } from '@cn-ui/core';
-import { useCodeStyle } from '../Code/useCodeStyle';
+import { Typography, useCodeStyle } from '@cn-ui/core';
 
 export const Controller = [];
 import { Demo } from './story/Demo';
