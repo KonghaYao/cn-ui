@@ -20,8 +20,11 @@ const base = () => ({
         {
             name: 'clear-outside',
             resolveId(thisFile) {
-                if (thisFile.startsWith('../')) {
-                    return { external: true, id: thisFile };
+                if (/^\.\.\/[A-Z][a-z]+/.test(thisFile)) {
+                    return {
+                        external: true,
+                        id: thisFile.replace(/^(\.\.\/[A-Z][a-z|A-Z]+).*/, '$1'),
+                    };
                 }
             },
         },
@@ -44,9 +47,24 @@ const base = () => ({
     ],
 });
 
-export default fg.sync(['./src/components/*/index.{ts,tsx}']).map((i) => {
-    const config = base();
-    config.input = i;
-    config.output.dir = 'dist/es/' + i.replace('./src/components/', '').split('/')[0];
-    return config;
-});
+export default [
+    // 组件库打包
+    ...fg.sync(['./src/components/*/index.{ts,tsx}']).map((i) => {
+        const config = base();
+        config.input = i;
+        config.output.dir = 'dist/es/' + i.replace('./src/components/', '').split('/')[0];
+        return config;
+    }),
+    ...['./src/Transition/index.ts'].map((i) => {
+        const config = base();
+        config.input = i;
+        config.output.dir = 'dist/es/' + i.replace('./src/', '').split('/')[0];
+        return config;
+    }),
+    ((i) => {
+        const config = base();
+        config.input = i;
+        config.output.dir = 'dist/es/';
+        return config;
+    })('./src/style/index.ts'),
+];

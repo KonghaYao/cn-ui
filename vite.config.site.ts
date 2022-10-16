@@ -12,18 +12,18 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@cn-ui/core': '/dist/index.mjs',
-            '@cn-ui/core/index.css': '/dist/assets/index.886d3236.css',
+            '@cn-ui/core/': '/dist/es/',
+            '@cn-ui/core': '/dist/es/index.js',
         },
     },
     optimizeDeps: {
-        include: ['lodash-es', 'copy-to-clipboard', 'solid-use', 'swiper/solid'],
+        exclude: ['@cn-ui/core'],
     },
     build: {
         rollupOptions: {
             input: {
-                main: 'index.html',
-                book: 'story/book.html',
+                index: 'index.html',
+                book: 'book.html',
             },
         },
     },

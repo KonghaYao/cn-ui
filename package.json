@@ -5,12 +5,11 @@
     "description": "",
     "scripts": {
         "dev": "pnpm node ./scripts/createStoryIndex.mjs && pnpm dev:index && vite",
-        "build": "pnpm dev:index && vite build && tsc -p tsconfig.node.json",
+        "build": "rollup -c rollup.config.js && node ./scripts/createDistIndex.mjs",
         "build:site": "vite build -c vite.config.site.ts",
         "build:type": "tsc --config tsconfig.node.json",
         "preview": "vite dev -c vite.config.site.ts",
         "dev:analyze": "node ./scripts/analyzeSrc.mjs",
-        "dev:index": "node ./scripts/createIndexFile.mjs",
         "build:analyze": "vite build --mode analyze"
     },
     "license": "MIT",
