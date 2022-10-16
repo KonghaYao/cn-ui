@@ -54,6 +54,7 @@
         "animate.css": "3",
         "consola": "^2.15.3",
         "copy-to-clipboard": "^3.3.2",
+        "cropperjs": "1.5.12",
         "highlight.js": "^11.6.0",
         "lodash-es": "^4.17.21",
         "lowlight": "^2.7.0",

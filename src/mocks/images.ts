@@ -1,3 +1,5 @@
+import { shuffle } from 'lodash-es';
+
 export const mockImages = async (
     count: number,
     /** 图片大小 512x512 */
@@ -9,8 +11,12 @@ export const mockImages = async (
     const key = ['image', words, size].join('-');
     const oldImages: string[] = JSON.parse(localStorage.getItem(key) || '[]');
 
-    if (!refresh && oldImages.length >= count) return oldImages.slice(0, count);
+    if (!refresh && oldImages.length >= count) return shuffle(oldImages).slice(0, count);
 
+    const final = await getNewImages(count, size, words, key);
+    return shuffle(final).slice(0, count);
+};
+async function getNewImages(count: number, size: string, words: string, key: string) {
     console.log('加载图片 Mock');
     const final = await [...Array(count).keys()].reduce((col, cur) => {
         return col.then(async (arr) => {
@@ -24,4 +30,4 @@ export const mockImages = async (
 
     localStorage.setItem(key, JSON.stringify(final));
     return final;
-};
+}

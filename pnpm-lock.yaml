@@ -26,6 +26,7 @@ importers:
       comlink: ^4.3.1
       consola: ^2.15.3
       copy-to-clipboard: ^3.3.2
+      cropperjs: 1.5.12
       fs-extra: ^10.1.0
       globby: ^13.1.2
       highlight.js: ^11.6.0
@@ -65,6 +66,7 @@ importers:
       animate.css: 3.7.2
       consola: 2.15.3
       copy-to-clipboard: 3.3.2
+      cropperjs: 1.5.12
       highlight.js: 11.6.0
       lodash-es: 4.17.21
       lowlight: 2.7.0
@@ -2331,6 +2333,10 @@ packages:
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
+
+  /cropperjs/1.5.12:
+    resolution: {integrity: sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==}
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}

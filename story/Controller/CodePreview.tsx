@@ -9,7 +9,7 @@ import {
 } from '../../src/components/Code/useCodeStyle';
 import { atom } from '@cn-ui/use';
 import { lowlight } from '@cn-ui/highlight';
-import tsx from 'highlight.js/lib/languages/typescript.js';
+import tsx from 'highlight.js/lib/languages/typescript';
 import copy from 'copy-to-clipboard';
 // 需要使用 tsx 的解析
 lowlight.registerLanguage('tsx', tsx);
@@ -37,7 +37,7 @@ export const CodePreview = () => {
                 </div>
             </Space>
             <div class="overflow-auto p-4">
-                <Code lang="tsx">{viewing().code}</Code>
+                <Code lang="tsx" code={viewing().code}></Code>
             </div>
             {link}
         </Tab>
