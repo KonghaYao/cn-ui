@@ -1,7 +1,7 @@
 {
     "name": "@cn-ui/core",
     "version": "0.0.0",
-    "main": "./dist/index.js",
+    "main": "./dist/es/index.js",
     "description": "",
     "scripts": {
         "dev": "node node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && pnpm dev:index && vite",

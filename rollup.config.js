@@ -1,3 +1,7 @@
+/**
+ * esm 打包模式的代码
+ * 不同于全打包模式，这个模式的代码外部库引用并未导入，tailwindcss 未解析，预留给开发者结合使用。
+ */
 import babel from '@rollup/plugin-babel';
 import fse from 'fs-extra';
 import resolve from '@rollup/plugin-node-resolve';
