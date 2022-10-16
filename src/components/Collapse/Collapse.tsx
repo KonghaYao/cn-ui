@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js';
 import { extendsEvent } from '@cn-ui/use';
 import { CollapseProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
-import { Controller, CollapseContext } from './index';
+import { Controller, CollapseContext } from './Controller';
 import './style/index.css';
 
 export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) => {

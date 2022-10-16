@@ -1,5 +1,5 @@
 import { Atom } from '@cn-ui/use';
-
+export {};
 export interface ExFile extends File {
     fullPath: string;
     isDirectory?: false;

@@ -6,12 +6,12 @@
 -   [x] 借鉴 https://github.com/upload-io/uploader#installation
 -   [x] 借鉴 https://www.npmjs.com/package/solid-split-component
 -   [x] 高亮库 lowlight
+-   [x] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/
 -   [ ] 时间选择器 https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] 瀑布流布局 https://github.com/callmecavs/bricks.js
 -   [ ] @thisbeyond/solid-select
 -   [ ] 可拖拽组件 http://sortablejs.github.io/Sortable/
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/
--   [ ] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/v2/
 -   [ ] spinners https://github.com/craigjennings11/wc-spinners
 -   [ ] https://perfectscrollbar.com/#section-intro

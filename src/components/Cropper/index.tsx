@@ -4,14 +4,16 @@ import CropperJS from 'cropperjs';
 import 'cropperjs/dist/cropper.min.css';
 
 import { JSX, JSXElement, onCleanup, Show } from 'solid-js';
-import { Box, DefaultIcon } from '@cn-ui/core';
-interface CropperProps extends JSX.HTMLAttributes<HTMLImageElement> {
+import { Box } from '../Box';
+import { DefaultIcon } from '../Icon';
+
+export interface CropperProps extends JSX.HTMLAttributes<HTMLImageElement> {
     src: string;
     options?: CropperJS.Options;
     /** 用于暴露切割好的数据 */
     previewDataURL?: Atom<string>;
     loading?: JSXElement;
-    /** 未完成错误态 */
+    /** TODO 未完成错误态 */
     error?: JSXElement;
 }
 export const Cropper = OriginComponent<CropperProps>((props) => {
