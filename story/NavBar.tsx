@@ -1,9 +1,9 @@
 import { For } from 'solid-js';
 import Index from './story.index.json';
 import { useSearchParams } from '@solidjs/router';
-import { Button } from '../src/components/Button';
-import { Space } from '../src/components/Space';
-import { InputText } from '../src/components/Form';
+import { Button } from '@cn-ui/core';
+import { Space } from '@cn-ui/core';
+import { InputText } from '@cn-ui/core';
 import { atom, reflect } from '@cn-ui/use';
 
 export const NavBar = () => {
