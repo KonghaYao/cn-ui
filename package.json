@@ -4,7 +4,7 @@
     "main": "./dist/es/index.js",
     "description": "",
     "scripts": {
-        "dev": "node node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && pnpm dev:index && vite",
+        "dev": "node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && vite",
         "build": "rollup -c rollup.config.js && node ./scripts/createDistIndex.mjs",
         "build:full": "vite build -c vite.config.full.ts",
         "build:site": "vite build -c vite.config.site.ts",
@@ -49,6 +49,7 @@
     },
     "dependencies": {
         "@cn-ui/command-palette": "workspace:",
+        "@cn-ui/sortable": "workspace:",
         "@cn-ui/highlight": "workspace:",
         "@cn-ui/split": "workspace:",
         "@cn-ui/swiper": "workspace:",

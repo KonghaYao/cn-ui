@@ -1,7 +1,7 @@
 {
-    "name": "@cn-ui/highlight",
+    "name": "@cn-ui/sortable",
     "version": "2.1.0",
-    "description": "A Code Highlight Component base on SolidJS",
+    "description": "sortable elements in solid-js",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
     "files": [
@@ -19,16 +19,12 @@
     "keywords": [
         "solid",
         "solid-js",
-        "syntax",
-        "lowlight",
-        "highlighting",
-        "prism",
-        "highlight",
-        "highlight.js",
-        "ast"
+        "sortable"
     ],
     "dependencies": {
-        "hast-util-to-html": "^8.0.3",
-        "lowlight": "^2.7.0"
+        "sortablejs": "^1.15.0"
+    },
+    "devDependencies": {
+        "@types/sortablejs": "^1.15.0"
     }
 }

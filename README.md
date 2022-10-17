@@ -24,7 +24,6 @@ pnpm preview:full # 使用 full 版本查看
 -   [x] 图片裁剪库 https://fengyuanchen.github.io/cropperjs/
 -   [ ] 时间选择器 https://github.com/haoxins/react-flatpickr/blob/master/lib/index.js
 -   [ ] 瀑布流布局 https://github.com/callmecavs/bricks.js
--   [ ] @thisbeyond/solid-select
 -   [ ] 可拖拽组件 http://sortablejs.github.io/Sortable/
 -   [ ] 视觉引导 driver.js
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/
