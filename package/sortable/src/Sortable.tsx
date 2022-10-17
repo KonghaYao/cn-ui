@@ -1,38 +1,28 @@
 // Core SortableJS (without default plugins)
 import {
     Accessor,
-    Component,
     createContext,
     createEffect,
     For,
     JSX,
     JSXElement,
     mergeProps,
-    onCleanup,
-    onMount,
     untrack,
     useContext,
 } from 'solid-js';
 import SortableCore from 'sortablejs';
 import { OriginComponent, Atom, atomization, extendsEvent } from '@cn-ui/use';
+import { useSortable } from './useSortable';
 export { SortableCore };
+/** Sortable 组件的公共参数 */
+export const SortableShared = createContext<{
+    /** 当使用 sharedList 的时候进行数据的统一 */
+    sharedData?: Atom<unknown[]>[];
+    /** 默认参数 */
+    options?: SortableCore.Options;
+}>({});
 
-/** 非响应式的，但是完全控制的 Sortable js 组件 */
-export const useSortable = (options: SortableCore.Options) => {
-    let sortable: SortableCore;
-
-    onCleanup(() => {
-        sortable && sortable.destroy();
-    });
-    return {
-        initSort(ref: HTMLElement) {
-            sortable = new SortableCore(ref, options);
-        },
-        getSortable() {
-            return sortable;
-        },
-    };
-};
+/* TODO 还有很多示例未完成数据统一化 */
 
 export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
     each: T[] | Atom<T[]>;
@@ -43,12 +33,6 @@ export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivEle
     options?: SortableCore.Options;
 }
 
-export const SortableShared = createContext<{
-    /** 当使用 sharedList 的时候进行数据的统一 */
-    sharedData?: Atom<unknown[]>[];
-    /** 默认参数 */
-    options?: SortableCore.Options;
-}>({});
 /**
  * @zh 使用响应式对象操控可排序列表
  */
