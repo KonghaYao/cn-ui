@@ -1,7 +1,7 @@
 import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
 import { classNames } from './classNames';
 
-export const OriginComponent = <T extends JSX.HTMLAttributes<RefType>, RefType = HTMLElement>(
+export const OriginComponent = <T, RefType = HTMLElement>(
     comp: Component<
         // 对内的类型注解
         Omit<T, 'style' | 'class'> & {

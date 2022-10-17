@@ -1,6 +1,6 @@
 import { OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement } from 'solid-js';
-interface DividerProps extends JSX.HTMLAttributes<HTMLHRElement> {
+interface DividerProps extends JSX.HTMLAttributes<HTMLDivElement> {
     vertical?: boolean;
     children?: JSXElement;
 }
