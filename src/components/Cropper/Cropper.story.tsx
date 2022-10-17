@@ -1,5 +1,4 @@
 import { atom, reflect } from '@cn-ui/use';
-import { createResource, onMount } from 'solid-js';
 import { Cropper } from '@cn-ui/core';
 import { mockImages } from '../../mocks/images';
 export const Controller = [];

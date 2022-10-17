@@ -18,13 +18,10 @@ export const getOutSpace = memoize(() => {
     const OuterSpace = Server.Template(({ Slots, SlotList }) => {
         return (
             <Relative
+                fixed
+                class={' top-0 left-0 h-screen w-screen '}
                 style={{
                     'z-index': 1000,
-                    width: '100vw',
-                    height: '100vh',
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
                     'pointer-events': 'none',
                 }}
             >

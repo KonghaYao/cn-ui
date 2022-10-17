@@ -3,10 +3,7 @@ import { SortableList, SortableShared } from '@cn-ui/sortable/src/index';
 import { Atom, atom, reflect } from '@cn-ui/use';
 import { shuffle } from 'lodash-es';
 import { createContext, createEffect, For, useContext } from 'solid-js';
-import { Button } from '../Button';
-import { DefaultIcon } from '../Icon';
-import { Message } from '../Message';
-import { Space } from '../Space';
+import { Button, Message, Space } from '@cn-ui/core';
 
 const NormalList = () => {
     const { normalList: list } = useContext(ListContext);
