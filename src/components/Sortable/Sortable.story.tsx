@@ -11,7 +11,7 @@ const NormalList = () => {
         <section>
             <Button onClick={() => list((i) => shuffle(i))}>随机</Button>
             <div> ReactiveData: {JSON.stringify(list().map((i) => i.info))}</div>
-            <SortableList each={list}>
+            <SortableList each={list} options={{ animation: 150 }}>
                 {(item) => {
                     return (
                         <div
@@ -64,22 +64,16 @@ const SharedList = () => {
                     value={{
                         // create an environment to shared the data
                         sharedData: [list, anotherList],
+                        options: {
+                            group: 'KongHaYao',
+                            animation: 150,
+                        },
                     }}
                 >
-                    <SortableList
-                        class="flex-1  text-center"
-                        each={list}
-                        // the group must be the same string
-                        options={{ group: 'KongHaYao' }}
-                    >
+                    <SortableList class="flex-1  text-center" each={list}>
                         {render(false)}
                     </SortableList>
-                    <SortableList
-                        class="flex-1  text-center"
-                        each={anotherList}
-                        // the group must be the same string
-                        options={{ group: 'KongHaYao' }}
-                    >
+                    <SortableList class="flex-1  text-center" each={anotherList}>
                         {render(true)}
                     </SortableList>
                 </SortableShared.Provider>
@@ -95,12 +89,12 @@ const ListContext = createContext({
         })
     ),
     list: atom(
-        [...Array(10).keys()].map((i) => {
+        [...Array(6).keys()].map((i) => {
             return { id: i, info: i.toString() };
         })
     ),
     anotherList: atom(
-        [...Array(10).keys()].map((i) => {
+        [...Array(6).keys()].map((i) => {
             return { id: i + 10, info: (i + 10).toString() };
         })
     ),

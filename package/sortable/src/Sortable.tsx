@@ -46,19 +46,21 @@ export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivEle
 export const SortableShared = createContext<{
     /** 当使用 sharedList 的时候进行数据的统一 */
     sharedData?: Atom<unknown[]>[];
+    /** 默认参数 */
+    options?: SortableCore.Options;
 }>({});
 /**
  * @zh 使用响应式对象操控可排序列表
  */
 export const SortableList = OriginComponent((baseProps) => {
+    const context = useContext(SortableShared);
     const props = mergeProps(
         {
-            options: {},
+            options: context.options ?? {},
         },
         baseProps
     ) as unknown as SortableListProps<unknown>;
     const getId = props.getId || ((item) => (item as any).id.toString());
-    const context = useContext(SortableShared);
 
     const RefreshData = () => {
         const sortable = getSortable();
