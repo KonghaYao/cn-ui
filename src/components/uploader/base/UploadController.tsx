@@ -14,12 +14,23 @@ export type UploadFunc = (
 export type UploaderNotify = (a: number | Error, sha?: string) => void;
 
 import mitt from 'mitt';
-export class UploadController {
+import { UploaderRootProps } from './UploaderRoot';
+export class UploadController implements Omit<UploaderRootProps, 'children'> {
     uploadState: {
         // -1 取消 0 未开始  1-100 为进度
         [sha: string]: Atom<number | Error>;
     } = {};
-    constructor(public uploader: UploadFunc, public Files: Atom<ExFile[]>) {}
+
+    constructor(props: UploaderRootProps) {
+        Object.assign(this, props);
+        console.log(this);
+    }
+    mode?: 'add' | 'replace' = 'replace';
+    multiple = false;
+    accept?: string;
+    limit = Infinity;
+    uploading: UploadFunc;
+    Files: Atom<ExFile[]>;
 
     /** 计算 sha 值，并进行缓存 */
     async calcSha(file: ExFile) {
@@ -27,6 +38,7 @@ export class UploadController {
         return sha256(await file.arrayBuffer());
     }
 
+    /** 在存储库中加入一个键值对 */
     async createSlot(file: ExFile) {
         const sha = await this.calcSha(file);
         if (!this.uploadState[sha]) {
@@ -40,12 +52,26 @@ export class UploadController {
         const data = this.uploadState[sha];
         return data ? data() : -1;
     }
-    async createSlots(files: ExFile[]) {
-        return Promise.all(
-            files.map((i) => {
-                return this.createSlot(i);
-            })
-        );
+    async addFiles(files: ExFile[]) {
+        if (this.Files().length < this.limit) {
+            if (this.multiple) {
+                files = files.slice(0, this.limit - this.Files().length);
+            } else {
+                files = [files[0]];
+            }
+            return Promise.all(
+                files.map((i) => {
+                    return this.createSlot(i);
+                })
+            ).then((res) => {
+                if (this.mode === 'add') {
+                    this.Files((i) => [...i, ...files]);
+                } else {
+                    this.Files(files);
+                }
+                return res;
+            });
+        }
     }
     cancelChannel = mitt<{
         [k: string]: void;
@@ -65,7 +91,7 @@ export class UploadController {
 
         // 没错，置 1 表示开始
         notify(1);
-        return this.uploader(notify, files, (cb) => {
+        return this.uploading(notify, files, (cb) => {
             console.log('挂载 cancel');
             files.forEach((i) => {
                 this.cancelChannel.on(i.sha, () => cb(i));
@@ -82,6 +108,7 @@ export class UploadController {
             this.cancel(sha);
         } else {
             this.Files((i) => i.filter((i) => i.sha !== sha));
+            delete this.uploadState[sha];
         }
     }
     cancel(sha: string) {

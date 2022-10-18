@@ -10,7 +10,7 @@ export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;
 }>();
-interface SimpleUploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
+export interface SimpleUploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     accept?: string;
     multiple?: boolean;
     limit?: number;
@@ -21,7 +21,7 @@ interface SimpleUploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
 }
 /** @zh  简单上传组件 */
 export const SimpleUploader = OriginComponent<SimpleUploaderProps, HTMLInputElement>((props) => {
-    const { uploadControl, inputRef, Files, isDragging } = useContext(UploaderContext);
+    const { uploadControl, inputRef, isDragging } = useContext(UploaderContext);
 
     return (
         <Relative
@@ -32,23 +32,23 @@ export const SimpleUploader = OriginComponent<SimpleUploaderProps, HTMLInputElem
             {...useDragUpload({
                 isDragging,
                 async onEnd(files) {
-                    await uploadControl.createSlots(files);
-                    Files((i) => [...i, ...files]);
+                    await uploadControl.addFiles(files);
                 },
             })}
         >
             <Position full class="p-2 " top="0" left="0" inactive>
                 <div
-                    class="h-full  rounded border border-dashed border-slate-300  transition-colors duration-300 "
+                    class="h-full  rounded border border-dashed   transition-colors duration-300 "
                     classList={{
                         'border-blue-600': isDragging(),
+                        'border-slate-300': !isDragging(),
                     }}
                 ></div>
             </Position>
 
             <div
                 class="flex h-8 w-8 items-center justify-center  text-slate-500"
-                onclick={() => inputRef().click()}
+                onClick={() => inputRef().click()}
             >
                 <Icon name="add" size="1.5em"></Icon>
             </div>

@@ -11,6 +11,7 @@ interface UploaderListProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'ch
         controller: UploadController
     ) => JSXElement;
 }
+/** 默认的上传文件展示组件，这个可以作为上传组件的借鉴 */
 const DefaultUploadList = (
     file: ExFile,
     progress: Atom<number | Error>,

@@ -3,11 +3,10 @@ import { Component, JSXElement, useContext } from 'solid-js';
 import { UploaderContext } from './UploaderContext';
 import { ExFile } from './ExFile';
 import { UploadController, UploadFunc } from './UploadController';
-interface UploaderRootProps {
+export interface UploaderRootProps {
     accept?: string;
     multiple?: boolean;
     limit?: number;
-    disabled?: boolean | Atom<boolean>;
     uploading: UploadFunc;
     Files: Atom<ExFile[]>;
     children?: JSXElement;
@@ -15,16 +14,26 @@ interface UploaderRootProps {
     /** @zh 文件模式，默认 replace 将会替换掉上次的结果 */
     mode?: 'replace' | 'add';
 }
+/** 这个并没有实质上的 DOM，故不需要进行 OriginComponent */
 export const UploaderRoot: Component<UploaderRootProps> = (props) => {
-    const uploadControl = new UploadController(props.uploading, props.Files);
-    const isDragging = atom(false);
+    // 直接传递 props 会报 BUG
+    const uploadControl = new UploadController({
+        accept: props.accept,
+        limit: props.limit ?? Infinity,
+        multiple: props.multiple ?? false,
+        mode: props.mode ?? 'replace',
+        Files: props.Files,
+        uploading: props.uploading,
+    });
+
     let inputRef = atom<HTMLInputElement | null>(null);
+    console.log('root');
     return (
         <UploaderContext.Provider
             value={{
                 inputRef,
                 Files: props.Files,
-                isDragging,
+                isDragging: atom(false),
                 uploadControl,
             }}
         >
@@ -36,16 +45,14 @@ export const UploaderRoot: Component<UploaderRootProps> = (props) => {
                 accept={props.accept}
                 onchange={async (e) => {
                     const data = [...((e.target as any).files as ExFile[])];
-                    await uploadControl.createSlots(data);
-                    props.Files((i) => {
-                        return data
-                            .map((i) => {
-                                // @ts-ignore
-                                i.fullPath = '/' + i.name;
-                                return i as ExFile;
-                            })
-                            .concat(i);
-                    });
+
+                    await uploadControl.addFiles(
+                        data.map((i) => {
+                            // @ts-ignore
+                            i.fullPath = '/' + i.name;
+                            return i as ExFile;
+                        })
+                    );
                 }}
             ></input>
             {props.children}

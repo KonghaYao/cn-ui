@@ -1,5 +1,5 @@
 import { Atom } from '@cn-ui/use';
-export {};
+export {}; // 防止 Rollup 报错
 export interface ExFile extends File {
     fullPath: string;
     isDirectory?: false;
