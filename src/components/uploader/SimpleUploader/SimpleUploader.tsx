@@ -2,10 +2,10 @@ import { createContext, mergeProps, useContext, JSX } from 'solid-js';
 import { atom, atomization, OriginComponent } from '@cn-ui/use';
 import { Icon, Relative, Position } from '@cn-ui/core';
 import { Atom } from '@cn-ui/use';
-import { useDragUpload } from './base/useDragUpload';
-import { ExFile } from './base/ExFile';
-import { UploaderContext } from './base/UploaderContext';
-import { UploadController, UploadFunc } from './base/UploadController';
+import { useDragUpload } from '../base/useDragUpload';
+import { ExFile } from '../base/ExFile';
+import { UploaderContext } from '../base/UploaderContext';
+import { UploadController, UploadFunc } from '../base/UploadController';
 export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;
@@ -38,9 +38,9 @@ export const SimpleUploader = OriginComponent<SimpleUploaderProps, HTMLInputElem
         >
             <Position full class="p-2 " top="0" left="0" inactive>
                 <div
-                    class="h-full  rounded border border-dashed   transition-colors duration-300 "
+                    class="h-full  rounded border border-dashed transition-colors duration-300 "
                     classList={{
-                        'border-blue-600': isDragging(),
+                        'bg-blue-100': isDragging(),
                         'border-slate-300': !isDragging(),
                     }}
                 ></div>

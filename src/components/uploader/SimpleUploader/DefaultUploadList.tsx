@@ -1,18 +1,10 @@
-import { Atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-import { For, JSX, JSXElement, Match, Show, Switch, useContext } from 'solid-js';
-import { UploaderContext } from './base/UploaderContext';
+import { Atom } from '@cn-ui/use';
+import { Match, Switch } from 'solid-js';
 import { Icon, Relative, Position, Space, DefaultIcon, ExFile } from '@cn-ui/core';
-import { UploadController } from './base/UploadController';
+import { UploadController } from '../base/UploadController';
 
-interface UploaderListProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
-    children?: (
-        file: ExFile,
-        progress: Atom<number | Error>,
-        controller: UploadController
-    ) => JSXElement;
-}
 /** 默认的上传文件展示组件，这个可以作为上传组件的借鉴 */
-const DefaultUploadList = (
+export const DefaultUploadList = (
     file: ExFile,
     progress: Atom<number | Error>,
     uploadControl: UploadController
@@ -79,23 +71,3 @@ const DefaultUploadList = (
         </Relative>
     );
 };
-export const UploadList = OriginComponent<UploaderListProps>((props) => {
-    const { Files } = useContext(UploaderContext);
-    return (
-        <div
-            class={props.class('flex flex-col')}
-            style={props.style}
-            ref={props.ref}
-            {...extendsEvent(props)}
-        >
-            <For each={Files()}>
-                {(file) => {
-                    const { uploadControl } = useContext(UploaderContext);
-                    const progress = reflect(() => uploadControl.getNotice(file.sha));
-
-                    return (props.children ?? DefaultUploadList)(file, progress, uploadControl);
-                }}
-            </For>
-        </div>
-    );
-});
