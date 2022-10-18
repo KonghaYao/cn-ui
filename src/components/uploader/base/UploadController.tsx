@@ -1,4 +1,4 @@
-import { atom } from '@cn-ui/use';
+import { atom, useEventController } from '@cn-ui/use';
 import { Atom } from '@cn-ui/use';
 import { sha256 } from '../../_util/sha256/sha256';
 import { ExFile } from './ExFile';
@@ -52,26 +52,35 @@ export class UploadController implements Omit<UploaderRootProps, 'children'> {
         const data = this.uploadState[sha];
         return data ? data() : -1;
     }
+
     async addFiles(files: ExFile[]) {
-        if (this.Files().length < this.limit) {
-            if (this.multiple) {
-                files = files.slice(0, this.limit - this.Files().length);
-            } else {
-                files = [files[0]];
-            }
-            return Promise.all(
-                files.map((i) => {
+        const diffNumber = this.limit - this.Files().length;
+        if (diffNumber <= 0) return false;
+        if (this.accept) {
+            const accept = this.accept.split(',').map((i) => {
+                return new RegExp(i);
+            });
+            files = files.filter((i) => accept.some((reg) => reg.test(i.type)));
+        }
+
+        if (!this.multiple) {
+            files = [files[0]];
+        }
+
+        return Promise.all(
+            files
+                .filter((i) => i)
+                .map((i) => {
                     return this.createSlot(i);
                 })
-            ).then((res) => {
-                if (this.mode === 'add') {
-                    this.Files((i) => [...i, ...files]);
-                } else {
-                    this.Files(files);
-                }
-                return res;
-            });
-        }
+        ).then((res) => {
+            if (this.mode === 'add') {
+                this.Files((i) => [...i, ...files]);
+            } else {
+                this.Files(files);
+            }
+            return res;
+        });
     }
     cancelChannel = mitt<{
         [k: string]: void;

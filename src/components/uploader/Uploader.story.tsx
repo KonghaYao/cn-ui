@@ -19,6 +19,13 @@ export const Controller = [
         options: ['replace', 'add'].map((i) => ({ value: i })),
         refresh: true,
     },
+    {
+        type: 'select',
+        default: '',
+        prop: 'accept',
+        options: ['', 'image/*'].map((i) => ({ value: i })),
+        refresh: true,
+    },
 ];
 
 import { atom } from '@cn-ui/use';
