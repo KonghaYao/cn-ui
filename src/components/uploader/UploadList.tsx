@@ -1,9 +1,83 @@
-import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-import { For, JSX, Match, Show, Switch, useContext } from 'solid-js';
+import { Atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
+import { For, JSX, JSXElement, Match, Show, Switch, useContext } from 'solid-js';
 import { UploaderContext } from './base/UploaderContext';
-import { Icon, Relative, Position, Space, DefaultIcon } from '@cn-ui/core';
+import { Icon, Relative, Position, Space, DefaultIcon, ExFile } from '@cn-ui/core';
+import { UploadController } from './base/UploadController';
 
-interface UploaderListProps extends JSX.HTMLAttributes<HTMLDivElement> {}
+interface UploaderListProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
+    children?: (
+        file: ExFile,
+        progress: Atom<number | Error>,
+        controller: UploadController
+    ) => JSXElement;
+}
+const DefaultUploadList = (
+    file: ExFile,
+    progress: Atom<number | Error>,
+    uploadControl: UploadController
+) => {
+    return (
+        <Relative class="w-full justify-between">
+            <Space class="cursor-default text-slate-700">
+                <Icon name="insert_drive_file" class="text-sky-600" size={20}></Icon>
+                {file.name}
+                <div class="flex-1"></div>
+                <div>{progress() === -1 ? 'canceled' : progress() + '%'}</div>
+                {/* 上传状态的描述 */}
+                <Switch
+                    fallback={
+                        <DefaultIcon
+                            name="error"
+                            color="red"
+                            onClick={() => {
+                                uploadControl.upload([file]);
+                            }}
+                        ></DefaultIcon>
+                    }
+                >
+                    <Match when={progress() === 0}>
+                        <DefaultIcon
+                            name="upload"
+                            color="blue"
+                            onClick={() => {
+                                uploadControl.upload([file]);
+                            }}
+                        ></DefaultIcon>
+                    </Match>
+                    <Match when={progress() > 0 && progress() < 100}>
+                        <DefaultIcon
+                            name="replay"
+                            color="orange"
+                            spin
+                            onClick={() => uploadControl.cancel(file.sha)}
+                        ></DefaultIcon>
+                    </Match>
+                    <Match when={progress() === 100}>
+                        <DefaultIcon name="check" color="green"></DefaultIcon>
+                    </Match>
+                </Switch>
+                {/* 删除按钮 */}
+
+                <DefaultIcon
+                    color="red"
+                    name="delete"
+                    onClick={() => {
+                        uploadControl.delete(file.sha);
+                    }}
+                ></DefaultIcon>
+            </Space>
+            {/*  背景动画 */}
+            <Position full bottom="0" left="0" class=" " inactive>
+                <div
+                    class="pointer-events-none h-full bg-blue-600 opacity-10"
+                    style={{
+                        width: progress() + '%',
+                    }}
+                ></div>
+            </Position>
+        </Relative>
+    );
+};
 export const UploadList = OriginComponent<UploaderListProps>((props) => {
     const { Files } = useContext(UploaderContext);
     return (
@@ -17,75 +91,8 @@ export const UploadList = OriginComponent<UploaderListProps>((props) => {
                 {(file) => {
                     const { uploadControl } = useContext(UploaderContext);
                     const progress = reflect(() => uploadControl.getNotice(file.sha));
-                    return (
-                        <Relative class="w-full justify-between">
-                            <Space class="cursor-default text-slate-700">
-                                <Icon
-                                    name="insert_drive_file"
-                                    class="text-sky-600"
-                                    size={20}
-                                ></Icon>
-                                {file.name}
-                                <div class="flex-1"></div>
-                                <div>{progress() === -1 ? 'canceled' : progress() + '%'}</div>
-                                {/* 上传状态的描述 */}
-                                <Switch
-                                    fallback={
-                                        <DefaultIcon
-                                            name="error"
-                                            color="red"
-                                            onClick={() => {
-                                                uploadControl.upload([file]);
-                                            }}
-                                        ></DefaultIcon>
-                                    }
-                                >
-                                    <Match when={progress() === 0}>
-                                        <DefaultIcon
-                                            name="upload"
-                                            color="blue"
-                                            onClick={() => {
-                                                uploadControl.upload([file]);
-                                            }}
-                                        ></DefaultIcon>
-                                    </Match>
-                                    <Match when={progress() > 0 && progress() < 100}>
-                                        <DefaultIcon
-                                            name="replay"
-                                            color="orange"
-                                            spin
-                                        ></DefaultIcon>
-                                    </Match>
-                                    <Match when={progress() === 100}>
-                                        <DefaultIcon name="check" color="green"></DefaultIcon>
-                                    </Match>
-                                </Switch>
-                                {/* 删除按钮 */}
 
-                                <DefaultIcon
-                                    color="red"
-                                    name="delete"
-                                    onClick={() => {
-                                        const p = progress();
-                                        if (p > 0 && p < 100) {
-                                            uploadControl.cancel(file.sha);
-                                        } else {
-                                            Files((i) => i.filter((i) => i !== file));
-                                        }
-                                    }}
-                                ></DefaultIcon>
-                            </Space>
-                            {/*  背景动画 */}
-                            <Position full bottom="0" left="0" class=" " inactive>
-                                <div
-                                    class="pointer-events-none h-full bg-blue-600 opacity-10"
-                                    style={{
-                                        width: progress() + '%',
-                                    }}
-                                ></div>
-                            </Position>
-                        </Relative>
-                    );
+                    return (props.children ?? DefaultUploadList)(file, progress, uploadControl);
                 }}
             </For>
         </div>

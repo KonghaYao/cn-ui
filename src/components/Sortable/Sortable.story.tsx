@@ -1,6 +1,6 @@
 export const Controller = [];
-import { SortableList, SortableShared } from '@cn-ui/sortable/src/index';
-import { Atom, atom, reflect } from '@cn-ui/use';
+import { SortableList, SortableShared } from '@cn-ui/sortable';
+import { atom, reflect } from '@cn-ui/use';
 import { shuffle } from 'lodash-es';
 import { createContext, createEffect, For, useContext } from 'solid-js';
 import { Button, Message, Space } from '@cn-ui/core';

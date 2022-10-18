@@ -1,5 +1,4 @@
-import { atom, reflect } from '@cn-ui/use';
-import { createEffect } from 'solid-js';
+import { atom } from '@cn-ui/use';
 import { Atom } from '@cn-ui/use';
 import { sha256 } from '../../_util/sha256/sha256';
 import { ExFile } from './ExFile';
@@ -20,7 +19,7 @@ export class UploadController {
         // -1 取消 0 未开始  1-100 为进度
         [sha: string]: Atom<number | Error>;
     } = {};
-    constructor(public uploader: UploadFunc) {}
+    constructor(public uploader: UploadFunc, public Files: Atom<ExFile[]>) {}
 
     /** 计算 sha 值，并进行缓存 */
     async calcSha(file: ExFile) {
@@ -75,6 +74,15 @@ export class UploadController {
             notify(100);
             return i;
         });
+    }
+    delete(sha: string) {
+        const p = this.getNotice(sha);
+        if (p > 0 && p < 100) {
+            // 先暂停，再次点击关闭
+            this.cancel(sha);
+        } else {
+            this.Files((i) => i.filter((i) => i.sha !== sha));
+        }
     }
     cancel(sha: string) {
         this.uploadState[sha](-1);

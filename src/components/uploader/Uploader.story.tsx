@@ -19,7 +19,7 @@ export default (props) => {
                 <SimpleUploader></SimpleUploader>
                 <UploadList class="w-full"></UploadList>
             </Space>
-            <UploadPanel></UploadPanel>
+            {/* <UploadPanel></UploadPanel> */}
         </UploaderRoot>
     );
 };

@@ -1,17 +1,16 @@
-import { createContext, mergeProps, useContext } from 'solid-js';
+import { createContext, mergeProps, useContext, JSX } from 'solid-js';
 import { atom, atomization, OriginComponent } from '@cn-ui/use';
 import { Icon, Relative, Position } from '@cn-ui/core';
 import { Atom } from '@cn-ui/use';
 import { useDragUpload } from './base/useDragUpload';
 import { ExFile } from './base/ExFile';
-import { UploadPanelProps } from './UploadPanel/UploadPanel';
 import { UploaderContext } from './base/UploaderContext';
 import { UploadController, UploadFunc } from './base/UploadController';
 export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;
 }>();
-interface SimpleUploader extends UploadPanelProps {
+interface SimpleUploaderProps extends JSX.HTMLAttributes<HTMLInputElement> {
     accept?: string;
     multiple?: boolean;
     limit?: number;
@@ -21,7 +20,7 @@ interface SimpleUploader extends UploadPanelProps {
     mode?: 'replace' | 'add';
 }
 /** @zh  简单上传组件 */
-export const SimpleUploader = OriginComponent<SimpleUploader, HTMLInputElement>((props) => {
+export const SimpleUploader = OriginComponent<SimpleUploaderProps, HTMLInputElement>((props) => {
     const { uploadControl, inputRef, Files, isDragging } = useContext(UploaderContext);
 
     return (
