@@ -317,7 +317,7 @@ export const Demo = () => (
             it。it will works nice as the demo you're watching now. The following code is the best
             way to render typo in Chinese:
         </p>
-        <Code>{code}</Code>
+        <Code code={code}></Code>
 
         <h3 id="section3">三、附录</h3>
 
