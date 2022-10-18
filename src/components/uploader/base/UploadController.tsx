@@ -15,6 +15,7 @@ export type UploaderNotify = (a: number | Error, sha?: string) => void;
 
 import mitt from 'mitt';
 import { UploaderRootProps } from './UploaderRoot';
+import { isAcceptFile } from './isAcceptFile';
 export class UploadController implements Omit<UploaderRootProps, 'children'> {
     uploadState: {
         // -1 取消 0 未开始  1-100 为进度
@@ -23,7 +24,6 @@ export class UploadController implements Omit<UploaderRootProps, 'children'> {
 
     constructor(props: UploaderRootProps) {
         Object.assign(this, props);
-        console.log(this);
     }
     mode?: 'add' | 'replace' = 'replace';
     multiple = false;
@@ -57,10 +57,7 @@ export class UploadController implements Omit<UploaderRootProps, 'children'> {
         const diffNumber = this.limit - this.Files().length;
         if (diffNumber <= 0) return false;
         if (this.accept) {
-            const accept = this.accept.split(',').map((i) => {
-                return new RegExp(i);
-            });
-            files = files.filter((i) => accept.some((reg) => reg.test(i.type)));
+            files = files.filter((i) => isAcceptFile(i, this.accept));
         }
 
         if (!this.multiple) {
