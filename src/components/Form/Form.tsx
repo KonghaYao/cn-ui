@@ -39,7 +39,6 @@ export const Form: Component<{
         }, {})
     );
     const { valids } = useValidForm(props.template, result);
-    console.log(valids);
     return (
         <For each={props.template}>
             {(item) => {

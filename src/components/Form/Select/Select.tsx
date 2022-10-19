@@ -11,7 +11,8 @@ import {
 import { Component, For, JSX } from 'solid-js';
 import { createTrigger } from '../../Trigger';
 
-type OptionCreator = { value: string; label?: string };
+/** Select 组件的对象输入参数 */
+export type OptionCreator = { value: string; label?: string };
 
 interface SelectProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
@@ -53,9 +54,8 @@ export const Select = OriginComponent<SelectProps>((props) => {
     });
 
     // 在 Options 中选中一个值，如果不是，那么将会使用第一个
-    const value = atomization(
-        options().find((i) => i.value === props.value().value) || options()[0]
-    );
+    props.value((init) => options().find((i) => i.value === init.value) || options()[0]);
+    const value = atomization(props.value);
 
     const control = useEventController({ disabled });
 

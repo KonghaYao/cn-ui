@@ -1,6 +1,6 @@
 import { atom, reflect } from '@cn-ui/use';
 import { FormSwitch, Button } from '@cn-ui/core';
-import { Form, registerFormComponent } from './Form';
+import { Form, FormTemplate, registerFormComponent } from './Form';
 import { FromSelect } from './Select/FormWrap';
 
 export const Controller = [
@@ -8,7 +8,6 @@ export const Controller = [
     { type: 'switch', default: true, prop: 'showWordLimit' },
     { type: 'switch', default: true, prop: 'allowClear' },
 ];
-
 export default (props) => {
     const val = atom<{}>({});
     registerFormComponent.set('switch', () => Promise.resolve({ default: FormSwitch }));
@@ -22,7 +21,7 @@ export default (props) => {
                         {
                             type: 'select',
                             default: 'auto',
-                            prop: 'showWordLimit',
+                            prop: 'language',
                             options: [
                                 {
                                     label: '中文',
@@ -37,13 +36,16 @@ export default (props) => {
                                     value: 'auto',
                                 },
                             ],
+                            valid(value) {
+                                console.log(value);
+                                return value.value === 'auto' && '请选中一种语言';
+                            },
                         },
                         {
                             type: 'switch',
                             default: true,
                             prop: 'allowClear',
                             valid(value: boolean, total) {
-                                console.log(value);
                                 return value !== false && 'It should be false';
                             },
                         },
