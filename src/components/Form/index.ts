@@ -7,5 +7,5 @@ export * from './Password/Password';
 export * from './Select/InputColor';
 export * from './Select/Rate';
 export * from './Select/Select';
-export * from './Switch/Switch';
+export * from './Switch/index';
 export * from './Text/InputText';

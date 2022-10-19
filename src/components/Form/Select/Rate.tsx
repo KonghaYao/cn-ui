@@ -1,19 +1,9 @@
-import {
-    Atom,
-    atom,
-    atomization,
-    emitEvent,
-    extendsEvent,
-    OriginComponent,
-    useEventController,
-} from '@cn-ui/use';
-import { Component, For, JSX } from 'solid-js';
+import { Atom, atomization, extendsEvent, OriginComponent, useEventController } from '@cn-ui/use';
 import { Icon } from '@cn-ui/core';
+import { FormField } from '../interface';
 
-interface RateProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: Atom<number>;
-
+export interface RateProps extends FormField {
+    value: Atom<number>;
     allowHalf?: boolean;
 }
 

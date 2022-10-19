@@ -2,13 +2,13 @@ import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
 import { JSX, lazy, Suspense } from 'solid-js';
 
 import { Icon, Space } from '@cn-ui/core';
-export interface PasswordScoreProps extends JSX.HTMLAttributes<HTMLDivElement> {
+import { FormField } from '../interface';
+export interface PasswordScoreProps extends FormField {
     userInputs?: string[];
-    value?: Atom<string>;
+    value: Atom<string>;
 }
-interface PasswordProps extends PasswordScoreProps {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: Atom<string>;
+export interface PasswordProps extends PasswordScoreProps {
+    /** @zh 是否加载评分等级系统 */
     score?: boolean;
 }
 export const Password = OriginComponent<PasswordProps>((props) => {

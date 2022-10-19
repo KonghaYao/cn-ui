@@ -4,9 +4,9 @@ import { JSX, JSXElement, lazy, mergeProps, Suspense } from 'solid-js';
 import { Icon } from '@cn-ui/core';
 import { defaultSlot } from '../../_util/defaultSlot';
 import { useEventController } from '@cn-ui/use';
-export interface InputNumberProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: number | Atom<number>;
+import { FormField } from '../interface';
+export interface InputNumberProps extends FormField {
+    value: number | Atom<number>;
     placeholder?: string;
     allowClear?: boolean;
     left?: JSXElement;

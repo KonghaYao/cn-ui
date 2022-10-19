@@ -2,9 +2,9 @@ import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/u
 import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon } from '@cn-ui/core';
-interface TextProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: Atom<string>;
+import { FormField } from '../interface';
+interface TextProps extends FormField {
+    value: Atom<string>;
     placeholder?: string;
     allowClear?: boolean;
     /**

@@ -2,18 +2,8 @@ import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, mergeProps, Suspense } from 'solid-js';
 import { useEventController } from '@cn-ui/use';
 import './Slider.css';
-export interface SliderProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: number | Atom<number>;
-    placeholder?: string;
-    allowClear?: boolean;
-    left?: JSXElement;
-    right?: JSXElement;
-    button?: boolean;
-    min?: number;
-    max?: number;
-    step?: number;
-}
+import { InputNumberProps } from './InputNumber';
+export interface SliderProps extends InputNumberProps {}
 
 export const Slider = OriginComponent<SliderProps>((props) => {
     // 不同于 InputNumber，这个是不一样的
@@ -24,7 +14,7 @@ export const Slider = OriginComponent<SliderProps>((props) => {
     const control = useEventController({ disabled });
     return (
         <div
-            class={props.class('cn-slider w-full flex items-center ')}
+            class={props.class('cn-slider flex w-full items-center ')}
             classList={{
                 'cursor-not-allowed': disabled(),
             }}
@@ -34,7 +24,7 @@ export const Slider = OriginComponent<SliderProps>((props) => {
             <input
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1  outline-none  appearance-none "
+                class="flex-1  appearance-none  outline-none "
                 min={props.min}
                 max={props.max}
                 step={props.step}

@@ -17,19 +17,20 @@ export const DefaultLabel = OriginComponent<LabelProps, HTMLLabelElement>((props
         </label>
     );
 });
-export interface CheckBoxProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'onValueInput'> {
+export interface CheckBoxProps extends Omit<FormField, 'onValueInput'> {
     children?: JSXElement;
+    /** 如果没有 label 的话，可以使用 extra 进行拓展 */
     extra?: JSXElement;
     value: boolean | Atom<boolean>;
     disabled?: boolean | Atom<boolean>;
     indeterminate?: boolean | Atom<boolean>;
-
+    /** 选中的字符 */
     checkedChar?: string;
-
     onValueInput?: (e, value: boolean) => void | Promise<boolean>;
 }
 import './style/checkbox.css';
 import { emitEvent, useEventController } from '@cn-ui/use';
+import { FormField } from '../interface';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
     const value = atomization(props.value);
     const disabled = atomization(props.disabled);
@@ -39,8 +40,8 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
         <div
             ref={props.ref}
             class={props.class(
-                'cn-form-check select-none cursor-pointer flex-none',
-                disabled() && 'pointer-events-none opacity-70 cursor-not-allowed'
+                'cn-form-check flex-none cursor-pointer select-none',
+                disabled() && 'pointer-events-none cursor-not-allowed opacity-70'
             )}
             style={props.style}
             {...extendsEvent(props)}
@@ -56,7 +57,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             )}
         >
             <span
-                class="cn-check appearance-none h-4 w-4 border border-slate-300 rounded-sm bg-white  focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 "
+                class="cn-check float-left mt-1 mr-2 h-4 w-4 appearance-none rounded-sm  border border-slate-300 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 focus:outline-none "
                 classList={{
                     indeterminate: indeterminate(),
                 }}

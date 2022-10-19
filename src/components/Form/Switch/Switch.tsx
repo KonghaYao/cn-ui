@@ -7,11 +7,10 @@ import {
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
-import { JSX } from 'solid-js';
+import { FormField } from '../interface';
 
-interface SwitchProps extends JSX.HTMLAttributes<HTMLButtonElement> {
-    disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: Atom<boolean>;
+export interface SwitchProps extends FormField {
+    value: Atom<boolean>;
 }
 export const Switch = OriginComponent<SwitchProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
@@ -21,13 +20,14 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
     return (
         <button
             class={props.class(
-                'rounded-2xl w-12 h-6 shadow-inner bg-slate-200 transition-all duration-300 ease-in-out'
+                'h-6 w-12 rounded-2xl bg-slate-200 shadow-inner transition-all duration-300 ease-in-out'
             )}
             classList={{
                 'bg-blue-500': value(),
                 'opacity-70': disabled() || loading(),
             }}
             style={props.style}
+            /** @ts-ignore */
             ref={props.ref}
             {...extendsEvent(props, ['onClick'])}
             onClick={control(
@@ -41,7 +41,7 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
             )}
         >
             <div
-                class="h-4 w-4  bg-white rounded-full ml-1 transition-all duration-300 ease-in-out"
+                class="ml-1 h-4  w-4 rounded-full bg-white transition-all duration-300 ease-in-out"
                 classList={{
                     'ml-7': value(),
                 }}
