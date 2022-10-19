@@ -1,5 +1,6 @@
-import { atom, Atom } from '@cn-ui/use';
-import { Component, For, lazy, Match, Suspense, Switch } from 'solid-js';
+import { atom, Atom, reflect, useEventController, useSingleAsync } from '@cn-ui/use';
+import { Component, For, lazy, Match, Show, Suspense, Switch } from 'solid-js';
+import { template } from 'solid-js/web';
 export namespace FormFieldOptions {
     export interface ExtraSystemMessage {
         onChange?: <T>(key: string, value: T) => void;
@@ -8,6 +9,12 @@ export namespace FormFieldOptions {
         prop: string;
         /** 默认为 prop */
         label?: string;
+        valid?: (
+            value: unknown,
+            total: {
+                [key: string]: Atom<unknown>;
+            }
+        ) => string | void | Promise<string> | Promise<void>;
     }
     export type baseProp = ExtraSystemMessage & commonProp;
     export type WithDefault<T> = {
@@ -31,6 +38,21 @@ export type FormTemplate =
     | FormFieldOptions.Switch
     | FormFieldOptions.Range;
 export const registerFormComponent = new Map<string, Parameters<typeof lazy>[0]>();
+
+const useValidForm = (template: FormTemplate[], result: Atom<unknown>) => {
+    const valids = template.reduce((col, i) => {
+        if (i.valid) {
+            col[i.prop] = reflect(() => {
+                const stringOrNull = i.valid.call(null, result()[i.prop](), result());
+                // string 代表错误信息，null 或者 undefined 代表通过
+                return stringOrNull;
+            });
+        }
+        return col;
+    }, {});
+    return { valids };
+};
+
 export const Form: Component<{
     value: Atom<unknown | null>;
     template: FormTemplate[];
@@ -43,7 +65,8 @@ export const Form: Component<{
             return col;
         }, {})
     );
-
+    const { valids } = useValidForm(props.template, result);
+    console.log(valids);
     return (
         <For each={props.template}>
             {(item) => {
@@ -51,12 +74,20 @@ export const Form: Component<{
                 if (loader) {
                     const Comp = lazy(loader);
                     return (
-                        <div>
-                            <label>{item.label ?? item.prop}</label>
-                            <Suspense>
-                                <Comp value={result()[item.prop]} options={item}></Comp>
-                            </Suspense>
-                        </div>
+                        <>
+                            <div class=" flex border-b border-solid border-gray-200 px-4 py-2  font-thin text-gray-700">
+                                <label>{item.label ?? item.prop}</label>
+                                <span class="flex-1"></span>
+                                <Suspense>
+                                    <Comp value={result()[item.prop]} options={item}></Comp>
+                                </Suspense>
+                            </div>
+                            <Show when={valids[item.prop] && valids[item.prop]()}>
+                                <div class="p-2 text-sm font-thin text-red-500">
+                                    {valids[item.prop]()}
+                                </div>
+                            </Show>
+                        </>
                     );
                 } else {
                     return;
