@@ -4,7 +4,7 @@ import { Select, InputColor, Rate } from '@cn-ui/core';
 export const Controller = [{ type: 'switch', default: false, prop: 'disabled' }];
 
 export default (props) => {
-    const val = atom('');
+    const val = atom({ value: '232312' });
     const options = atom(
         [...Array(10).keys()].flatMap((i) => [
             'Beijing',

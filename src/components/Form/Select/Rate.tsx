@@ -1,10 +1,18 @@
-import { Atom, atomization, extendsEvent, OriginComponent, useEventController } from '@cn-ui/use';
+import {
+    Atom,
+    atomization,
+    emitEvent,
+    extendsEvent,
+    OriginComponent,
+    useEventController,
+} from '@cn-ui/use';
 import { Icon } from '@cn-ui/core';
 import { FormField } from '../interface';
 
 export interface RateProps extends FormField {
     value: Atom<number>;
     allowHalf?: boolean;
+    onValueInput?: (e, value: number) => void | Promise<boolean>;
 }
 
 export const Rate = OriginComponent<RateProps>((props) => {
@@ -44,10 +52,13 @@ export const Rate = OriginComponent<RateProps>((props) => {
                         onMouseMove={(e) => {
                             value(getRate(e) + i);
                         }}
-                        onClick={(e) => {
-                            value(getRate(e) + i);
-                            keepVal = value();
-                        }}
+                        onClick={control([
+                            emitEvent(props.onValueInput),
+                            (e) => {
+                                value(getRate(e) + i);
+                                keepVal = value();
+                            },
+                        ])}
                     >
                         <div
                             class="pointer-events-none absolute right-0 top-0 h-full"

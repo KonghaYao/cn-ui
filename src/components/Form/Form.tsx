@@ -1,38 +1,11 @@
 import { atom, Atom, reflect, useEventController, useSingleAsync } from '@cn-ui/use';
 import { Component, For, lazy, Match, Show, Suspense, Switch } from 'solid-js';
-import { template } from 'solid-js/web';
-export namespace FormFieldOptions {
-    export interface ExtraSystemMessage {
-        onChange?: <T>(key: string, value: T) => void;
-    }
-    export interface commonProp {
-        prop: string;
-        /** 默认为 prop */
-        label?: string;
-        valid?: (
-            value: unknown,
-            total: {
-                [key: string]: Atom<unknown>;
-            }
-        ) => string | void | Promise<string> | Promise<void>;
-    }
-    export type baseProp = ExtraSystemMessage & commonProp;
-    export type WithDefault<T> = {
-        default?: T;
-    };
-    export interface Select extends baseProp, WithDefault<string> {
-        type: 'select';
-        options: { value: string; label?: string }[];
-    }
-    export interface Switch extends baseProp, WithDefault<boolean> {
-        type: 'switch';
-    }
-    export interface Range extends baseProp, WithDefault<string | number> {
-        type: 'range';
-        unit?: string;
-    }
-}
+import { FormFieldOptions } from './FormFieldOptions';
 
+export type FormWrapComponent<T, D> = Component<{
+    value: Atom<D>;
+    options: T;
+}>;
 export type FormTemplate =
     | FormFieldOptions.Select
     | FormFieldOptions.Switch

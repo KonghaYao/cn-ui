@@ -5,19 +5,22 @@ import {
     emitEvent,
     extendsEvent,
     OriginComponent,
+    reflect,
     useEventController,
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
 import { createTrigger } from '../../Trigger';
 
+type OptionCreator = { value: string; label?: string };
+
 interface SelectProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
-    value?: Atom<string>;
-    options: Atom<string[]>;
+    value?: Atom<OptionCreator>;
+    options: string[] | OptionCreator[] | Atom<OptionCreator[]>;
 }
 interface ListProps {
-    options: Atom<string[]>;
-    onSelect: (val: string) => void;
+    options: Atom<OptionCreator[]>;
+    onSelect: (val: { value: string; label?: string }) => void;
 }
 const OptionsList: Component<ListProps> = (props) => {
     // console.log('渲染', props.options());
@@ -27,10 +30,10 @@ const OptionsList: Component<ListProps> = (props) => {
                 {(item) => {
                     return (
                         <div
-                            class="cursor-pointer hover:bg-slate-600 transition-colors duration-300 px-2 "
+                            class="cursor-pointer px-2 transition-colors duration-300 hover:bg-slate-600 "
                             onclick={() => props.onSelect(item)}
                         >
-                            {item}
+                            {item.label ?? item.value}
                         </div>
                     );
                 }}
@@ -40,13 +43,27 @@ const OptionsList: Component<ListProps> = (props) => {
 };
 export const Select = OriginComponent<SelectProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
-    const value = atomization(props.value ?? '');
+
+    // 重新构建 options，使之全部成为 对象
+    const inputOptions = atomization(props.options);
+    const options = reflect(() => {
+        return inputOptions().map((i: string | OptionCreator) => {
+            return typeof i === 'string' ? { value: i } : i;
+        });
+    });
+
+    // 在 Options 中选中一个值，如果不是，那么将会使用第一个
+    const value = atomization(
+        options().find((i) => i.value === props.value().value) || options()[0]
+    );
+
     const control = useEventController({ disabled });
+
     const loading = atom(false);
     const visible = atom(false);
     const popupContent = (
         <OptionsList
-            options={props.options}
+            options={options}
             onSelect={control(
                 [
                     emitEvent(props.onClick as () => boolean),
@@ -63,7 +80,7 @@ export const Select = OriginComponent<SelectProps>((props) => {
     return (
         <button
             class={props.class(
-                ' px-2 text-slate-700 rounded h-6 text-ellipsis overflow-hidden whitespace-nowrap bg-slate-200 transition-all duration-300 ease-in-out'
+                ' h-6 overflow-hidden text-ellipsis whitespace-nowrap rounded bg-slate-200 px-2 text-slate-700 transition-all duration-300 ease-in-out'
             )}
             classList={{
                 'opacity-70': disabled() || loading(),
@@ -83,7 +100,7 @@ export const Select = OriginComponent<SelectProps>((props) => {
             })}
             {...extendsEvent(props)}
         >
-            {value()}
+            {value().label ?? value().value}
         </button>
     );
 });
