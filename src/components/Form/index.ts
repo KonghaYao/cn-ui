@@ -5,6 +5,6 @@ export * from './InputNumber/InputNumber';
 export * from './InputNumber/Slider';
 export * from './Password/Password';
 export * from './Select';
-export * from './Switch/index';
-export * from './Text/InputText';
+export * from './Switch';
+export * from './Text';
 export * from './Form';

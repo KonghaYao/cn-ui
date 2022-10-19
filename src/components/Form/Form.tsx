@@ -37,18 +37,18 @@ export const Form: Component<{
                     const Comp = lazy(loader);
                     return (
                         <>
-                            <div class=" flex border-b border-solid border-gray-200 px-4 py-2  font-thin text-gray-700">
+                            <div class=" flex flex-wrap border-b border-solid border-gray-200 px-4 py-2  font-thin text-gray-700">
                                 <label>{item.label ?? item.prop}</label>
                                 <span class="flex-1"></span>
                                 <Suspense>
                                     <Comp value={result()[item.prop]} options={item}></Comp>
                                 </Suspense>
+                                <Show when={valids[item.prop] && valids[item.prop]()}>
+                                    <div class="w-full py-1 text-sm font-thin text-red-500">
+                                        {valids[item.prop]()}
+                                    </div>
+                                </Show>
                             </div>
-                            <Show when={valids[item.prop] && valids[item.prop]()}>
-                                <div class="p-2 text-sm font-thin text-red-500">
-                                    {valids[item.prop]()}
-                                </div>
-                            </Show>
                         </>
                     );
                 } else {

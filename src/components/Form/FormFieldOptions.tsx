@@ -40,4 +40,7 @@ export namespace FormFieldOptions {
     export interface Rate<T = number> extends baseProp<T>, WithDefault<T> {
         type: 'rate';
     }
+    export interface Text<T = string> extends baseProp<T>, WithDefault<T> {
+        type: 'text';
+    }
 }

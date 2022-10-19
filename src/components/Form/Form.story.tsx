@@ -8,6 +8,7 @@ import {
     defineFormTemplate,
     FromRate,
     FromColor,
+    FromText,
 } from '@cn-ui/core';
 
 export const Controller = [
@@ -58,6 +59,11 @@ const template = defineFormTemplate([
         default: 0,
         prop: 'rate',
     },
+    {
+        type: 'text',
+        default: '',
+        prop: 'text',
+    },
 ]);
 export default (props) => {
     const val = atom<{
@@ -67,6 +73,7 @@ export default (props) => {
     registerFormComponent.set('select', () => Promise.resolve({ default: FromSelect }));
     registerFormComponent.set('rate', () => Promise.resolve({ default: FromRate }));
     registerFormComponent.set('color', () => Promise.resolve({ default: FromColor }));
+    registerFormComponent.set('text', () => Promise.resolve({ default: FromText }));
     return (
         <>
             <main class="m-4 flex flex-col overflow-hidden rounded-lg  shadow-md">
