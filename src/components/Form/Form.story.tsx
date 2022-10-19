@@ -1,4 +1,4 @@
-import { atom, reflect } from '@cn-ui/use';
+import { Atom, atom, reflect } from '@cn-ui/use';
 import {
     FormSwitch,
     Button,
@@ -6,6 +6,8 @@ import {
     Form,
     registerFormComponent,
     defineFormTemplate,
+    FromRate,
+    FromColor,
 } from '@cn-ui/core';
 
 export const Controller = [
@@ -46,16 +48,39 @@ const template = defineFormTemplate([
             return value !== false && 'It should be false';
         },
     },
+    {
+        type: 'color',
+        default: '#000',
+        prop: 'color',
+    },
+    {
+        type: 'rate',
+        default: 0,
+        prop: 'rate',
+    },
 ]);
 export default (props) => {
-    const val = atom<{}>({});
+    const val = atom<{
+        [key: string]: Atom<unknown>;
+    }>({});
     registerFormComponent.set('switch', () => Promise.resolve({ default: FormSwitch }));
     registerFormComponent.set('select', () => Promise.resolve({ default: FromSelect }));
+    registerFormComponent.set('rate', () => Promise.resolve({ default: FromRate }));
+    registerFormComponent.set('color', () => Promise.resolve({ default: FromColor }));
     return (
         <>
             <main class="m-4 flex flex-col overflow-hidden rounded-lg  shadow-md">
                 <Form template={template} value={val}></Form>
-                <Button class="m-2">提交</Button>
+                <Button
+                    class="m-2"
+                    onClick={() => {
+                        console.log(
+                            Object.fromEntries(Object.entries(val()).map((i) => [i[0], i[1]()]))
+                        );
+                    }}
+                >
+                    提交
+                </Button>
             </main>
         </>
     );

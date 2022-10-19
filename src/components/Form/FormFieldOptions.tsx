@@ -34,4 +34,10 @@ export namespace FormFieldOptions {
         type: 'range';
         unit?: string;
     }
+    export interface Color<T = string> extends baseProp<T>, WithDefault<T> {
+        type: 'color';
+    }
+    export interface Rate<T = number> extends baseProp<T>, WithDefault<T> {
+        type: 'rate';
+    }
 }

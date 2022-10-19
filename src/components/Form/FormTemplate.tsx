@@ -9,6 +9,8 @@ export type FormWrapComponent<T, D> = Component<{
 export type FormTemplate =
     | FormFieldOptions.Select
     | FormFieldOptions.Switch
-    | FormFieldOptions.Range;
+    | FormFieldOptions.Range
+    | FormFieldOptions.Color
+    | FormFieldOptions.Rate;
 export const registerFormComponent = new Map<string, Parameters<typeof lazy>[0]>();
 export const defineFormTemplate = (i: FormTemplate[]) => i;
