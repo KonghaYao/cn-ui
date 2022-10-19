@@ -1,17 +1,7 @@
 import { atom, Atom, reflect, useEventController, useSingleAsync } from '@cn-ui/use';
 import { Component, For, lazy, Match, Show, Suspense, Switch } from 'solid-js';
-import { FormFieldOptions } from './FormFieldOptions';
-
-export type FormWrapComponent<T, D> = Component<{
-    value: Atom<D>;
-    options: T;
-}>;
-export type FormTemplate =
-    | FormFieldOptions.Select
-    | FormFieldOptions.Switch
-    | FormFieldOptions.Range;
-export const registerFormComponent = new Map<string, Parameters<typeof lazy>[0]>();
-
+import { FormTemplate, registerFormComponent } from './FormTemplate';
+export * from './FormTemplate';
 const useValidForm = (template: FormTemplate[], result: Atom<unknown>) => {
     const valids = template.reduce((col, i) => {
         if (i.valid) {

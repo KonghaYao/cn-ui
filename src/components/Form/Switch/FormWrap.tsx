@@ -1,6 +1,6 @@
 import { Atom } from '@cn-ui/use';
 import { Component } from 'solid-js';
-import { FormWrapComponent } from '../Form';
+import { FormWrapComponent } from '../FormTemplate';
 import { FormFieldOptions } from '../FormFieldOptions';
 import { Switch } from './Switch';
 
