@@ -25,6 +25,7 @@ const template = defineFormTemplate([
         type: 'select',
         default: 'auto',
         prop: 'language',
+
         options: [
             {
                 label: '中文',
@@ -89,6 +90,11 @@ const template = defineFormTemplate([
     {
         type: 'range',
         default: 0,
+        params: {
+            min: -10,
+            max: 100,
+            step: 10,
+        },
         prop: 'range',
     },
     {

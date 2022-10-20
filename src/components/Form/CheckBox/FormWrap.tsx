@@ -25,5 +25,5 @@ export const FormRadio: FormWrapComponent<
         const data = inject.map((i) => i.value() === true && i.origin).filter((i) => i)[0];
         data && props.value(data);
     });
-    return <CheckGroup options={inject} maxCheck={1}></CheckGroup>;
+    return <CheckGroup {...props.options.params} options={inject} maxCheck={1}></CheckGroup>;
 };

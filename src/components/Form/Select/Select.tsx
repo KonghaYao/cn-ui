@@ -14,7 +14,7 @@ import { createTrigger } from '../../Trigger';
 /** Select 组件的对象输入参数 */
 export type OptionCreator = { value: string; label?: string };
 
-interface SelectProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+export interface SelectProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<OptionCreator>;
     options: string[] | OptionCreator[] | Atom<OptionCreator[]>;

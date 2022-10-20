@@ -3,7 +3,7 @@ import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon } from '@cn-ui/core';
 import { FormField } from '../interface';
-interface TextProps extends FormField {
+export interface InputTextProps extends FormField {
     value: Atom<string>;
     placeholder?: string;
     allowClear?: boolean;
@@ -17,7 +17,7 @@ interface TextProps extends FormField {
     showWordLimit?: boolean;
     icon?: JSXElement;
 }
-export const InputText = OriginComponent<TextProps>((props) => {
+export const InputText = OriginComponent<InputTextProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const value = atomization(props.value ?? '');
 

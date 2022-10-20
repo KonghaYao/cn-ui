@@ -9,7 +9,7 @@ import {
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
 
-interface InputColorProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface InputColorProps extends JSX.HTMLAttributes<HTMLDivElement> {
     disabled?: boolean | Atom<boolean> /** 这里不允许注入静态参数 */;
     value?: Atom<string>;
 }
@@ -22,7 +22,7 @@ export const InputColor = OriginComponent<InputColorProps>((props) => {
     return (
         <div
             class={props.class(
-                'h-6 w-6 inline-block leading-0 border-2 border-solid border-slate-400 rounded-full'
+                'leading-0 inline-block h-6 w-6 rounded-full border-2 border-solid border-slate-400'
             )}
             style={{
                 'background-color': value(),

@@ -7,11 +7,17 @@ import { Rate } from './Rate';
 export const FromSelect: FormWrapComponent<FormFieldOptions.Select, OptionCreator> = (props) => {
     // 重写默认值
     props.value({ value: props.options.default });
-    return <Select value={props.value} options={props.options.options}></Select>;
+    return (
+        <Select
+            {...props.options.params}
+            value={props.value}
+            options={props.options.options}
+        ></Select>
+    );
 };
 export const FromColor: FormWrapComponent<FormFieldOptions.Color, string> = (props) => {
-    return <InputColor value={props.value}></InputColor>;
+    return <InputColor {...props.options.params} value={props.value}></InputColor>;
 };
 export const FromRate: FormWrapComponent<FormFieldOptions.Rate, number> = (props) => {
-    return <Rate value={props.value}></Rate>;
+    return <Rate {...props.options.params} value={props.value}></Rate>;
 };

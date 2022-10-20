@@ -6,6 +6,7 @@ import { Slider } from './Slider';
 export const FormNumber: FormWrapComponent<FormFieldOptions.Range, number> = (props) => {
     return (
         <InputNumber
+            {...props.options.params}
             value={props.value}
             style={{
                 width: '50%',
@@ -22,7 +23,7 @@ export const FormSlider: FormWrapComponent<FormFieldOptions.Slider, number> = (p
             }}
         >
             <span class="px-2">{props.value()}</span>
-            <Slider value={props.value}></Slider>
+            <Slider {...props.options.params} value={props.value}></Slider>
         </div>
     );
 };
