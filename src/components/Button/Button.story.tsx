@@ -27,7 +27,7 @@ export const Controller = [
 
     {
         type: 'select',
-        default: 'default',
+        default: 'normal',
         prop: 'size',
         options: Object.keys(SizeTrans).map((i) => ({ value: i })),
     },

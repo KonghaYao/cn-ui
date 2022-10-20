@@ -13,7 +13,14 @@ import {
     FormSlider,
     FormRadio,
 } from '@cn-ui/core';
-
+registerFormComponent.set('switch', () => Promise.resolve({ default: FormSwitch }));
+registerFormComponent.set('select', () => Promise.resolve({ default: FromSelect }));
+registerFormComponent.set('rate', () => Promise.resolve({ default: FromRate }));
+registerFormComponent.set('color', () => Promise.resolve({ default: FromColor }));
+registerFormComponent.set('text', () => Promise.resolve({ default: FromText }));
+registerFormComponent.set('range', () => Promise.resolve({ default: FormNumber }));
+registerFormComponent.set('slider', () => Promise.resolve({ default: FormSlider }));
+registerFormComponent.set('radio', () => Promise.resolve({ default: FormRadio }));
 export const Controller = [
     { type: 'switch', default: false, prop: 'disabled' },
     { type: 'switch', default: true, prop: 'showWordLimit' },
@@ -108,14 +115,7 @@ export default (props) => {
     const val = atom<{
         [key: string]: Atom<unknown>;
     }>({});
-    registerFormComponent.set('switch', () => Promise.resolve({ default: FormSwitch }));
-    registerFormComponent.set('select', () => Promise.resolve({ default: FromSelect }));
-    registerFormComponent.set('rate', () => Promise.resolve({ default: FromRate }));
-    registerFormComponent.set('color', () => Promise.resolve({ default: FromColor }));
-    registerFormComponent.set('text', () => Promise.resolve({ default: FromText }));
-    registerFormComponent.set('range', () => Promise.resolve({ default: FormNumber }));
-    registerFormComponent.set('slider', () => Promise.resolve({ default: FormSlider }));
-    registerFormComponent.set('radio', () => Promise.resolve({ default: FormRadio }));
+
     return (
         <>
             <main class="m-4 flex flex-col overflow-hidden rounded-lg  shadow-md">

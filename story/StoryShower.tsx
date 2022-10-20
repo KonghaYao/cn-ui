@@ -18,7 +18,7 @@ import { useViewing } from './hook/useViewing';
 export const StoryShower = () => {
     const { viewing } = useContext(StoryContext);
     createEffect(() => {
-        console.log(viewing());
+        // console.log(viewing());
     });
     return (
         <main class="flex flex-1 flex-col overflow-hidden">

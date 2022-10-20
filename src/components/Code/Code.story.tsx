@@ -17,8 +17,8 @@ export default (props) => {
             <div class="rounded-md bg-white p-4 ">
                 动态样式
                 <Select
-                    options={atom(CodeStyleNames as any as string[])}
-                    value={themeValue}
+                    options={CodeStyleNames as any as string[]}
+                    value={themeValue.reflux({ value: themeValue() }, (i) => i.value)}
                 ></Select>
             </div>
             <div class="">
