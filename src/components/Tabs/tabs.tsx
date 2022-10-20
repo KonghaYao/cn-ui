@@ -20,6 +20,7 @@ export const TabsContext = createContext<{
 }>();
 export interface TabsHeaderProps extends JSX.HTMLAttributes<HTMLDivElement> {
     tab?: (props: TabPaneProps, index: Accessor<number>) => JSXElement;
+    children?: JSXElement;
 }
 export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((props) => {
     const { activeId, TabsData } = useContext(TabsContext);
@@ -41,6 +42,7 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                         );
                     })}
             </For>
+            {props.children}
         </div>
     );
 });
