@@ -87,6 +87,7 @@ export const useCodeStyle = (
     const themeValue = atomization(codeStyleName);
     const url = reflect(() => {
         const name = themeValue();
+        console.log(name);
         return name.startsWith('http')
             ? name
             : 'https://cdn.jsdelivr.net/npm/highlight.js/styles/' + themeValue() + '.css';

@@ -7,10 +7,11 @@ import {
     CodeStyleNames,
     useCodeStyle,
 } from '../../src/components/Code/useCodeStyle';
-import { atom } from '@cn-ui/use';
+import { atom } from '@cn-ui/use/src/index';
 import { lowlight } from '@cn-ui/highlight';
 import tsx from 'highlight.js/lib/languages/typescript';
 import copy from 'copy-to-clipboard';
+import { createEffect } from 'solid-js';
 // 需要使用 tsx 的解析
 lowlight.registerLanguage('tsx', tsx);
 
@@ -18,12 +19,13 @@ export const CodePreview = () => {
     const { viewing } = useViewing();
     const themeValue = atom<AllowedCodeStyleNames>('github-dark');
     const { link } = useCodeStyle(themeValue);
+
     return (
         <Tab id="Code" class="flex-1 overflow-auto">
             <Space>
                 <Select
-                    options={atom(CodeStyleNames as any as string[])}
-                    value={themeValue}
+                    options={CodeStyleNames as any as string[]}
+                    value={themeValue.reflux({ value: themeValue() }, (a) => a.value)}
                 ></Select>
                 <div>
                     <DefaultIcon

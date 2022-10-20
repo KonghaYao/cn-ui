@@ -1,8 +1,11 @@
 import { createSignal, Accessor, createEffect, untrack } from 'solid-js';
-export type Atom<T> = (<U extends T>(value: (prev: T) => U) => U) &
-    (<U extends T>(value: Exclude<U, Function>) => U) &
-    (<U extends T>(value: Exclude<U, Function> | ((prev: T) => U)) => U) &
-    Accessor<T>;
+import { createIgnoreFirst } from './createIgnoreHead';
+export interface Atom<T> extends Accessor<T> {
+    <U extends T>(value: (prev: T) => U): U;
+    <U extends T>(value: Exclude<U, Function>): U;
+    <U extends T>(value: Exclude<U, Function> | ((prev: T) => U)): U;
+    reflux<C>(this: Atom<T>, init: C, computed: (inputValue: C) => T): Atom<C>;
+}
 
 type SignalOptions = Parameters<typeof createSignal>[1];
 
@@ -24,15 +27,42 @@ type SignalOptions = Parameters<typeof createSignal>[1];
  */
 export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
     const [state, setState] = createSignal<T>(value, props);
-    return ((...args: [] | [T]) => {
-        if (args.length === 0) {
-            return state();
-        }
-        /** @ts-ignore */
-        setState(...args);
-    }) as Atom<T>;
-};
 
+    return Object.assign(
+        (...args: [] | [T]) => {
+            if (args.length === 0) {
+                return state();
+            }
+            /** @ts-ignore */
+            setState(...args);
+        },
+        { reflux }
+    ) as Atom<T>;
+};
+/**
+ * @zh 生成回流 atom， 回流 atom 的数值改变将会返回改变原始的 atom
+ * @description 不同于 reflect 的衍生，回流是主动改变上流的原子
+ * @example
+ *
+ * const a = atom(0)
+ *
+ *  const b = a.reflux('0',(newValue)=>parseInt(newValue))
+ *
+ *  <div onClick={
+ *      ()=>{
+ *          b('1000') // `a` will be switch to number 1000
+ *      }
+ *  }></div>
+ *
+ *
+ */
+const reflux: Atom<unknown>['reflux'] = function (init, computed) {
+    const a = atom(init);
+    createIgnoreFirst(() => {
+        this(() => computed(a()));
+    }, [a]);
+    return a;
+};
 /**
  * @category atom
  * @zh 通过类似 createMemo 的方式创建 atom
@@ -53,6 +83,7 @@ export const atom = <T>(value: T, props?: SignalOptions): Atom<T> => {
  */
 export const reflect = <T>(memoFunc: () => T, immediately = true, initValue?: T) => {
     const a = atom<T>(immediately ? untrack(memoFunc) : initValue);
+    // createEffect 会经过 solid 的生命周期，在这之前，是没有值的
     createEffect(() => {
         /** @ts-ignore */
         a(memoFunc());

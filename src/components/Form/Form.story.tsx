@@ -11,8 +11,8 @@ import {
     FromText,
     FormNumber,
     FormSlider,
+    FormRadio,
 } from '@cn-ui/core';
-import { FormRadio } from './CheckBox/FormWrap';
 
 export const Controller = [
     { type: 'switch', default: false, prop: 'disabled' },
