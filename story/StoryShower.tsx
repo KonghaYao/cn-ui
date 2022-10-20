@@ -1,4 +1,4 @@
-import { createContext, createEffect, createMemo, createUniqueId, useContext } from 'solid-js';
+import { batch, createContext, createDeferred, createEffect, Show, useContext } from 'solid-js';
 import { useStory } from './hook/useStory';
 
 export const StoryContext = createContext<
@@ -7,19 +7,18 @@ export const StoryContext = createContext<
             height: Atom<number>;
             width: Atom<number>;
             scale: Atom<number>;
+            href: Atom<string>;
+            autoRefresh: Atom<boolean>;
             refresh: () => void;
         }
 >();
-import { Atom } from '@cn-ui/use';
+import { atom, Atom } from '@cn-ui/use';
 import { createIframe } from './Shower/createIframe';
 import { ResizeBar } from './Shower/ResizeBar';
 import { useViewing } from './hook/useViewing';
 
 export const StoryShower = () => {
-    const { viewing } = useContext(StoryContext);
-    createEffect(() => {
-        // console.log(viewing());
-    });
+    const { href } = useContext(StoryContext);
     return (
         <main class="flex flex-1 flex-col overflow-hidden">
             <div class="bg-white shadow-md">
@@ -31,8 +30,11 @@ export const StoryShower = () => {
                     overflow: 'auto',
                 }}
             >
-                {/* 强制每次进行渲染 */}
-                {createIframe('./book.html#/?path=' + viewing().path)}
+                {createIframe(
+                    /* 传入参数可以强制每次进行渲染 */
+                    /** @ts-ignore */
+                    href()
+                )}
             </div>
         </main>
     );

@@ -1,11 +1,14 @@
 import { useStory } from './hook/useStory';
 import { Split } from '@cn-ui/split';
-import { atom } from '@cn-ui/use';
+import { atom, reflect } from '@cn-ui/use';
 import { useViewing } from './hook/useViewing';
 import { StoryContext } from './StoryShower';
 
 export const StoryRoot = (props) => {
     const { viewing } = useViewing();
+    const href = reflect(() => {
+        return './book.html#/?path=' + viewing().path;
+    });
     return (
         <Split
             class=" flex-1"
@@ -23,9 +26,10 @@ export const StoryRoot = (props) => {
                     height: atom(512),
                     width: atom(512),
                     scale: atom(100),
+                    autoRefresh: atom(false),
+                    href,
                     refresh() {
-                        const data = viewing();
-                        viewing({ path: data.path, code: data.code });
+                        href('./book.html#/?path=' + viewing().path + '&t=' + Date.now());
                     },
                 }}
             >

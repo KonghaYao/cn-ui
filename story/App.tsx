@@ -1,8 +1,5 @@
-import { Component, createMemo, onMount } from 'solid-js';
 import { ControllerGenerator } from './ControllerGenerator';
-import { memo } from 'solid-js/web';
 import { NavBar } from './NavBar';
-import { Split } from '@cn-ui/split';
 import { StoryShower } from './StoryShower';
 import { StoryRoot } from './StoryRoot';
 
