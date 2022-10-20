@@ -27,6 +27,7 @@ export namespace FormFieldOptions {
         options: T[];
     }
 
+    export type Radio = Omit<Select, 'type'> & { type: 'radio' };
     export interface Switch<T = boolean> extends baseProp<T>, WithDefault<T> {
         type: 'switch';
     }

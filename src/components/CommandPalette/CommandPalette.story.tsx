@@ -65,7 +65,7 @@ export default (props) => {
             return (
                 <Image
                     src={(action as any).icon}
-                    class="h-10 w-10 rounded-lg overflow-hidden mr-4"
+                    class="mr-4 h-10 w-10 overflow-hidden rounded-lg"
                 ></Image>
             );
         },
@@ -77,7 +77,7 @@ export default (props) => {
                         All
                     </CheckGroupController>
                     <div class="flex-1 overflow-auto">
-                        <CheckGroup data={keywords}></CheckGroup>
+                        <CheckGroup options={keywords}></CheckGroup>
                     </div>
                 </Space>
             );

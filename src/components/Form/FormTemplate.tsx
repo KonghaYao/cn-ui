@@ -13,6 +13,7 @@ export type FormTemplate =
     | FormFieldOptions.Color
     | FormFieldOptions.Rate
     | FormFieldOptions.Slider
+    | FormFieldOptions.Radio
     | FormFieldOptions.Text;
 export const registerFormComponent = new Map<string, Parameters<typeof lazy>[0]>();
 export const defineFormTemplate = (i: FormTemplate[]) => i;

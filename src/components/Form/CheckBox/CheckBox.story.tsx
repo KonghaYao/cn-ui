@@ -57,12 +57,12 @@ export default (props) => {
                     反选
                 </Button>
             </Space>
-            <CheckGroup data={groupController}></CheckGroup>
+            <CheckGroup options={groupController}></CheckGroup>
             <h3>单选框</h3>
-            <CheckGroup data={groupController} maxCheck={1}></CheckGroup>
+            <CheckGroup options={groupController} maxCheck={1}></CheckGroup>
             <h3>二选框</h3>
             <CheckGroup
-                data={groupController}
+                options={groupController}
                 maxCheck={2}
                 onOverCheck={() => {
                     Message.info('先关闭它吧');

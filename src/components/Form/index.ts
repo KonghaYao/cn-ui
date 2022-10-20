@@ -1,6 +1,4 @@
-export * from './CheckBox/CheckBox';
-export * from './CheckBox/CheckGroup';
-export * from './CheckBox/CheckGroupController';
+export * from './CheckBox';
 export * from './Password/Password';
 export * from './InputNumber';
 export * from './Select';

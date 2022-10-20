@@ -12,6 +12,7 @@ import {
     FormNumber,
     FormSlider,
 } from '@cn-ui/core';
+import { FormRadio } from './CheckBox/FormWrap';
 
 export const Controller = [
     { type: 'switch', default: false, prop: 'disabled' },
@@ -42,6 +43,25 @@ const template = defineFormTemplate([
             console.log(value);
             return value.value === 'auto' && '请选中一种语言';
         },
+    },
+    {
+        type: 'radio',
+        default: 'auto',
+        prop: 'radio',
+        options: [
+            {
+                label: '中文',
+                value: 'zh-cn',
+            },
+            {
+                label: '英文',
+                value: 'en',
+            },
+            {
+                label: '默认',
+                value: 'auto',
+            },
+        ],
     },
     {
         type: 'switch',
@@ -75,6 +95,7 @@ const template = defineFormTemplate([
         type: 'slider',
         default: 0,
         prop: 'slider',
+        label: '滑动条',
     },
 ]);
 export default (props) => {
@@ -88,6 +109,7 @@ export default (props) => {
     registerFormComponent.set('text', () => Promise.resolve({ default: FromText }));
     registerFormComponent.set('range', () => Promise.resolve({ default: FormNumber }));
     registerFormComponent.set('slider', () => Promise.resolve({ default: FormSlider }));
+    registerFormComponent.set('radio', () => Promise.resolve({ default: FormRadio }));
     return (
         <>
             <main class="m-4 flex flex-col overflow-hidden rounded-lg  shadow-md">
