@@ -30,10 +30,11 @@ export namespace FormFieldOptions {
     export interface Switch<T = boolean> extends baseProp<T>, WithDefault<T> {
         type: 'switch';
     }
-    export interface Range<T = string> extends baseProp<T>, WithDefault<string | number> {
+    export interface Range<T = number> extends baseProp<T>, WithDefault<T> {
         type: 'range';
         unit?: string;
     }
+    export type Slider = Omit<Range, 'type'> & { type: 'slider' };
     export interface Color<T = string> extends baseProp<T>, WithDefault<T> {
         type: 'color';
     }

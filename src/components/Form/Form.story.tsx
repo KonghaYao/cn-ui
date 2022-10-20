@@ -9,6 +9,8 @@ import {
     FromRate,
     FromColor,
     FromText,
+    FormNumber,
+    FormSlider,
 } from '@cn-ui/core';
 
 export const Controller = [
@@ -64,6 +66,16 @@ const template = defineFormTemplate([
         default: '',
         prop: 'text',
     },
+    {
+        type: 'range',
+        default: 0,
+        prop: 'range',
+    },
+    {
+        type: 'slider',
+        default: 0,
+        prop: 'slider',
+    },
 ]);
 export default (props) => {
     const val = atom<{
@@ -74,6 +86,8 @@ export default (props) => {
     registerFormComponent.set('rate', () => Promise.resolve({ default: FromRate }));
     registerFormComponent.set('color', () => Promise.resolve({ default: FromColor }));
     registerFormComponent.set('text', () => Promise.resolve({ default: FromText }));
+    registerFormComponent.set('range', () => Promise.resolve({ default: FormNumber }));
+    registerFormComponent.set('slider', () => Promise.resolve({ default: FormSlider }));
     return (
         <>
             <main class="m-4 flex flex-col overflow-hidden rounded-lg  shadow-md">
