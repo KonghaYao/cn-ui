@@ -2,12 +2,14 @@ import { Atom, atom, OriginComponent } from '@cn-ui/use';
 import { debounce } from 'lodash-es';
 import { children as getChildren, Component, JSXElement, lazy, onMount } from 'solid-js';
 import { AsyncComponent } from '../../AsyncComponent';
+import { Anime, AnimeProps } from '../../Transition';
 
 interface LazyLoadProps extends IntersectionObserverInit {
     fallback?: JSXElement;
     children?: JSXElement;
     load: Parameters<typeof lazy>[0];
     loading?: JSXElement;
+    anime?: AnimeProps;
 }
 export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) => {
     const fallback = getChildren(() => props.fallback);
@@ -25,17 +27,18 @@ export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) =
     });
     return (
         <div class={props.class()} style={props.style} ref={ref!}>
-            {visible() ? (
-                <AsyncComponent
-                    /** you will see Buttons after 1s  */
-                    load={props.load}
-                    fallback={props.loading}
-                >
-                    {props.children}
-                </AsyncComponent>
-            ) : (
-                fallback()
-            )}
+            <Anime {...props.anime}>
+                {visible() ? (
+                    <AsyncComponent
+                        /** you will see Buttons after 1s  */
+                        load={props.load}
+                    >
+                        {props.children}
+                    </AsyncComponent>
+                ) : (
+                    fallback()
+                )}
+            </Anime>
         </div>
     );
 });

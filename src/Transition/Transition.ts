@@ -129,7 +129,8 @@ export const Transition: Component<TransitionProps> = (props) => {
     }
 
     createComputed<Element>((prev) => {
-        el = resolved() as Element;
+        const children = resolved();
+        el = (children instanceof Array ? children[0] : children) as Element;
         while (typeof el === 'function') el = (el as Function)();
         return untrack(() => {
             if (el && el !== prev) {

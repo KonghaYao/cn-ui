@@ -3,7 +3,7 @@ import { Relative } from '@cn-ui/core';
 import { atom, Atom, createTemplate, SlotMap } from '@cn-ui/use';
 import { Component, createContext, For, useContext } from 'solid-js';
 
-/** simple memorize result of getOutSpace */
+/** simple memorize result of function */
 const memoize = function <T extends Function>(func: T) {
     let result = undefined;
     return (...args: any[]) => {

@@ -4,6 +4,7 @@ import { sleep } from '../../mocks/sleep';
 import 'animate.css';
 import { LazyLoad } from './LazyLoad';
 import { onCleanup, onMount } from 'solid-js';
+import { memoize } from 'lodash-es';
 export default () => {
     const Comp = () => {
         onMount(() => console.log('可视了'));
@@ -18,16 +19,16 @@ export default () => {
             <LazyLoad
                 class="h-screen"
                 fallback={<div class="h-screen w-full">不可视状态</div>}
-                threshold={[0.3, 0.7]}
+                threshold={[0.3, 1.7]}
                 // Async Loading
                 load={() => sleep(1000, Promise.resolve({ default: Comp }))}
                 loading={<div>加载中</div>}
-            >
-                <Anime in="fadeInLeft" out="fadeOutRight" appear>
-                    {/* use Outlet to show the inner component */}
-                    <AsyncOutlet></AsyncOutlet>
-                </Anime>
-            </LazyLoad>
+                // combine Anime Component
+                anime={{
+                    in: 'fadeInLeft',
+                    out: 'fadeOutRight',
+                }}
+            ></LazyLoad>
             <section class="h-screen w-full bg-gray-100"></section>
             <section class="h-screen w-full bg-gray-100"></section>
         </section>

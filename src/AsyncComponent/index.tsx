@@ -17,6 +17,7 @@ type AsyncComponent = <T>(props: {
     load?: () => T | Promise<T>;
     slot?: keyof T;
     children?: JSXElement;
+    once?: boolean;
 }) => JSXElement;
 /** @zh 异步加载组件，在异步完成前使用 fallback */
 export const AsyncComponent: AsyncComponent = (props) => {
