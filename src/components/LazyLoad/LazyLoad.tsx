@@ -10,6 +10,7 @@ interface LazyLoadProps extends IntersectionObserverInit {
     load: Parameters<typeof lazy>[0];
     loading?: JSXElement;
     anime?: AnimeProps;
+    once?: boolean;
 }
 export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) => {
     const fallback = getChildren(() => props.fallback);
@@ -24,6 +25,7 @@ export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) =
             visibleDebounce(entries.isIntersecting);
         }, props);
         observer.observe(ref);
+        props.once && observer.disconnect();
     });
     return (
         <div class={props.class()} style={props.style} ref={ref!}>
