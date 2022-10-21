@@ -9,7 +9,7 @@ import {
     useEventController,
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
-import { createTrigger } from '../../Trigger';
+import { Trigger } from '@cn-ui/core';
 
 /** Select 组件的对象输入参数 */
 export type OptionCreator = { value: string; label?: string };
@@ -78,29 +78,30 @@ export const Select = OriginComponent<SelectProps>((props) => {
         ></OptionsList>
     );
     return (
-        <button
-            class={props.class(
-                ' h-6 overflow-hidden text-ellipsis whitespace-nowrap rounded bg-slate-200 px-2 text-slate-700 transition-all duration-300 ease-in-out'
-            )}
-            classList={{
-                'opacity-70': disabled() || loading(),
+        <Trigger
+            hideOnClick={false}
+            interactive
+            onClickOutside={() => {
+                visible(false);
             }}
-            style={{ ...props.style, 'min-width': '6em' }}
-            ref={createTrigger({
-                hideOnClick: false,
-                interactive: true,
-                onClickOutside() {
-                    visible(false);
-                },
-                placement: 'bottom',
-                content: popupContent,
-                trigger: 'click',
-                visible,
-                disabled,
-            })}
-            {...extendsEvent(props)}
+            placement="bottom"
+            content={popupContent}
+            trigger="click"
+            visible={visible}
+            disabled={disabled}
         >
-            {value().label ?? value().value}
-        </button>
+            <button
+                class={props.class(
+                    ' h-6 overflow-hidden text-ellipsis whitespace-nowrap rounded bg-slate-200 px-2 text-slate-700 transition-all duration-300 ease-in-out'
+                )}
+                classList={{
+                    'opacity-70': disabled() || loading(),
+                }}
+                style={{ ...props.style, 'min-width': '6em' }}
+                {...extendsEvent(props)}
+            >
+                {value().label ?? value().value}
+            </button>
+        </Trigger>
     );
 });

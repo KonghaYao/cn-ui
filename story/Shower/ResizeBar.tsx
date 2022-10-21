@@ -1,5 +1,5 @@
 import { batch, For, useContext } from 'solid-js';
-import { createTrigger, Icon, InputNumber, Space } from '@cn-ui/core';
+import { createTrigger, Icon, InputNumber, Space, Trigger } from '@cn-ui/core';
 import { StoryContext } from '../StoryShower';
 
 const sizes = [
@@ -61,13 +61,9 @@ export const ResizeBar = () => {
                 ></Icon>
             </Space>
             <Space>
-                <Icon
-                    name="devices"
-                    ref={createTrigger({
-                        interactive: true,
-                        content: Devices,
-                    })}
-                ></Icon>
+                <Trigger interactive content={Devices}>
+                    <Icon name="devices"></Icon>
+                </Trigger>
                 <InputNumber value={width} min={0} class="w-16 overflow-hidden"></InputNumber>
                 <Icon
                     name="screen_rotation"
