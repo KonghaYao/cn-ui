@@ -89,7 +89,7 @@ export interface AnimeProps extends TransitionGroupProps {
     children?: JSXElement;
 }
 /**
- * @zh 基于 animate.css 的一个插件,css 文件需要单独导入
+ * @zh 基于 animate.css 的一个插件, css 文件需要单独导入
  */
 export const Anime: Component<AnimeProps> = (props) => {
     const Comp = props.group ? TransitionGroup : Transition;
