@@ -14,11 +14,12 @@ type AsyncComponent = <T>(props: {
     fallback?: JSXElement;
     load?: () => T | Promise<T>;
     slot?: keyof T;
-    children: () => JSXElement;
+    children: JSXElement;
 }) => JSXElement;
 export const AsyncComponent: AsyncComponent = (props) => {
     const Async = lazy(async () => {
         const module = await props.load();
+        /** @ts-ignore */
         const Comp = module[props.slot ?? 'default'];
         return {
             default: () => (
@@ -27,7 +28,7 @@ export const AsyncComponent: AsyncComponent = (props) => {
                         Comp,
                     }}
                 >
-                    {props.children()}
+                    {props.children}
                 </AsyncComponentContext.Provider>
             ),
         };

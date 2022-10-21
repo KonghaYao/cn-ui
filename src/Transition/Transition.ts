@@ -7,6 +7,7 @@ import {
     children,
     JSX,
     createMemo,
+    splitProps,
 } from 'solid-js';
 import { nextFrame } from './nextFrame';
 
@@ -37,17 +38,27 @@ export const Transition: Component<TransitionProps> = (props) => {
     const resolved = children(() => props.children);
 
     const { onBeforeEnter, onEnter, onAfterEnter, onBeforeExit, onExit, onAfterExit } = props;
-
+    const [ClassNames] = splitProps(props, [
+        'enterActiveClass',
+        'enterClass',
+        'enterToClass',
+        'exitActiveClass',
+        'exitClass',
+        'exitToClass',
+    ]);
     const classnames = createMemo(() => {
         const name = props.name || 's';
-        return {
-            enterActiveClass: name + '-enter-active',
-            enterClass: name + '-enter',
-            enterToClass: name + '-enter-to',
-            exitActiveClass: name + '-exit-active',
-            exitClass: name + '-exit',
-            exitToClass: name + '-exit-to',
-        };
+        return Object.assign(
+            {
+                enterActiveClass: name + '-enter-active',
+                enterClass: name + '-enter',
+                enterToClass: name + '-enter-to',
+                exitActiveClass: name + '-exit-active',
+                exitClass: name + '-exit',
+                exitToClass: name + '-exit-to',
+            },
+            ClassNames
+        );
     });
 
     function enterTransition(el: Element, prev: Element | undefined) {
@@ -119,6 +130,7 @@ export const Transition: Component<TransitionProps> = (props) => {
 
     createComputed<Element>((prev) => {
         el = resolved() as Element;
+        console.log(el);
         while (typeof el === 'function') el = (el as Function)();
         return untrack(() => {
             if (el && el !== prev) {
