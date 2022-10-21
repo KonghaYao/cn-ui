@@ -36,7 +36,7 @@ export default (props) => {
         <>
             <Button size="mini" onClick={() => Value(!Value())}>
                 受控标签: {Value() ? 'true' : 'false'}
-            </Button>{' '}
+            </Button>
             <div class="mx-4 my-2 ">
                 <Collapse
                     {...props}

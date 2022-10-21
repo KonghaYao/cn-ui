@@ -1,4 +1,4 @@
-import { Space } from '@cn-ui/core';
+import { Space, Animation } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -39,18 +39,16 @@ export default (props) => {
                 })}
             </Space>
 
-            <Space
-                {...props}
-                transition={{
-                    enterActiveClass: 'animated fadeInDown',
-                    exitActiveClass: 'animated fadeOutUp',
-                }}
-            >
-                <For each={origin()}>
-                    {(i) => {
-                        return <div style={{ width: '3rem', 'background-color': '#eee' }}>{i}</div>;
-                    }}
-                </For>
+            <Space {...props}>
+                <Animation group in="fadeInDown" out="fadeOutUp" stagger={100} enterClass="hidden">
+                    <For each={origin()}>
+                        {(i) => {
+                            return (
+                                <div style={{ width: '3rem', 'background-color': '#eee' }}>{i}</div>
+                            );
+                        }}
+                    </For>
+                </Animation>
             </Space>
         </>
     );

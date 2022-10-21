@@ -5,6 +5,7 @@ import { useStory } from '../hook/useStory';
 import { Client as console } from '../utils/log';
 const getURL: any = () => {
     const path = new URLSearchParams(location.hash.replace('#/?', '')).get('path');
+    // console.log(path);
     return {
         viewing: () => ({ path }),
     };

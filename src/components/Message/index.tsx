@@ -5,6 +5,7 @@ import './style/index.less';
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
+import { Animation } from '@cn-ui/core';
 const Root = () => {
     return (
         <Position
@@ -24,11 +25,13 @@ const Root = () => {
                 className="animated"
                 size="mini"
             >
-                <For each={MessageQueue}>
-                    {(props) => {
-                        return <MessageCard {...props}></MessageCard>;
-                    }}
-                </For>
+                <Animation group in="fadeInDown" out="fadeOutUp">
+                    <For each={MessageQueue}>
+                        {(props) => {
+                            return <MessageCard {...props}></MessageCard>;
+                        }}
+                    </For>
+                </Animation>
             </Space>
         </Position>
     );

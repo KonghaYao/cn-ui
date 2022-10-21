@@ -72,6 +72,7 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
 
             {!error() && (
                 <img
+                    loading="lazy"
                     class="m-auto h-full "
                     src={props.src}
                     style={{

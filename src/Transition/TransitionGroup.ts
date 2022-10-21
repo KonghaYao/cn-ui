@@ -1,3 +1,4 @@
+import { delay } from 'lodash-es';
 import {
     createSignal,
     createComputed,
@@ -40,6 +41,8 @@ function getRect(element: Element): BoundingRect {
 
 export type TransitionGroupProps = {
     name?: string;
+    /** 每个元素延迟的时间 */
+    stagger?: number;
     enterActiveClass?: string;
     enterClass?: string;
     enterToClass?: string;
@@ -100,57 +103,63 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         for (let i = 0; i < c.length; i++) {
             const el = c[i];
             if (!first && !prev.has(el) && el) {
-                onBeforeEnter && onBeforeEnter(el);
+                // 优先进行初始化类名的注入
                 el.classList.add(...enterClasses);
-                el.classList.add(...enterActiveClasses);
-                nextFrame(() => {
-                    el.classList.remove(...enterClasses);
-                    el.classList.add(...enterToClasses);
-                    onEnter && onEnter(el, () => endTransition());
-                    if (!onEnter || onEnter.length < 2) {
-                        el.addEventListener('transitionend', endTransition);
-                        el.addEventListener('animationend', endTransition);
+                delay(() => {
+                    onBeforeEnter && onBeforeEnter(el);
+
+                    el.classList.add(...enterActiveClasses);
+                    nextFrame(() => {
+                        el.classList.remove(...enterClasses);
+                        el.classList.add(...enterToClasses);
+                        onEnter && onEnter(el, () => endTransition());
+                        if (!onEnter || onEnter.length < 2) {
+                            el.addEventListener('transitionend', endTransition);
+                            el.addEventListener('animationend', endTransition);
+                        }
+                    });
+                    function endTransition(e?: Event) {
+                        if (el && (!e || e.target === el)) {
+                            el.removeEventListener('transitionend', endTransition);
+                            el.removeEventListener('animationend', endTransition);
+                            el.classList.remove(...enterActiveClasses);
+                            el.classList.remove(...enterToClasses);
+                            onAfterEnter && onAfterEnter(el);
+                        }
                     }
-                });
-                function endTransition(e?: Event) {
-                    if (el && (!e || e.target === el)) {
-                        el.removeEventListener('transitionend', endTransition);
-                        el.removeEventListener('animationend', endTransition);
-                        el.classList.remove(...enterActiveClasses);
-                        el.classList.remove(...enterToClasses);
-                        onAfterEnter && onAfterEnter(el);
-                    }
-                }
+                }, i * props.stagger);
             }
         }
         for (let i = 0; i < p.length; i++) {
             const old = p[i];
             if (old && !next.has(old) && old.parentNode) {
                 comb.splice(i, 0, old);
-                onBeforeExit && onBeforeExit(old);
                 old.classList.add(...exitClasses);
-                old.classList.add(...exitActiveClasses);
-                nextFrame(() => {
-                    old.classList.remove(...exitClasses);
-                    old.classList.add(...exitToClasses);
-                });
-                onExit && onExit(old, () => endTransition());
-                if (!onExit || onExit.length < 2) {
-                    old.addEventListener('transitionend', endTransition);
-                    old.addEventListener('animationend', endTransition);
-                }
-
-                function endTransition(e?: Event) {
-                    if (!e || e.target === old) {
-                        old.removeEventListener('transitionend', endTransition);
-                        old.removeEventListener('animationend', endTransition);
-                        old.classList.remove(...exitActiveClasses);
-                        old.classList.remove(...exitToClasses);
-                        onAfterExit && onAfterExit(old);
-                        p = p.filter((i) => i !== old);
-                        setCombined(p);
+                delay(() => {
+                    onBeforeExit && onBeforeExit(old);
+                    old.classList.add(...exitActiveClasses);
+                    nextFrame(() => {
+                        old.classList.remove(...exitClasses);
+                        old.classList.add(...exitToClasses);
+                    });
+                    onExit && onExit(old, () => endTransition());
+                    if (!onExit || onExit.length < 2) {
+                        old.addEventListener('transitionend', endTransition);
+                        old.addEventListener('animationend', endTransition);
                     }
-                }
+
+                    function endTransition(e?: Event) {
+                        if (!e || e.target === old) {
+                            old.removeEventListener('transitionend', endTransition);
+                            old.removeEventListener('animationend', endTransition);
+                            old.classList.remove(...exitActiveClasses);
+                            old.classList.remove(...exitToClasses);
+                            onAfterExit && onAfterExit(old);
+                            p = p.filter((i) => i !== old);
+                            setCombined(p);
+                        }
+                    }
+                }, i * props.stagger);
             }
         }
         p = comb;

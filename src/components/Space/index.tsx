@@ -35,11 +35,7 @@ export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => 
             {...extendsEvent(props)}
             style={style()}
         >
-            {props.transition ? (
-                <TransitionGroup {...props.transition}>{props.children}</TransitionGroup>
-            ) : (
-                props.children
-            )}
+            {props.children}
         </div>
     );
 });
