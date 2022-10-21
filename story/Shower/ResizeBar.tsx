@@ -1,5 +1,5 @@
 import { batch, For, useContext } from 'solid-js';
-import { createTrigger, Icon, InputNumber, Space, Trigger } from '@cn-ui/core';
+import { Icon, InputNumber, Space, Trigger } from '@cn-ui/core';
 import { StoryContext } from '../StoryShower';
 
 const sizes = [

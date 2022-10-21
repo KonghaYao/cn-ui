@@ -68,7 +68,7 @@ export class Message {
     static inited = false;
     static init() {
         if (Message.inited) return;
-        getOutSpace().register({ slot: 'Inner', list: true, component: Root });
+        getOutSpace().top((i) => [...i, Root]);
         Message.inited = true;
     }
     static DefaultConfig: Partial<MessageData> = {
