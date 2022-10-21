@@ -1,12 +1,35 @@
-import { Component, JSXElement, lazy, Suspense } from 'solid-js';
+import { Atom, atom } from '@cn-ui/use';
+import { Component, createContext, JSXElement, lazy, Suspense, useContext } from 'solid-js';
 
-export const AsyncComponent: Component<{
+const AsyncComponentContext = createContext<{
+    Comp: Component;
+}>();
+export const AsyncOutlet = (props) => {
+    const { Comp } = useContext(AsyncComponentContext);
+
+    return <Comp {...props}></Comp>;
+};
+
+type AsyncComponent = <T>(props: {
     fallback?: JSXElement;
-    children?: () => Promise<Component<unknown>>;
-}> = (props) => {
+    load?: () => T | Promise<T>;
+    slot?: keyof T;
+    children: () => JSXElement;
+}) => JSXElement;
+export const AsyncComponent: AsyncComponent = (props) => {
     const Async = lazy(async () => {
+        const module = await props.load();
+        const Comp = module[props.slot ?? 'default'];
         return {
-            default: await props.children(),
+            default: () => (
+                <AsyncComponentContext.Provider
+                    value={{
+                        Comp,
+                    }}
+                >
+                    {props.children()}
+                </AsyncComponentContext.Provider>
+            ),
         };
     });
     return (

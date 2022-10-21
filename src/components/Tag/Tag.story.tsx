@@ -1,6 +1,6 @@
 import { For, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Space, COLORS, Tag, Animation } from '@cn-ui/core';
+import { Space, COLORS, Tag, Anime } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -49,7 +49,7 @@ export default (props) => {
             <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'true' : 'false'}</button>
             <Tag>这是一个标签</Tag>
             <Space size="mini">
-                <Animation group in="bounceIn" out="bounceOut">
+                <Anime group in="bounceIn" out="bounceOut">
                     {/*  必须使用 For 循环才能使用动画 */}
                     <For each={data}>
                         {(item) => {
@@ -66,7 +66,7 @@ export default (props) => {
                             );
                         }}
                     </For>
-                </Animation>
+                </Anime>
             </Space>
         </>
     );

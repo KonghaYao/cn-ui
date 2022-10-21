@@ -1,17 +1,26 @@
-import { atom, reflect } from '@cn-ui/use';
-import { AsyncComponent, InputNumber, Space } from '@cn-ui/core';
-
+import { Anime, AsyncComponent, AsyncOutlet, Button, InputNumber, Space } from '@cn-ui/core';
+import { atom } from '@cn-ui/use';
+import 'animate.css';
+import { Show } from 'solid-js';
 export const Controller = [];
 export default () => {
-    const value = atom(0);
-    const bg = reflect(() => {
-        return `#${value() * 360}`;
-    });
+    const a = atom(false);
     return (
-        <AsyncComponent>
-            {() => {
-                return import('../components/Button/Button.story').then((res) => res.default);
-            }}
-        </AsyncComponent>
+        <>
+            <AsyncComponent load={() => import('../components/Button/Button.story')}>
+                {() => (
+                    <Anime in="fadeInDown" out="fadeOutUp">
+                        <AsyncOutlet></AsyncOutlet>
+                    </Anime>
+                )}
+            </AsyncComponent>
+            <Button
+                onClick={() => {
+                    a((i) => !i);
+                }}
+            >
+                刷新
+            </Button>
+        </>
     );
 };

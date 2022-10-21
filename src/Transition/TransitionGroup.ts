@@ -57,6 +57,7 @@ export type TransitionGroupProps = {
     onExit?: (el: Element, done: () => void) => void;
     onAfterExit?: (el: Element) => void;
     children?: any;
+    appear?: boolean;
 };
 export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
     const resolved = children(() => props.children);
@@ -102,7 +103,8 @@ export const TransitionGroup: Component<TransitionGroupProps> = (props) => {
         const exitToClasses = classnames().exitToClass!.split(' ');
         for (let i = 0; i < c.length; i++) {
             const el = c[i];
-            if (!first && !prev.has(el) && el) {
+            // fixed: 添加 appear 第一次动画渲染
+            if ((!first || props.appear) && !prev.has(el) && el) {
                 // 优先进行初始化类名的注入
                 el.classList.add(...enterClasses);
                 delay(() => {

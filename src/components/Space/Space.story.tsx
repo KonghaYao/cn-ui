@@ -1,4 +1,4 @@
-import { Space, Animation } from '@cn-ui/core';
+import { Space, Anime } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -26,11 +26,8 @@ import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { createSignal, For, onMount } from 'solid-js';
 export default (props) => {
     const arr = (num) => [...Array(num).keys()];
-    const [origin, setOrigin] = createSignal<number[]>([]);
-    onMount(() => {
-        // 一般而言，数据是从 remote 来的，所以渲染的时候是注入的
-        setOrigin(arr(10));
-    });
+    const [origin, setOrigin] = createSignal<number[]>(arr(10));
+
     return (
         <>
             <Space {...props}>
@@ -40,7 +37,14 @@ export default (props) => {
             </Space>
 
             <Space {...props}>
-                <Animation group in="fadeInDown" out="fadeOutUp" stagger={100} enterClass="hidden">
+                <Anime
+                    group
+                    in="fadeInDown"
+                    out="fadeOutUp"
+                    stagger={100}
+                    enterClass="hidden"
+                    appear
+                >
                     <For each={origin()}>
                         {(i) => {
                             return (
@@ -48,7 +52,7 @@ export default (props) => {
                             );
                         }}
                     </For>
-                </Animation>
+                </Anime>
             </Space>
         </>
     );

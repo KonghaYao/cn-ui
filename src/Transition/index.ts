@@ -1,3 +1,3 @@
 export * from './Transition';
 export * from './TransitionGroup';
-export * from './Animation';
+export * from './Anime';
