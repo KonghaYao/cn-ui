@@ -16,7 +16,7 @@ type AsyncComponent = <T>(props: {
     fallback?: JSXElement;
     load?: () => T | Promise<T>;
     slot?: keyof T;
-    children: JSXElement;
+    children?: JSXElement;
 }) => JSXElement;
 /** @zh 异步加载组件，在异步完成前使用 fallback */
 export const AsyncComponent: AsyncComponent = (props) => {
@@ -31,7 +31,7 @@ export const AsyncComponent: AsyncComponent = (props) => {
                         Comp,
                     }}
                 >
-                    {props.children}
+                    {props.children ?? <AsyncOutlet></AsyncOutlet>}
                 </AsyncComponentContext.Provider>
             ),
         };

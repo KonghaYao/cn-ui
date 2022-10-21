@@ -13,6 +13,7 @@ const memoize = function <T extends Function>(func: T) {
     };
 };
 interface PositionData {
+    // TODO 方向方案暂时没有确定
     top: Atom<Component[]>;
     tl: Atom<Component[]>;
     tr: Atom<Component[]>;
@@ -49,7 +50,7 @@ export const getOutSpace = memoize(() => {
         const style = {
             'z-index': 1000,
         };
-        ['top', 'tl', 'tr', 'bottom', 'bl', 'br', 'left', 'lt', 'lb', 'right', 'rt', 'rb'] as const;
+        // ['top', 'tl', 'tr', 'bottom', 'bl', 'br', 'left', 'lt', 'lb', 'right', 'rt', 'rb'] as const;
         return (
             <Relative
                 fixed
