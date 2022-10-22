@@ -1,6 +1,6 @@
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
 import { TypographyProps } from './interface';
-import './style/index.less';
+import './style/index.css';
 /**
  * @zh 兼容中文排版的文本专用容器，自动响应式组件。在内部使用的 HTML 标签样式将不同
  *

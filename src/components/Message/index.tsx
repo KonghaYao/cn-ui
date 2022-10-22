@@ -1,6 +1,6 @@
 import { createSignal, For } from 'solid-js';
 import { getOutSpace, Position, Space, DefaultIcon } from '@cn-ui/core';
-import './style/index.less';
+import './style/index.css';
 // 最小化动画载入
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';

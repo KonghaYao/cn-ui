@@ -1,7 +1,7 @@
 import { SpaceProps } from './interface';
 export * from './interface';
 import { Component, createMemo, For, mergeProps, JSX, onMount, children } from 'solid-js';
-import './style/index.less';
+import './style/index.css';
 import { TransitionGroup } from '@cn-ui/core';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
 const defaultProps: SpaceProps = {
@@ -13,6 +13,7 @@ const spaceSize = {
     small: 0.5,
     medium: 0.75,
     large: 1,
+    none: 0,
 };
 export const Space = OriginComponent<SpaceProps, HTMLDivElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);

@@ -1,0 +1,14 @@
+.cn-image.round {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.cn-image.error,
+.cn-image.loading {
+    @apply bg-slate-100;
+}
+.cn-image.error {
+    @apply text-red-400;
+}
+.cn-image.loading {
+    @apply text-slate-600;
+}

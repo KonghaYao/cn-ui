@@ -1,7 +1,4 @@
 .cn-message {
     transition: opacity 0.1s linear;
     width: 110%;
-
-    .cn-icon-wrapper {
-    }
 }

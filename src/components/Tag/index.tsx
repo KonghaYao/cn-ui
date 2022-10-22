@@ -46,7 +46,7 @@ const defaultProps: TagProps = {
     visible: true,
     checked: false,
 };
-import './style/index.less';
+import './style/index.css';
 import { OriginComponent } from '@cn-ui/use';
 export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);

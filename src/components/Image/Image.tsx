@@ -2,7 +2,7 @@ import { JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
 import { atom } from '@cn-ui/use';
 import { Icon } from '@cn-ui/core';
 import { Box } from '@cn-ui/core';
-import './style/index.less';
+import './style/index.css';
 import { OriginComponent } from '@cn-ui/use';
 import { extendsEvent } from '@cn-ui/use';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';

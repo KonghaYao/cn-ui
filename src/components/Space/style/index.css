@@ -1,0 +1,6 @@
+.cn-space {
+    --space-size: 4px;
+}
+.cn-space > * {
+    margin: calc(var(--space-size) / 2) var(--space-size);
+}

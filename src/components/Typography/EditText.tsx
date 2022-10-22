@@ -3,7 +3,7 @@ import { EditContentProps } from './interface';
 import { Component, createMemo, JSXElement } from 'solid-js';
 import copy from 'copy-to-clipboard';
 import { DefaultIcon, Icon } from '@cn-ui/core';
-import './style/edit.less';
+import './style/edit.css';
 import { atom, extendsEvent, useEventController } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { sleep } from '../../mocks/sleep';

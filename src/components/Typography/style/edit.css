@@ -5,7 +5,7 @@
     align-items: center;
     cursor: pointer;
     @apply text-sky-500;
-    &:hover {
-        backdrop-filter: brightness(0.95);
-    }
+}
+.edit-text-icon:hover {
+    backdrop-filter: brightness(0.95);
 }
