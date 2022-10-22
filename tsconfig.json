@@ -9,7 +9,7 @@
         "jsxImportSource": "solid-js",
         "types": ["vite/client"],
         "emitDeclarationOnly": true,
-        "declarationDir": "./dist",
+        "declarationDir": "./dist/type",
         "declaration": true,
         "isolatedModules": true,
         "resolveJsonModule": true,

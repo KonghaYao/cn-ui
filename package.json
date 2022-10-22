@@ -2,6 +2,7 @@
     "name": "@cn-ui/core",
     "version": "0.1.0",
     "main": "./dist/es/index.js",
+    "types": "./dist/type/index.d.ts",
     "description": "",
     "scripts": {
         "dev": "node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && vite",
@@ -13,7 +14,7 @@
         "preview:full": "vite -c vite.config.site.ts --mode full",
         "dev:analyze": "node ./scripts/analyzeSrc.mjs",
         "build:analyze": "vite build --mode analyze",
-        "prepublish": "pnpm build && pnpm build:full && tsc -c tsconfig.node.json"
+        "prepublish": "pnpm build && pnpm build:full && tsc -p tsconfig.node.json"
     },
     "license": "MIT",
     "devDependencies": {
