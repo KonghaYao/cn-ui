@@ -12,6 +12,7 @@ export interface PasswordProps extends PasswordScoreProps {
     score?: boolean;
     icon?: JSXElement;
     visibleIcon?: boolean;
+    placeholder?: string;
 }
 export const Password = OriginComponent<PasswordProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
@@ -26,6 +27,7 @@ export const Password = OriginComponent<PasswordProps>((props) => {
             {props.icon}
             <div class="flex w-full rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 transition-colors duration-300 hover:border-blue-400 ">
                 <input
+                    placeholder={props.placeholder}
                     disabled={disabled()}
                     class="flex-1  bg-slate-100 text-slate-600 outline-none"
                     classList={{
