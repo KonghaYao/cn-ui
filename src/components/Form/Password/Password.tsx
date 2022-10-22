@@ -1,5 +1,5 @@
 import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
-import { JSX, lazy, Suspense } from 'solid-js';
+import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon, Space } from '@cn-ui/core';
 import { FormField } from '../interface';
@@ -10,6 +10,8 @@ export interface PasswordScoreProps extends FormField {
 export interface PasswordProps extends PasswordScoreProps {
     /** @zh 是否加载评分等级系统 */
     score?: boolean;
+    icon?: JSXElement;
+    visibleIcon?: boolean;
 }
 export const Password = OriginComponent<PasswordProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
@@ -21,6 +23,7 @@ export const Password = OriginComponent<PasswordProps>((props) => {
     });
     return (
         <Space vertical class={props.class(disabled() && 'cursor-not-allowed')} {...props}>
+            {props.icon}
             <div class="flex w-full rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 transition-colors duration-300 hover:border-blue-400 ">
                 <input
                     disabled={disabled()}
@@ -34,18 +37,20 @@ export const Password = OriginComponent<PasswordProps>((props) => {
                         value((e.target as any).value);
                     }}
                 ></input>
-                <div
-                    class="flex items-center "
-                    onClick={() => {
-                        if (disabled()) return;
-                        canShow((i) => !i);
-                    }}
-                >
-                    <Icon
-                        class="text-slate-400"
-                        name={canShow() ? 'visibility_off' : 'visibility'}
-                    ></Icon>
-                </div>
+                {props.visibleIcon !== false && (
+                    <div
+                        class="flex items-center "
+                        onClick={() => {
+                            if (disabled()) return;
+                            canShow((i) => !i);
+                        }}
+                    >
+                        <Icon
+                            class="text-slate-400"
+                            name={canShow() ? 'visibility_off' : 'visibility'}
+                        ></Icon>
+                    </div>
+                )}
             </div>
             {props.score && (
                 <Suspense>

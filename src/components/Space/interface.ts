@@ -4,7 +4,7 @@ import { JSXElement } from 'solid-js';
 import { JSX } from 'solid-js/jsx-runtime';
 import { TransitionGroupProps } from '@cn-ui/core';
 
-export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number;
+export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | 'none' | number;
 
 /**
  * @title Space
@@ -27,11 +27,10 @@ export interface SpaceProps extends JSX.HTMLAttributes<HTMLDivElement> {
      */
     vertical?: boolean;
     /**
-     * @zh 尺寸。( `2.15.0` 开始支持数组形式 )
-     * @en The space size. ( Array format add in `2.15.0` )
-     * @defaultValue small
+     * @zh 尺寸
+     * @defaultValue normal
      */
-    size?: SpaceSize | SpaceSize[];
+    size?: SpaceSize;
     /**
      * @zh 环绕类型的间距，用于折行的场景。
      * @en Whether to wrap line automatic
