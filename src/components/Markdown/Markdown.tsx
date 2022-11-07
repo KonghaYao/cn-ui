@@ -1,4 +1,4 @@
-import { Atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
+import { atom, Atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { createEffect, createResource, JSX } from 'solid-js';
 import { unified } from 'unified';
 export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
@@ -14,7 +14,8 @@ import rehypeStringify from 'rehype-stringify';
 import { createIgnoreFirst } from '@cn-ui/use/src';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
     const code = atomization(props.code ?? props.children);
-    const [text, { refetch: rebuild }] = createResource(async () => {
+    const text = atom('');
+    createEffect(async () => {
         let source = unified();
         const plugins = [
             remarkParse,
@@ -27,12 +28,10 @@ export const Markdown = OriginComponent<MarkdownProps>((props) => {
         for (const i of plugins) {
             source = source.use(i);
         }
-        return source.process(code()).then((res) => res.toString());
+        const string = await source.process(code()).then((res) => res.toString());
+        text(string);
     });
-    createIgnoreFirst(() => {
-        // 解决数据不继承问题
-        rebuild();
-    }, [code]);
+
     return (
         <div
             class={props.class()}
