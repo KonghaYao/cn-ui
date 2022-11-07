@@ -1,5 +1,5 @@
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
-import { createResource, JSX } from 'solid-js';
+import { createEffect, createResource, JSX } from 'solid-js';
 import { unified } from 'unified';
 export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: string;
@@ -10,8 +10,9 @@ export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import { createIgnoreFirst } from '@cn-ui/use/src';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
-    const [text] = createResource(async () => {
+    const [text, { refetch: rebuild }] = createResource(async () => {
         let source = unified();
         const plugins = [
             remarkParse,
@@ -26,6 +27,10 @@ export const Markdown = OriginComponent<MarkdownProps>((props) => {
         }
         return source.process(props.children).then((res) => res.toString());
     });
+    createIgnoreFirst(() => {
+        // 解决数据不继承问题
+        rebuild();
+    }, [() => props.children]);
     return (
         <div
             class={props.class()}

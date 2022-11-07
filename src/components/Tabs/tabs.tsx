@@ -8,7 +8,7 @@ import {
     mergeProps,
     useContext,
 } from 'solid-js';
-import { atom, Atom, extendsEvent } from '@cn-ui/use';
+import { atom, Atom, atomization, extendsEvent } from '@cn-ui/use';
 import { Button } from '@cn-ui/core';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps, TabsProps } from './interface';
@@ -33,8 +33,8 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                         return (
                             <Button
                                 class="border-none"
-                                color={data.id === activeId() ? 'sky' : 'white'}
-                                square
+                                color={data.id === activeId() ? 'blue' : 'white'}
+                                size="mini"
                                 onClick={() => activeId(data.id)}
                             >
                                 {data.id}
@@ -51,7 +51,8 @@ export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
     props = mergeProps({}, props);
 
     const TabsData = atom<TabPaneProps[]>([]);
-    const activeId = atom<null | string>(null);
+    // fixed：修复无法继承的错误
+    const activeId = atomization<null | string>(null);
     createEffect(() => {
         if (TabsData().length && activeId() === null) {
             activeId(TabsData()[0].id);
