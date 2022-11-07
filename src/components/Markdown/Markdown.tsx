@@ -1,8 +1,8 @@
-import { atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
+import { Atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { createEffect, createResource, JSX } from 'solid-js';
 import { unified } from 'unified';
 export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    code?: string;
+    code?: string | Atom<string>;
     children?: string;
     remarkPlugins?: any[];
     rehypePlugins?: any[];
@@ -13,7 +13,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import { createIgnoreFirst } from '@cn-ui/use/src';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
-    const code = atomization(props.code??props.children)
+    const code = atomization(props.code ?? props.children);
     const [text, { refetch: rebuild }] = createResource(async () => {
         let source = unified();
         const plugins = [
