@@ -14,7 +14,7 @@
         "preview:full": "vite -c vite.config.site.ts --mode full",
         "dev:analyze": "node ./scripts/analyzeSrc.mjs",
         "build:analyze": "vite build --mode analyze",
-        "prepublish": "pnpm build && pnpm build:full && tsc -p tsconfig.node.json"
+        "prepublish": "pnpm build && pnpm build:full "
     },
     "license": "MIT",
     "devDependencies": {
