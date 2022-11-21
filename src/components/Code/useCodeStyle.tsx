@@ -1,6 +1,6 @@
 import { Atom, atomization, reflect } from '@cn-ui/use';
 
-const themes = [
+export const CodeStyleNames = [
     'a11y-dark',
     'a11y-light',
     'agate',
@@ -75,14 +75,16 @@ const themes = [
     'xt256',
 ] as const;
 type List2Union<List extends readonly unknown[]> = List[number];
-export type AllowedCodeStyleNames = List2Union<typeof themes>;
-export { themes as CodeStyleNames };
+export type AllowedCodeStyleNames = List2Union<typeof CodeStyleNames>;
 
 /**
  * @zh easily to use prism-themes！
  */
 export const useCodeStyle = (
-    codeStyleName: AllowedCodeStyleNames | string | Atom<AllowedCodeStyleNames | string> = themes[0]
+    codeStyleName:
+        | AllowedCodeStyleNames
+        | string
+        | Atom<AllowedCodeStyleNames | string> = CodeStyleNames[0]
 ) => {
     const themeValue = atomization(codeStyleName);
     const url = reflect(() => {
