@@ -6,11 +6,11 @@ const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
-import { Password } from '@cn-ui/core';
+import { Password, PasswordScore } from '@cn-ui/core';
 export default (props) => {
     return (
         <div>
-            <Password {...props}></Password>
+            <Password {...props} score={<PasswordScore></PasswordScore>}></Password>
         </div>
     );
 };

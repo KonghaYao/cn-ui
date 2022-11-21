@@ -1,27 +1,27 @@
 import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
-import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
+import { createContext, JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon, Space } from '@cn-ui/core';
 import { FormField } from '../interface';
-export interface PasswordScoreProps extends FormField {
+export interface PasswordScoreProps {
     userInputs?: string[];
-    value: Atom<string>;
 }
-export interface PasswordProps extends PasswordScoreProps {
+export interface PasswordProps extends PasswordScoreProps, FormField {
+    value: Atom<string>;
     /** @zh 是否加载评分等级系统 */
-    score?: boolean;
+    score?: JSXElement;
     icon?: JSXElement;
     visibleIcon?: boolean;
     placeholder?: string;
 }
+export const PasswordContext = createContext<{
+    value: Atom<string>;
+}>();
 export const Password = OriginComponent<PasswordProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
     const canShow = atom(false);
     const value = atomization(props.value ?? '');
-    const ScoreComp = lazy(async () => {
-        const comp = await import('./PasswordScore');
-        return { default: comp.PasswordScore };
-    });
+
     return (
         <Space vertical class={props.class(disabled() && 'cursor-not-allowed')} {...props}>
             {props.icon}
@@ -54,11 +54,7 @@ export const Password = OriginComponent<PasswordProps>((props) => {
                     </div>
                 )}
             </div>
-            {props.score && (
-                <Suspense>
-                    <ScoreComp value={value} userInputs={props.userInputs}></ScoreComp>
-                </Suspense>
-            )}
+            {props.score}
         </Space>
     );
 });
