@@ -54,6 +54,7 @@
         "@cn-ui/command-palette": "workspace:",
         "@cn-ui/highlight": "workspace:",
         "@cn-ui/sortable": "workspace:",
+        "@cn-ui/transition": "workspace:",
         "@cn-ui/split": "workspace:",
         "@cn-ui/swiper": "workspace:",
         "@cn-ui/use": "workspace:",
