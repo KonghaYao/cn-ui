@@ -7,7 +7,12 @@ const file = list
         return !i.includes('.');
     })
     .map((i) => {
-        return `export * from './${i}/index'`;
+        const [_, exports] =
+            fse
+                .readFileSync('./dist/es/' + i + '/index.js', 'utf-8')
+                .match(/^export \{(.*?)\};/m) || [];
+
+        return `export ${exports ? `{${exports}}` : '*'} from './${i}/index'`;
     })
     .join('\n');
 fse.writeFileSync(
