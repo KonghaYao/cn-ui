@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/sortable",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "sortable elements in solid-js",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",

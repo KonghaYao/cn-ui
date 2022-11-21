@@ -35,7 +35,7 @@ export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivEle
 }
 
 /**
- * @zh 使用响应式对象操控可排序列表, 内部列表必须有 data-id 属性
+ * @zh 使用响应式对象操控可排序列表, 内部列表外侧必须有 data-id 属性
  */
 export const SortableList = OriginComponent<SortableListProps<unknown>>((baseProps) => {
     const context = useContext(SortableShared);
@@ -92,7 +92,6 @@ export const SortableList = OriginComponent<SortableListProps<unknown>>((basePro
             const IdMap = each().map((i) => getId(i));
             const sortableTag = getRealIdList().join(',');
             if (sortableTag !== IdMap.join(',')) {
-                console.log(sortableTag, IdMap);
                 // console.log('外部导入', IdMap);
                 sortable.sort(IdMap);
             }
