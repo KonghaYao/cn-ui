@@ -12,6 +12,7 @@ importers:
       '@cn-ui/sortable': 'workspace:'
       '@cn-ui/split': 'workspace:'
       '@cn-ui/swiper': 'workspace:'
+      '@cn-ui/transition': 'workspace:'
       '@cn-ui/use': 'workspace:'
       '@fontsource/material-icons-rounded': ^4.5.4
       '@rollup/plugin-babel': ^6.0.0
@@ -64,6 +65,7 @@ importers:
       '@cn-ui/sortable': link:package/sortable
       '@cn-ui/split': link:package/split
       '@cn-ui/swiper': link:package/swiper
+      '@cn-ui/transition': link:package/transition
       '@cn-ui/use': link:package/use
       '@fontsource/material-icons-rounded': 4.5.4
       '@vant/area-data': 1.3.2

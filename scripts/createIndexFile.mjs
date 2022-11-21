@@ -12,7 +12,5 @@ console.log(file);
 
 fs.writeFileSync(
     './src/index.ts',
-    '// Automatically generator by scripts/createIndexFile.mjs;\n' +
-        file +
-        "\nexport * from './extraEntry'"
+    '// Automatically generator by scripts/createIndexFile.mjs;\n' + file
 );

@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { Tabs, Tab, TabsHeader } from '@cn-ui/core';
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
-import { TransitionGroup } from '@cn-ui/core';
+import { TransitionGroup } from '@cn-ui/transition';
 export const Controller = [
     {
         type: 'switch',

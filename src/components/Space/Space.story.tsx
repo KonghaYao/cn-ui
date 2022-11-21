@@ -1,4 +1,5 @@
-import { Space, Anime } from '@cn-ui/core';
+import { Space } from '@cn-ui/core';
+import { Anime } from '@cn-ui/transition';
 export const Controller = [
     {
         type: 'switch',

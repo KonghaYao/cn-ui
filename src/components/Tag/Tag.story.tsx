@@ -1,6 +1,7 @@
 import { For, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Space, COLORS, Tag, Anime } from '@cn-ui/core';
+import { Space, COLORS, Tag } from '@cn-ui/core';
+import { Anime } from '@cn-ui/transition';
 export const Controller = [
     {
         type: 'switch',

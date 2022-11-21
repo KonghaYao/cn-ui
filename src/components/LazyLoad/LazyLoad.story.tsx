@@ -1,10 +1,8 @@
-import { Anime, AsyncComponent, AsyncOutlet, Button, InputNumber, Space } from '@cn-ui/core';
 export const Controller = [];
 import { sleep } from '../../mocks/sleep';
 import 'animate.css';
 import { LazyLoad } from './LazyLoad';
 import { onCleanup, onMount } from 'solid-js';
-import { memoize } from 'lodash-es';
 export default () => {
     const Comp = () => {
         onMount(() => console.log('可视了'));

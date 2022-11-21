@@ -5,7 +5,7 @@ import './style/index.css';
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
-import { Anime } from '@cn-ui/core';
+import { Anime } from '@cn-ui/transition';
 const Root = () => {
     return (
         <Position

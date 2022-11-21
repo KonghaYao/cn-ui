@@ -1,8 +1,8 @@
 import { Atom, atom, OriginComponent } from '@cn-ui/use';
 import { debounce } from 'lodash-es';
 import { children as getChildren, Component, JSXElement, lazy, onMount } from 'solid-js';
-import { AsyncComponent } from '../../AsyncComponent';
-import { Anime, AnimeProps } from '../../Transition';
+import { AsyncComponent } from './AsyncComponent';
+import { Anime, AnimeProps } from '@cn-ui/transition';
 
 interface LazyLoadProps extends IntersectionObserverInit {
     fallback?: JSXElement;
