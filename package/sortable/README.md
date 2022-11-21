@@ -1,23 +1,18 @@
-# @cn-ui/highlight
+# @cn-ui/sortable
 
 A Code Highlight Component base on SolidJS
 
 ```sh
-pnpm i @cn-ui/highlight highlight.js solid-js @cn-ui/use
+pnpm i @cn-ui/sortable  solid-js @cn-ui/use
 ```
 
 ```tsx
 // recommend to use
-import 'highlight.js/styles/github-dark.css';
-import { Code, lowlight } from '@cn-ui/highlight';
-// lowlight is a syntax transformer!
-// https://www.npmjs.com/package/lowlight
+import { } from '@cn-ui/sortable';
 
 export default (props) => {
     return (
-        <div>
-            <Code lang="ts" code={'// TS code'}></Code>
-        </div>
+
     );
 };
 ```

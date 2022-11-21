@@ -59,12 +59,7 @@ export default [
         config.output.dir = 'dist/es/' + i.replace('./src/components/', '').split('/')[0];
         return config;
     }),
-    ...['./src/Transition/index.ts'].map((i) => {
-        const config = base();
-        config.input = i;
-        config.output.dir = 'dist/es/' + i.replace('./src/', '').split('/')[0];
-        return config;
-    }),
+
     ((i) => {
         const config = base();
         config.input = i;

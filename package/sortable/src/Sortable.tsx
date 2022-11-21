@@ -7,11 +7,10 @@ import {
     JSX,
     JSXElement,
     mergeProps,
-    untrack,
     useContext,
 } from 'solid-js';
 import SortableCore from 'sortablejs';
-import { OriginComponent, Atom, atomization, extendsEvent } from '@cn-ui/use';
+import { OriginComponent, Atom, atomization, extendsEvent, createIgnoreFirst } from '@cn-ui/use';
 import { useSortable } from './useSortable';
 export { SortableCore };
 /** Sortable 组件的公共参数 */
@@ -31,12 +30,14 @@ export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivEle
     getId?: (item: T) => string;
     children: (item: T, index: Accessor<number>) => JSXElement;
     options?: SortableCore.Options;
+    disabled?: Atom<boolean>;
+    setData?: (data: DataTransfer, el: HTMLElement) => void;
 }
 
 /**
- * @zh 使用响应式对象操控可排序列表
+ * @zh 使用响应式对象操控可排序列表, 内部列表必须有 data-id 属性
  */
-export const SortableList = OriginComponent((baseProps) => {
+export const SortableList = OriginComponent<SortableListProps<unknown>>((baseProps) => {
     const context = useContext(SortableShared);
     const props = mergeProps(
         {
@@ -44,50 +45,61 @@ export const SortableList = OriginComponent((baseProps) => {
         },
         baseProps
     ) as unknown as SortableListProps<unknown>;
-    const getId = props.getId || ((item) => (item as any).id.toString());
+    const each = atomization(props.each);
+    const VoidId = Math.random().toString();
 
-    const RefreshData = () => {
+    const getId = props.getId || ((item) => (item as any).id.toString());
+    const disabled = atomization(props.disabled ?? false);
+
+    const getRealIdList = () => {
+        const arr = getSortable().toArray();
+        return arr.filter((i, index) => i !== VoidId && arr.indexOf(i) === index);
+    };
+
+    createIgnoreFirst(() => {
         const sortable = getSortable();
+        sortable && sortable.option('disabled', disabled());
+    }, [disabled]);
+    /** 向外注入数据 */
+    const RefreshData = () => {
+        const sortable = getRealIdList();
+
         each(() => {
-            const groupData = context.sharedData?.flatMap((i) => i());
-            return sortable.toArray().map((id) => {
-                return groupData.find((item) => getId(item) === id);
-            });
+            const groupData = context.sharedData?.flatMap((i) => i()) || each();
+            return sortable
+                .map((id) => {
+                    return groupData.find((item) => getId(item) === id);
+                })
+                .filter((i) => i);
         });
     };
     const { initSort, getSortable } = useSortable({
         ...props.options,
-
+        // sort: false,
+        // delayOnTouchOnly: true, // only delay if user is using touch
+        // delay: 100,
+        setData: props.setData,
         onSort() {
-            const sortable = getSortable();
             props.options?.onSort?.apply(this, arguments);
-            each((i) => {
-                const list = sortable.toArray().map((id) => {
-                    return i.find((item) => getId(item) === id);
-                });
-                return list;
-            });
-        },
-
-        onAdd() {
-            props.options?.onAdd?.apply(this, arguments);
-            RefreshData();
-        },
-        onRemove() {
-            props.options?.onRemove?.apply(this, arguments);
+            // console.log(sortable);
             RefreshData();
         },
     });
-
-    const each = atomization(props.each);
 
     createEffect(() => {
         const sortable = getSortable();
         if (sortable) {
             const IdMap = each().map((i) => getId(i));
-            if (sortable.toArray().join(',') !== IdMap.join(',')) sortable.sort(IdMap, true);
+            const sortableTag = getRealIdList().join(',');
+            if (sortableTag !== IdMap.join(',')) {
+                console.log(sortableTag, IdMap);
+                // console.log('外部导入', IdMap);
+                sortable.sort(IdMap);
+            }
         }
     });
+    // fixed 把元素放置在末尾会发生 bug
+    // 多添加一个空白的数据，让最后一个不能移动就行了
     return (
         <div
             ref={initSort}
@@ -96,8 +108,11 @@ export const SortableList = OriginComponent((baseProps) => {
             style={props.style}
             {...extendsEvent(props)}
         >
-            <For each={untrack(each)} fallback={props.fallback}>
-                {props.children}
+            <For each={[...each(), null]} fallback={props.fallback}>
+                {(item, index) => {
+                    if (item === null) return <div data-id={VoidId}></div>;
+                    return props.children(item, index);
+                }}
             </For>
         </div>
     );
