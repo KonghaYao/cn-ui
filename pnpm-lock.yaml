@@ -31,7 +31,6 @@ importers:
       comlink: ^4.3.1
       consola: ^2.15.3
       copy-to-clipboard: ^3.3.2
-      cropperjs: 1.5.12
       fast-glob: ^3.2.12
       fs-extra: ^10.1.0
       globby: ^13.1.2
@@ -56,11 +55,9 @@ importers:
       tippy.js: ^6.3.7
       unified: ^10.1.2
       upload-js: ^2.1.0
-      viewerjs: ^1.10.5
       vite: ^3.1.8
       vite-plugin-imp: ^2.3.0
       vite-plugin-solid: ^2.3.9
-      zxcvbn: ^4.4.2
     dependencies:
       '@cn-ui/command-palette': link:package/command-palette
       '@cn-ui/cropper': link:package/cropper
@@ -76,7 +73,6 @@ importers:
       animate.css: 3.7.2
       consola: 2.15.3
       copy-to-clipboard: 3.3.2
-      cropperjs: 1.5.12
       highlight.js: 11.6.0
       lodash-es: 4.17.21
       mitt: 3.0.0
@@ -86,8 +82,6 @@ importers:
       solid-element: registry.npmmirror.com/solid-element/1.5.6_solid-js@1.5.7
       tippy.js: 6.3.7
       unified: 10.1.2
-      viewerjs: 1.10.5
-      zxcvbn: 4.4.2
     devDependencies:
       '@babel/core': 7.19.3
       '@babel/plugin-transform-typescript': 7.19.3_@babel+core@7.19.3
@@ -157,9 +151,13 @@ importers:
 
   package/cropper:
     specifiers:
+      '@cn-ui/core': workspace:^0.1.7
+      cropperjs: 1.5.12
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
     dependencies:
+      '@cn-ui/core': link:../..
+      cropperjs: registry.npmmirror.com/cropperjs/1.5.12
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
     devDependencies:
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
@@ -177,6 +175,17 @@ importers:
       chroma-js: ^2.4.2
     dependencies:
       chroma-js: 2.4.2
+
+  package/passoword-score:
+    specifiers:
+      fs-extra: ^10.1.0
+      lodash-es: ^4.17.21
+      zxcvbn: ^4.4.2
+    dependencies:
+      lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+      zxcvbn: registry.npmmirror.com/zxcvbn/4.4.2
+    devDependencies:
+      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
 
   package/sortable:
     specifiers:
@@ -218,8 +227,10 @@ importers:
     specifiers:
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
+      viewerjs: ^1.11.1
     dependencies:
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+      viewerjs: registry.npmmirror.com/viewerjs/1.11.1
     devDependencies:
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
 
@@ -2427,10 +2438,6 @@ packages:
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
-
-  /cropperjs/1.5.12:
-    resolution: {integrity: sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==}
-    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -5339,10 +5346,6 @@ packages:
       unist-util-stringify-position: 3.0.2
       vfile-message: 3.1.2
 
-  /viewerjs/1.10.5:
-    resolution: {integrity: sha512-QwKrmXlSfKg5x4y74F/jicpHIRqBMMfHXyboOxHDi5n4XAaejjpalphPq4/HW6venQAoMiD57HpVwBk0JvqpSA==}
-    dev: false
-
   /vite-plugin-imp/2.3.0_vite@3.1.8:
     resolution: {integrity: sha512-I7xSzptQw0yBxUmXawXqkzYvtZbqRF99ZeylmaTuYmJTVjZw5/TbKE7z3h95IKE4r/lkSWdKYmHEs3QwiXKS7g==}
     peerDependencies:
@@ -5600,10 +5603,6 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zxcvbn/4.4.2:
-    resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
-    dev: false
-
   registry.npmmirror.com/@esbuild/android-arm/0.15.10:
     resolution: {integrity: sha512-FNONeQPy/ox+5NBkcSbYJxoXj9GWu8gVGJTVmUyoOCKQFDTrHVKgNSzChdNt0I8Aj/iKcsDf2r9BFwv+FSNUXg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@esbuild/android-arm/-/android-arm-0.15.10.tgz}
     name: '@esbuild/android-arm'
@@ -5641,6 +5640,12 @@ packages:
     resolution: {integrity: sha512-/0u8ov0WPWi2FL78rgB9aFOcfY8pJT4jP/l9NTOukGNLVQ6hk35sEJE1RkEnNQU3yk48Qr7HlDQjRQKEVfgeWg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/component-register/-/component-register-0.8.3.tgz}
     name: component-register
     version: 0.8.3
+    dev: false
+
+  registry.npmmirror.com/cropperjs/1.5.12:
+    resolution: {integrity: sha512-re7UdjE5UnwdrovyhNzZ6gathI4Rs3KGCBSc8HCIjUo5hO42CtzyblmWLj6QWVw7huHyDMfpKxhiO2II77nhDw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/cropperjs/-/cropperjs-1.5.12.tgz}
+    name: cropperjs
+    version: 1.5.12
     dev: false
 
   registry.npmmirror.com/dir-glob/3.0.1:
@@ -6208,3 +6213,15 @@ packages:
     version: 2.0.0
     engines: {node: '>= 10.0.0'}
     dev: true
+
+  registry.npmmirror.com/viewerjs/1.11.1:
+    resolution: {integrity: sha512-/VQ2zalHLZJOGIwlxOBtxagLZwNvU3Bf+nm692XlhNFxjBXRxpCVn+GeqmRFg9jK1Y2+Wf8PPGxZgTDN4pHXww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/viewerjs/-/viewerjs-1.11.1.tgz}
+    name: viewerjs
+    version: 1.11.1
+    dev: false
+
+  registry.npmmirror.com/zxcvbn/4.4.2:
+    resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/zxcvbn/-/zxcvbn-4.4.2.tgz}
+    name: zxcvbn
+    version: 4.4.2
+    dev: false

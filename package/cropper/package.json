@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/cropper",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "description": "",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -8,8 +8,10 @@
         "src",
         "dist"
     ],
-    "private":false,
-    "publishConfig":{"access":"public"},
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "build": "vite build&& tsc",
         "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js"
@@ -19,8 +21,8 @@
         "fs-extra": "^10.1.0"
     },
     "peerDependencies": {
-        "solid-js": "^1.5.7",
-        "@cn-ui/core": "workspace:^0.1.7"
+        "@cn-ui/core": "workspace:^0.1.7",
+        "solid-js": "^1.5.7"
     },
     "keywords": [
         "pridepack",
@@ -31,6 +33,8 @@
         "utils"
     ],
     "dependencies": {
+        "@cn-ui/core": "workspace:^0.1.7",
+        "cropperjs": "1.5.12",
         "lodash-es": "^4.17.21"
     }
 }
