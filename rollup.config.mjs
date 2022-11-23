@@ -17,7 +17,7 @@ fse.emptyDirSync('./dist/es/');
 import glob from 'fast-glob';
 export default [
     'src/style/index.ts',
-    ...(await glob(['src/components/**/*.{ts,tsx}'])).filter(
+    ...(await glob(['src/components/**/*.{ts,tsx,js}'])).filter(
         (i) => !i.endsWith('.d.ts') && !i.endsWith('.story.tsx')
     ),
 ].map((i) => {

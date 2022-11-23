@@ -8,7 +8,7 @@
         "dev": "node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && vite",
         "build": "rollup -c rollup.config.mjs && node ./scripts/createDistIndex.mjs",
         "build:full": "vite build -c vite.config.full.ts",
-        "build:site": "vite build -c vite.config.site.ts",
+        "build:site": "vite build -c vite.config.site.ts --mode analyze",
         "build:type": "tsc --config tsconfig.node.json",
         "preview": "vite -c vite.config.site.ts",
         "preview:full": "vite -c vite.config.site.ts --mode full",

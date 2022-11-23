@@ -1,16 +1,22 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import vitePluginImp from 'vite-plugin-imp';
+import visualizer from 'rollup-plugin-visualizer';
 /**
  * Story 的打包页面
  */
 export default defineConfig(({ mode }) => {
     return {
         base: './',
-        plugins: [solidPlugin({})],
+        plugins: [
+            solidPlugin({}),
+            mode === 'analyze' &&
+                (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
+        ],
         server: {
             port: 3000,
         },
+
         resolve: {
             alias: {
                 ...(mode === 'full'
@@ -26,10 +32,12 @@ export default defineConfig(({ mode }) => {
                       }),
             },
         },
+
         optimizeDeps: {
             exclude: ['@cn-ui/core'],
         },
         build: {
+            outDir: 'dist_site',
             rollupOptions: {
                 input: {
                     index: 'index.html',
