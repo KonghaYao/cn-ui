@@ -1,4 +1,5 @@
-import { Image, useViewer, Space, Mask } from '@cn-ui/core';
+import { Image, Space, Mask } from '@cn-ui/core';
+
 import { atom } from '@cn-ui/use';
 import { mockImages } from '../../mocks/images';
 export const Controller = [
