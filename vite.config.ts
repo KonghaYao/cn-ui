@@ -14,8 +14,7 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                '@cn-ui/core/index.css': '/src/style/index.css',
-                '@cn-ui/core': '/src/index.ts',
+                '@cn-ui/core/': '/src/',
             },
         },
         optimizeDeps: {

@@ -8,6 +8,7 @@ importers:
       '@babel/plugin-transform-typescript': ^7.19.3
       '@babel/preset-env': ^7.19.3
       '@cn-ui/command-palette': 'workspace:'
+      '@cn-ui/cropper': 'workspace:'
       '@cn-ui/highlight': 'workspace:'
       '@cn-ui/sortable': 'workspace:'
       '@cn-ui/split': 'workspace:'
@@ -61,6 +62,7 @@ importers:
       zxcvbn: ^4.4.2
     dependencies:
       '@cn-ui/command-palette': link:package/command-palette
+      '@cn-ui/cropper': link:package/cropper
       '@cn-ui/highlight': link:package/highlight
       '@cn-ui/sortable': link:package/sortable
       '@cn-ui/split': link:package/split
@@ -153,11 +155,9 @@ importers:
 
   package/cropper:
     specifiers:
-      '@cn-ui/core': workspace:^0.1.7
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
     dependencies:
-      '@cn-ui/core': link:../..
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
     devDependencies:
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
