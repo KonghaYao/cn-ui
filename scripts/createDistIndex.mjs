@@ -1,18 +1,13 @@
 import fse from 'fs-extra';
-
+import glob from 'fast-glob';
 // 生成 Index 文件
-const list = fse.readdirSync('./dist/es/');
+const list = fse.readdirSync('./dist/es/components');
 const file = list
     .filter((i) => {
-        return !i.includes('.');
+        return fse.existsSync(`./dist/es/components/${i}/index.js`);
     })
     .map((i) => {
-        const [_, exports] =
-            fse
-                .readFileSync('./dist/es/' + i + '/index.js', 'utf-8')
-                .match(/^export \{(.*?)\};/m) || [];
-
-        return `export ${exports ? `{${exports}}` : '*'} from './${i}/index'`;
+        return `export * from './components/${i}/index';`;
     })
     .join('\n');
 fse.writeFileSync(
@@ -20,13 +15,18 @@ fse.writeFileSync(
     '// Automatically generator by scripts/createIndexFile.mjs;\n' + file
 );
 
-const styleList = list.filter((i) => {
-    return !i.includes('.') && fse.existsSync('./dist/es/' + i + '/index.css');
+// 样式表连接
+const styleList = await glob('./dist/es/**/*.css');
+import path from 'path';
+styleList.forEach((i) => {
+    fse.writeFileSync(i.replace('.css', '.js'), `\nimport './${path.basename(i)}'`, {
+        flag: 'a',
+    });
 });
-fse.outputJSONSync('./dist/es/style-list.json', styleList);
+
 fse.outputFileSync(
     './dist/es/index.full.js',
     '// Bundle need it\n' +
-        styleList.map((i) => `import './${i}/index.css' `).join('\n') +
-        '\n import "./index.css";export * from "./index.js"'
+        styleList.map((i) => `import '${i.replace('dist/es/', '')}' `).join('\n') +
+        '\nexport * from "./index.js"'
 );

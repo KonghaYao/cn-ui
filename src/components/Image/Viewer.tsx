@@ -1,4 +1,3 @@
-// You should import the CSS file.
 import 'viewerjs/dist/viewer.css';
 import Viewer from 'viewerjs';
 type Options = Viewer.Options;

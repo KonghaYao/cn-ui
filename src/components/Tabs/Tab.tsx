@@ -1,7 +1,7 @@
 import { createMemo, mergeProps, Show, useContext } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps } from './interface';
-import { TabsContext } from './Tabs';
+import { TabsContext } from './components/TabsContext';
 
 export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
     const { activeId, register } = useContext(TabsContext);
