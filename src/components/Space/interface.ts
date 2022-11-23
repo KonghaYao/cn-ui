@@ -2,7 +2,7 @@
 
 import { JSXElement } from 'solid-js';
 import { JSX } from 'solid-js/jsx-runtime';
-import { TransitionGroupProps } from '@cn-ui/core';
+import { TransitionGroupProps } from '@cn-ui/transition';
 
 export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | 'none' | number;
 

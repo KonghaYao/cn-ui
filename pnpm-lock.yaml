@@ -151,6 +151,17 @@ importers:
       ts-node: 10.9.1_@types+node@17.0.45
       vitest: 0.23.4_happy-dom@2.55.0
 
+  package/cropper:
+    specifiers:
+      '@cn-ui/core': workspace:^0.1.7
+      fs-extra: ^10.1.0
+      lodash-es: ^4.17.21
+    dependencies:
+      '@cn-ui/core': link:../..
+      lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+    devDependencies:
+      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
+
   package/highlight:
     specifiers:
       hast-util-to-html: ^8.0.3

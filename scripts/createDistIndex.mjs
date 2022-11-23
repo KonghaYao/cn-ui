@@ -19,7 +19,7 @@ fse.writeFileSync(
 const styleList = await glob('./dist/es/**/*.css');
 import path from 'path';
 styleList.forEach((i) => {
-    fse.writeFileSync(i.replace('.css', '.js'), `\nimport './${path.basename(i)}'`, {
+    fse.writeFileSync(i.replace('.css', '.js'), `\n  import './${path.basename(i)}'`, {
         flag: 'a',
     });
 });

@@ -1,5 +1,5 @@
 import { Atom, atom, reflect } from '@cn-ui/use';
-import { Cropper } from '@cn-ui/core';
+import { Cropper } from '@cn-ui/cropper';
 import { mockImages } from '../../mocks/images';
 export const Controller = [];
 import { debounce } from 'lodash-es';

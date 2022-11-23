@@ -1,0 +1,36 @@
+{
+    "name": "@cn-ui/cropper",
+    "version": "1.7.0",
+    "description": "",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "private":false,
+    "publishConfig":{"access":"public"},
+    "scripts": {
+        "build": "vite build&& tsc",
+        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "fs-extra": "^10.1.0"
+    },
+    "peerDependencies": {
+        "solid-js": "^1.5.7",
+        "@cn-ui/core": "workspace:^0.1.7"
+    },
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ],
+    "dependencies": {
+        "lodash-es": "^4.17.21"
+    }
+}

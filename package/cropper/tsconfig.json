@@ -8,14 +8,10 @@
         "jsx": "preserve",
         "jsxImportSource": "solid-js",
         "types": ["vite/client"],
-        "emitDeclarationOnly": true,
-        "declarationDir": "./dist/type",
-        "declaration": true,
-        "isolatedModules": false,
         "resolveJsonModule": true,
-        "paths": {
-            "@cn-ui/core": ["./src/index"]
-        }
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "declarationDir": "./dist"
     },
     "include": ["src/**/*", "story/**/*"]
 }
