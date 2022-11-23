@@ -53,6 +53,7 @@
     "dependencies": {
         "@cn-ui/command-palette": "workspace:",
         "@cn-ui/cropper": "workspace:",
+        "@cn-ui/viewer": "workspace:",
         "@cn-ui/highlight": "workspace:",
         "@cn-ui/sortable": "workspace:",
         "@cn-ui/split": "workspace:",
