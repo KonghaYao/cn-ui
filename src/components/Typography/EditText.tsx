@@ -6,7 +6,7 @@ import { DefaultIcon, Icon } from '@cn-ui/core';
 import './style/edit.css';
 import { atom, extendsEvent, useEventController } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
-import { sleep } from '../../mocks/sleep';
+import { sleep } from '../_util/sleep';
 
 export const CopyText = OriginComponent<EditContentProps>((props) => {
     let container: HTMLSpanElement;

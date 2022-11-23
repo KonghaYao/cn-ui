@@ -1,6 +1,6 @@
 import { Card } from '@cn-ui/core';
 export const Controller = [];
-import './Story.less';
+import './Story.css';
 export default (props) => {
     return (
         <Card
@@ -12,7 +12,7 @@ export default (props) => {
                 />
             }
         >
-            <div class="flex flex-col h-full w-full p-4">
+            <div class="flex h-full w-full flex-col p-4">
                 <header>中文</header>
                 <div class="flex-1" style={{ 'min-height': '2em' }}></div>
 

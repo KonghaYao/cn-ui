@@ -11,7 +11,7 @@ const getURL: any = () => {
     };
 };
 import './index.css';
-import '@cn-ui/core/index.css';
+import '@cn-ui/core/style/index.css';
 import { atom } from '@cn-ui/use';
 const Book = () => {
     const Props = atom(null);

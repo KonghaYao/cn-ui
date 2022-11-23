@@ -1,34 +1,13 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import vitePluginImp from 'vite-plugin-imp';
-import allowList from './dist/es/style-list.json';
 /**
  * Story 的打包页面
  */
 export default defineConfig(({ mode }) => {
     return {
         base: './',
-        plugins: [
-            mode !== 'full' &&
-                vitePluginImp({
-                    ignoreStylePathNotFound: false,
-                    libList: [
-                        {
-                            libName: '@cn-ui/core',
-                            camel2DashComponentName: false,
-                            style(name) {
-                                if (allowList.includes(name)) {
-                                    console.log(name);
-                                    return `@cn-ui/core/${name}/index.css`;
-                                } else {
-                                    return false;
-                                }
-                            },
-                        },
-                    ],
-                }),
-            solidPlugin({}),
-        ],
+        plugins: [solidPlugin({})],
         server: {
             port: 3000,
         },
