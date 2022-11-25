@@ -60,7 +60,9 @@ export const Monaco: Component<{
         monacoEditor.focus();
     };
     createIgnoreFirst(() => {
-        setValue(value());
+        if (value() !== monacoEditor!.getValue()) {
+            setValue(value());
+        }
     }, [value]);
     // 自动更新 options
     createEffect(
