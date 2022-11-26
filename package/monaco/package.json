@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/monaco",
-    "version": "1.7.1",
+    "version": "1.7.4",
     "description": "",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -14,7 +14,8 @@
     },
     "scripts": {
         "build": "vite build&& tsc",
-        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js"
+        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js",
+        "prepublish": "pnpm build"
     },
     "license": "MIT",
     "devDependencies": {

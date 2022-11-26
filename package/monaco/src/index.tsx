@@ -12,6 +12,7 @@ export const Monaco: Component<{
     theme?: Atom<keyof AllTheme> | keyof AllTheme;
     language: Atom<LanguageList> | LanguageList;
     options?: any | Atom<any>;
+    onSave?: (val: string) => void;
     onReady?: (monacoEditor: any) => void;
 }> = (props) => {
     let value = atomization(props.value);
@@ -41,7 +42,8 @@ export const Monaco: Component<{
         if (monacoEditor === null) return;
         const code = monacoEditor!.getValue();
         value(code);
-        console.log('MonacoEditor 保存成功', code);
+        console.log('MonacoEditor 保存成功');
+        props.onSave && props.onSave(code);
         return code;
     };
 
@@ -59,11 +61,12 @@ export const Monaco: Component<{
         monacoEditor.executeEdits(code, [op]);
         monacoEditor.focus();
     };
-    createIgnoreFirst(() => {
-        if (value() !== monacoEditor!.getValue()) {
+    createEffect(() => {
+        value();
+        if (monacoEditor && value() !== monacoEditor!.getValue()) {
             setValue(value());
         }
-    }, [value]);
+    });
     // 自动更新 options
     createEffect(
         on(options, (val) => {
