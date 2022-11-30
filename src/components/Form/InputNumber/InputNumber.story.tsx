@@ -9,7 +9,15 @@ export default (props) => {
         <Space vertical class="m-4 ">
             <InputNumber {...props}></InputNumber>
             <InputNumber {...props} button step={4} value={val}></InputNumber>
-            <InputNumber {...props} button min={0} max={10} step={2} value={val}></InputNumber>
+            <InputNumber
+                {...props}
+                button
+                min={0}
+                max={10}
+                step={2}
+                value={val}
+                disabled_input
+            ></InputNumber>
             {val()}
             <Slider {...props} min={0} max={10} step={2} value={val}></Slider>
         </Space>

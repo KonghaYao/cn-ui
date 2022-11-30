@@ -5,6 +5,7 @@ import { Icon } from '@cn-ui/core';
 import { defaultSlot } from '../../_util/defaultSlot';
 import { useEventController } from '@cn-ui/use';
 import { FormField } from '../interface';
+import './InputNumber.css';
 export interface InputNumberProps extends FormField {
     value: number | Atom<number>;
     placeholder?: string;
@@ -14,6 +15,7 @@ export interface InputNumberProps extends FormField {
     button?: boolean;
     min?: number;
     max?: number;
+    disabled_input?: boolean;
     step?: number;
 }
 
@@ -57,7 +59,10 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 ref={inputRef}
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 appearance-none bg-slate-100 outline-none "
+                class="hidden_control flex-1 appearance-none bg-slate-100 outline-none"
+                classList={{
+                    'pointer-events-none': props.disabled_input,
+                }}
                 min={props.min}
                 max={props.max}
                 step={props.step}
@@ -66,7 +71,11 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 inputmode="decimal"
                 oninput={control((e) => {
                     let newValue = (e.target as any).value;
-                    value(newValue);
+                    if (newValue >= props.min && newValue <= props.max) {
+                        value(newValue);
+                    } else {
+                        value(newValue);
+                    }
                 })}
             ></input>
             <div
