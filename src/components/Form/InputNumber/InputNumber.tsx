@@ -70,11 +70,11 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 value={value()}
                 inputmode="decimal"
                 oninput={control((e) => {
-                    let newValue = (e.target as any).value;
+                    let newValue = parseInt((e.target as any).value);
                     if (newValue >= props.min && newValue <= props.max) {
                         value(newValue);
                     } else {
-                        value(newValue);
+                        value(props.max);
                     }
                 })}
             ></input>

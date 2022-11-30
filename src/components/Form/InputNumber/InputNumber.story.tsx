@@ -7,7 +7,7 @@ export default (props) => {
     const val = atom(4);
     return (
         <Space vertical class="m-4 ">
-            <InputNumber {...props}></InputNumber>
+            <InputNumber {...props} min={0} max={100}></InputNumber>
             <InputNumber {...props} button step={4} value={val}></InputNumber>
             <InputNumber
                 {...props}
