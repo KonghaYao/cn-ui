@@ -9,7 +9,7 @@ export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
 
     const TabsData = atom<TabPaneProps[]>([]);
     // fixed：修复无法继承的错误
-    const activeId = atomization<null | string>(null);
+    const activeId = atomization<string>(props.activeId);
     createEffect(() => {
         if (TabsData().length && activeId() === null) {
             activeId(TabsData()[0].id);
