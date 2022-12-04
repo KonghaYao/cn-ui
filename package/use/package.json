@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/use",
-    "version": "1.8.0",
+    "version": "1.8.2",
     "description": "",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -10,7 +10,8 @@
     ],
     "scripts": {
         "build": "vite build&& tsc",
-        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js"
+        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js",
+        "prepublish": "pnpm build"
     },
     "license": "MIT",
     "devDependencies": {

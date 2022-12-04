@@ -1,5 +1,7 @@
 import { atom, Atom } from './atom';
+import { reflect } from './atom';
 import { resource } from './resource';
+import { createEffect, createSignal } from 'solid-js';
 
 /** 逐页查询组件 */
 export const usePagination = <T>(
@@ -9,37 +11,30 @@ export const usePagination = <T>(
     const maxPage = atom<number>(10);
     const currentData = resource<T>(() => getData(currentIndex(), maxPage));
 
+    createEffect(() => console.log(currentIndex()));
     // 更新数据
-
+    const goto = (index: number) => {
+        if (index < 0 || index >= maxPage()) {
+            return false;
+        } else {
+            currentIndex(index);
+            return currentData.refetch();
+        }
+    };
     return {
+        /** index 数值，从 0 开始 */
         currentIndex,
+        /** 页数 数值，从 1 开始 */
+        currentPage: reflect(() => currentIndex() + 1),
+        /** 类似于数组的 length ，表示页数 */
         maxPage,
         prev() {
-            if (currentIndex() <= 0) {
-                currentIndex(0);
-                return false;
-            } else {
-                currentIndex((i) => i - 1);
-                return currentData.refetch();
-            }
+            return goto(currentIndex() - 1);
         },
         next() {
-            if (currentIndex() >= maxPage()) {
-                currentIndex(maxPage());
-                return false;
-            } else {
-                currentIndex((i) => i + 1);
-                return currentData.refetch();
-            }
+            return goto(currentIndex() + 1);
         },
-        goto(index: number) {
-            if (index < 0 || index > maxPage()) {
-                return false;
-            } else {
-                currentIndex(index);
-                return currentData.refetch();
-            }
-        },
+        goto,
         currentData,
     };
 };
