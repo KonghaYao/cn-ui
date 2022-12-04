@@ -18,177 +18,178 @@
     box-sizing: border-box;
     @apply text-slate-800;
     /* 默认不显示下划线，保持页面简洁 */
-    ins,
-    a {
-        text-decoration: none;
-    }
+}
+.cn-typography ins,
+.cn-typography a {
+    display: inline-block;
+    text-decoration: none;
+}
 
-    /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
- * 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
- * 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
- * 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
- * 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
- */
-    u {
-        text-decoration: underline;
-        text-underline-offset: 0.2em;
-    }
+/* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+* 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
+* 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
+* 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
+* 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
+*/
+.cn-typography u {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
 
-    /* 标记，类似于手写的荧光笔的作用 */
-    mark {
-        @apply border-b border-solid border-yellow-600 bg-yellow-200;
-        padding: 2px;
-        margin: 0 5px;
-    }
+/* 标记，类似于手写的荧光笔的作用 */
+.cn-typography mark {
+    @apply border-b border-solid border-yellow-600 bg-yellow-200;
+    padding: 2px;
+    margin: 0 5px;
+}
 
-    /* 代码片断 */
-    pre,
-    pre tt {
-        font-family: Courier, 'Courier New', monospace;
-    }
+/* 代码片断 */
+.cn-typography pre,
+.cn-typography pre tt {
+    font-family: Courier, 'Courier New', monospace;
+}
 
-    pre {
-        overflow: auto;
-        padding: 0 1em;
-        border-radius: 1em;
-    }
-    /* 保证块/段落之间的空白隔行 */
-    p,
-    pre,
-    ul,
-    ol,
-    dl,
-    form,
-    hr,
-    table,
-    blockquote {
-        margin-bottom: 1.2em;
-    }
-    blockquote {
-        position: relative;
-        font-weight: 400;
-        padding-left: 1em;
-        margin: 1em 3em 1em 2em;
-        @apply border-l-4 border-solid border-slate-400 text-slate-400;
-    }
-    & :not(pre) code {
-        padding: 0.2em 0.4em;
-        margin: 0;
-        border-radius: 6px;
-        @apply bg-slate-100;
-    }
+.cn-typography pre {
+    overflow: auto;
+    padding: 0 1em;
+    border-radius: 1em;
+}
+/* 保证块/段落之间的空白隔行 */
+.cn-typography p,
+.cn-typography pre,
+.cn-typography ul,
+.cn-typography ol,
+.cn-typography dl,
+.cn-typography form,
+.cn-typography hr,
+.cn-typography table,
+.cn-typography blockquote {
+    margin-bottom: 1.2em;
+}
+.cn-typography blockquote {
+    position: relative;
+    font-weight: 400;
+    padding-left: 1em;
+    margin: 1em 3em 1em 2em;
+    @apply border-l-4 border-solid border-slate-400 text-slate-400;
+}
+.cn-typography :not(pre) code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    border-radius: 6px;
+    @apply bg-slate-100;
+}
 
-    /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-top: 1.2em;
-        margin-bottom: 0.6em;
-        line-height: 1.35;
-        font-weight: 400;
-    }
+/* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+.cn-typography h1,
+.cn-typography h2,
+.cn-typography h3,
+.cn-typography h4,
+.cn-typography h5,
+.cn-typography h6 {
+    margin-top: 1.2em;
+    margin-bottom: 0.6em;
+    line-height: 1.35;
+    font-weight: 400;
+}
 
-    h1 {
-        font-size: 2em;
-    }
+.cn-typography h1 {
+    font-size: 2em;
+}
 
-    h2 {
-        font-size: 1.8em;
-    }
+.cn-typography h2 {
+    font-size: 1.8em;
+}
 
-    h3 {
-        font-size: 1.6em;
-    }
+h3 {
+    font-size: 1.6em;
+}
 
-    h4 {
-        font-size: 1.4em;
-    }
+h4 {
+    font-size: 1.4em;
+}
 
-    h5,
-    h6 {
-        font-size: 1.2em;
-    }
+.cn-typography h5,
+.cn-typography h6 {
+    font-size: 1.2em;
+}
 
-    /* 在文章中，应该还原 ul 和 ol 的样式 */
-    ul {
-        margin-left: 1.3em;
-        list-style: disc;
-    }
+/* 在文章中，应该还原 ul 和 ol 的样式 */
+.cn-typography ul {
+    margin-left: 1.3em;
+    list-style: disc;
+}
 
-    ol {
-        list-style: decimal;
-        margin-left: 1.9em;
-    }
+.cn-typography ol {
+    list-style: decimal;
+    margin-left: 1.9em;
+}
 
-    li ul,
-    li ol {
-        margin-bottom: 0.8em;
-        margin-left: 2em;
-    }
+.cn-typography li ul,
+.cn-typography li ol {
+    margin-bottom: 0.8em;
+    margin-left: 2em;
+}
 
-    li ul {
-        list-style: circle;
-    }
+.cn-typography li ul {
+    list-style: circle;
+}
 
-    /* 同 ul/ol，在文章中应用 table 基本格式 */
-    table th,
-    table td,
-    table caption {
-        padding: 0.5em 1em;
+/* 同 ul/ol，在文章中应用 table 基本格式 */
+.cn-typography table th,
+.cn-typography table td,
+.cn-typography table caption {
+    padding: 0.5em 1em;
 
-        @apply border border-solid border-slate-700 text-slate-700;
-    }
+    @apply border border-solid border-slate-700 text-slate-700;
+}
 
-    table caption {
-        border-bottom: none;
-    }
+.cn-typography table caption {
+    border-bottom: none;
+}
 
-    /* 去除 webkit 中 input 和 textarea 的默认样式  */
-    input,
-    textarea {
-        appearance: none;
-        border-radius: 0;
-    }
+/* 去除 webkit 中 input 和 textarea 的默认样式  */
+.cn-typography input,
+.cn-typography textarea {
+    appearance: none;
+    border-radius: 0;
+}
 
-    em,
-    legend,
-    caption {
-        font-weight: inherit;
-    }
+.cn-typography em,
+.cn-typography legend,
+.cn-typography caption {
+    font-weight: inherit;
+}
 
-    /* 着重号，只能在少量（少于100个字符）且全是全角字符的情况下使用 */
-    em {
-        position: relative;
-        margin: 0 0.2em;
-    }
+/* 着重号，只能在少量（少于100个字符）且全是全角字符的情况下使用 */
+.cn-typography em {
+    position: relative;
+    margin: 0 0.2em;
+}
 
-    em:after {
-        position: absolute;
-        top: 0.65em;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        content: '・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・';
-    }
+.cn-typography em:after {
+    position: absolute;
+    top: 0.65em;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    content: '・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・';
+}
 
-    /* Responsive images */
-    img {
-        max-width: 100%;
-    }
-    & > p {
-        text-indent: 2em;
-        letter-spacing: 0.1em;
-        white-space: pre-wrap;
-    }
-    a {
-        margin: 0 0.1em;
-        @apply text-sky-500 hover:text-sky-400;
-    }
-    strong {
-        margin: 0 0.2em;
-    }
+/* Responsive images */
+.cn-typography img {
+    max-width: 100%;
+}
+.cn-typography > p {
+    text-indent: 2em;
+    letter-spacing: 0.1em;
+    white-space: pre-wrap;
+}
+.cn-typography a {
+    margin: 0 0.1em;
+    @apply text-sky-500 hover:text-sky-400;
+}
+.cn-typography strong {
+    margin: 0 0.2em;
 }
