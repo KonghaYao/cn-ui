@@ -1,6 +1,6 @@
 import { Component, JSX, JSXElement, Match, Switch } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
-type stringTag = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500';
+type stringTag = 'success' | 'error' | 'info' | 'warning' | '404' | '403' | '500' | 'loading';
 interface ResultProps extends Omit<BoxProps, 'icon'> {
     icon: stringTag | JSX.FunctionElement | JSX.ArrayElement;
 }
@@ -49,6 +49,18 @@ const CompMap = new Map<stringTag, JSXElement>([
                 name="info"
                 color="orange"
                 size={50}
+            ></DefaultIcon>
+        ),
+    ],
+    [
+        'loading',
+        () => (
+            <DefaultIcon
+                class="shadow-lg shadow-green-500/50"
+                name="autorenew"
+                color="green"
+                size={50}
+                spin
             ></DefaultIcon>
         ),
     ],

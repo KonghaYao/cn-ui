@@ -26,6 +26,14 @@ export default (props) => {
             </div>
             <div style={baseStyle}>
                 <Result
+                    class="bg-blue-50"
+                    icon="loading"
+                    title="加载中"
+                    subTitle="这是一些描述信息"
+                ></Result>
+            </div>
+            <div style={baseStyle}>
+                <Result
                     class="bg-red-50"
                     icon="error"
                     title="数据为空"
