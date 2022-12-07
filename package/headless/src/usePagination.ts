@@ -1,6 +1,6 @@
-import { atom, Atom } from './atom';
-import { reflect } from './atom';
-import { resource } from './resource';
+import { atom, Atom } from '@cn-ui/use/src/atom';
+import { reflect } from '@cn-ui/use/src/atom';
+import { resource } from '@cn-ui/use/src/resource';
 import { createEffect, createSignal } from 'solid-js';
 
 /** 逐页查询组件 */

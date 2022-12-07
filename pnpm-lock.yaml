@@ -9,6 +9,7 @@ importers:
       '@babel/preset-env': ^7.19.3
       '@cn-ui/command-palette': 'workspace:'
       '@cn-ui/cropper': 'workspace:'
+      '@cn-ui/headless': 'workspace:'
       '@cn-ui/highlight': 'workspace:'
       '@cn-ui/monaco': 'workspace:'
       '@cn-ui/sortable': 'workspace:'
@@ -63,6 +64,7 @@ importers:
     dependencies:
       '@cn-ui/command-palette': link:package/command-palette
       '@cn-ui/cropper': link:package/cropper
+      '@cn-ui/headless': link:package/headless
       '@cn-ui/highlight': link:package/highlight
       '@cn-ui/monaco': link:package/monaco
       '@cn-ui/sortable': link:package/sortable
@@ -163,6 +165,12 @@ importers:
       '@cn-ui/core': link:../..
       cropperjs: registry.npmmirror.com/cropperjs/1.5.12
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+    devDependencies:
+      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
+
+  package/headless:
+    specifiers:
+      fs-extra: ^10.1.0
     devDependencies:
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
 

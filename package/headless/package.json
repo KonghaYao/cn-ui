@@ -1,0 +1,31 @@
+{
+    "name": "@cn-ui/headless",
+    "version": "1.8.2",
+    "description": "",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "build": "vite build&& tsc",
+        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js",
+        "prepublish": "pnpm build"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "fs-extra": "^10.1.0"
+    },
+    "peerDependencies": {
+        "solid-js": "^1.5.7"
+    },
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ]
+}

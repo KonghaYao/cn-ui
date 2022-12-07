@@ -17,5 +17,5 @@
             "@cn-ui/core": ["./src/index"]
         }
     },
-    "include": ["src/**/*", "story/**/*"]
+    "include": ["src/**/*", "story/**/*", "package/headless/src/useStateManager.tsx", "package/headless/src/useStateManager.tsx"]
 }

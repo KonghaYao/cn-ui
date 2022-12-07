@@ -2,7 +2,7 @@ import { Accessor, createMemo, createSignal } from 'solid-js';
 import { Atom, atom } from './atom';
 export interface ResourceBase<T> {
     loading: Accessor<boolean>;
-    error: Accessor<Error | false>;
+    error: Accessor<Error>;
     isReady: Accessor<boolean>;
     refetch: () => Promise<boolean>;
     mutate: (data: T) => void;
