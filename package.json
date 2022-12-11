@@ -52,6 +52,7 @@
         "vite-plugin-solid": "^2.3.9"
     },
     "dependencies": {
+        "@cn-ui/password-score": "workspace:",
         "@cn-ui/command-palette": "workspace:",
         "@cn-ui/cropper": "workspace:",
         "@cn-ui/headless": "workspace:",

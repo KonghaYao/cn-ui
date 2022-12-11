@@ -13,7 +13,7 @@ export const Controller = [
 ];
 const getText = (url: string) => fetch(url).then((res) => res.text());
 import rehypeHighlight from 'rehype-highlight';
-import { useCodeStyle } from '@cn-ui/core';
+import { useCodeStyle } from '@cn-ui/highlight';
 import { resource } from '@cn-ui/use';
 
 export default (props) => {

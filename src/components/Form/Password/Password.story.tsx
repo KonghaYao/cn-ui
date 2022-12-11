@@ -6,7 +6,8 @@ const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
-import { Password, PasswordScore } from '@cn-ui/core';
+import { Password } from '@cn-ui/core';
+import { PasswordScore } from '@cn-ui/password-score';
 export default (props) => {
     return (
         <div>

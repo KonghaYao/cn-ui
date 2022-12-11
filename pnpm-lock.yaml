@@ -12,6 +12,7 @@ importers:
       '@cn-ui/headless': 'workspace:'
       '@cn-ui/highlight': 'workspace:'
       '@cn-ui/monaco': 'workspace:'
+      '@cn-ui/password-score': 'workspace:'
       '@cn-ui/sortable': 'workspace:'
       '@cn-ui/split': 'workspace:'
       '@cn-ui/swiper': 'workspace:'
@@ -67,6 +68,7 @@ importers:
       '@cn-ui/headless': link:package/headless
       '@cn-ui/highlight': link:package/highlight
       '@cn-ui/monaco': link:package/monaco
+      '@cn-ui/password-score': link:package/passoword-score
       '@cn-ui/sortable': link:package/sortable
       '@cn-ui/split': link:package/split
       '@cn-ui/swiper': link:package/swiper
@@ -198,10 +200,12 @@ importers:
 
   package/passoword-score:
     specifiers:
+      '@cn-ui/core': 'workspace:'
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
       zxcvbn: ^4.4.2
     dependencies:
+      '@cn-ui/core': link:../..
       lodash-es: registry.npmmirror.com/lodash-es/4.17.21
       zxcvbn: registry.npmmirror.com/zxcvbn/4.4.2
     devDependencies:
