@@ -3,18 +3,16 @@ import { Button } from '@cn-ui/core';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps } from './interface';
 import { TabsContext } from './Tabs';
-export interface TabsHeaderProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    tab?: (props: TabPaneProps, index: Accessor<number>) => JSXElement;
-    children?: JSXElement;
+export interface TabsHeaderProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
+    children?: (props: TabPaneProps, index: Accessor<number>) => JSXElement;
 }
 export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((props) => {
-    const { activeId, StateData } = useContext(TabsContext);
-    const isSelected = createSelector(activeId);
+    const { activeId, StateData, isSelected } = useContext(TabsContext);
     // TODO Tab 增删
     return (
         <div class={props.class('cn-tabs-header flex')}>
             <For each={StateData()}>
-                {props.tab ??
+                {props.children ??
                     ((data) => {
                         return (
                             <Button
@@ -28,7 +26,6 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                         );
                     })}
             </For>
-            {props.children}
         </div>
     );
 });

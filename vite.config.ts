@@ -18,14 +18,7 @@ export default defineConfig(({ mode }) => {
             },
         },
         optimizeDeps: {
-            include: [
-                'lodash-es',
-                'copy-to-clipboard',
-                'viewerjs',
-                '@vant/area-data',
-                'mitt',
-                'zxcvbn',
-            ],
+            include: ['lodash-es', 'copy-to-clipboard', '@vant/area-data', 'mitt'],
             exclude: ['@cn-ui/core'],
         },
     };

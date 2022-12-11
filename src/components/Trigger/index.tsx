@@ -10,10 +10,12 @@ export type TriggerProps = Omit<Partial<Props>, 'content'> & {
     children?: JSXElement;
 };
 import tippy, { Props } from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/animations/scale.css';
+import 'tippy.js/themes/light.css';
+import 'tippy.js/animations/perspective.css';
+import './trigger.css';
 const defaultProps = {
-    animation: 'scale',
+    animation: 'perspective',
+    theme: 'light',
 };
 /**
  * @zh Popup 层控制组件

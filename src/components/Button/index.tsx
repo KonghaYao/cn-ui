@@ -13,7 +13,7 @@ import {
 } from '@cn-ui/use';
 const defaultProps: ButtonProps = {
     color: 'blue',
-    size: 'normal',
+    size: 'mini',
 };
 import { Color, TextColor, SizeTrans } from './design';
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {

@@ -43,14 +43,13 @@ export const ControllerGenerator: Component<{}> = () => {
 
     return (
         <Tabs class="flex flex-col overflow-hidden border-t border-solid border-slate-300">
-            <TabsHeader class="items-center">
-                <span class="flex-1"></span>
+            <div class="flex justify-between">
+                <TabsHeader class="items-center"></TabsHeader>
                 <span class="mx-4">
                     <span class="px-2 font-thin">AutoRefresh</span>
                     <Switch value={autoRefresh}></Switch>
                 </span>
-            </TabsHeader>
-
+            </div>
             <Tab id="Props" class="flex-1 overflow-auto">
                 <div class="m-2 rounded-2xl bg-white">
                     <Show when={Controller().length}>

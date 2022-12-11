@@ -1,26 +1,23 @@
-import { createContext, mergeProps } from 'solid-js';
+import { Component, createContext, mergeProps } from 'solid-js';
 import { extendsEvent } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps, TabsProps } from './interface';
 import { useStateManager } from '@cn-ui/headless';
+export type TabsContextType = ReturnType<typeof useStateManager<{ id: string }>>
+export const TabsContext = createContext<TabsContextType>();
 
-export const TabsContext = createContext<ReturnType<typeof useStateManager<{ id: string }>>>();
-
-export const Tabs = OriginComponent<TabsProps, HTMLDivElement>((props) => {
+export const Tabs:Component<TabsProps> = ((props) => {
     return (
         <TabsContext.Provider
             value={useStateManager<{ id: string }>({
                 activeId: null,
             })}
         >
-            <div
-                ref={props.ref}
-                class={props.class('cn-tabs')}
-                style={props.style}
-                {...extendsEvent(props)}
-            >
+<div>
+
                 {props.children}
-            </div>
+</div>
+
         </TabsContext.Provider>
     );
 });

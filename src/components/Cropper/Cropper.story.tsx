@@ -1,5 +1,4 @@
 import { Atom, atom, reflect } from '@cn-ui/use';
-import '@cn-ui/cropper/dist/style.css';
 import { Cropper } from '@cn-ui/cropper';
 import { mockImages } from '../../mocks/images';
 export const Controller = [];
