@@ -6,7 +6,7 @@ import {
     AllowedCodeStyleNames,
     CodeStyleNames,
     useCodeStyle,
-} from '../../src/components/Code/useCodeStyle';
+} from '@cn-ui/highlight/src/useCodeStyle';
 import { atom } from '@cn-ui/use/src/index';
 import { lowlight } from '@cn-ui/highlight';
 import tsx from 'highlight.js/lib/languages/typescript';

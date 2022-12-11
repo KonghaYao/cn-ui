@@ -10,7 +10,6 @@ import {
     Show,
     Suspense,
 } from 'solid-js';
-import { AsyncComponent } from './AsyncComponent';
 import { Anime, AnimeProps } from '@cn-ui/transition';
 
 interface LazyLoadProps extends IntersectionObserverInit {

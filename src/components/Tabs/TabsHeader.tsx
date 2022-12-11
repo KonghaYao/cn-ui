@@ -10,7 +10,7 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
     const { activeId, StateData, isSelected } = useContext(TabsContext);
     // TODO Tab 增删
     return (
-        <div class={props.class('cn-tabs-header flex')}>
+        <div class={props.class('cn-tabs-header flex gap-2')}>
             <For each={StateData()}>
                 {props.children ??
                     ((data) => {

@@ -42,24 +42,26 @@ export const ControllerGenerator: Component<{}> = () => {
     });
 
     return (
-        <Tabs class="flex flex-col overflow-hidden border-t border-solid border-slate-300">
-            <div class="flex justify-between">
-                <TabsHeader class="items-center"></TabsHeader>
-                <span class="mx-4">
-                    <span class="px-2 font-thin">AutoRefresh</span>
-                    <Switch value={autoRefresh}></Switch>
-                </span>
-            </div>
-            <Tab id="Props" class="flex-1 overflow-auto">
-                <div class="m-2 rounded-2xl bg-white">
-                    <Show when={Controller().length}>
-                        <Form template={Controller()} value={val}></Form>
-                    </Show>
-
-                    <div class="h-4 w-full"></div>
+        <div class="flex flex-col overflow-hidden border-t border-solid border-slate-300">
+            <Tabs>
+                <div class="flex justify-between">
+                    <TabsHeader class="items-center"></TabsHeader>
+                    <span class="mx-4">
+                        <span class="px-2 font-thin">AutoRefresh</span>
+                        <Switch value={autoRefresh}></Switch>
+                    </span>
                 </div>
-            </Tab>
-            <CodePreview></CodePreview>
-        </Tabs>
+                <Tab id="Props" class="flex-1 overflow-auto">
+                    <div class="m-2 rounded-2xl bg-white">
+                        <Show when={Controller().length}>
+                            <Form template={Controller()} value={val}></Form>
+                        </Show>
+
+                        <div class="h-4 w-full"></div>
+                    </div>
+                </Tab>
+                <CodePreview></CodePreview>
+            </Tabs>
+        </div>
     );
 };
