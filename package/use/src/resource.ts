@@ -9,7 +9,10 @@ export interface ResourceBase<T> {
 }
 export interface ResourceAtom<T> extends ResourceBase<T>, Atom<T> {}
 
-/** 获取异步数据 */
+/**
+ * 安全获取异步数据并返回状态
+ * @description 在 Solid-js 中的 createResource 会导致重复请求问题，所以采用 resource 比较合适
+ */
 export const resource = <T>(
     fetcher: () => Promise<T>,
     initValue: T = null,

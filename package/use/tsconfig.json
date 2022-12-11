@@ -13,10 +13,5 @@
         "emitDeclarationOnly": true,
         "declarationDir": "./dist"
     },
-    "include": [
-        "src/**/*",
-        "story/**/*",
-        "../headless/src/usePagination.ts",
-        "../headless/src/usePagination.ts"
-    ]
+    "include": ["src/**/*", "story/**/*"]
 }

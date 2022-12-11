@@ -1,6 +1,14 @@
 import { Atom, atom, OriginComponent } from '@cn-ui/use';
 import { debounce } from 'lodash-es';
-import { children as getChildren, Component, JSXElement, lazy, onMount } from 'solid-js';
+import {
+    children as getChildren,
+    Component,
+    createEffect,
+    JSXElement,
+    lazy,
+    onMount,
+    Show,
+} from 'solid-js';
 import { AsyncComponent } from './AsyncComponent';
 import { Anime, AnimeProps } from '@cn-ui/transition';
 
@@ -25,21 +33,19 @@ export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) =
             visibleDebounce(entries.isIntersecting);
         }, props);
         observer.observe(ref);
-        props.once && observer.disconnect();
     });
+    props.once &&
+        createEffect(() => {
+            visible() && observer && observer.disconnect();
+        });
     return (
         <div class={props.class()} style={props.style} ref={ref!}>
             <Anime {...props.anime}>
-                {visible() ? (
-                    <AsyncComponent
-                        /** you will see Buttons after 1s  */
-                        load={props.load}
-                    >
+                <Show when={visible()} fallback={fallback}>
+                    <AsyncComponent load={props.load} fallback={fallback}>
                         {props.children}
                     </AsyncComponent>
-                ) : (
-                    fallback()
-                )}
+                </Show>
             </Anime>
         </div>
     );

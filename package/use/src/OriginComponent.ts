@@ -1,16 +1,16 @@
 import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
 import { classNames } from './classNames';
 
-export type OriginComponentType = <T, RefType = HTMLElement>(
-    comp: Component<
-        // 对内的类型注解
-        Omit<T, 'style' | 'class'> & {
-            ref?: RefType | ((el: RefType) => void);
-            style: JSX.CSSProperties;
-            class: typeof classNames;
-        }
-    >
-) => Component<
+/** OriginComponent 函数内部的输入参数修改 */
+export type OriginComponentInputType<T, RefType = HTMLElement> =
+    // 对内的类型注解
+    Omit<T, 'style' | 'class'> & {
+        ref?: RefType | ((el: RefType) => void);
+        style: JSX.CSSProperties;
+        class: typeof classNames;
+    };
+/** OriginComponent 函数封装的结果函数的入参 */
+export type OriginComponentOutputType<T, RefType = HTMLElement> =
     // 对外的类型注解
     Omit<T, 'style' | 'class'> & {
         ref?: RefType | ((el: RefType) => void);
@@ -18,8 +18,10 @@ export type OriginComponentType = <T, RefType = HTMLElement>(
         className?: string | string[] | typeof classNames;
         class?: string | string[] | typeof classNames;
         classList?: { [k: string]: boolean } | typeof classNames;
-    }
->;
+    };
+export type OriginComponentType = <T, RefType = HTMLElement>(
+    comp: Component<OriginComponentInputType<T, RefType>>
+) => Component<OriginComponentOutputType<T, RefType>>;
 export const OriginComponent: OriginComponentType = (comp) => {
     return (props) => {
         // 将 style 统一转化为对象结构

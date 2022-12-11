@@ -1,17 +1,7 @@
 // import React, { useState, useContext, forwardRef, CSSProperties } from 'react';
 
 import { TagProps } from './interface';
-import {
-    Component,
-    createEffect,
-    createMemo,
-    createResource,
-    createSignal,
-    Match,
-    mergeProps,
-    Show,
-    Switch,
-} from 'solid-js';
+import { createMemo, Match, mergeProps, Show, Switch } from 'solid-js';
 import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { Icon } from '@cn-ui/core';
 

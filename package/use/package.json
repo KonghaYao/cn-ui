@@ -9,7 +9,7 @@
         "dist"
     ],
     "scripts": {
-        "build": "vite build&& tsc",
+        "build": "vite build && tsc",
         "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js",
         "prepublish": "pnpm build"
     },

@@ -11,7 +11,6 @@ export interface MarkdownProps extends JSX.HTMLAttributes<HTMLDivElement> {
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
-import { createIgnoreFirst } from '@cn-ui/use/src';
 export const Markdown = OriginComponent<MarkdownProps>((props) => {
     const code = atomization(props.code ?? props.children);
     const text = atom('');

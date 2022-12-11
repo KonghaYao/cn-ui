@@ -53,8 +53,8 @@
     },
     "dependencies": {
         "@cn-ui/command-palette": "workspace:",
-        "@cn-ui/headless": "workspace:",
         "@cn-ui/cropper": "workspace:",
+        "@cn-ui/headless": "workspace:",
         "@cn-ui/highlight": "workspace:",
         "@cn-ui/monaco": "workspace:",
         "@cn-ui/sortable": "workspace:",
