@@ -21,3 +21,19 @@ export const AS = function <T>(props: ASProps<T>) {
         </Switch>
     );
 };
+
+/** 创建 Template 函数，只需要输入默认的组件即可创建异步组件 */
+export function createAC(Default: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>) {
+    return function <T>(
+        props: Partial<Omit<ASProps<T>, 'resource'>> & { resource: ResourceAtom<T> }
+    ) {
+        return (
+            <AS
+                resource={props.resource}
+                loading={props.loading ?? Default.loading}
+                error={props.error ?? Default.error}
+                children={props.children ?? Default.children}
+            ></AS>
+        );
+    };
+}

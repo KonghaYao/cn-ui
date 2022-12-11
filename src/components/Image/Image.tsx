@@ -58,7 +58,7 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
             <Switch>
                 <Match when={props.showLoading && loading()}>
                     <Box
-                        icon={<Icon name="refresh" spin size={props.iconSize}></Icon>}
+                        icon={<Icon name="refresh" size={props.iconSize}></Icon>}
                         subTitle="加载中"
                     ></Box>
                 </Match>

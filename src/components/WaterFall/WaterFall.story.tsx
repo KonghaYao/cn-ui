@@ -14,11 +14,14 @@ export default (props) => {
                 return (
                     <LazyLoad
                         class="w-full"
-                        fallback={<div class="h-screen w-full">不可视状态</div>}
+                        style={{
+                            'aspect-ratio': `${item.width}/${item.height}`,
+                        }}
+                        fallback={<div class="h-screen w-full">暂时不显示</div>}
+                        loading={<div>加载中。。。</div>}
                         threshold={[0.3, 1]}
                         // Async Loading
-                        load={async () => ({ default: () => <Image src={item.src} /> })}
-                        loading={<div>加载中</div>}
+                        load={async () => () => <Image src={item.src} />}
                         // combine Anime Component
                         anime={{
                             in: 'fadeInLeft',

@@ -1,4 +1,4 @@
-import { Atom, atom, OriginComponent } from '@cn-ui/use';
+import { Atom, atom, OriginComponent, resource } from '@cn-ui/use';
 import { debounce } from 'lodash-es';
 import {
     children as getChildren,
@@ -8,6 +8,7 @@ import {
     lazy,
     onMount,
     Show,
+    Suspense,
 } from 'solid-js';
 import { AsyncComponent } from './AsyncComponent';
 import { Anime, AnimeProps } from '@cn-ui/transition';
@@ -15,11 +16,12 @@ import { Anime, AnimeProps } from '@cn-ui/transition';
 interface LazyLoadProps extends IntersectionObserverInit {
     fallback?: JSXElement;
     children?: JSXElement;
-    load: Parameters<typeof lazy>[0];
+    load: () => Promise<Component>;
     loading?: JSXElement;
     anime?: AnimeProps;
     once?: boolean;
 }
+
 export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) => {
     const fallback = getChildren(() => props.fallback);
     const visible = atom(false);
@@ -39,12 +41,14 @@ export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) =
             visible() && observer && observer.disconnect();
         });
     return (
-        <div class={props.class()} style={props.style} ref={ref!}>
+        <div class={props.class()} style={props.style} ref={ref}>
             <Anime {...props.anime}>
                 <Show when={visible()} fallback={fallback}>
-                    <AsyncComponent load={props.load} fallback={fallback}>
-                        {props.children}
-                    </AsyncComponent>
+                    <Suspense fallback={props.loading}>
+                        {lazy(async () => {
+                            return { default: await props.load() };
+                        })({})}
+                    </Suspense>
                 </Show>
             </Anime>
         </div>
