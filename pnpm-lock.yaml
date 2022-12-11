@@ -172,7 +172,10 @@ importers:
 
   package/headless:
     specifiers:
+      '@cn-ui/use': workspace:^1.8.4
       fs-extra: ^10.1.0
+    dependencies:
+      '@cn-ui/use': link:../use
     devDependencies:
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
 
