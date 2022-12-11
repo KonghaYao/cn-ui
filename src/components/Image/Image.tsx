@@ -1,10 +1,12 @@
-import { JSX, JSXElement, Match, mergeProps, Switch } from 'solid-js';
-import { atom } from '@cn-ui/use';
+import { JSX, JSXElement, mergeProps } from 'solid-js';
+
 import { Icon } from '@cn-ui/core';
 import { Box } from '@cn-ui/core';
 import './style/index.css';
 import { OriginComponent } from '@cn-ui/use';
 import { extendsEvent } from '@cn-ui/use';
+import { createAC } from '@cn-ui/headless';
+import { resource } from '@cn-ui/use/src';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
@@ -23,9 +25,32 @@ export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {
     showLoading?: boolean;
     errorIcon?: JSXElement;
     loadingIcon?: JSXElement;
+    AC?: ReturnType<typeof createAC>;
 }
 
 export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
+    const AC =
+        props.AC ??
+        createAC({
+            loading() {
+                return (
+                    <Box
+                        class="h-full w-full"
+                        icon={<Icon name="refresh" size={props.iconSize}></Icon>}
+                        subTitle="加载中"
+                    ></Box>
+                );
+            },
+            error() {
+                return (
+                    <Box
+                        class="h-full w-full"
+                        icon={<Icon name="error" size={props.iconSize}></Icon>}
+                        subTitle="图片加载错误"
+                    ></Box>
+                );
+            },
+        });
     props = mergeProps(
         {
             alt: 'This is an Image',
@@ -36,16 +61,24 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
         },
         props
     );
-    const error = atom(false);
-    const loading = atom(true);
+    const loadAtom = resource(() => {
+        return new Promise((res, rej) => {
+            const img = new window.Image();
+            img.src = props.src;
+            img.onload = () => {
+                res(null);
+            };
+            img.onerror = (err) => rej;
+        });
+    });
     return (
         <span
             ref={props.ref}
             class={props.class('cn-image align-bottom')}
             classList={{
                 round: props.round,
-                loading: loading(),
-                error: error(),
+                loading: loadAtom.loading(),
+                error: !!loadAtom.error(),
             }}
             style={{
                 display: props.block ? 'block' : 'inline-block',
@@ -55,37 +88,21 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
             }}
             {...extendsEvent(props)}
         >
-            <Switch>
-                <Match when={props.showLoading && loading()}>
-                    <Box
-                        icon={<Icon name="refresh" size={props.iconSize}></Icon>}
-                        subTitle="加载中"
-                    ></Box>
-                </Match>
-                <Match when={props.showError && error()}>
-                    <Box
-                        icon={<Icon name="error" size={props.iconSize}></Icon>}
-                        subTitle="图片加载错误"
-                    ></Box>
-                </Match>
-            </Switch>
-
-            {!error() && (
-                <img
-                    loading="lazy"
-                    class="m-auto h-full "
-                    src={props.src}
-                    style={{
-                        'object-fit': props.fit,
-                        'object-position': props.position,
-                    }}
-                    onLoad={() => loading(false)}
-                    onError={() => {
-                        loading(false);
-                        error(true);
-                    }}
-                />
-            )}
+            <AC resource={loadAtom}>
+                {() => {
+                    return (
+                        <img
+                            loading="lazy"
+                            class="m-auto h-full "
+                            src={props.src}
+                            style={{
+                                'object-fit': props.fit,
+                                'object-position': props.position,
+                            }}
+                        />
+                    );
+                }}
+            </AC>
         </span>
     );
 });

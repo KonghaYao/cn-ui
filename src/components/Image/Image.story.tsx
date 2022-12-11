@@ -27,7 +27,6 @@ export const Controller = [
     },
 ];
 import { useViewer } from '@cn-ui/viewer';
-import '@cn-ui/viewer/dist/style.css';
 export default (props) => {
     const { getViewer, addImages } = useViewer({});
     const img = 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg';

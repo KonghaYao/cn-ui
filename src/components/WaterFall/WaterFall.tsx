@@ -2,7 +2,6 @@ import {
     Atom,
     atomization,
     OriginComponentInputType,
-    OriginComponentOutputType,
     extendsEvent,
     OriginComponent,
     reflect,
