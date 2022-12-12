@@ -13,7 +13,7 @@ interface UploaderListProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'ch
     ) => JSXElement;
 }
 export const UploadList = OriginComponent<UploaderListProps>((props) => {
-    const { Files } = useContext(UploaderContext);
+    const { Files, uploadControl } = useContext(UploaderContext);
     return (
         <div
             class={props.class('flex flex-col')}
@@ -23,7 +23,6 @@ export const UploadList = OriginComponent<UploaderListProps>((props) => {
         >
             <For each={Files()}>
                 {(file) => {
-                    const { uploadControl } = useContext(UploaderContext);
                     const progress = reflect(() => uploadControl.getNotice(file.sha));
 
                     return (props.children ?? DefaultUploadList)(file, progress, uploadControl);

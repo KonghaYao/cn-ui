@@ -159,7 +159,7 @@ importers:
 
   package/cropper:
     specifiers:
-      '@cn-ui/core': workspace:^0.1.7
+      '@cn-ui/core': 'workspace:'
       cropperjs: 1.5.12
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
