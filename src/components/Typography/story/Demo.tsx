@@ -18,8 +18,12 @@ h5,h6{font-size:1em;}
 
 export const Demo = () => (
     <>
+        <img
+            src="https://camo.githubusercontent.com/e6dc854d8e69f42fa3fbf9881d73dc5325810951579658bc7fd54c283a176169/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f6b6f6e67686179616f2f61692d7461672f6173736574732f6865616465722e706e67"
+            alt=""
+        />
         <h1>
-            中文网页重设与排版：<i class="serif">Typo.css</i>
+            中文网页重设与排版样例：<i class="serif">CNUI</i>
         </h1>
 
         <h6 id="tagline" class="serif">

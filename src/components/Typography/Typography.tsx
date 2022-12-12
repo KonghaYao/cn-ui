@@ -7,7 +7,7 @@ import './style/index.css';
  */
 export const Typography = OriginComponent<TypographyProps>((props) => {
     return (
-        <div class="cn-typography-wrapper">
+        <div class="box-border flex w-full flex-col items-center overflow-auto whitespace-normal">
             {/*  外扩一层保证内层可以响应式居中 */}
             <article
                 ref={props.ref}

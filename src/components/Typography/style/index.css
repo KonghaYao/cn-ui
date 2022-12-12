@@ -1,46 +1,34 @@
-.cn-typography-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    overflow: auto;
-    white-space: normal;
+.cn-typography ::-webkit-scrollbar {
+    @apply h-2 w-2;
 }
-.cn-typography {
-    width: 100%;
 
-    margin-top: 24px;
-    padding: 48px;
-    border-radius: 2px 2px 0 0;
+.cn-typography ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300;
+}
+
+.cn-typography ::-webkit-scrollbar-track-piece {
+    @apply bg-transparent;
+}
+
+.cn-typography {
     font-family: var(--default-font);
-    font-weight: 100;
-    box-sizing: border-box;
-    @apply text-slate-800;
+    @apply box-border w-full px-8 pb-12 font-thin text-slate-800;
     /* 默认不显示下划线，保持页面简洁 */
 }
 .cn-typography ins,
 .cn-typography a {
-    display: inline-block;
-    text-decoration: none;
+    @apply underline underline-offset-2;
 }
 
 /* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
-* 要做到更好，向后兼容的话，添加 class="typo-u" 来显示专名号
-* 关于 <u> 标签：http://www.whatwg.org/specs/web-apps/current-work/multipage/text-level-semantics.html#the-u-element
-* 被放弃的是 4，之前一直搞错 http://www.w3.org/TR/html401/appendix/changes.html#idx-deprecated
-* 一篇关于 <u> 标签的很好文章：http://html5doctor.com/u-element/
 */
 .cn-typography u {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+    @apply underline underline-offset-2;
 }
 
 /* 标记，类似于手写的荧光笔的作用 */
 .cn-typography mark {
-    @apply border-b border-solid border-yellow-600 bg-yellow-200;
-    padding: 2px;
-    margin: 0 5px;
+    @apply mx-4  bg-yellow-200 px-0.5;
 }
 
 /* 代码片断 */
@@ -50,9 +38,7 @@
 }
 
 .cn-typography pre {
-    overflow: auto;
-    padding: 0 1em;
-    border-radius: 1em;
+    @apply overflow-auto rounded-2xl px-4;
 }
 /* 保证块/段落之间的空白隔行 */
 .cn-typography p,
@@ -61,23 +47,24 @@
 .cn-typography ol,
 .cn-typography dl,
 .cn-typography form,
-.cn-typography hr,
 .cn-typography table,
 .cn-typography blockquote {
-    margin-bottom: 1.2em;
+    /* 因为文章上面可能有 header 所以不适合加上边框 */
+    @apply mb-4;
+}
+
+.cn-typography p {
+    @apply text-justify;
+}
+
+.cn-typography hr {
+    @apply my-2;
 }
 .cn-typography blockquote {
-    position: relative;
-    font-weight: 400;
-    padding-left: 1em;
-    margin: 1em 3em 1em 2em;
-    @apply border-l-4 border-solid border-slate-400 text-slate-400;
+    @apply relative mx-4 my-2 border-l-4 border-solid border-slate-400 pl-4 font-normal text-slate-400;
 }
 .cn-typography :not(pre) code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    border-radius: 6px;
-    @apply bg-slate-100;
+    @apply mx-1 my-2 rounded-md bg-slate-100 px-1;
 }
 
 /* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
@@ -87,72 +74,69 @@
 .cn-typography h4,
 .cn-typography h5,
 .cn-typography h6 {
-    margin-top: 1.2em;
-    margin-bottom: 0.6em;
-    line-height: 1.35;
-    font-weight: 400;
+    @apply mb-[0.6em] mt-[1.2em] font-normal leading-snug;
 }
 
 .cn-typography h1 {
-    font-size: 2em;
+    @apply text-3xl;
 }
-
 .cn-typography h2 {
-    font-size: 1.8em;
+    @apply text-2xl;
 }
 
-h3 {
-    font-size: 1.6em;
+.cn-typography h3 {
+    @apply text-xl;
 }
 
-h4 {
-    font-size: 1.4em;
+.cn-typography h4 {
+    @apply text-lg;
 }
 
-.cn-typography h5,
+.cn-typography h5 {
+    @apply text-sm;
+}
+
 .cn-typography h6 {
-    font-size: 1.2em;
+    @apply text-xs;
 }
-
-/* 在文章中，应该还原 ul 和 ol 的样式 */
 .cn-typography ul {
-    margin-left: 1.3em;
-    list-style: disc;
+    /*  ul 和 ol 在默认表现下会有一定的左距离，所以需要 6 来保证序列标记在第一个字 */
+    @apply ml-6 list-disc;
 }
 
 .cn-typography ol {
-    list-style: decimal;
-    margin-left: 1.9em;
+    @apply ml-6 list-decimal;
 }
 
 .cn-typography li ul,
 .cn-typography li ol {
-    margin-bottom: 0.8em;
-    margin-left: 2em;
+    @apply ml-8 mb-3;
 }
 
 .cn-typography li ul {
     list-style: circle;
+    @apply list-[circle];
+}
+
+.cn-typography table {
+    @apply block w-[max-content] max-w-[100%] overflow-auto;
 }
 
 /* 同 ul/ol，在文章中应用 table 基本格式 */
 .cn-typography table th,
 .cn-typography table td,
 .cn-typography table caption {
-    padding: 0.5em 1em;
-
-    @apply border border-solid border-slate-700 text-slate-700;
+    @apply border border-solid border-slate-700 px-2 py-4 text-slate-700;
 }
 
 .cn-typography table caption {
-    border-bottom: none;
+    @apply border-b-0;
 }
 
 /* 去除 webkit 中 input 和 textarea 的默认样式  */
 .cn-typography input,
 .cn-typography textarea {
-    appearance: none;
-    border-radius: 0;
+    @apply appearance-none rounded-none;
 }
 
 .cn-typography em,
@@ -163,33 +147,25 @@ h4 {
 
 /* 着重号，只能在少量（少于100个字符）且全是全角字符的情况下使用 */
 .cn-typography em {
-    position: relative;
-    margin: 0 0.2em;
+    @apply relative mx-1;
 }
-
 .cn-typography em:after {
-    position: absolute;
-    top: 0.65em;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
     content: '・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・';
+    @apply absolute top-2 left-0 w-full overflow-hidden whitespace-nowrap;
 }
-
+.cn-typography abbr {
+    @apply underline-offset-4;
+}
 /* Responsive images */
 .cn-typography img {
-    max-width: 100%;
+    @apply max-w-[100%];
 }
 .cn-typography > p {
-    text-indent: 2em;
-    letter-spacing: 0.1em;
-    white-space: pre-wrap;
+    @apply whitespace-pre-wrap indent-[2em] leading-normal;
 }
 .cn-typography a {
-    margin: 0 0.1em;
     @apply text-sky-500 hover:text-sky-400;
 }
 .cn-typography strong {
-    margin: 0 0.2em;
+    @apply mx-1;
 }
