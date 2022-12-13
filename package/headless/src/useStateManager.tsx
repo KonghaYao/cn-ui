@@ -1,7 +1,7 @@
 import { createEffect, createSelector } from 'solid-js';
 import { Atom, atom, atomization } from '@cn-ui/use';
 
-/** 状态中心函数, 一般用于 tabs 页的逻辑，切换目标的状态 */
+/** 单一状态中心函数, 一般用于 tabs 页的逻辑，切换目标的状态，状态必定唯一 */
 export const useStateManager = function <T>(props: {
     activeId: Atom<string> | string;
     getId?: (data: T) => boolean;

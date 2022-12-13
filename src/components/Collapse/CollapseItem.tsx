@@ -1,32 +1,16 @@
-import { mergeProps, onCleanup, onMount, Show, useContext } from 'solid-js';
+import { createMemo, mergeProps, onCleanup, onMount, Show, useContext } from 'solid-js';
 import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { CollapseItemProps } from './interface';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '@cn-ui/use';
-import { CollapseContext } from './Controller';
+import { CollapseContext } from './Collapse';
 import { Icon } from '@cn-ui/core';
 
 export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((props) => {
-    const ctx = useContext(CollapseContext);
-    props = mergeProps({}, props);
-    const isExpanded = props.value ?? atom(false);
-
-    // 移交 Expanded 的控制权
-    onMount(() => {
-        ctx.CommitController((val) => ({
-            ...val,
-            [props.name]: isExpanded, // 强制注入
-        }));
-    });
-    onCleanup(() => {
-        ctx.CommitController((val) => {
-            delete val[props.name];
-            return val;
-        });
-    });
-
+    const { destroyOnHide, lazyload, isSelected, changeSelected } = useContext(CollapseContext);
+    const isExpanded = createMemo(() => isSelected(props.id));
     const Content = () => {
-        return <Show when={!ctx.destroyOnHide || isExpanded()}>{props.children}</Show>;
+        return <Show when={!destroyOnHide() || isExpanded()}>{props.children}</Show>;
     };
     const control = useEventController({});
     return (
@@ -43,9 +27,7 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
                 class="cn-collapse-summary cursor-pointer select-none px-4 py-3 leading-none active:backdrop-brightness-90 "
                 onClick={control([
                     (e) => {
-                        const state = !isExpanded();
-                        // isExpanded(state);
-                        ctx.onToggle(props.name, state, e);
+                        changeSelected(props.id);
                     },
                     emitEvent(props.onTrigger, ([e]) => [props.name, isExpanded(), e] as const),
                 ])}
@@ -65,9 +47,8 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
                     show: isExpanded(),
                     hide: !isExpanded(),
                 }}
-                style={props.contentStyle}
             >
-                {ctx.lazyload ? (
+                {lazyload() ? (
                     <CancelFirstRender trigger={isExpanded}>
                         <Content></Content>
                     </CancelFirstRender>

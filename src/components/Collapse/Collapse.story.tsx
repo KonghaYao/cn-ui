@@ -49,6 +49,7 @@ export default (props) => {
                         {(item) => {
                             return (
                                 <CollapseItem
+                                    id={item.name}
                                     header={item.label}
                                     name={item.name}
                                     value={item.value}

@@ -35,15 +35,8 @@ export interface CollapseProps extends JSX.HTMLAttributes<HTMLDivElement> {
  * @title Collapse.Item
  */
 export interface CollapseItemProps extends JSX.HTMLAttributes<HTMLElement> {
+    id: string;
     children: JSXElement;
-    style?: JSX.CSSProperties;
-    className?: string | string[];
-    /**
-     * @zh 内容区域的附加样式。
-     * @en Additional styles of the content area.
-     * @version 2.15.0
-     */
-    contentStyle?: JSX.CSSProperties;
     /**
      * @zh 折叠面板头部内容，允许自定义
      * @en Header content
