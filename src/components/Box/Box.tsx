@@ -16,7 +16,7 @@ export const Box = OriginComponent<BoxProps, HTMLDivElement>((props) => {
         <div
             ref={props.ref}
             class={props.class(
-                'cn-box box-border flex h-full flex-col items-center justify-center'
+                'w-full box-border flex h-full flex-col items-center justify-center'
             )}
             style={props.style}
             {...extendsEvent(props)}

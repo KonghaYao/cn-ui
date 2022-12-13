@@ -56,9 +56,9 @@ const CompMap = new Map<stringTag, JSXElement>([
         'loading',
         () => (
             <DefaultIcon
-                class="shadow-lg shadow-green-500/50"
+                class="shadow-lg shadow-gray-500/50"
                 name="autorenew"
-                color="green"
+                color="gray"
                 size={50}
                 spin
             ></DefaultIcon>

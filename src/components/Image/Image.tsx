@@ -44,8 +44,8 @@ export const Image = OriginComponent<ImageProps, HTMLDivElement>((props) => {
             error() {
                 return (
                     <Box
-                        class="h-full w-full"
-                        icon={<Icon name="error" size={props.iconSize}></Icon>}
+                        class="h-full w-full min-w-fit"
+                        icon={<Icon name="picture_as_pdf" size={props.iconSize}></Icon>}
                         subTitle="图片加载错误"
                     ></Box>
                 );
