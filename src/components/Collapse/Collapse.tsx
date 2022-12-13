@@ -1,7 +1,7 @@
 import { Atom, atom, OriginComponentInputType, reflect } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import './style/index.css';
-import { useMultiSelect } from './useMultiSelect';
+import { useSelect } from '@cn-ui/headless';
 import { createContext, createEffect, JSX, JSXElement, on } from 'solid-js';
 import { atomization } from '@cn-ui/use';
 export const CollapseContext = createContext<
@@ -9,7 +9,7 @@ export const CollapseContext = createContext<
         accordion: Atom<boolean>;
         lazyload: Atom<boolean>;
         destroyOnHide: Atom<boolean>;
-    } & ReturnType<typeof useMultiSelect>
+    } & ReturnType<typeof useSelect>
 >();
 
 /**
@@ -47,7 +47,7 @@ export const Collapse = OriginComponent(function <T>(
 ) {
     const activeIds = atomization(props.activeIds ?? []);
     const accordion = atomization(props.accordion);
-    const multiControl = useMultiSelect({
+    const multiControl = useSelect({
         activeIds,
         multi: reflect(() => !accordion()),
     });
@@ -67,36 +67,3 @@ export const Collapse = OriginComponent(function <T>(
         </CollapseContext.Provider>
     );
 });
-
-// export const Collapse = OriginComponent<CollapseProps, HTMLDivElement>((props) => {
-//     const [controllers, CommitController] = createSignal<Controller>({}, { equals: false });
-//     return (
-//         <CollapseContext.Provider
-//             value={{
-//                 CommitController,
-//                 lazyload: props.lazyload,
-//                 destroyOnHide: props.destroyOnHide,
-//                 onToggle: (key, state, e) => {
-//                     const c = controllers();
-//                     if (props.accordion && state) {
-//                         Object.entries(c).forEach(([name, toggle]) => {
-//                             toggle(key === name);
-//                         });
-//                     } else {
-//                         c[key](state);
-//                     }
-//                     props.onPanelChange && props.onPanelChange(key, e);
-//                 },
-//             }}
-//         >
-//             <div
-//                 class={props.class('cn-collapse w-full')}
-//                 style={props.style}
-//                 ref={props.ref}
-//                 {...extendsEvent(props)}
-//             >
-//                 {props.children}
-//             </div>
-//         </CollapseContext.Provider>
-//     );
-// });

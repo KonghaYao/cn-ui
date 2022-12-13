@@ -1,18 +1,35 @@
-import { Component, createContext } from 'solid-js';
+import { Component, createContext, createMemo } from 'solid-js';
 
-import {  TabsProps } from './interface';
-import { useStateManager } from '@cn-ui/headless';
-export type TabsContextType = ReturnType<typeof useStateManager<{ id: string }>>
+import { TabsProps } from './interface';
+import { useSelect } from '@cn-ui/headless';
+import { atom, atomization, reflect } from '@cn-ui/use';
+export type TabsContextType = ReturnType<typeof useSelect> & ReturnType<typeof useTabsControl>;
 export const TabsContext = createContext<TabsContextType>();
 
-export const Tabs:Component<TabsProps> = ((props) => {
+/** 提供 Tabs 的名称管理 */
+export function useTabsControl() {
+    const TabNames = atom<string[]>([]);
+    return {
+        register(id: string) {
+            TabNames((i) => [...new Set([...i, id])]);
+        },
+        TabNames,
+    };
+}
+
+export const Tabs: Component<TabsProps> = (props) => {
+    const activeId = atomization(props.activeId);
     return (
         <TabsContext.Provider
-            value={useStateManager<{ id: string }>({
-                activeId: null,
-            })}
+            value={{
+                ...useSelect({
+                    activeIds: reflect(() => [activeId()]),
+                    multi: atom(false),
+                }),
+                ...useTabsControl(),
+            }}
         >
-                {props.children}
+            {props.children}
         </TabsContext.Provider>
     );
-});
+};

@@ -1,7 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
 import { Atom } from '@cn-ui/use';
-type CSSProperties = JSX.CSSProperties;
-// import TabHeader from './tab-header/index';
 
 /**
  * @title Tabs

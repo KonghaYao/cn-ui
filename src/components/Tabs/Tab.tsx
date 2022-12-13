@@ -1,18 +1,11 @@
-import { createMemo, mergeProps, Show, useContext } from 'solid-js';
+import { createMemo, mergeProps, onMount, Show, useContext } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps } from './interface';
 import { TabsContext } from './Tabs';
 
 export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
     const { register, isSelected } = useContext(TabsContext);
-    props = mergeProps(
-        {
-            destroyOnHide: true,
-        },
-        props
-    );
-    register(props as any);
-
+    register(props.id);
     const show = createMemo(() => {
         if (!props.destroyOnHide) return true;
         return props.destroyOnHide && isSelected(props.id);

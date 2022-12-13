@@ -16,14 +16,10 @@ export default (props) => {
     return (
         <>
             {/* TODO Check */}
-            <Tabs>
+            <Tabs activeId={'1'}>
                 <div class="ExtraNode">
                     {/* 可以自定义表头, 原始是没有表头的 */}
-                    <TabsHeader>
-                        {(item) => {
-                            return <Button>{item.id}</Button>;
-                        }}
-                    </TabsHeader>
+                    <TabsHeader></TabsHeader>
                     {/* 使用动画，但是动画只有在组件销毁时触发 */}
                     {/* 可以深层嵌套使用 */}
                     <div class="ExtraNode">

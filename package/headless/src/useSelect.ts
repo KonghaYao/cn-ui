@@ -2,10 +2,7 @@ import { Atom, atomization, reflect } from '@cn-ui/use';
 import { createEffect } from 'solid-js';
 
 /** 多选状态管理 */
-export const useMultiSelect = function (props: {
-    activeIds: Atom<string[]>;
-    multi?: Atom<boolean>;
-}) {
+export const useSelect = function (props: { activeIds: Atom<string[]>; multi?: Atom<boolean> }) {
     const multi = atomization(props.multi ?? true);
     const activeIds = reflect(() => new Set(props.activeIds()));
     createEffect(() => {
