@@ -78,31 +78,31 @@ export class Message {
     static success(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'success',
-            icon: () => DefaultIcon({ name: 'check_circle', color: 'green' }),
+            icon: () => DefaultIcon({ name: 'check', color: 'green' }),
         });
     }
     static loading(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'loading',
-            icon: () => DefaultIcon({ name: 'refresh', color: 'gray', spin: true }),
+            icon: () => DefaultIcon({ name: 'autorenew', color: 'gray', spin: true }),
         });
     }
     static info(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'info',
-            icon: () => DefaultIcon({ name: 'info', color: 'blue' }),
+            icon: () => DefaultIcon({ name: 'priority_high', color: 'blue' }),
         });
     }
     static warning(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'warning',
-            icon: () => DefaultIcon({ name: 'warning_amber', color: 'orange' }),
+            icon: () => DefaultIcon({ name: 'priority_high', color: 'orange' }),
         });
     }
     static error(config: MessageData | string) {
         return sendMessage(config, Message.DefaultConfig, {
             type: 'error',
-            icon: () => DefaultIcon({ name: 'error', color: 'red' }),
+            icon: () => DefaultIcon({ name: 'close', color: 'red' }),
         });
     }
     static normal(config: MessageData | string) {

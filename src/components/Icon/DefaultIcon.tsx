@@ -1,27 +1,30 @@
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
-import { Component, createMemo, JSX } from 'solid-js';
+import { createMemo } from 'solid-js';
 import { Gradient } from '../_util/design';
 import { Icon } from './Icon';
 import { IconProps } from './interface';
 
 export interface DefaultIconProps extends IconProps {
     color: keyof typeof Gradient;
+    iconClass?: string;
 }
 export const DefaultIcon = OriginComponent<DefaultIconProps>((props) => {
-    const fontSize = createMemo(() => {
-        return typeof props.size === 'number' ? props.size + 'px' : props.size;
-    });
     return (
-        <span
+        <div
             class={props.class(
-                'cn-icon-wrapper inline-flex h-[1.5em] w-[1.5em] cursor-pointer items-center justify-center rounded-full bg-gradient-to-b p-2',
+                'cn-icon-wrapper  block cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gradient-to-b',
                 Gradient[props.color]
             )}
-            style={{ ...props.style, 'font-size': fontSize() }}
+            style={{ ...props.style }}
             ref={props.ref}
             {...extendsEvent(props)}
         >
-            <Icon name={props.name} size={props.size} spin={props.spin}></Icon>
-        </span>
+            <Icon
+                class={props.iconClass}
+                name={props.name}
+                size={props.size}
+                spin={props.spin}
+            ></Icon>
+        </div>
     );
 });

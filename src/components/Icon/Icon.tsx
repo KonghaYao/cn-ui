@@ -8,19 +8,19 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
         return typeof props.size === 'number' ? props.size + 'px' : props.size;
     });
     return (
-        <nav
+        <div
             ref={props.ref}
             class={props.class(
-                'cn-icon-font inline-flex origin-center select-none items-center justify-center align-bottom',
+                'cn-icon-font flex flex-none origin-center select-none items-center justify-center align-bottom',
                 {
                     spin: props.spin ?? false,
                 }
             )}
-            style={{ ...props.style, 'font-size': fontSize() }}
+            style={{ 'line-height': '1em', ...props.style, 'font-size': fontSize() }}
             {...extendsEvent(props)}
         >
             {props.name}
             {props.children}
-        </nav>
+        </div>
     );
 });

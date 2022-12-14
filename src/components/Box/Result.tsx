@@ -13,8 +13,9 @@ const CompMap = new Map<stringTag, JSXElement>([
         'success',
         () => (
             <DefaultIcon
+                iconClass="m-2"
                 class={'shadow-lg shadow-green-500/50 ' + Gradient.green}
-                name="check_circle"
+                name="check"
                 color="green"
                 size={50}
             ></DefaultIcon>
@@ -24,6 +25,7 @@ const CompMap = new Map<stringTag, JSXElement>([
         'error',
         () => (
             <DefaultIcon
+                iconClass="m-2"
                 class="shadow-lg shadow-red-500/50"
                 name="close"
                 color="red"
@@ -35,8 +37,9 @@ const CompMap = new Map<stringTag, JSXElement>([
         'info',
         () => (
             <DefaultIcon
+                iconClass="m-2"
                 class="shadow-lg shadow-blue-500/50"
-                name="info"
+                name="priority_high"
                 color="blue"
                 size={50}
             ></DefaultIcon>
@@ -46,8 +49,9 @@ const CompMap = new Map<stringTag, JSXElement>([
         'warning',
         () => (
             <DefaultIcon
+                iconClass="m-2"
                 class="shadow-lg shadow-orange-500/50"
-                name="info"
+                name="priority_high"
                 color="orange"
                 size={50}
             ></DefaultIcon>
@@ -57,6 +61,7 @@ const CompMap = new Map<stringTag, JSXElement>([
         'loading',
         () => (
             <DefaultIcon
+                iconClass="m-2"
                 class="shadow-lg shadow-gray-500/50"
                 name="autorenew"
                 color="gray"

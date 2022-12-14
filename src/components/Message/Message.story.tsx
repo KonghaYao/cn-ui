@@ -21,5 +21,5 @@ export default (props) => {
             </Button>
         );
     });
-    return <>{Content}</>;
+    return <div class="flex flex-wrap gap-2">{Content}</div>;
 };

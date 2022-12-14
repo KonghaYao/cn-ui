@@ -3,6 +3,7 @@ import { createStore } from 'solid-js/store';
 import { MessageProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
 import { DefaultIcon } from '@cn-ui/core';
+import { Gradient } from '../_util/design';
 
 /** 渲染存在的数据 */
 export const [MessageQueue, setMessage] = createStore<MessageData[]>([]);
@@ -15,19 +16,15 @@ export const MessageCard = OriginComponent<MessageProps>((props) => {
         <div
             ref={props.ref}
             class={props.class(
-                'cn-message pointer-events-auto relative flex flex-row items-center justify-evenly overflow-hidden rounded-lg border border-solid border-slate-200 bg-white px-4 py-1 text-center leading-none shadow-md'
+                'cn-message pointer-events-auto relative flex flex-row items-center justify-evenly overflow-hidden rounded-lg  bg-gradient-to-b px-4 py-1 text-center  shadow-suit',
+                Gradient.white
             )}
             style={props.style}
         >
-            <span>{props.icon}</span>
+            {props.icon}
             <span>{props.content}</span>
             {props.closable && (
-                <DefaultIcon
-                    class="h-5 w-5"
-                    name="close"
-                    color="gray"
-                    onClick={close}
-                ></DefaultIcon>
+                <DefaultIcon name="close" color="white" onClick={close}></DefaultIcon>
             )}
         </div>
     );
