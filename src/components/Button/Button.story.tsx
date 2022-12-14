@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import { Button, Message, Space } from '@cn-ui/core';
-import { Color, SizeTrans } from '../_util/design';
+import { Gradient, SizeTrans } from '../_util/design';
 import { sleep } from '../../mocks/sleep';
 export const Controller = [
     {
@@ -36,7 +36,7 @@ export const Controller = [
         type: 'select',
         default: 'blue',
         prop: 'color',
-        options: Object.keys(Color).map((i) => ({
+        options: Object.keys(Gradient).map((i) => ({
             value: i,
         })),
     },

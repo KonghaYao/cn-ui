@@ -1,6 +1,6 @@
 import { Atom } from '@cn-ui/use';
 import { JSX, JSXElement } from 'solid-js';
-import { Color, SizeTrans } from '../_util/design';
+import { Gradient, SizeTrans } from '../_util/design';
 
 export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     children?: JSXElement;
@@ -8,7 +8,7 @@ export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     type?: 'submit' | 'button' | 'reset';
     round?: boolean;
     square?: boolean;
-    color?: keyof typeof Color;
+    color?: keyof typeof Gradient;
     /**
      * @zh 按钮的尺寸
      */

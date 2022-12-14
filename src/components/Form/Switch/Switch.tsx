@@ -7,12 +7,12 @@ import {
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
-import { Color } from '../../_util/design';
+import { Gradient } from '../../_util/design';
 import { FormField } from '../interface';
 
 export interface SwitchProps extends FormField {
     value: Atom<boolean>;
-    color?: keyof typeof Color;
+    color?: keyof typeof Gradient;
 }
 export const Switch = OriginComponent<SwitchProps>((props) => {
     const disabled = atomization(props.disabled ?? false);
@@ -25,8 +25,8 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
                 'h-6 w-12 rounded-2xl bg-gradient-to-b  shadow-suit transition-all duration-300 ease-in-out'
             )}
             classList={{
-                [Color.white]: !value(),
-                [Color[props.color ?? 'blue']]: value(),
+                [Gradient.white]: !value(),
+                [Gradient[props.color ?? 'blue']]: value(),
                 'opacity-70': disabled() || loading(),
             }}
             style={props.style}
@@ -47,8 +47,8 @@ export const Switch = OriginComponent<SwitchProps>((props) => {
                 class="ml-1 h-4 w-4 rounded-full bg-gradient-to-b shadow-suit transition-all duration-300 ease-in-out"
                 classList={{
                     'ml-7': value(),
-                    [Color['white']]: value(),
-                    [Color[props.color ?? 'blue']]: !value(),
+                    [Gradient['white']]: value(),
+                    [Gradient[props.color ?? 'blue']]: !value(),
                 }}
             ></div>
         </button>

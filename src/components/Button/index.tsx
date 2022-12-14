@@ -15,14 +15,14 @@ const defaultProps: ButtonProps = {
     color: 'blue',
     size: 'mini',
 };
-import { Color, TextColor, SizeTrans } from '../_util/design';
+import { Gradient, TextColor, SizeTrans } from '../_util/design';
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);
     const loading = atomization(props.loading);
 
     const getColorSet = () => {
-        if (props.text) return [Color.white.replace('text-black', ''), TextColor[props.color]];
-        return Color[props.color];
+        if (props.text) return [Gradient.white.replace('text-black', ''), TextColor[props.color]];
+        return Gradient[props.color];
     };
     const radius = reflect(() => {
         if (props.round) return 'rounded-2xl';

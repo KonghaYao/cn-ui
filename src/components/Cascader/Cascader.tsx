@@ -8,6 +8,7 @@ interface CascaderProps extends JSX.HTMLAttributes<HTMLDivElement> {
     value: string[] | Atom<string[]>;
 }
 import { AtomToArray } from '@cn-ui/use';
+import { Gradient } from '../_util/design';
 
 /** 级联选择器，用于选择重叠的数据 */
 export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) => {
@@ -17,7 +18,10 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
 
     return (
         <div
-            class={props.class('flex max-h-64 font-thin text-slate-700')}
+            class={props.class(
+                'flex max-h-64 bg-gradient-to-b font-thin text-slate-700',
+                Gradient.white
+            )}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}
