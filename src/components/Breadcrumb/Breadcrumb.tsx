@@ -1,10 +1,13 @@
 import { For, JSX, JSXElement } from 'solid-js';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
+import { Button } from '@cn-ui/core';
 import { Atom } from '@cn-ui/use';
+import { ButtonProps } from '../Button/interface';
 
 export interface BreadcrumbProps extends JSX.HTMLAttributes<HTMLDivElement> {
     separator?: JSXElement;
     list: Atom<string[]>;
+    buttonProps?: ButtonProps;
     onTrigger?: (before: string[], text: string, index: number) => void;
 }
 
@@ -27,15 +30,15 @@ export const Breadcrumb = OriginComponent<BreadcrumbProps>((props) => {
                             ) : (
                                 props.separator ?? <span>{'/'}</span>
                             )}
-                            <div
-                                class="text-blue-600 "
+                            <Button
+                                {...props.buttonProps}
                                 onClick={() =>
                                     props.onTrigger &&
                                     props.onTrigger(props.list().slice(0, index() + 1), i, index())
                                 }
                             >
                                 {i}
-                            </div>
+                            </Button>
                         </>
                     );
                 }}

@@ -7,11 +7,12 @@ export default () => {
     return (
         <>
             <Breadcrumb
-                class="mx-4 my-4 bg-white drop-shadow-xl"
+                class="mx-4 my-4 "
                 list={value}
                 onTrigger={(arr, text, index) => {
                     console.log(arr, text, index);
                 }}
+                buttonProps={{ color: 'white' }}
             ></Breadcrumb>
         </>
     );
