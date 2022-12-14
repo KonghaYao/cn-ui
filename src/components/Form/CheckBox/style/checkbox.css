@@ -17,7 +17,5 @@
     content: '-';
 }
 .cn-check[checked='true'] {
-    @apply bg-blue-600 border-blue-600;
-}
-.cn-form-check {
+    @apply border-blue-600 bg-blue-600;
 }

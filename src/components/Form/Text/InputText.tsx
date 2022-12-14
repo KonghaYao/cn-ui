@@ -3,6 +3,7 @@ import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
 import { Icon } from '@cn-ui/core';
 import { FormField } from '../interface';
+import { Gradient } from '../../_util/design';
 export interface InputTextProps extends FormField {
     value: Atom<string>;
     placeholder?: string;
@@ -24,17 +25,23 @@ export const InputText = OriginComponent<InputTextProps>((props) => {
     return (
         <div
             class={props.class(
-                'flex w-full items-center rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 text-slate-500 transition-colors duration-300 hover:border-blue-400'
+                'flex w-full items-center gap-2 rounded-xl border-2 border-solid border-transparent px-4 py-1  text-blue-600 shadow-suit transition-colors duration-300 hover:border-sky-600',
+                Gradient.position,
+                Gradient.white
             )}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}
         >
-            {props.icon !== undefined ? props.icon : <Icon name="border_color" class="pr-4"></Icon>}
+            {props.icon !== undefined ? (
+                props.icon
+            ) : (
+                <Icon name="border_color" class="pr-4 "></Icon>
+            )}
             <input
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="flex-1 bg-slate-100 outline-none "
+                class="flex-1 bg-slate-100 px-2 text-slate-700 outline-none"
                 classList={{
                     'cursor-not-allowed': disabled(),
                 }}
