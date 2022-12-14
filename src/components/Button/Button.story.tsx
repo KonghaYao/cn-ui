@@ -1,6 +1,6 @@
 import { createSignal } from 'solid-js';
 import { Button, Message, Space } from '@cn-ui/core';
-import { Color, SizeTrans } from './design';
+import { Color, SizeTrans } from '../_util/design';
 import { sleep } from '../../mocks/sleep';
 export const Controller = [
     {

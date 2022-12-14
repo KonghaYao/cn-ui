@@ -15,7 +15,7 @@ const defaultProps: ButtonProps = {
     color: 'blue',
     size: 'mini',
 };
-import { Color, TextColor, SizeTrans } from './design';
+import { Color, TextColor, SizeTrans } from '../_util/design';
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);
     const loading = atomization(props.loading);
@@ -43,8 +43,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
                 props.block && 'w-full',
                 props.disabled && 'cursor-not-allowed opacity-70',
                 radius(),
-                'inline-flex select-none items-center justify-center whitespace-nowrap px-4 py-2 text-sm ',
-                ' transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
+                'inline-flex select-none items-center justify-center whitespace-nowrap bg-gradient-to-b px-4 py-2 text-sm  shadow-suit transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
             )}
             style={{
                 ...props.style,

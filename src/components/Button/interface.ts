@@ -1,6 +1,6 @@
 import { Atom } from '@cn-ui/use';
 import { JSX, JSXElement } from 'solid-js';
-import { Color, SizeTrans } from './design';
+import { Color, SizeTrans } from '../_util/design';
 
 export interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     children?: JSXElement;

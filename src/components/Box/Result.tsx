@@ -6,13 +6,14 @@ interface ResultProps extends Omit<BoxProps, 'icon'> {
 }
 import { Box, BoxProps } from './Box';
 import { DefaultIcon } from '@cn-ui/core';
+import { Color } from '../_util/design';
 
 const CompMap = new Map<stringTag, JSXElement>([
     [
         'success',
         () => (
             <DefaultIcon
-                class="shadow-lg shadow-green-500/50"
+                class={'shadow-lg shadow-green-500/50 ' + Color.green}
                 name="check_circle"
                 color="green"
                 size={50}
