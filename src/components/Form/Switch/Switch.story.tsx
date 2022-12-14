@@ -11,7 +11,7 @@ import { Switch } from '@cn-ui/core';
 export default (props) => {
     const val = atom(false);
     return (
-        <div>
+        <div class="flex gap-2 p-4">
             <Switch {...props} value={val} onClick={async () => sleep(1000)}></Switch>
             <Switch value={val}></Switch>
         </div>
