@@ -27,7 +27,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     const control = useEventController({ disabled });
     // * fixed 这里有精度问题！所以采用原生的加减以解决
     // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/stepUp
-    // const { add, sub } = useStep(value, props);
+
     return (
         <div
             class={props.class(
@@ -46,6 +46,8 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 class="sub flex items-center"
                 onClick={control(() => {
                     inputRef.stepDown();
+
+                    // value(parseInt(inputRef.value));
                 })}
             >
                 {props.button &&
@@ -85,6 +87,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 class="add flex items-center"
                 onClick={control(() => {
                     inputRef.stepUp();
+                    value(parseInt(inputRef.value));
                 })}
             >
                 {props.button &&
