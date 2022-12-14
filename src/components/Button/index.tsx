@@ -21,8 +21,8 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
     const loading = atomization(props.loading);
 
     const getColorSet = () => {
-        if (props.text) return TextColor;
-        return Color;
+        if (props.text) return [Color.white.replace('text-black', ''), TextColor[props.color]];
+        return Color[props.color];
     };
     const radius = reflect(() => {
         if (props.round) return 'rounded-2xl';
@@ -35,15 +35,14 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
         <button
             ref={props.ref}
             class={props.class(
-                'cn-btn',
-                reflect(() => SizeTrans[props.size])(),
-                reflect(() => getColorSet()[props.color])(),
-                props.text && 'border-none hover:bg-slate-100/50',
+                SizeTrans[props.size],
+                getColorSet(),
+                props.text && 'border-none',
                 loading() && 'pointer-events-none',
                 props.block && 'w-full',
-                props.disabled && 'cursor-not-allowed opacity-70',
+                props.disabled && 'cursor-not-allowed opacity-80',
                 radius(),
-                'inline-flex select-none items-center justify-center whitespace-nowrap bg-gradient-to-b px-4 py-2 text-sm  shadow-suit transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
+                'box-border inline-flex select-none items-center justify-center whitespace-nowrap bg-gradient-to-b px-4 py-2 text-sm shadow-suit transition-all duration-300 focus:outline-none focus:brightness-95 active:scale-95'
             )}
             style={{
                 ...props.style,

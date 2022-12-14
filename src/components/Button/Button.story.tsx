@@ -46,7 +46,7 @@ export default (props) => {
 
     console.log('刷新组件');
     return (
-        <Space>
+        <div class="flex items-center gap-2 p-2">
             <Button {...props}>按钮一个</Button>
             <Button {...props} block>
                 按钮一个
@@ -63,6 +63,6 @@ export default (props) => {
             >
                 按钮一个
             </Button>
-        </Space>
+        </div>
     );
 };

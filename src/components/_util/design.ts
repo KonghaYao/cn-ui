@@ -1,4 +1,4 @@
-/** 专属于 Button 的颜色表 */
+/** 渐变拟物化颜色表，需要添加 bg-gradient-to-b */
 export const Color = {
     white: 'from-white to-gray-100 text-black',
     slate: 'from-slate-600 to-slate-700 text-slate-50',
