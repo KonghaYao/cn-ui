@@ -49,10 +49,7 @@ export const Explorer = OriginComponent<ExplorerProps>((props) => {
             ref={props.ref}
             {...extendsEvent(props)}
         >
-            <Breadcrumb
-                list={now}
-                onTrigger={(index) => now((i) => i.slice(0, index))}
-            ></Breadcrumb>
+            <Breadcrumb list={now} onTrigger={(before) => now((i) => before)}></Breadcrumb>
             <Space vertical class="h-full w-full flex-1 overflow-auto">
                 <For each={nowList()}>
                     {(item) => {

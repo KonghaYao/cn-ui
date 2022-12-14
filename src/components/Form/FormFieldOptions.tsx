@@ -26,17 +26,21 @@ export namespace FormFieldOptions {
     };
 
     /// 列举组件
-    export interface Select<T = { value: boolean; label?: string }>
+    export interface Select<T = { value: string; label?: string }>
         extends baseProp<T>,
             WithDefault<string>,
             AllowParams<import('@cn-ui/core').SelectProps> {
         type: 'select';
         options: T[];
     }
+    export interface Radio<T = { value: boolean; label?: string }>
+        extends baseProp<T>,
+            WithDefault<string>,
+            AllowParams<import('@cn-ui/core').CheckBoxProps> {
+        type: 'radio';
+        options: T[];
+    }
 
-    export type Radio = Omit<Select, 'type'> & { type: 'radio' } & AllowParams<
-            import('@cn-ui/core').CheckGroupProps
-        >;
     export interface Switch<T = boolean>
         extends baseProp<T>,
             WithDefault<T>,
