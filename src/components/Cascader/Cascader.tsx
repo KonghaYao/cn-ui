@@ -19,7 +19,7 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement>((props) =
     return (
         <div
             class={props.class(
-                'flex max-h-64 bg-gradient-to-b font-thin text-slate-700',
+                'flex max-h-64 bg-gradient-to-b font-thin text-slate-700 shadow-suit',
                 Gradient.white
             )}
             style={props.style}

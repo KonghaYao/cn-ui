@@ -8,15 +8,11 @@ export default (props) => {
     return (
         <>
             <Breadcrumb
-                class="m-4 bg-white shadow-xl"
+                class="m-4 "
                 list={value}
                 separator={<Icon name="arrow_right_alt"></Icon>}
             ></Breadcrumb>
-            <Cascader
-                class="m-4 rounded-lg bg-white shadow-xl"
-                options={options}
-                value={value}
-            ></Cascader>
+            <Cascader class="m-4 rounded-lg  " options={options} value={value}></Cascader>
         </>
     );
 };

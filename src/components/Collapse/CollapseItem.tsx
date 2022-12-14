@@ -5,6 +5,7 @@ import { CancelFirstRender } from '../_util/CancelFirstTime';
 import { OriginComponent } from '@cn-ui/use';
 import { CollapseContext } from './Collapse';
 import { Icon } from '@cn-ui/core';
+import { Gradient } from '../_util/design';
 
 export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((props) => {
     const { destroyOnHide, lazyload, isSelected, changeSelected } = useContext(CollapseContext);
@@ -16,7 +17,9 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
     return (
         <div
             ref={props.ref as any}
-            class={props.class('cn-collapse-item box-border flex h-full flex-col overflow-hidden')}
+            class={props.class(
+                'cn-collapse-item box-border flex h-full flex-col overflow-hidden rounded-2xl p-1'
+            )}
             style={props.style}
             classList={{
                 disabled: props.disabled,
@@ -24,7 +27,10 @@ export const CollapseItem = OriginComponent<CollapseItemProps, HTMLElement>((pro
             {...extendsEvent(props)}
         >
             <nav
-                class="cn-collapse-summary cursor-pointer select-none px-4 py-3 leading-none active:backdrop-brightness-90 "
+                class={
+                    'cn-collapse-summary cursor-pointer select-none rounded-2xl bg-gradient-to-b px-4 py-3 leading-none shadow-suit active:backdrop-brightness-90 ' +
+                    Gradient.white
+                }
                 onClick={control([
                     (e) => {
                         changeSelected(props.id);
