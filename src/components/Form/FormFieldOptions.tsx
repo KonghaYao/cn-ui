@@ -26,7 +26,7 @@ export namespace FormFieldOptions {
     };
 
     /// 列举组件
-    export interface Select<T = { value: string; label?: string }>
+    export interface Select<T = { value: boolean; label?: string }>
         extends baseProp<T>,
             WithDefault<string>,
             AllowParams<import('@cn-ui/core').SelectProps> {
