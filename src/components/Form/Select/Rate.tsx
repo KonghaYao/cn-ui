@@ -20,7 +20,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
     const value = atomization(props.value ?? 0);
     let keepVal = value();
     const control = useEventController({ disabled });
-    let colorRef: HTMLInputElement;
+
     const getRate = (e) => {
         if (props.allowHalf && e.offsetX < 12) {
             return 0.5;
@@ -30,7 +30,7 @@ export const Rate = OriginComponent<RateProps>((props) => {
     };
     return (
         <div
-            class={props.class('w-fit text-2xl text-slate-200')}
+            class={props.class('flex w-fit gap-2 text-2xl text-slate-200')}
             style={props.style}
             ref={props.ref}
             {...extendsEvent(props)}

@@ -11,7 +11,7 @@ import { PasswordScore } from '@cn-ui/password-score';
 export default (props) => {
     return (
         <div>
-            <Password {...props} score={<PasswordScore></PasswordScore>}></Password>
+            <Password {...props}></Password>
         </div>
     );
 };

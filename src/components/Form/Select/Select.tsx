@@ -10,6 +10,7 @@ import {
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
 import { Trigger } from '@cn-ui/core';
+import { Gradient } from '../../_util/design';
 
 /** Select 组件的对象输入参数 */
 export type OptionCreator = { value: string; label?: string };
@@ -26,12 +27,19 @@ interface ListProps {
 const OptionsList: Component<ListProps> = (props) => {
     // console.log('渲染', props.options());
     return (
-        <div class="overflow-y-auto overflow-x-hidden" style="max-height:50vh; max-width:20em">
+        <div
+            class="overflow-y-auto overflow-x-hidden"
+            classList={{
+                [Gradient.position]: true,
+                [Gradient.white]: true,
+            }}
+            style="max-height:50vh; max-width:20em"
+        >
             <For each={props.options()}>
                 {(item) => {
                     return (
                         <div
-                            class="cursor-pointer px-2 transition-colors duration-300 hover:bg-slate-600 "
+                            class="cursor-pointer px-2 text-slate-700 transition-colors duration-300 hover:bg-slate-200 "
                             onclick={() => props.onSelect(item)}
                         >
                             {item.label ?? item.value}
@@ -92,7 +100,9 @@ export const Select = OriginComponent<SelectProps>((props) => {
         >
             <button
                 class={props.class(
-                    ' h-6 overflow-hidden text-ellipsis whitespace-nowrap rounded bg-slate-200 px-2 text-slate-700 transition-all duration-300 ease-in-out'
+                    ' h-6 overflow-hidden text-ellipsis whitespace-nowrap rounded px-2 text-slate-700 shadow-xl transition-all duration-300  ease-in-out hover:ring-1 hover:ring-blue-600',
+                    Gradient.position,
+                    Gradient.white
                 )}
                 classList={{
                     'opacity-70': disabled() || loading(),

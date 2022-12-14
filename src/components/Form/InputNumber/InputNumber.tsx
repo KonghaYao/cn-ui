@@ -6,6 +6,7 @@ import { defaultSlot } from '../../_util/defaultSlot';
 import { useEventController } from '@cn-ui/use';
 import { FormField } from '../interface';
 import './InputNumber.css';
+import { Gradient } from '../../_util/design';
 export interface InputNumberProps extends FormField {
     value: number | Atom<number>;
     placeholder?: string;
@@ -30,7 +31,9 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
     return (
         <div
             class={props.class(
-                'flex w-full items-center  rounded border-2 border-solid border-transparent bg-slate-100 px-4 py-1 text-slate-500 transition-colors duration-300 hover:border-blue-400'
+                'flex w-full items-center rounded-xl border-2 border-solid border-transparent  px-4 py-1  text-blue-600 shadow-suit transition-colors duration-300',
+                Gradient.position,
+                Gradient.white
             )}
             style={props.style}
             ref={props.ref}
@@ -49,7 +52,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                     defaultSlot(
                         <Icon
                             name="horizontal_rule"
-                            class="px-2 transition-colors hover:bg-slate-200"
+                            class="h-full px-2 transition-colors hover:bg-slate-200"
                         ></Icon>,
                         props.left
                     )}
@@ -59,7 +62,7 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 ref={inputRef}
                 disabled={disabled()}
                 placeholder={props.placeholder || '请输入'}
-                class="hidden_control flex-1 appearance-none bg-slate-100 outline-none"
+                class="hidden_control flex-1 appearance-none bg-slate-100 text-center text-slate-700 outline-none"
                 classList={{
                     'pointer-events-none': props.disabled_input,
                 }}
