@@ -6,11 +6,11 @@ export interface TabsHeaderProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>
     children?: (props: string, index: Accessor<number>) => JSXElement;
 }
 export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((props) => {
-    const { isSelected, TabNames, changeSelected } = useContext(TabsContext);
+    const { isSelected, allRegistered, changeSelected } = useContext(TabsContext);
     // TODO Tab 增删
     return (
         <div class={props.class('cn-tabs-header flex gap-2')}>
-            <For each={TabNames()}>
+            <For each={[...allRegistered()]}>
                 {typeof props.children === 'function'
                     ? props.children
                     : (name) => {

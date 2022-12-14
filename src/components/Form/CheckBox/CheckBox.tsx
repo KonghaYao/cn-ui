@@ -1,4 +1,4 @@
-import { batch, JSX, JSXElement } from 'solid-js';
+import { batch, createEffect, JSX, JSXElement, useContext } from 'solid-js';
 import { Atom, atomization, extendsEvent } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 
@@ -19,8 +19,7 @@ export const DefaultLabel = OriginComponent<LabelProps, HTMLLabelElement>((props
 });
 export interface CheckBoxProps extends Omit<FormField, 'onValueInput'> {
     children?: JSXElement;
-    /** 如果没有 label 的话，可以使用 extra 进行拓展 */
-    extra?: JSXElement;
+    label: string;
     value: boolean | Atom<boolean>;
     disabled?: boolean | Atom<boolean>;
     indeterminate?: boolean | Atom<boolean>;
@@ -31,8 +30,15 @@ export interface CheckBoxProps extends Omit<FormField, 'onValueInput'> {
 import './style/checkbox.css';
 import { emitEvent, useEventController } from '@cn-ui/use';
 import { FormField } from '../interface';
+import { CheckGroupContext } from './CheckGroup';
 export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) => {
-    const value = atomization(props.value);
+    const { changeSelected, register, isSelected } = useContext(CheckGroupContext);
+
+    const value = atomization(props.value ?? false);
+    register(props.label, value());
+    createEffect(() => {
+        value(isSelected(props.label));
+    });
     const disabled = atomization(props.disabled);
     const indeterminate = atomization(props.indeterminate);
     const control = useEventController({ disabled });
@@ -50,6 +56,7 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                     emitEvent(props.onValueInput, ([e]) => [e, !value()] as const),
                     async (e) => {
                         value((i) => !i);
+                        changeSelected(props.label);
                     },
                 ]
                 // 使用 batch 会报错
@@ -65,15 +72,10 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
                 attr:checked={value()}
                 checked-char={props.checkedChar ?? '√'}
             ></span>
-            <input
-                class="hidden"
-                type="checkbox"
-                checked={value()}
-                id={props.id}
-                disabled={disabled()}
-            ></input>
-            <DefaultLabel for={props.id}>{props.children}</DefaultLabel>
-            {props.extra}
+            <input class="hidden" type="checkbox" checked={value()} disabled={disabled()}></input>
+            <DefaultLabel>
+                {props.label} {props.children}
+            </DefaultLabel>
         </div>
     );
 });
