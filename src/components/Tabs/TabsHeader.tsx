@@ -11,19 +11,20 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
     return (
         <div class={props.class('cn-tabs-header flex gap-2')}>
             <For each={TabNames()}>
-                {props.children ??
-                    ((name) => {
-                        return (
-                            <Button
-                                class="border-none"
-                                color={isSelected(name) ? 'blue' : 'white'}
-                                size="mini"
-                                onClick={() => changeSelected(name, true)}
-                            >
-                                {name}
-                            </Button>
-                        );
-                    })}
+                {typeof props.children === 'function'
+                    ? props.children
+                    : (name) => {
+                          return (
+                              <Button
+                                  class="border-none"
+                                  color={isSelected(name) ? 'blue' : 'white'}
+                                  size="mini"
+                                  onClick={() => changeSelected(name, true)}
+                              >
+                                  {name}
+                              </Button>
+                          );
+                      }}
             </For>
         </div>
     );

@@ -29,8 +29,6 @@ export default (props) => {
             content: [...Array(i + 1).keys()].map((ii) => <span>{ii}</span>),
         };
     });
-    // 想要获取 所有标签的打开值:
-    //  data.map((i) => i.value());
     const Value = data[0].value;
     return (
         <>

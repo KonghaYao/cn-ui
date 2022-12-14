@@ -1,4 +1,4 @@
-import { createMemo, mergeProps, onCleanup, onMount, Show, useContext } from 'solid-js';
+import { createMemo, Show, useContext } from 'solid-js';
 import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { CollapseItemProps } from './interface';
 import { CancelFirstRender } from '../_util/CancelFirstTime';
