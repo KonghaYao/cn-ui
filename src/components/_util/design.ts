@@ -1,7 +1,7 @@
 /** 渐变拟物化颜色表，需要添加 bg-gradient-to-b */
 export const Gradient = {
     position: 'bg-gradient-to-b',
-    white: 'from-white to-gray-100 text-black',
+    white: 'from-white to-gray-100 text-slate-700',
     slate: 'from-slate-600 to-slate-700 text-slate-50',
     gray: 'from-gray-600 to-gray-700 text-slate-50',
     zinc: 'from-zinc-600 to-zinc-700 text-slate-50',

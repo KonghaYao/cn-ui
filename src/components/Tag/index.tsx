@@ -2,49 +2,13 @@
 
 import { TagProps } from './interface';
 import { createMemo, Match, mergeProps, Show, Switch } from 'solid-js';
-import { atom, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
+import { atom, atomization, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { Icon } from '@cn-ui/core';
 
-// 色板里的 12 个颜色
-export const COLORS = [
-    'slate',
-    'gray',
-    'zinc',
-    'neutral',
-    'stone',
-    'red',
-    'orange',
-    'amber',
-    'yellow',
-    'lime',
-    'green',
-    'emerald',
-    'teal',
-    'cyan',
-    'sky',
-    'blue',
-    'indigo',
-    'violet',
-    'purple',
-    'fuchsia',
-    'pink',
-    'rose',
-];
-
-const defaultProps: TagProps = {
-    size: 'default',
-    visible: true,
-    checked: false,
-};
-import './style/index.css';
 import { OriginComponent } from '@cn-ui/use';
-export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
-    const props = mergeProps(defaultProps, baseProps);
-
-    const visible =
-        typeof props.visible === 'boolean' ? atom<boolean>(props.visible) : props.visible;
-    const checked =
-        typeof props.checked === 'boolean' ? atom<boolean>(props.checked) : props.checked;
+import { Gradient } from '../_util/design';
+export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+    const visible = atomization(props.visible ?? true);
 
     const closing = atom(false);
     const Close = async (e) => {
@@ -54,11 +18,6 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
         closing(false);
     };
 
-    const _color = createMemo(() => {
-        const color = props.color;
-        return color ? (COLORS.indexOf(color) !== -1 ? color : '') : '';
-    });
-    const control = useEventController({});
     return (
         <Show when={visible()}>
             <div
@@ -66,28 +25,15 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((baseProps) => {
                 style={props.style}
                 class={props.class(
                     'cn-tag',
-                    'box-border inline-flex cursor-pointer select-none items-center rounded-md px-2 py-1 text-sm font-light leading-none ',
+                    'box-border inline-flex cursor-pointer select-none items-center rounded-md px-2 py-1 text-sm font-light leading-none  shadow-suit',
                     {
                         [`loading`]: closing(),
-
-                        [`checked`]: checked(),
-                        [`bordered`]: props.bordered,
                     },
                     props.size,
-                    props.className,
-                    _color()
+                    Gradient.position,
+                    Gradient[props.color ?? 'blue']
                 )}
                 {...extendsEvent(props)}
-                onClick={control([
-                    emitEvent(props.onClick),
-                    () => {
-                        if (props.checkable) {
-                            const state = !checked();
-                            checked(state);
-                            props.onCheck && props.onCheck(state);
-                        }
-                    },
-                ])}
             >
                 <div class="content">{props.children}</div>
                 <Switch>

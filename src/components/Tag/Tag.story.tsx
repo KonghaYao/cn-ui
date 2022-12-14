@@ -1,7 +1,8 @@
 import { For, onMount } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Space, COLORS, Tag } from '@cn-ui/core';
+import { Space, Tag, Collapse } from '@cn-ui/core';
 import { Anime } from '@cn-ui/transition';
+const COLORS = Object.keys(Gradient);
 export const Controller = [
     {
         type: 'switch',
@@ -13,22 +14,17 @@ export const Controller = [
         default: false,
         prop: 'bordered',
     },
-    {
-        type: 'select',
-        default: 'default',
-        prop: 'color',
-        options: COLORS.map((i) => ({ value: i })),
-    },
 ];
 
 import 'animate.css/source/bouncing_entrances/bounceIn.css';
 import 'animate.css/source/bouncing_exits/bounceOut.css';
+import { Gradient } from '../_util/design';
 const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);
     });
 export default (props) => {
-    const data = [...Array(5).keys()].map((i) => {
+    const data = [...Array(20).keys()].map((i) => {
         return {
             name: 'tag ' + i,
             value: atom(true),
@@ -38,18 +34,19 @@ export default (props) => {
                     console.log('触发关闭', i * 100);
                 });
             },
-            color: COLORS[i % 10],
+            color: COLORS[i % COLORS.length],
         };
     });
+    console.log(data);
     // 想要获取 所有标签的打开值:
     //  data.map((i) => i.value());
-    const Value = data[0].value;
+    const Value = data[0].visible;
 
     return (
         <>
             <button onclick={() => Value(!Value())}>受控标签: {Value() ? 'true' : 'false'}</button>
             <Tag>这是一个标签</Tag>
-            <Space size="mini">
+            <div class="flex flex-wrap gap-2">
                 <Anime group in="bounceIn" out="bounceOut">
                     {/*  必须使用 For 循环才能使用动画 */}
                     <For each={data}>
@@ -57,7 +54,6 @@ export default (props) => {
                             return (
                                 <Tag
                                     color={item.color}
-                                    checked={item.value}
                                     visible={item.visible}
                                     onClose={item.onClose}
                                     {...props}
@@ -68,7 +64,7 @@ export default (props) => {
                         }}
                     </For>
                 </Anime>
-            </Space>
+            </div>
         </>
     );
 };
