@@ -1,4 +1,4 @@
-import { Component, createMemo, JSX, mergeProps, splitProps } from 'solid-js';
+import { Component, createMemo, JSX, mergeProps } from 'solid-js';
 import { classNames } from './classNames';
 
 /** OriginComponent 函数内部的输入参数修改 */
@@ -22,6 +22,8 @@ export type OriginComponentOutputType<T, RefType = HTMLElement> =
 export type OriginComponentType = <T, RefType = HTMLElement>(
     comp: Component<OriginComponentInputType<T, RefType>>
 ) => Component<OriginComponentOutputType<T, RefType>>;
+
+
 export const OriginComponent: OriginComponentType = (comp) => {
     return (props) => {
         // 将 style 统一转化为对象结构

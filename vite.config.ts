@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
         resolve: {
             alias: {
                 '@cn-ui/core/': '/src/',
+                '@cn-ui/sortable': '/package/sortable/src/index.ts',
             },
         },
         optimizeDeps: {},

@@ -218,7 +218,7 @@ importers:
     dependencies:
       sortablejs: registry.npmmirror.com/sortablejs/1.15.0
     devDependencies:
-      '@types/sortablejs': 1.15.0
+      '@types/sortablejs': registry.npmmirror.com/@types/sortablejs/1.15.0
 
   package/split:
     specifiers:
@@ -1845,10 +1845,6 @@ packages:
 
   /@types/resolve/1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
-    dev: true
-
-  /@types/sortablejs/1.15.0:
-    resolution: {integrity: sha512-qrhtM7M41EhH4tZQTNw2/RJkxllBx3reiJpTbgWCM2Dx0U1sZ6LwKp9lfNln9uqE26ZMKUaPEYaD4rzvOWYtZw==}
     dev: true
 
   /@types/unist/2.0.6:
@@ -5757,6 +5753,12 @@ packages:
     dependencies:
       state-local: registry.npmmirror.com/state-local/1.0.7
     dev: false
+
+  registry.npmmirror.com/@types/sortablejs/1.15.0:
+    resolution: {integrity: sha512-qrhtM7M41EhH4tZQTNw2/RJkxllBx3reiJpTbgWCM2Dx0U1sZ6LwKp9lfNln9uqE26ZMKUaPEYaD4rzvOWYtZw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/sortablejs/-/sortablejs-1.15.0.tgz}
+    name: '@types/sortablejs'
+    version: 1.15.0
+    dev: true
 
   registry.npmmirror.com/autoprefixer/10.4.13_postcss@8.4.16:
     resolution: {integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/autoprefixer/-/autoprefixer-10.4.13.tgz}

@@ -1,6 +1,7 @@
 // Core SortableJS (without default plugins)
 import {
     Accessor,
+    children,
     createContext,
     createEffect,
     For,
@@ -10,7 +11,14 @@ import {
     useContext,
 } from 'solid-js';
 import SortableCore from 'sortablejs';
-import { OriginComponent, Atom, atomization, extendsEvent, createIgnoreFirst } from '@cn-ui/use';
+import {
+    OriginComponent,
+    Atom,
+    atomization,
+    extendsEvent,
+    createIgnoreFirst,
+    OriginComponentInputType,
+} from '@cn-ui/use';
 import { useSortable } from './useSortable';
 export { SortableCore };
 /** Sortable 组件的公共参数 */
@@ -35,9 +43,11 @@ export interface SortableListProps<T> extends Omit<JSX.HTMLAttributes<HTMLDivEle
 }
 
 /**
- * @zh 使用响应式对象操控可排序列表, 内部列表外侧必须有 data-id 属性
+ * @zh 使用响应式对象操控可排序列表, 内部列表不用再写 data-id 属性
  */
-export const SortableList = OriginComponent<SortableListProps<unknown>>((baseProps) => {
+export const SortableList = OriginComponent(function <T>(
+    baseProps: OriginComponentInputType<SortableListProps<T>>
+) {
     const context = useContext(SortableShared);
     const props = mergeProps(
         {
@@ -110,9 +120,11 @@ export const SortableList = OriginComponent<SortableListProps<unknown>>((basePro
             <For each={[...each(), null]} fallback={props.fallback}>
                 {(item, index) => {
                     if (item === null) return <div data-id={VoidId}></div>;
-                    return props.children(item, index);
+                    const dom = children(() => props.children(item, index))() as HTMLElement;
+                    dom.dataset.id = getId(item);
+                    return dom;
                 }}
             </For>
         </div>
     );
-}) as unknown as <T>(props: SortableListProps<T>) => JSXElement;
+});

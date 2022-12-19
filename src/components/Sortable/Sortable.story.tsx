@@ -2,7 +2,7 @@ export const Controller = [];
 import { SortableList, SortableShared } from '@cn-ui/sortable';
 import { atom, reflect } from '@cn-ui/use';
 import { shuffle } from 'lodash-es';
-import { createContext, createEffect, For, useContext } from 'solid-js';
+import { createContext, createEffect, useContext } from 'solid-js';
 import { Button, Message, Space } from '@cn-ui/core';
 
 const NormalList = () => {
@@ -14,13 +14,7 @@ const NormalList = () => {
             <SortableList each={list} options={{ animation: 150 }}>
                 {(item) => {
                     return (
-                        <div
-                            class="m-2 select-none bg-gray-50 p-2 text-center"
-                            // Don't forget to add a data-id prop to the wrapper dom
-                            data-id={item.id}
-                        >
-                            {item.info}
-                        </div>
+                        <div class="m-2 select-none bg-gray-50 p-2 text-center">{item.info}</div>
                     );
                 }}
             </SortableList>
@@ -38,7 +32,6 @@ const SharedList = () => {
                     'bg-red-50': isLeft,
                     'bg-blue-50': !isLeft,
                 }}
-                data-id={item.id}
             >
                 {item.info}
             </div>
