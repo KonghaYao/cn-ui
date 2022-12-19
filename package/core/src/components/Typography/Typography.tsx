@@ -22,6 +22,3 @@ export const Typography = OriginComponent<TypographyProps>((props) => {
         </div>
     );
 });
-
-export { useFont } from './useFont';
-export { CopyText, EllipsisText } from './EditText';

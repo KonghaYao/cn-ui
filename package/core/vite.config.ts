@@ -1,11 +1,19 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
-
+import tailwindcss from 'tailwindcss';
+const ignoreDeps = ['@fontsource/material-icons-rounded'];
 export default defineConfig(({ mode }) => {
+    console.log(mode);
     return {
         plugins: [
             solidPlugin(),
+            mode === 'production' && {
+                enforce: 'pre',
+                resolveId(thisFile, importer) {
+                    return ignoreDeps.some((i) => thisFile.startsWith(i)) ? false : undefined;
+                },
+            },
             mode === 'analyze' &&
                 (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
@@ -24,6 +32,12 @@ export default defineConfig(({ mode }) => {
                 entry: './src/index.ts',
                 formats: ['es'],
                 fileName: 'index',
+            },
+        },
+        css: {
+            postcss: {
+                purge: ['./{src}/**/*.{ts,tsx}'],
+                plugins: mode !== 'production' && [tailwindcss],
             },
         },
     };
