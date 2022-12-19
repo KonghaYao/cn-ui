@@ -17,9 +17,6 @@ export default defineConfig(({ mode }) => {
                 '@cn-ui/core/': '/src/',
             },
         },
-        optimizeDeps: {
-            include: ['lodash-es', 'copy-to-clipboard', '@vant/area-data', 'mitt'],
-            exclude: ['@cn-ui/core'],
-        },
+        optimizeDeps: {},
     };
 });

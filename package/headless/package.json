@@ -29,6 +29,6 @@
         "utils"
     ],
     "dependencies": {
-        "@cn-ui/use": "workspace:"
+        "@cn-ui/use": "workspace:^1.8.4"
     }
 }

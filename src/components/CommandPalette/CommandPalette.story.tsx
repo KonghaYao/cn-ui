@@ -1,15 +1,15 @@
 import { atom, reflect } from '@cn-ui/use';
-import { onCleanup, onMount } from 'solid-js';
+import { For, onCleanup, onMount } from 'solid-js';
 import '@cn-ui/command-palette/pkg-dist/style.css';
 import { CommandPalette, PaletteRoot, Action, defineAction } from '@cn-ui/command-palette';
 import {
     useKeyWordsFilter,
     Button,
-    CheckGroupController,
     CheckGroup,
     Image,
     Message,
     Space,
+    CheckBox,
 } from '@cn-ui/core';
 export const Controller = [];
 
@@ -73,12 +73,20 @@ export default (props) => {
         Main() {
             return (
                 <Space class="px-2">
-                    <CheckGroupController class="flex-none" data={keywords}>
-                        All
-                    </CheckGroupController>
-                    <div class="flex-1 overflow-auto">
-                        <CheckGroup options={keywords}></CheckGroup>
-                    </div>
+                    <CheckGroup>
+                        <div class="flex gap-2 overflow-scroll px-2 py-1">
+                            <For each={keywords()}>
+                                {(item) => {
+                                    return (
+                                        <CheckBox
+                                            value={item.value}
+                                            label={item.children}
+                                        ></CheckBox>
+                                    );
+                                }}
+                            </For>
+                        </div>
+                    </CheckGroup>
                 </Space>
             );
         },
