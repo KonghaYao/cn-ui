@@ -1,6 +1,0 @@
-{
-    // 打包 ts 文件时使用的代码
-    "extends": "./tsconfig.json",
-    "include": ["src/**/*"],
-    "exclude": ["src/**/*.story.tsx"]
-}

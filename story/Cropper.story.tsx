@@ -1,6 +1,6 @@
 import { Atom, atom, reflect } from '@cn-ui/use';
 import { Cropper } from '@cn-ui/cropper';
-import { mockImages } from '../../mocks/images';
+import { mockImages } from '../package/core/src/mocks/images';
 export const Controller = [];
 import { debounce } from 'lodash-es';
 import { createResource, Show } from 'solid-js';

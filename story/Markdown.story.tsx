@@ -1,6 +1,6 @@
 import { Typography } from '@cn-ui/core';
 import { Show } from 'solid-js';
-import { Markdown } from './Markdown';
+import { Markdown } from '@cn-ui/core/src/components/Markdown/Markdown';
 
 export const Controller = [
     {

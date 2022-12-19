@@ -2,7 +2,15 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import tailwindcss from 'tailwindcss';
-const ignoreDeps = ['@fontsource/material-icons-rounded'];
+import packageJSON from './package.json';
+const ignoreDeps = [
+    '@fontsource/material-icons-rounded',
+    ...Object.keys({
+        ...packageJSON.dependencies,
+        ...packageJSON.devDependencies,
+        ...packageJSON.peerDependencies,
+    }),
+];
 export default defineConfig(({ mode }) => {
     console.log(mode);
     return {
@@ -11,7 +19,9 @@ export default defineConfig(({ mode }) => {
             mode === 'production' && {
                 enforce: 'pre',
                 resolveId(thisFile, importer) {
-                    return ignoreDeps.some((i) => thisFile.startsWith(i)) ? false : undefined;
+                    if (ignoreDeps.some((i) => thisFile.startsWith(i))) {
+                        return { id: thisFile, external: true };
+                    }
                 },
             },
             mode === 'analyze' &&
