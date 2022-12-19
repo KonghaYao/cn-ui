@@ -19,5 +19,12 @@ export default defineConfig(({ mode }) => {
             },
         },
         optimizeDeps: {},
+        build: {
+            lib: {
+                entry: './src/index.ts',
+                formats: ['es'],
+                fileName: 'index',
+            },
+        },
     };
 });

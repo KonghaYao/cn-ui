@@ -59,15 +59,15 @@ const template = defineFormTemplate([
         options: [
             {
                 label: '中文',
-                value: 'zh-cn',
+                value: false,
             },
             {
                 label: '英文',
-                value: 'en',
+                value: false,
             },
             {
                 label: '默认',
-                value: 'auto',
+                value: false,
             },
         ],
     },

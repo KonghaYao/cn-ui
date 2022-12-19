@@ -13,8 +13,8 @@
     },
     "license": "MIT",
     "peerDependencies": {
-        "@cn-ui/use": "^1.5.0",
-        "solid-js": "^1.5.7"
+        "@cn-ui/use": "workspace:",
+        "solid-js": "workspace:"
     },
     "keywords": [
         "solid",

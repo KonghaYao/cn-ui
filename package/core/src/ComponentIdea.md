@@ -53,6 +53,15 @@ export const MyComp = OriginComponent<Props, HTMLDivElement>((props) => {
         ></div>
     );
 });
+
+// 使用内部注解的方式来使用动态类型
+export const MyComp = OriginComponent(function<T>(props:OriginComponentInputType<{
+    info:T
+}>) {
+    return (
+        <div></div>
+    );
+});
 ```
 
 ## 4. Reactive Props <响应式参数>

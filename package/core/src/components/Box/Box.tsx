@@ -1,4 +1,4 @@
-import { Component, JSX, JSXElement } from 'solid-js';
+import { JSX, JSXElement } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 import { extendsEvent } from '@cn-ui/use';
 

@@ -15,7 +15,6 @@ export default (props) => {
     const data = [...Array(5).keys()];
     return (
         <>
-            {/* TODO Check */}
             <Tabs activeId={'1'}>
                 <div class="ExtraNode">
                     {/* 可以自定义表头, 原始是没有表头的 */}
