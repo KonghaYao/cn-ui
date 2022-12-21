@@ -1,5 +1,4 @@
 import { globby } from 'globby';
-// https://www.digitalocean.com/community/tools/glob
 import fse from 'fs-extra';
 const message = [];
 

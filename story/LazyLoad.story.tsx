@@ -1,7 +1,6 @@
 export const Controller = [];
-import { sleep } from '../../mocks/sleep';
 import 'animate.css';
-import { LazyLoad } from './LazyLoad';
+import { LazyLoad, sleep } from '@cn-ui/core';
 import { onCleanup, onMount } from 'solid-js';
 import { createAC } from '@cn-ui/headless';
 

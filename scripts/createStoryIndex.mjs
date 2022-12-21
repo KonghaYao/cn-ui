@@ -1,5 +1,5 @@
 import { globby } from 'globby';
-const data = await globby('src/**/*.story.tsx');
+const data = await globby('story/*.story.tsx');
 
 import fs from 'fs';
 const total = await Promise.all(
@@ -10,4 +10,4 @@ const total = await Promise.all(
         };
     })
 );
-fs.writeFileSync('./story/story.index.json', JSON.stringify(total));
+fs.writeFileSync('./src/story.index.json', JSON.stringify(total));

@@ -1,14 +1,25 @@
-# 打包流程
+## 使用 @cn-ui/core
 
-```sh
-pnpm dev # 开发者模式查看
+1. 必须安装 tailwindcss
+2. 配置文件
 
-pnpm build # 打包 lite 版本
-pnpm build:full # 打包 full 版本
-
-pnpm preview # 使用 lite 版本查看
-pnpm preview:full # 使用 full 版本查看
-
+```js
+console.log('using tailwindcss config');
+module.exports = {
+    content: [
+        './src/**/*.{ts,tsx}',
+        './node_modules/@cn-ui/core/dist/**', // 添加这一行
+    ],
+    theme: {
+        extend: {
+            boxShadow: {
+                suit: '0 4px 11px -2px rgb(37 44 97 / 15%), 0 1px 3px 0 rgb(93 100 148 / 20%)',
+            },
+        },
+    },
+    mode: 'jit',
+    plugins: [require('@tailwindcss/line-clamp')],
+};
 ```
 
 # 借鉴插件

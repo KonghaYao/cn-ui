@@ -1,10 +1,9 @@
 export const Controller = [];
 
-import { atom, classNames } from '@cn-ui/use';
+import { atom } from '@cn-ui/use';
 import { Image, LazyLoad, WaterFall } from '@cn-ui/core';
-import { photos } from './photos';
+import { photos } from './mocks/photos';
 import 'animate.css';
-import { Component, JSX } from 'solid-js';
 
 export default (props) => {
     const items = atom(photos);

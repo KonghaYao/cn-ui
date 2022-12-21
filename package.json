@@ -6,13 +6,9 @@
     "types": "./dist/type/index.d.ts",
     "description": "",
     "scripts": {
-        "dev": " vite",
-        "build": "vite build -c vite.config.site.ts --mode analyze",
+        "dev": " node scripts/createStoryIndex.mjs&&vite",
+        "build": "node scripts/createStoryIndex.mjs&&vite build  --mode analyze",
         "build:type": "tsc --config tsconfig.node.json",
-        "preview": "vite -c vite.config.site.ts",
-        "preview:full": "vite -c vite.config.site.ts --mode full",
-        "dev:analyze": "node ./scripts/analyzeSrc.mjs",
-        "build:analyze": "vite build --mode analyze",
         "prepublish": "pnpm build &&tsc -p tsconfig.node.json"
     },
     "license": "MIT",

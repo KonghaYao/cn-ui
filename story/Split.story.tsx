@@ -5,10 +5,10 @@ export const Controller = [
         prop: 'vertical',
     },
 ];
-import { Split } from '@cn-ui/split/src/index';
+import { Split } from '@cn-ui/split';
 import { atom } from '@cn-ui/use';
 import { For, onMount } from 'solid-js';
-import { Button } from '../Button';
+import { Button } from '@cn-ui/core';
 export default (props) => {
     const list = atom([...Array(2).keys()].map((i) => i));
     return (
