@@ -1,6 +1,5 @@
 import { reflect } from '@cn-ui/use';
 import { useSearchParams } from '@solidjs/router';
-import { createMemo } from 'solid-js';
 import Index from '../story.index.json';
 export const useViewing = () => {
     const [searchParams] = useSearchParams();

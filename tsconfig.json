@@ -14,7 +14,7 @@
         "isolatedModules": false,
         "resolveJsonModule": true,
         "paths": {
-            "@cn-ui/core": ["./src/index"]
+            "@cn-ui/core": ["./package/core/src/index"]
         }
     },
     "include": ["src/**/*", "story/**/*"]

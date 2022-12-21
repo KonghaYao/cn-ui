@@ -1,7 +1,5 @@
 import { createSignal } from 'solid-js';
-import { Button, Message, Space } from '@cn-ui/core';
-import { Gradient, SizeTrans } from '../_util/design';
-import { sleep } from '../../mocks/sleep';
+import { Button, Gradient, SizeTrans, sleep } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',

@@ -11,7 +11,7 @@ export const usePagination = <T>(
     const maxPage = atom<number>(10);
     const currentData = resource<T>(() => getData(currentIndex(), maxPage));
 
-    createEffect(() => console.log(currentIndex()));
+    // createEffect(() => console.log(currentIndex()));
     // 更新数据
     const goto = (index: number) => {
         if (index < 0 || index >= maxPage()) {

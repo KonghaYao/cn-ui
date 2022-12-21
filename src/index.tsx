@@ -1,6 +1,6 @@
 /* @refresh reload */
 import './index.css';
-import '@cn-ui/core/style/index.css';
+import '@cn-ui/core/dist/style.css';
 import { render } from 'solid-js/web';
 
 import { App } from './App';

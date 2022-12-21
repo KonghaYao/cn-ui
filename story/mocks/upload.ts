@@ -1,4 +1,4 @@
-import { UploadFunc } from '../components/Uploader/base/UploadController';
+import { UploadFunc } from '@cn-ui/core/src/components/Uploader/base/UploadController';
 /** 虚假的 Upload，只是模拟而已 */
 export const fakeUpload: UploadFunc = async (notify, files, onCancel) => {
     await new Promise((resolve) => {

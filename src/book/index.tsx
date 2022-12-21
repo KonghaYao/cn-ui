@@ -1,5 +1,5 @@
 import { windowEndpoint, expose } from 'comlink';
-import { batch, onMount, Show } from 'solid-js';
+import { onMount, Show } from 'solid-js';
 import { Dynamic, render } from 'solid-js/web';
 import { useStory } from '../hook/useStory';
 import { Client as console } from '../utils/log';
@@ -11,7 +11,7 @@ const getURL: any = () => {
     };
 };
 import './index.css';
-import '@cn-ui/core/style/index.css';
+import '@cn-ui/core/dist/style.css';
 import { atom } from '@cn-ui/use';
 const Book = () => {
     const Props = atom(null);

@@ -1,7 +1,7 @@
 {
     "name": "@cn-ui/core",
     "version": "0.3.2",
-    "main": "./dist/es/index.es.js",
+    "main": "./dist/index.mjs",
     "types": "./dist/type/index.d.ts",
     "description": "",
     "scripts": {

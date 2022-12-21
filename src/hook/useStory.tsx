@@ -1,8 +1,8 @@
 import { atom, useSingleAsync } from '@cn-ui/use';
-import { batch, createEffect, createMemo, on } from 'solid-js';
+import { batch, createEffect } from 'solid-js';
 import { useViewing } from './useViewing';
 
-const modules = import.meta.glob('/src/**/*.story.tsx');
+const modules = import.meta.glob('/story/*.story.tsx');
 
 /** 将项目中的 story 文件抽取出来 */
 export const useStory = (GetViewing = useViewing) => {

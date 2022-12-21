@@ -6,7 +6,7 @@
     "types": "./dist/type/index.d.ts",
     "description": "",
     "scripts": {
-        "dev": "node ./scripts/createIndexFile.mjs&& node ./scripts/createStoryIndex.mjs && vite",
+        "dev": " vite",
         "build": "vite build -c vite.config.site.ts --mode analyze",
         "build:type": "tsc --config tsconfig.node.json",
         "preview": "vite -c vite.config.site.ts",

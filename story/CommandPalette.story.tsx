@@ -1,16 +1,14 @@
 import { atom, reflect } from '@cn-ui/use';
 import { For, onCleanup, onMount } from 'solid-js';
 import '@cn-ui/command-palette/pkg-dist/style.css';
-import { CommandPalette, PaletteRoot, Action, defineAction } from '@cn-ui/command-palette';
 import {
+    CommandPalette,
+    PaletteRoot,
+    Action,
+    defineAction,
     useKeyWordsFilter,
-    Button,
-    CheckGroup,
-    Image,
-    Message,
-    Space,
-    CheckBox,
-} from '@cn-ui/core';
+} from '@cn-ui/command-palette';
+import { Button, CheckGroup, Image, Message, Space, CheckBox } from '@cn-ui/core';
 export const Controller = [];
 
 const initActions = [

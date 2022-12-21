@@ -1,8 +1,7 @@
-import { atom, reflect } from '@cn-ui/use';
-import { createResource, onMount } from 'solid-js';
-import { Select } from '../Form';
-import { Code } from '@cn-ui/highlight';
-import { AllowedCodeStyleNames, useCodeStyle, CodeStyleNames } from '@cn-ui/highlight';
+import { atom } from '@cn-ui/use';
+import { createResource } from 'solid-js';
+import { Select } from '@cn-ui/core';
+import { AllowedCodeStyleNames, useCodeStyle, CodeStyleNames, Code } from '@cn-ui/highlight';
 export const Controller = [];
 export default (props) => {
     const [code] = createResource(() => {

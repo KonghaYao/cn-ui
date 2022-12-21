@@ -1,17 +1,11 @@
 import { DefaultIcon, Message, Select, Space, Tab } from '@cn-ui/core';
 Message.init();
-import { Code } from '@cn-ui/highlight/src/index';
+import { Code, lowlight } from '@cn-ui/highlight';
 import { useViewing } from '../hook/useViewing';
-import {
-    AllowedCodeStyleNames,
-    CodeStyleNames,
-    useCodeStyle,
-} from '@cn-ui/highlight/src/useCodeStyle';
-import { atom } from '@cn-ui/use/src/index';
-import { lowlight } from '@cn-ui/highlight';
+import { AllowedCodeStyleNames, CodeStyleNames, useCodeStyle } from '@cn-ui/highlight';
+import { atom } from '@cn-ui/use';
 import tsx from 'highlight.js/lib/languages/typescript';
 import copy from 'copy-to-clipboard';
-import { createEffect } from 'solid-js';
 // 需要使用 tsx 的解析
 lowlight.registerLanguage('tsx', tsx);
 

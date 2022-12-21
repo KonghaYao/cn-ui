@@ -1,9 +1,6 @@
 import fs from 'fs';
 const list = fs.readdirSync('./src/components/');
 const file = list
-    .filter((i) => {
-        return !i.startsWith('_');
-    })
     .map((i) => {
         return `export * from './components/${i}/index'`;
     })
