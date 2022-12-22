@@ -16,7 +16,7 @@ export const MessageCard = OriginComponent<MessageProps>((props) => {
         <div
             ref={props.ref}
             class={props.class(
-                'cn-message pointer-events-auto relative flex flex-row items-center justify-evenly overflow-hidden rounded-lg  bg-gradient-to-b px-4 py-1 text-center  shadow-suit',
+                'cn-message animated pointer-events-auto relative flex flex-row items-center justify-evenly overflow-hidden rounded-lg  bg-gradient-to-b px-4 py-1 text-center  shadow-suit',
                 Gradient.white
             )}
             style={props.style}

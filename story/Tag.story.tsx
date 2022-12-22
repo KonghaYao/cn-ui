@@ -1,6 +1,6 @@
-import { For, onMount } from 'solid-js';
+import { For } from 'solid-js';
 import { atom } from '@cn-ui/use';
-import { Space, Tag, Collapse } from '@cn-ui/core';
+import { Tag } from '@cn-ui/core';
 import { Anime } from '@cn-ui/transition';
 const COLORS = Object.keys(Gradient);
 export const Controller = [
@@ -18,7 +18,7 @@ export const Controller = [
 
 import 'animate.css/source/bouncing_entrances/bounceIn.css';
 import 'animate.css/source/bouncing_exits/bounceOut.css';
-import { Gradient } from '../_util/design';
+import { Gradient } from '@cn-ui/core';
 const sleep = (ms) =>
     new Promise((resolve) => {
         setTimeout(() => resolve(null), ms);

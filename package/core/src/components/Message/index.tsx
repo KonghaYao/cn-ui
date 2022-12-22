@@ -1,4 +1,4 @@
-import { createSignal, For } from 'solid-js';
+import { For } from 'solid-js';
 import { getOutSpace, Position, Space, DefaultIcon } from '@cn-ui/core';
 import './style/index.css';
 // 最小化动画载入
@@ -16,15 +16,7 @@ const Root = () => {
                 height: '100vh',
             }}
         >
-            <Space
-                transition={{
-                    enterActiveClass: 'animated fadeInDown',
-                    exitActiveClass: 'animated fadeOutUp',
-                }}
-                vertical
-                className="animated"
-                size="mini"
-            >
+            <div class="flex flex-col gap-2">
                 <Anime group in="fadeInDown" out="fadeOutUp">
                     <For each={MessageQueue}>
                         {(props) => {
@@ -32,7 +24,7 @@ const Root = () => {
                         }}
                     </For>
                 </Anime>
-            </Space>
+            </div>
         </Position>
     );
 };
@@ -53,7 +45,6 @@ const sendMessage = (config: MessageData | string, ...over: Partial<MessageData>
         return index === -1 ? [...items, _config] : [...items.splice(index, 1, _config)];
     });
     // 2. 添加删除信息
-
     const close = () => setMessage((list) => list.filter((i) => i.id !== _config.id));
     // console.log(_config);
     if (_config.duration > 0) {
@@ -68,7 +59,7 @@ export class Message {
     static inited = false;
     static init() {
         if (Message.inited) return;
-        getOutSpace().top((i) => [...i, Root]);
+        getOutSpace().top((i) => [...i, Root]); // 向 Top 位置注入 Root 组件
         Message.inited = true;
     }
     static DefaultConfig: Partial<MessageData> = {
