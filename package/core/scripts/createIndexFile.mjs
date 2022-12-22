@@ -9,5 +9,6 @@ console.log(file);
 
 fs.writeFileSync(
     './src/index.ts',
-    '// Automatically generator by scripts/createIndexFile.mjs;\n' + file
+    '// Automatically generator by scripts/createIndexFile.mjs;\nimport "./style/index.css"\n' +
+        file
 );

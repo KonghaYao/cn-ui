@@ -33,7 +33,6 @@ export default defineConfig(({ mode }) => {
         resolve: {
             alias: {
                 '@cn-ui/core/': '/src/',
-                // '@cn-ui/sortable': '/package/sortable/src/index.ts',
             },
         },
         optimizeDeps: {},
@@ -47,6 +46,7 @@ export default defineConfig(({ mode }) => {
         css: {
             postcss: {
                 purge: ['./{src}/**/*.{ts,tsx}'],
+                // 只有生产阶段才使用 tailwindcss 进行打包
                 plugins: mode !== 'production' && [tailwindcss],
             },
         },

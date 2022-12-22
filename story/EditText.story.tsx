@@ -31,7 +31,6 @@ export default (props) => {
                     });
                 }}
             >
-                {' '}
                 改变字体为江西拙楷
             </Button>
         </>

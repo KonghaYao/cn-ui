@@ -46,8 +46,6 @@ export const InputNumber = OriginComponent<InputNumberProps>((props) => {
                 class="sub flex items-center"
                 onClick={control(() => {
                     inputRef.stepDown();
-
-                    // value(parseInt(inputRef.value));
                 })}
             >
                 {props.button &&

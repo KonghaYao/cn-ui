@@ -1,4 +1,5 @@
 // Automatically generator by scripts/createIndexFile.mjs;
+import "./style/index.css"
 export * from './components/Box/index'
 export * from './components/Breadcrumb/index'
 export * from './components/Button/index'
