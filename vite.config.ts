@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
             alias: {
                 '@cn-ui/core/dist/style.css': '/package/core/src/style/index.css',
                 '@cn-ui/core/': '/package/core/src/',
-                // '@cn-ui/sortable': '/package/sortable/src/index.ts',
+                '@cn-ui/transition': '/package/transition/src/index.ts',
             },
         },
         optimizeDeps: {},

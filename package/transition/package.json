@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/transition",
-    "version": "1.7.0",
+    "version": "1.7.2",
     "description": "",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -10,14 +10,15 @@
     ],
     "scripts": {
         "build": "vite build&& tsc",
-        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js"
+        "prepublish": "pnpm build"
     },
     "license": "MIT",
     "devDependencies": {
         "fs-extra": "^10.1.0"
     },
     "peerDependencies": {
-        "solid-js": "^1.5.7"
+        "solid-js": "^1.5.7",
+        "@cn-ui/use": "workspace:"
     },
     "keywords": [
         "pridepack",
@@ -28,6 +29,7 @@
         "utils"
     ],
     "dependencies": {
+        "@cn-ui/use": "workspace:^1.8.4",
         "lodash-es": "^4.17.21"
     }
 }

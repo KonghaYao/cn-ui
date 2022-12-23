@@ -1,6 +1,7 @@
-import { Component, JSXElement } from 'solid-js';
+import { Component, JSXElement, Show, splitProps } from 'solid-js';
 import { Transition } from './Transition';
 import { TransitionGroup, TransitionGroupProps } from './TransitionGroup';
+import { Atom, atomization } from '@cn-ui/use';
 
 export type AllowAnime =
     | 'bounce'
@@ -84,21 +85,24 @@ export type AllowAnime =
 export interface AnimeProps extends TransitionGroupProps {
     in: AllowAnime;
     out: AllowAnime;
-
+    trigger: boolean | Atom<boolean>;
     group?: boolean;
-    children?: JSXElement;
+    children: JSXElement;
 }
 /**
  * @zh 基于 animate.css 的一个插件, css 文件需要单独导入
  */
 export const Anime: Component<AnimeProps> = (props) => {
     const Comp = props.group ? TransitionGroup : Transition;
-
+    const trigger = atomization(props.trigger ?? true);
+    const [_, transProps] = splitProps(props, ['children']);
     return (
         <Comp
-            {...props}
+            {...transProps}
             enterActiveClass={'animated ' + props.in}
             exitActiveClass={'animated ' + props.out}
-        ></Comp>
+        >
+            <Show when={trigger()}>{props.children}</Show>
+        </Comp>
     );
 };

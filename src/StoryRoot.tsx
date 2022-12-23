@@ -23,8 +23,8 @@ export const StoryRoot = (props) => {
                 value={{
                     ...useStory(),
                     viewing,
-                    height: atom(512),
-                    width: atom(512),
+                    height: atom(667),
+                    width: atom(375),
                     scale: atom(100),
                     autoRefresh: atom(false),
                     href,

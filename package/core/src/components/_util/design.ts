@@ -2,6 +2,7 @@
 export const Gradient = {
     position: 'bg-gradient-to-b',
     white: 'from-white to-gray-100 text-slate-700',
+    black: 'from-neutral-900 to-neutral-700 text-slate-100', // 未测试
     slate: 'from-slate-600 to-slate-700 text-slate-50',
     gray: 'from-gray-600 to-gray-700 text-slate-50',
     zinc: 'from-zinc-600 to-zinc-700 text-slate-50',

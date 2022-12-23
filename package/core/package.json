@@ -26,6 +26,8 @@
         "upload-js": "^2.1.0"
     },
     "dependencies": {
+        "@cn-ui/transition": "workspace:",
+        "@cn-ui/use": "workspace:",
         "@vant/area-data": "^1.3.2",
         "animate.css": "3",
         "consola": "^2.15.3",

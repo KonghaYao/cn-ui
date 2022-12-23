@@ -2,7 +2,6 @@ import { OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement } from 'solid-js';
 interface DividerProps extends JSX.HTMLAttributes<HTMLDivElement> {
     vertical?: boolean;
-    children?: JSXElement;
 }
 import './style/index.css';
 export const Divider = OriginComponent<DividerProps>((props) => {
@@ -11,14 +10,14 @@ export const Divider = OriginComponent<DividerProps>((props) => {
             /** @ts-ignore */
             vertical={props.vertical}
             class={props.class(
-                'cn-divider flex items-center',
-                props.vertical ? 'h-full flex-col' : 'w-full flex-row'
+                ' from-gray-100 via-gray-300  to-gray-100 ',
+                props.vertical
+                    ? 'h-full w-[1px] bg-gradient-to-t'
+                    : 'h-[1px] w-full bg-gradient-to-r'
             )}
             style={props.style}
             ref={props.ref}
-        >
-            {props.children}
-        </div>
+        ></div>
     );
 });
 

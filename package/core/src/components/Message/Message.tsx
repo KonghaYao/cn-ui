@@ -1,9 +1,10 @@
 import { For } from 'solid-js';
-import { getOutSpace, Position, Space, DefaultIcon } from '@cn-ui/core';
+import { OutSpace, Position, DefaultIcon } from '@cn-ui/core';
 import './style/index.css';
 // 最小化动画载入
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
+
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
 import { Anime } from '@cn-ui/transition';
 const Root = () => {
@@ -59,7 +60,8 @@ export class Message {
     static inited = false;
     static init() {
         if (Message.inited) return;
-        getOutSpace().top((i) => [...i, Root]); // 向 Top 位置注入 Root 组件
+        OutSpace.init();
+        OutSpace.addLayerLikeSet(Root); // 向 Top 位置注入 Root 组件
         Message.inited = true;
     }
     static DefaultConfig: Partial<MessageData> = {
@@ -102,3 +104,8 @@ export class Message {
         });
     }
 }
+
+export const useMessage = () => {
+    Message.init();
+    return Message;
+};
