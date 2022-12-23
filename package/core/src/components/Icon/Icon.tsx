@@ -1,5 +1,4 @@
 import { Component, createMemo } from 'solid-js';
-import '@fontsource/material-icons-rounded/index.css';
 import './style/index.css';
 import { IconProps } from './interface';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';

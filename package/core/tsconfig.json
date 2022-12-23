@@ -17,5 +17,5 @@
             "@cn-ui/core": ["./src/index"]
         }
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "f:/MyTemp/ai-tag/src/use/useWindowResize.ts"]
 }

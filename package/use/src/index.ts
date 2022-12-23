@@ -8,3 +8,4 @@ export * from './OriginComponent';
 export * from './useEventController';
 export * from './extendsEvent';
 export * from './resource';
+export * from './BOM/index';

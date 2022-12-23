@@ -1,5 +1,6 @@
 import { atom, reflect } from '@cn-ui/use';
 import { InputNumber, Space } from '@cn-ui/core';
+import { useBreakpoints } from '@cn-ui/use';
 
 export const Controller = [];
 export default () => {
@@ -7,6 +8,7 @@ export default () => {
     const bg = reflect(() => {
         return `hsl(${value() % 360}deg 61% 31%)`;
     });
+    const { size } = useBreakpoints();
     return (
         <Space>
             <div
@@ -24,6 +26,7 @@ export default () => {
                 step={1}
                 min={0}
             ></InputNumber>
+            屏幕大小： {size()}
         </Space>
     );
 };

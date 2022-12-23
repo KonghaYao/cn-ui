@@ -32,7 +32,7 @@ const ModelLayer = () => {
                 e.target === dom && ModelManage.cb(false);
             }}
         >
-            <Anime in="fadeIn" out="fadeOut" trigger={trigger}>
+            <Anime in="fadeIn" out="fadeOut" trigger={trigger as any}>
                 <ModelManage.comp></ModelManage.comp>
             </Anime>
         </Position>

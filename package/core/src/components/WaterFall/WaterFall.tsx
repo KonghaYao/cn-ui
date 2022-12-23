@@ -5,12 +5,12 @@ import {
     extendsEvent,
     OriginComponent,
     reflect,
-} from '@cn-ui/use/src';
-import { For, JSXElement } from 'solid-js';
+} from '@cn-ui/use';
+import { Accessor, For, JSXElement, createMemo } from 'solid-js';
 interface WaterFallProps<T> {
     items: T[] | Atom<T[]>;
     column: number | Atom<number>;
-    children: (data: T) => JSXElement;
+    children: (data: T, index?: Accessor<number>) => JSXElement;
 }
 
 export const WaterFall = OriginComponent(function <T>(
@@ -30,10 +30,18 @@ export const WaterFall = OriginComponent(function <T>(
     return (
         <section class={props.class('flex gap-4')} style={props.style} {...extendsEvent(props)}>
             <For each={columnItems()}>
-                {(items) => {
+                {(items, colIndex) => {
                     return (
                         <div class="flex flex-1 flex-col gap-4">
-                            <For each={items}>{props.children}</For>
+                            <For each={items}>
+                                {(item, rowIndex) =>
+                                    props.children(
+                                        item,
+                                        // TODO Index 等待检查
+                                        createMemo(() => rowIndex() * column() + colIndex())
+                                    )
+                                }
+                            </For>
                         </div>
                     );
                 }}
