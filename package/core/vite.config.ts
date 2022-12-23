@@ -4,7 +4,6 @@ import visualizer from 'rollup-plugin-visualizer';
 import tailwindcss from 'tailwindcss';
 import packageJSON from './package.json';
 const ignoreDeps = [
-    '@fontsource/material-icons-rounded',
     ...Object.keys({
         ...packageJSON.dependencies,
         ...packageJSON.devDependencies,

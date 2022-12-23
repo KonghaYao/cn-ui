@@ -85,7 +85,7 @@ export type AllowAnime =
 export interface AnimeProps extends TransitionGroupProps {
     in: AllowAnime;
     out: AllowAnime;
-    trigger: boolean | Atom<boolean>;
+    trigger?: boolean | Atom<boolean>;
     group?: boolean;
     children: JSXElement;
 }
