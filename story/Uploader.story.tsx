@@ -31,7 +31,7 @@ export const Controller = [
 import { atom } from '@cn-ui/use';
 import { Space, SimpleUploader, UploaderRoot, UploadList } from '@cn-ui/core';
 
-import { fakeUpload, mockUpload } from '../../mocks/upload';
+import { fakeUpload, mockUpload } from './mocks/upload';
 export default (props) => {
     const Files = atom([]);
     return (

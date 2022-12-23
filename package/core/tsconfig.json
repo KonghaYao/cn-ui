@@ -12,10 +12,7 @@
         "declarationDir": "./dist/type",
         "declaration": true,
         "isolatedModules": false,
-        "resolveJsonModule": true,
-        "paths": {
-            "@cn-ui/core": ["./src/index"]
-        }
+        "resolveJsonModule": true
     },
-    "include": ["src/**/*", "f:/MyTemp/ai-tag/src/use/useWindowResize.ts"]
+    "include": ["src/**/*"]
 }

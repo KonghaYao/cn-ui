@@ -1,5 +1,6 @@
 @import url('https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-sans-condensed/index.css');
 @import url('https://cdn.jsdelivr.net/npm/@fontsource/cormorant-sc/index.css');
+@import url('@fontsource/material-icons-rounded/index.css');
 body {
     margin: 0;
     overflow: hidden;

@@ -128,7 +128,7 @@ export const FloatPanel = OriginComponent<{
                 }
                 classList={{
                     'scale-0 opacity-0 pointer-events-none': !show(),
-                    'scale-100 opacity-100': show(),
+                    'scale-100 opacity-100 pointer-event-auto': show(),
                 }}
                 ref={props.ref}
                 style={{ ...props.style, ...pos }}
