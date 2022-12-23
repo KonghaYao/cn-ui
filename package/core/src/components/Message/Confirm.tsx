@@ -8,8 +8,8 @@ import { createStore } from 'solid-js/store';
 import { Anime } from '@cn-ui/transition';
 
 // 最小化动画载入
-import 'animate.css/source/fading_entrances/fadeInLeftBig.css';
-import 'animate.css/source/fading_exits/fadeOutRightBig.css';
+import 'animate.css/source/fading_entrances/fadeIn.css';
+import 'animate.css/source/fading_exits/fadeOut.css';
 
 export const [ModelManage, setModelM] = createStore({
     cb: (isConfirm: boolean) => {},
@@ -32,7 +32,7 @@ const ModelLayer = () => {
                 e.target === dom && ModelManage.cb(false);
             }}
         >
-            <Anime in="fadeInLeftBig" out="fadeOutRightBig" trigger={trigger}>
+            <Anime in="fadeIn" out="fadeOut" trigger={trigger}>
                 <ModelManage.comp></ModelManage.comp>
             </Anime>
         </Position>
