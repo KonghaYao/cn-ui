@@ -2,11 +2,10 @@ import { For } from 'solid-js';
 import { OutSpace, Position, DefaultIcon } from '@cn-ui/core';
 import './style/index.css';
 // 最小化动画载入
-import 'animate.css/source/fading_entrances/fadeInDown.css';
-import 'animate.css/source/fading_exits/fadeOutUp.css';
+import '@cn-ui/animate/src/slide.css';
 
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
-import { Anime } from '@cn-ui/transition';
+import { Animate } from '@cn-ui/animate/src/index';
 const Root = () => {
     return (
         <Position
@@ -18,13 +17,13 @@ const Root = () => {
             }}
         >
             <div class="flex flex-col gap-2">
-                <Anime group in="fadeInDown" out="fadeOutUp">
+                <Animate group anime="slide">
                     <For each={MessageQueue}>
                         {(props) => {
                             return <MessageCard {...props}></MessageCard>;
                         }}
                     </For>
-                </Anime>
+                </Animate>
             </div>
         </Position>
     );

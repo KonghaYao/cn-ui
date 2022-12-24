@@ -4,3 +4,6 @@ body {
 .animated-reverse {
     animation-direction: reverse;
 }
+.animated {
+    animation-duration: 0.5s;
+}

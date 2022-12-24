@@ -2,8 +2,9 @@ import { Atom, atomization } from '@cn-ui/use';
 import { Transition, TransitionGroup, TransitionGroupProps } from '@cn-ui/transition';
 import { JSXElement, Component, splitProps, Show } from 'solid-js';
 export const AnimateNames = ['slide', 'jumpFromTop', 'jumpFromBottom', 'zoom'] as const;
+type TupleToUnion<T extends readonly any[]> = T[number];
 export interface AnimeProps extends TransitionGroupProps {
-    anime: typeof AnimateNames;
+    anime: TupleToUnion<typeof AnimateNames>;
     // trigger 在 group 情况下无效化
     trigger?: boolean | Atom<boolean>;
     group?: boolean;

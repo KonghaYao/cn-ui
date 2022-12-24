@@ -1,15 +1,14 @@
-import { Component, For, JSXElement, Show, createEffect, createMemo } from 'solid-js';
+import { Component, createMemo } from 'solid-js';
 import { OutSpace } from '../GlobalConfigStore';
 import { Position } from '../Mask';
 import { classNames } from '@cn-ui/use';
 import { Gradient } from '../_util';
 import { Divider } from '../Divider';
 import { createStore } from 'solid-js/store';
-import { Anime } from '@cn-ui/transition';
+import { Animate } from '@cn-ui/animate/src/index';
 
 // 最小化动画载入
-import 'animate.css/source/fading_entrances/fadeIn.css';
-import 'animate.css/source/fading_exits/fadeOut.css';
+import '@cn-ui/animate/src/slide.css';
 
 export const [ModelManage, setModelM] = createStore({
     cb: (isConfirm: boolean) => {},
@@ -32,9 +31,9 @@ const ModelLayer = () => {
                 e.target === dom && ModelManage.cb(false);
             }}
         >
-            <Anime in="fadeIn" out="fadeOut" trigger={trigger as any}>
+            <Animate anime="slide" trigger={trigger as any}>
                 <ModelManage.comp></ModelManage.comp>
-            </Anime>
+            </Animate>
         </Position>
     );
 };

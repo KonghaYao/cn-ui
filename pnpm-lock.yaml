@@ -129,8 +129,10 @@ importers:
 
   package/animate:
     specifiers:
-      '@cn-ui/use': workspace:^1.9.0
+      '@cn-ui/transition': 'workspace:'
+      '@cn-ui/use': 'workspace:'
     dependencies:
+      '@cn-ui/transition': link:../transition
       '@cn-ui/use': link:../use
 
   package/command-palette:
@@ -169,6 +171,7 @@ importers:
 
   package/core:
     specifiers:
+      '@cn-ui/animate': 'workspace:'
       '@cn-ui/transition': 'workspace:'
       '@cn-ui/use': 'workspace:'
       '@tailwindcss/line-clamp': ^0.4.2
@@ -199,6 +202,7 @@ importers:
       unified: ^10.1.2
       upload-js: ^2.1.0
     dependencies:
+      '@cn-ui/animate': link:../animate
       '@cn-ui/transition': link:../transition
       '@cn-ui/use': link:../use
       '@vant/area-data': registry.npmmirror.com/@vant/area-data/1.3.2
