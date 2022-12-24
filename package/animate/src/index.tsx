@@ -6,7 +6,9 @@ type TupleToUnion<T extends readonly any[]> = T[number];
 export interface AnimateProps extends TransitionGroupProps {
     anime: TupleToUnion<typeof AnimateNames>;
     extraClass?: string;
-    // trigger 在 group 情况下无效化
+    /* 直接渲染，不使用 trigger 的 show*/
+    directly?: boolean;
+    /** trigger 在 group 情况下无效化 */
     trigger?: boolean | Atom<boolean>;
     group?: boolean;
     fallback?: JSXElement;
@@ -24,18 +26,14 @@ export const Animate: Component<AnimateProps> = (props) => {
     return (
         <Comp
             {...transProps}
-            enterActiveClass={[
-                'pointer-events-none animated',
-                props.anime,
-                props.extraClass ?? ' __anime__ ',
-            ].join(' ')}
-            exitActiveClass={[
-                'pointer-events-none animated animated-reverse',
-                props.anime,
-                props.extraClass ?? ' __anime__ ',
-            ].join(' ')}
+            enterActiveClass={`pointer-events-none animated ${props.anime} ${
+                props.exitClass ?? ''
+            }`}
+            exitActiveClass={`pointer-events-none animated animated-reverse ${props.anime} ${
+                props.exitClass ?? ''
+            }`}
         >
-            {props.group ? (
+            {props.directly ? (
                 props.children
             ) : (
                 <Show when={trigger()} fallback={props.fallback}>

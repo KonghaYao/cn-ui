@@ -24,7 +24,7 @@ const Book = () => {
         {
             changeProps(props: unknown) {
                 Props(props);
-                console.info('receive props', props);
+                console.info('receive props', Props());
                 return true;
             },
         },
@@ -39,7 +39,10 @@ const Book = () => {
         </Show>
     );
 };
-const App = () => {
-    return <Book></Book>;
-};
-render(App, document.body);
+render(() => {
+    return (
+        <div>
+            <Book></Book>
+        </div>
+    );
+}, document.getElementById('root'));

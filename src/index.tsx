@@ -1,4 +1,3 @@
-/* @refresh reload */
 import './index.css';
 import '@cn-ui/core/dist/style.css';
 import { render } from 'solid-js/web';

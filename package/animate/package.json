@@ -1,19 +1,17 @@
 {
     "name": "@cn-ui/animate",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
-    "main": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
+    "main": "./src/index.tsx",
     "files": [
-        "dist"
+        "src"
     ],
-    "scripts": {
-        "build": "vite build && tsc",
-        "prepublish": "pnpm build"
-    },
+    "scripts": {},
     "license": "MIT",
     "peerDependencies": {
-        "solid-js": "workspace:"
+        "@cn-ui/transition": "workspace:^1.7.3",
+        "@cn-ui/use": "workspace:^1.9.0",
+        "solid-js": "^1.5.7"
     },
     "keywords": [
         "solid-js",
@@ -22,8 +20,5 @@
         "component",
         "utils"
     ],
-    "dependencies": {
-        "@cn-ui/transition": "workspace:",
-        "@cn-ui/use": "workspace:"
-    }
+    "dependencies": {}
 }
