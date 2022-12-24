@@ -17,7 +17,7 @@ export default () => {
                     </Animate>
                 </div>
                 <div class="absolute  bottom-4 left-4 flex  gap-2">
-                    <Animate group anime={name} trigger={trigger} stagger={300}>
+                    <Animate directly group anime={name} stagger={300}>
                         <For each={trigger() ? ['', '', ''] : []}>
                             {(item) => {
                                 return <div class="h-16 w-16  rounded-xl bg-blue-600"></div>;

@@ -1,6 +1,6 @@
 import { Atom, atomization, classNames } from '@cn-ui/use';
 import { Transition, TransitionGroup, TransitionGroupProps } from '@cn-ui/transition';
-import { JSXElement, Component, splitProps, Show } from 'solid-js';
+import { JSXElement, Component, splitProps, Show, mergeProps } from 'solid-js';
 export const AnimateNames = ['slide', 'jumpFromTop', 'jumpFromBottom', 'zoom'] as const;
 type TupleToUnion<T extends readonly any[]> = T[number];
 export interface AnimateProps extends TransitionGroupProps {
@@ -26,12 +26,15 @@ export const Animate: Component<AnimateProps> = (props) => {
     return (
         <Comp
             {...transProps}
-            enterActiveClass={`pointer-events-none animated ${props.anime} ${
-                props.exitClass ?? ''
-            }`}
-            exitActiveClass={`pointer-events-none animated animated-reverse ${props.anime} ${
-                props.exitClass ?? ''
-            }`}
+            enterActiveClass={
+                'pointer-events-none animated ' + props.anime + ' ' + props.extraClass
+            }
+            exitActiveClass={
+                'animated-reverse pointer-events-none animated ' +
+                props.anime +
+                ' ' +
+                props.extraClass
+            }
         >
             {props.directly ? (
                 props.children

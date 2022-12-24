@@ -1,10 +1,7 @@
 export const Controller = [];
-import 'animate.css';
 import { LazyLoad, sleep } from '@cn-ui/core';
 import { onCleanup, onMount } from 'solid-js';
-import { createAC } from '@cn-ui/headless';
-
-const AC = createAC({});
+import '@cn-ui/animate/src/slide.css';
 export default () => {
     const Comp = () => {
         onMount(() => console.log('可视了'));
@@ -23,11 +20,6 @@ export default () => {
                 threshold={[0.3, 1]}
                 // Async Loading
                 load={() => sleep(1000, Promise.resolve(Comp))}
-                // combine Anime Component
-                anime={{
-                    in: 'fadeInLeft',
-                    out: 'fadeOutRight',
-                }}
             ></LazyLoad>
             <section class="h-screen w-full bg-gray-100"></section>
             <section class="h-screen w-full bg-gray-100"></section>

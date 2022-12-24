@@ -8,6 +8,7 @@ import {
     lazy,
     onMount,
     Suspense,
+    Show,
 } from 'solid-js';
 import { Animate, AnimateProps } from '@cn-ui/animate/src';
 interface LazyLoadProps extends IntersectionObserverInit {
@@ -15,7 +16,7 @@ interface LazyLoadProps extends IntersectionObserverInit {
     children?: JSXElement;
     load: () => Promise<Component>;
     loading?: JSXElement;
-    anime?: AnimateProps;
+    anime?: Omit<AnimateProps, 'children'>;
     once?: boolean;
 }
 
@@ -46,13 +47,9 @@ export const LazyLoad = OriginComponent<LazyLoadProps, HTMLDivElement>((props) =
     );
     return (
         <div class={props.class()} style={props.style} ref={ref}>
-            {props.anime ? (
-                <Animate {...props.anime} trigger={visible()} fallback={fallback}>
-                    {item}
-                </Animate>
-            ) : (
-                item
-            )}
+            <Show when={visible()} fallback={fallback}>
+                {item}
+            </Show>
         </div>
     );
 });

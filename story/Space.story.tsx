@@ -37,7 +37,7 @@ export default (props) => {
             </Space>
 
             <Space {...props}>
-                <Animate group anime="slide" stagger={100} enterClass="hidden" appear>
+                <Animate directly group anime="slide" stagger={300} enterClass="hidden" appear>
                     <For each={origin()}>
                         {(i) => {
                             return (

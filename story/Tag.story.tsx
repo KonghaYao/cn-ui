@@ -25,15 +25,7 @@ export default (props) => {
             return {
                 name: 'tag ' + i,
                 value: atom(true),
-                onClose: () => {
-                    return sleep(i * 100).then((res) => {
-                        console.log('触发关闭', i * 100);
-                        data((it) => {
-                            it.splice(i, 1);
-                            return [...it];
-                        });
-                    });
-                },
+
                 color: COLORS[i % COLORS.length],
             };
         })
@@ -43,11 +35,18 @@ export default (props) => {
         <>
             <div class="flex flex-wrap gap-2">
                 <Animate group anime="zoom">
-                    {/*  必须使用 For 循环才能使用动画 */}
                     <For each={data()}>
                         {(item) => {
                             return (
-                                <Tag color={item.color} onClose={item.onClose} {...props}>
+                                <Tag
+                                    color={item.color}
+                                    onClose={() => {
+                                        data((i) => {
+                                            return i.filter((ii) => ii !== item);
+                                        });
+                                    }}
+                                    {...props}
+                                >
                                     {item.name}
                                 </Tag>
                             );

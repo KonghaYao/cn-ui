@@ -6,7 +6,7 @@ import { photos } from './mocks/photos';
 import 'animate.css';
 import { useBreakpoints } from '@cn-ui/use';
 import { createMemo } from 'solid-js';
-
+import '@cn-ui/animate/src/slide.css';
 export default (props) => {
     const items = atom(photos);
     const { size } = useBreakpoints();
@@ -35,10 +35,6 @@ export default (props) => {
                         // Async Loading
                         load={async () => () => <Image src={item.src} />}
                         // combine Anime Component
-                        anime={{
-                            in: 'fadeInLeft',
-                            out: 'fadeOutRight',
-                        }}
                         once
                     ></LazyLoad>
                 );
