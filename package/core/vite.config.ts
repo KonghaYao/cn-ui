@@ -29,11 +29,7 @@ export default defineConfig(({ mode }) => {
         server: {
             port: 3000,
         },
-        resolve: {
-            alias: {
-                '@cn-ui/core/': '/src/',
-            },
-        },
+
         optimizeDeps: {},
         build: {
             lib: {

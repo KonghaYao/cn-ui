@@ -5,7 +5,7 @@ import './style/index.css';
 import '@cn-ui/animate/src/slide.css';
 
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
-import { Animate } from '@cn-ui/animate/src/index';
+import { Animate } from '@cn-ui/animate';
 const Root = () => {
     return (
         <Position
@@ -17,7 +17,7 @@ const Root = () => {
             }}
         >
             <div class="flex flex-col gap-2">
-                <Animate group anime="slide">
+                <Animate directly group anime="slide">
                     <For each={MessageQueue}>
                         {(props) => {
                             return <MessageCard {...props}></MessageCard>;

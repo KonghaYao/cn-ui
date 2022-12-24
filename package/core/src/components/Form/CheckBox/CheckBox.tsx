@@ -51,17 +51,13 @@ export const CheckBox = OriginComponent<CheckBoxProps, HTMLDivElement>((props) =
             )}
             style={props.style}
             {...extendsEvent(props)}
-            onClick={control(
-                [
-                    emitEvent(props.onValueInput, ([e]) => [e, !value()] as const),
-                    async (e) => {
-                        value((i) => !i);
-                        changeSelected(props.label);
-                    },
-                ]
-                // 使用 batch 会报错
-                // { batch: false }
-            )}
+            onClick={control([
+                emitEvent(props.onValueInput, ([e]) => [e, !value()] as const),
+                async (e) => {
+                    value((i) => !i);
+                    changeSelected(props.label);
+                },
+            ])}
         >
             <span
                 class="cn-check float-left mt-1 mr-2 h-4 w-4 appearance-none rounded-sm  border border-slate-300 bg-white bg-contain bg-center bg-no-repeat align-top transition duration-200 focus:outline-none "

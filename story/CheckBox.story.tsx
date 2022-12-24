@@ -1,5 +1,5 @@
 import { atom, reflect } from '@cn-ui/use';
-import { Message, CheckBox, CheckGroup, Button, CheckGroupHelper } from '@cn-ui/core';
+import { Message, CheckBox, CheckGroup, Button, CheckGroupHelper, sleep } from '@cn-ui/core';
 import { For } from 'solid-js';
 export const Controller = [
     {
@@ -18,10 +18,6 @@ export const Controller = [
         prop: 'indeterminate',
     },
 ];
-const sleep = (ms) =>
-    new Promise((resolve) => {
-        setTimeout(() => resolve(null), ms);
-    });
 
 export default (props) => {
     const checkbox = atom(true);
@@ -33,7 +29,7 @@ export default (props) => {
     return (
         <>
             <CheckGroup activeIds={selectedIds}>
-                <CheckBox label="同步更新" value={checkbox} {...props}></CheckBox>
+                <CheckBox label="同步更新" value={checkbox}></CheckBox>
                 <CheckBox
                     label="异步更新"
                     value={checkbox}

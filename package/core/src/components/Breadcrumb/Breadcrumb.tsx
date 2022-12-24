@@ -31,6 +31,7 @@ export const Breadcrumb = OriginComponent<BreadcrumbProps>((props) => {
                                 props.separator ?? <span>{'/'}</span>
                             )}
                             <Button
+                                size="mini"
                                 {...props.buttonProps}
                                 onClick={() =>
                                     props.onTrigger &&

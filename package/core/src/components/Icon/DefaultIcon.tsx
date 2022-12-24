@@ -18,6 +18,7 @@ export const DefaultIcon = OriginComponent<DefaultIconProps>((props) => {
             style={{ ...props.style }}
             ref={props.ref}
             {...extendsEvent(props)}
+            onClick={props.onClick}
         >
             <Icon
                 class={props.iconClass}

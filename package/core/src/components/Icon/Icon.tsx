@@ -17,6 +17,7 @@ export const Icon = OriginComponent<IconProps, HTMLElement>((props) => {
             )}
             style={{ 'line-height': '1em', ...props.style, 'font-size': fontSize() }}
             {...extendsEvent(props)}
+            onClick={props.onClick}
         >
             {props.name}
             {props.children}
