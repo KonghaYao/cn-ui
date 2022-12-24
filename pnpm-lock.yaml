@@ -7,6 +7,7 @@ importers:
       '@babel/core': ^7.19.3
       '@babel/plugin-transform-typescript': ^7.19.3
       '@babel/preset-env': ^7.19.3
+      '@cn-ui/animate': 'workspace:'
       '@cn-ui/command-palette': 'workspace:'
       '@cn-ui/core': 'workspace:'
       '@cn-ui/cropper': 'workspace:'
@@ -64,6 +65,7 @@ importers:
       vite-plugin-imp: ^2.3.0
       vite-plugin-solid: ^2.3.9
     dependencies:
+      '@cn-ui/animate': link:package/animate
       '@cn-ui/command-palette': link:package/command-palette
       '@cn-ui/core': link:package/core
       '@cn-ui/cropper': link:package/cropper
@@ -124,6 +126,12 @@ importers:
       vite: registry.npmmirror.com/vite/3.2.5
       vite-plugin-imp: 2.3.0_vite@3.2.5
       vite-plugin-solid: 2.3.9_solid-js@1.5.7+vite@3.2.5
+
+  package/animate:
+    specifiers:
+      '@cn-ui/use': workspace:^1.9.0
+    dependencies:
+      '@cn-ui/use': link:../use
 
   package/command-palette:
     specifiers:

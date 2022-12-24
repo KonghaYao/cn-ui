@@ -12,7 +12,10 @@ const getURL: any = () => {
     };
 };
 import './index.css';
+
+// 加载基础样式表
 import '@cn-ui/core/dist/style.css';
+
 import { atom } from '@cn-ui/use';
 const Book = () => {
     const Props = atom(null);

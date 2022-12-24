@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/core",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "main": "./dist/index.mjs",
     "types": "./dist/type/index.d.ts",
     "description": "",

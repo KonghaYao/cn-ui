@@ -2,7 +2,7 @@ import { For } from 'solid-js';
 import { Tabs, Tab, TabsHeader, Button } from '@cn-ui/core';
 import 'animate.css/source/fading_entrances/fadeInDown.css';
 import 'animate.css/source/fading_exits/fadeOutUp.css';
-import { TransitionGroup } from '@cn-ui/transition';
+import { Anime, TransitionGroup } from '@cn-ui/transition';
 export const Controller = [
     {
         type: 'switch',
@@ -22,12 +22,7 @@ export default (props) => {
                     {/* 使用动画，但是动画只有在组件销毁时触发 */}
                     {/* 可以深层嵌套使用 */}
                     <div class="ExtraNode">
-                        <TransitionGroup
-                            {...{
-                                enterActiveClass: 'animated fadeInDown',
-                                exitActiveClass: 'animated fadeOutUp',
-                            }}
-                        >
+                        <Anime in="fadeInDown" out="fadeOutUp">
                             <For each={data}>
                                 {(item) => {
                                     return (
@@ -37,7 +32,7 @@ export default (props) => {
                                     );
                                 }}
                             </For>
-                        </TransitionGroup>
+                        </Anime>
                     </div>
                 </div>
             </Tabs>

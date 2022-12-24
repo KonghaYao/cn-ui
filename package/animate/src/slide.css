@@ -1,0 +1,11 @@
+.animated.slide {
+    animation-name: A_Slide;
+}
+
+@keyframes A_Slide {
+    0% {
+        opacity: 0;
+        scale: 0.3;
+        transform: scale(0.3) translateY(-50vw);
+    }
+}

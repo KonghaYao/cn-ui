@@ -48,6 +48,7 @@
     },
     "dependencies": {
         "@cn-ui/command-palette": "workspace:",
+        "@cn-ui/animate": "workspace:",
         "@cn-ui/cropper": "workspace:",
         "@cn-ui/headless": "workspace:",
         "@cn-ui/highlight": "workspace:",

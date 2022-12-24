@@ -1,0 +1,9 @@
+.animated.zoom {
+    animation-name: A_Zoom;
+}
+@keyframes A_Zoom {
+    0% {
+        transform: scale(10);
+        opacity: 0;
+    }
+}

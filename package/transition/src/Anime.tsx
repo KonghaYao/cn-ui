@@ -4,6 +4,7 @@ import { TransitionGroup, TransitionGroupProps } from './TransitionGroup';
 import { Atom, atomization } from '@cn-ui/use';
 
 export type AllowAnime =
+    | string
     | 'bounce'
     | 'flash'
     | 'pulse'

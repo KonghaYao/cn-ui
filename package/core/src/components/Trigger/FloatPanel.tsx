@@ -113,7 +113,7 @@ export const FloatPanel = OriginComponent<{
     const mouseover = () => changeShow(true);
     el.addEventListener('mouseover', mouseover);
     const pos = usePositionString(props.position ?? 'bl');
-    console.log(pos);
+    // console.log(pos);
     return (
         <div
             class={props.class('relative')}
