@@ -1,8 +1,5 @@
 import { For } from 'solid-js';
-import { Tabs, Tab, TabsHeader, Button } from '@cn-ui/core';
-import 'animate.css/source/fading_entrances/fadeInDown.css';
-import 'animate.css/source/fading_exits/fadeOutUp.css';
-import { Anime, TransitionGroup } from '@cn-ui/transition';
+import { Tabs, Tab, TabsHeader } from '@cn-ui/core';
 export const Controller = [
     {
         type: 'switch',
@@ -10,7 +7,8 @@ export const Controller = [
         prop: 'destroyOnHide',
     },
 ];
-
+import { Animate } from '@cn-ui/animate/src';
+import '@cn-ui/animate/src/zoom.css';
 export default (props) => {
     const data = [...Array(5).keys()];
     return (
@@ -22,7 +20,7 @@ export default (props) => {
                     {/* 使用动画，但是动画只有在组件销毁时触发 */}
                     {/* 可以深层嵌套使用 */}
                     <div class="ExtraNode">
-                        <Anime in="fadeInDown" out="fadeOutUp">
+                        <Animate anime="zoom" group extraClass="absolute">
                             <For each={data}>
                                 {(item) => {
                                     return (
@@ -32,7 +30,7 @@ export default (props) => {
                                     );
                                 }}
                             </For>
-                        </Anime>
+                        </Animate>
                     </div>
                 </div>
             </Tabs>

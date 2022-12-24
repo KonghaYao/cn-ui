@@ -1,5 +1,5 @@
+import { Animate } from '@cn-ui/animate/src';
 import { Space } from '@cn-ui/core';
-import { Anime } from '@cn-ui/transition';
 export const Controller = [
     {
         type: 'switch',
@@ -22,8 +22,7 @@ export const Controller = [
     },
 ];
 
-import 'animate.css/source/fading_entrances/fadeInDown.css';
-import 'animate.css/source/fading_exits/fadeOutUp.css';
+import '@cn-ui/animate/src/slide.css';
 import { createSignal, For, onMount } from 'solid-js';
 export default (props) => {
     const arr = (num) => [...Array(num).keys()];
@@ -38,14 +37,7 @@ export default (props) => {
             </Space>
 
             <Space {...props}>
-                <Anime
-                    group
-                    in="fadeInDown"
-                    out="fadeOutUp"
-                    stagger={100}
-                    enterClass="hidden"
-                    appear
-                >
+                <Animate group anime="slide" stagger={100} enterClass="hidden" appear>
                     <For each={origin()}>
                         {(i) => {
                             return (
@@ -53,7 +45,7 @@ export default (props) => {
                             );
                         }}
                     </For>
-                </Anime>
+                </Animate>
             </Space>
         </>
     );
