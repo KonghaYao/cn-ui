@@ -48,17 +48,19 @@ export const Transition: Component<TransitionProps> = (props) => {
     ]);
     const classnames = createMemo(() => {
         const name = props.name || 's';
-        return Object.assign(
-            {
-                enterActiveClass: name + '-enter-active',
-                enterClass: name + '-enter',
-                enterToClass: name + '-enter-to',
-                exitActiveClass: name + '-exit-active',
-                exitClass: name + '-exit',
-                exitToClass: name + '-exit-to',
-            },
-            ClassNames
-        );
+        const result = {
+            enterActiveClass: name + '-enter-active',
+            enterClass: name + '-enter',
+            enterToClass: name + '-enter-to',
+            exitActiveClass: name + '-exit-active',
+            exitClass: name + '-exit',
+            exitToClass: name + '-exit-to',
+        };
+        Object.entries(result).forEach(([key, value]) => {
+            // 注意，这里必须是 || 保证空字符串等否定值也使用默认
+            result[key] = ClassNames[key] || value;
+        });
+        return result;
     });
 
     function enterTransition(el: Element, prev: Element | undefined) {

@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
                 '@cn-ui/core/': '/package/core/src/',
                 '@cn-ui/animate': '/package/animate/',
                 // '@cn-ui/use': '/package/use/src/index.ts',
-                // '@cn-ui/transition': '/package/transition/src/index.ts',
+                '@cn-ui/transition': '/package/transition/src/index.ts',
             },
         },
         optimizeDeps: {},

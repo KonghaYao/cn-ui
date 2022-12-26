@@ -22,7 +22,6 @@ export const Animate: Component<AnimateProps> = (props) => {
     const Comp = props.group ? TransitionGroup : Transition;
     const trigger = atomization(props.trigger ?? true);
     const [_, transProps] = splitProps(props, ['children']);
-
     return (
         <Comp
             {...transProps}

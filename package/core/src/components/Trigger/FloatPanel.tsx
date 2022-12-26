@@ -102,9 +102,7 @@ const usePositionString = (
             };
     }
 };
-
-/** 鼠标浮动上去显示的结构 */
-export const FloatPanel = OriginComponent<{
+export interface FloatPanelProps {
     position?: 'l' | 'r' | 't' | 'b' | 'tl' | 'lt' | 'lb' | 'bl' | 'br' | 'rb' | 'rt' | 'tr';
     visible?: boolean | Atom<boolean>;
     disabled?: boolean | Atom<boolean>;
@@ -118,7 +116,9 @@ export const FloatPanel = OriginComponent<{
               transformOrigin: JSX.CSSProperties['transform-origin'];
               TailwindOriginClass: string;
           }>;
-}>((props) => {
+}
+/** 鼠标浮动上去显示的结构 */
+export const FloatPanel = OriginComponent<FloatPanelProps>((props) => {
     const el = children(() => props.children)() as HTMLElement;
     const show = atomization(props.visible ?? false);
     const disabled = atomization(props.disabled ?? false);
