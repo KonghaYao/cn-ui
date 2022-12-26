@@ -13,10 +13,9 @@ export const FloatPanelWithAnimate: Component<FloatPanelWithAnimateProps> = (pro
                 const { show, TailwindOriginClass } = input;
                 return (
                     <Animate
-                        // anime={props.animateProps.anime}
                         {...props.animateProps}
                         trigger={show}
-                        extraClass={TailwindOriginClass + ' ' + props.animateProps.exitClass}
+                        extraClass={TailwindOriginClass + ' ' + props.animateProps.extraClass}
                     >
                         {props.popup instanceof Function ? props.popup(input) : props.popup}
                     </Animate>
