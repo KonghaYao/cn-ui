@@ -1,6 +1,17 @@
 import { children, Component, JSX, JSXElement, Show } from 'solid-js';
 import { Atom, OriginComponent, atomization } from '@cn-ui/use';
+import { debounce, throttle } from 'lodash-es';
 
+const TailwindOrigin = {
+    right: 'origin-right',
+    left: 'origin-left',
+    bottom: 'origin-bottom',
+    top: 'origin-top',
+    'bottom left': 'origin-bottom-left',
+    'bottom right': 'origin-bottom-right',
+    'top left': 'origin-top-left',
+    'top right': 'origin-top-right',
+};
 const usePositionString = (
     s: 'l' | 'r' | 't' | 'b' | 'tl' | 'lt' | 'lb' | 'bl' | 'br' | 'rb' | 'rt' | 'tr'
 ): JSX.CSSProperties => {
@@ -9,28 +20,28 @@ const usePositionString = (
             return {
                 top: '50%',
                 left: 0,
-                'transform-origin': 'center right',
+                'transform-origin': 'right',
                 translate: '-100% -50%',
             };
         case 'r':
             return {
                 top: '50%',
                 right: 0,
-                'transform-origin': 'center left',
+                'transform-origin': 'left',
                 translate: '100% -50%',
             };
         case 't':
             return {
                 top: 0,
                 left: '50%',
-                'transform-origin': 'bottom center',
+                'transform-origin': 'bottom',
                 translate: '-50% -100%',
             };
         case 'b':
             return {
                 left: '50%',
                 bottom: 0,
-                'transform-origin': 'top center',
+                'transform-origin': 'top',
                 translate: '-50% 100%',
             };
         case 'tl':
@@ -100,16 +111,22 @@ export const FloatPanel = OriginComponent<{
     class?: string;
     popupClass?: string;
     children: JSXElement;
-    popup: JSXElement | Component;
+    popup:
+        | JSXElement
+        | Component<{
+              show: Atom<boolean>;
+              transformOrigin: JSX.CSSProperties['transform-origin'];
+              TailwindOriginClass: string;
+          }>;
 }>((props) => {
     const el = children(() => props.children)() as HTMLElement;
     const show = atomization(props.visible ?? false);
     const disabled = atomization(props.disabled ?? false);
 
-    const changeShow = (target: boolean) => {
+    const changeShow = debounce((target: boolean) => {
         if (disabled()) return;
         show(target);
-    };
+    }, 300);
     const mouseover = () => changeShow(true);
     el.addEventListener('mouseover', mouseover);
     const pos = usePositionString(props.position ?? 'bl');
@@ -121,20 +138,23 @@ export const FloatPanel = OriginComponent<{
             onmouseout={() => changeShow(false)}
         >
             {el}
+
             <section
                 class={
-                    'absolute z-40 overflow-scroll  rounded-md transition-all duration-300 ' +
+                    'pointer-events-auto absolute z-40  overflow-visible rounded-md transition-all ' +
                     (props.popupClass ?? '')
                 }
-                classList={{
-                    'scale-0 opacity-0 pointer-events-none': !show(),
-                    'scale-100 opacity-100 pointer-event-auto': show(),
-                }}
                 ref={props.ref}
                 style={{ ...props.style, ...pos }}
                 onmouseover={mouseover}
             >
-                {props.popup instanceof Function ? props.popup({}) : props.popup}
+                {props.popup instanceof Function
+                    ? props.popup({
+                          show,
+                          transformOrigin: pos['transform-origin'],
+                          TailwindOriginClass: TailwindOrigin[pos['transform-origin']],
+                      })
+                    : props.popup}
             </section>
         </div>
     );

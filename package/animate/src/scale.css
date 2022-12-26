@@ -1,0 +1,9 @@
+.animated.scale {
+    animation-name: scale;
+}
+@keyframes scale {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}

@@ -1,7 +1,7 @@
 import { Atom, atomization, classNames } from '@cn-ui/use';
 import { Transition, TransitionGroup, TransitionGroupProps } from '@cn-ui/transition';
 import { JSXElement, Component, splitProps, Show, mergeProps } from 'solid-js';
-export const AnimateNames = ['slide', 'jumpFromTop', 'jumpFromBottom', 'zoom'] as const;
+export const AnimateNames = ['slide', 'jumpFromTop', 'jumpFromBottom', 'zoom', 'scale'] as const;
 type TupleToUnion<T extends readonly any[]> = T[number];
 export interface AnimateProps extends TransitionGroupProps {
     anime: TupleToUnion<typeof AnimateNames>;
