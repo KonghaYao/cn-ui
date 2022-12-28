@@ -17,7 +17,7 @@ export const Controller = [
 
 import '@cn-ui/animate/src/zoom.css';
 import { Gradient } from '@cn-ui/core';
-import { Animate } from '@cn-ui/animate/src';
+import { Animate } from '@cn-ui/animate';
 
 export default (props) => {
     const data = atom(

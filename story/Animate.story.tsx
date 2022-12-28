@@ -1,4 +1,4 @@
-import { Animate } from '@cn-ui/animate/src/index';
+import { Animate } from '@cn-ui/animate';
 import { Switch } from '@cn-ui/core';
 import { Atom, atom, atomization } from '@cn-ui/use';
 import { Dynamic, For, Show } from 'solid-js/web';

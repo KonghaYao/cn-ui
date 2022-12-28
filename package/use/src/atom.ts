@@ -103,8 +103,8 @@ export const reflect = <T>(memoFunc: () => T, immediately = true, initValue?: T)
  *    return <div></div>
  * }
  */
-export const atomization = <T>(prop: T | Atom<T>): Atom<T> => {
-    /**@ts-ignore */
+export const atomization = <T>(prop: T | Atom<T> | Accessor<T>) => {
+    // 保持 Accessor 的样式
     return typeof prop === 'function' ? prop : atom(prop);
 };
 

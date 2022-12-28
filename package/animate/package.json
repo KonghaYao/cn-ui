@@ -1,12 +1,17 @@
 {
     "name": "@cn-ui/animate",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "",
-    "main": "./src/index.tsx",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
     "files": [
-        "src"
+        "src",
+        "dist"
     ],
-    "scripts": {},
+    "scripts": {
+        "build": "vite build&&tsc",
+        "prepublish": "pnpm build"
+    },
     "license": "MIT",
     "peerDependencies": {
         "@cn-ui/transition": "workspace:^1.7.4",

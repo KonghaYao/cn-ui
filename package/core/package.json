@@ -1,9 +1,12 @@
 {
     "name": "@cn-ui/core",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "main": "./dist/index.mjs",
     "types": "./dist/type/index.d.ts",
     "description": "",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "node ./scripts/createIndexFile.mjs&&vite build && tsc",
         "prepublish": "pnpm build "

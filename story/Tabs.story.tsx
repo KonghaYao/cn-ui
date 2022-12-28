@@ -7,7 +7,7 @@ export const Controller = [
         prop: 'destroyOnHide',
     },
 ];
-import { Animate } from '@cn-ui/animate/src';
+import { Animate } from '@cn-ui/animate';
 import '@cn-ui/animate/src/zoom.css';
 export default (props) => {
     const data = [...Array(5).keys()];

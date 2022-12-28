@@ -5,7 +5,7 @@ import { classNames } from '@cn-ui/use';
 import { Gradient } from '../_util';
 import { Divider } from '../Divider';
 import { createStore } from 'solid-js/store';
-import { Animate } from '@cn-ui/animate/src/index';
+import { Animate } from '@cn-ui/animate';
 
 // 最小化动画载入
 import '@cn-ui/animate/src/slide.css';

@@ -1,6 +1,6 @@
 export const Controller = [];
 
-import { atom } from '@cn-ui/use';
+import { atom, reflect } from '@cn-ui/use';
 import { Image, LazyLoad, WaterFall } from '@cn-ui/core';
 import { photos } from './mocks/photos';
 import 'animate.css';
@@ -10,7 +10,7 @@ import '@cn-ui/animate/src/slide.css';
 export default (props) => {
     const items = atom(photos);
     const { size } = useBreakpoints();
-    const column = createMemo(() => {
+    const column = reflect(() => {
         switch (size()) {
             case 'xs':
                 return 2;
@@ -21,7 +21,7 @@ export default (props) => {
         }
     });
     return (
-        <WaterFall items={items} column={column}>
+        <WaterFall items={items} column={column} class="gap-2" colClass="gap-4">
             {(item) => {
                 return (
                     <LazyLoad

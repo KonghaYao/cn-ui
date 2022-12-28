@@ -11,6 +11,8 @@ interface WaterFallProps<T> {
     items: T[] | Atom<T[]>;
     column: number | Atom<number>;
     children: (data: T, index?: Accessor<number>) => JSXElement;
+    // 控制列的 class
+    colClass?: string;
 }
 
 export const WaterFall = OriginComponent(function <T>(
@@ -28,11 +30,11 @@ export const WaterFall = OriginComponent(function <T>(
         );
     });
     return (
-        <section class={props.class('flex gap-4')} style={props.style} {...extendsEvent(props)}>
+        <section class={props.class('flex')} style={props.style} {...extendsEvent(props)}>
             <For each={columnItems()}>
                 {(items, colIndex) => {
                     return (
-                        <div class="flex flex-1 flex-col gap-4">
+                        <div class={'flex flex-1 flex-col ' + props.colClass ?? ''}>
                             <For each={items}>
                                 {(item, rowIndex) =>
                                     props.children(

@@ -1,4 +1,4 @@
-import { Animate } from '@cn-ui/animate/src';
+import { Animate } from '@cn-ui/animate';
 import { Space } from '@cn-ui/core';
 export const Controller = [
     {
