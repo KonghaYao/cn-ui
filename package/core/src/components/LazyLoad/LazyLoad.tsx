@@ -10,7 +10,7 @@ import {
     Suspense,
     Show,
 } from 'solid-js';
-import { Animate, AnimateProps } from '@cn-ui/animate';
+import { AnimateProps } from '@cn-ui/animate';
 interface LazyLoadProps extends IntersectionObserverInit {
     fallback?: JSXElement;
     children?: JSXElement;

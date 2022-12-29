@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             solidPlugin(),
-            mode === 'production' && {
+            mode !== 'development' && {
                 enforce: 'pre',
                 resolveId(thisFile, importer) {
                     if (ignoreDeps.some((i) => thisFile.startsWith(i))) {

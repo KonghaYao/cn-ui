@@ -9,7 +9,7 @@ import {
     useEventController,
 } from '@cn-ui/use';
 import { Component, For, JSX } from 'solid-js';
-import { Trigger } from '@cn-ui/core';
+import { FloatPanelWithAnimate } from '../../Trigger/FloatPanelWithAnimate';
 import { Gradient } from '../../_util/design';
 
 /** Select 组件的对象输入参数 */
@@ -86,15 +86,13 @@ export const Select = OriginComponent<SelectProps>((props) => {
         ></OptionsList>
     );
     return (
-        <Trigger
-            hideOnClick={false}
-            interactive
-            onClickOutside={() => {
-                visible(false);
+        <FloatPanelWithAnimate
+            animateProps={{
+                anime: 'zoom',
+                extraClass: 'animate-duration-300 ',
             }}
-            placement="bottom"
-            content={popupContent}
-            trigger="click"
+            position="b"
+            popup={popupContent}
             visible={visible}
             disabled={disabled}
         >
@@ -112,6 +110,6 @@ export const Select = OriginComponent<SelectProps>((props) => {
             >
                 {value().label ?? value().value}
             </button>
-        </Trigger>
+        </FloatPanelWithAnimate>
     );
 });
