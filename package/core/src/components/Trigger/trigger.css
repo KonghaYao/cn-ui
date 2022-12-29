@@ -1,5 +1,0 @@
-.tippy-box[data-theme~='light'] {
-    /* 修复没有圆角的 BUG */
-    border-radius: 4px;
-    overflow: hidden;
-}
