@@ -21,7 +21,8 @@
         "fs-extra": "^10.1.0"
     },
     "peerDependencies": {
-        "solid-js": "^1.5.7"
+        "solid-js": "^1.5.7",
+        "@cn-ui/use": "workspace:^1.9.1"
     },
     "keywords": [
         "pridepack",
@@ -31,5 +32,11 @@
         "component",
         "utils"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "highlight.js": "^11.6.0",
+        "rehype-stringify": "^9.0.3",
+        "remark-parse": "^10.0.1",
+        "remark-rehype": "^10.1.0",
+        "unified": "^10.1.2"
+    }
 }
