@@ -1,10 +1,11 @@
-import { Button, Confirm, Message } from '@cn-ui/core';
+import { Button, Confirm, Message, OutSpace } from '@cn-ui/core';
 
 //! 必须先注册
 
-Message.init();
 export const Controller = [];
 export default (props) => {
+    Message.init();
+    Message.success('完成操作');
     const Content = ['info', 'success', 'warning', 'error', 'normal', 'loading'].map((i) => {
         return (
             <Button
@@ -23,6 +24,8 @@ export default (props) => {
     });
     return (
         <>
+            {/*  需要在 DOM 中注册 OutSpace */}
+            {OutSpace.init()}
             <div class="flex flex-wrap gap-2">Message 组件</div>
             <div class="flex flex-wrap gap-2">{Content}</div>
             <div class="flex flex-wrap gap-2">Dialog</div>

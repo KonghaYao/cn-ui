@@ -13,6 +13,7 @@ importers:
       '@cn-ui/cropper': 'workspace:'
       '@cn-ui/headless': 'workspace:'
       '@cn-ui/highlight': 'workspace:'
+      '@cn-ui/markdown': 'workspace:'
       '@cn-ui/monaco': 'workspace:'
       '@cn-ui/password-score': 'workspace:'
       '@cn-ui/sortable': 'workspace:'
@@ -71,6 +72,7 @@ importers:
       '@cn-ui/cropper': link:package/cropper
       '@cn-ui/headless': link:package/headless
       '@cn-ui/highlight': link:package/highlight
+      '@cn-ui/markdown': link:package/markdown
       '@cn-ui/monaco': link:package/monaco
       '@cn-ui/password-score': link:package/passoword-score
       '@cn-ui/sortable': link:package/sortable
@@ -243,7 +245,6 @@ importers:
 
   package/markdown:
     specifiers:
-      '@cn-ui/use': workspace:^1.9.1
       fs-extra: ^10.1.0
       highlight.js: ^11.6.0
       rehype-stringify: ^9.0.3
@@ -251,7 +252,6 @@ importers:
       remark-rehype: ^10.1.0
       unified: ^10.1.2
     dependencies:
-      '@cn-ui/use': link:../use
       highlight.js: 11.6.0
       rehype-stringify: 9.0.3
       remark-parse: 10.0.1

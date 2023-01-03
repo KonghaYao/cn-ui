@@ -59,7 +59,7 @@ export class Message {
     static inited = false;
     static init() {
         if (Message.inited) return;
-        OutSpace.init();
+
         OutSpace.addLayerLikeSet(Root); // 向 Top 位置注入 Root 组件
         Message.inited = true;
     }
