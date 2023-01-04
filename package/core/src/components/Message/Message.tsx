@@ -1,5 +1,6 @@
 import { For } from 'solid-js';
-import { OutSpace, Position, DefaultIcon } from '@cn-ui/core';
+import { Position, DefaultIcon } from '@cn-ui/core';
+import { OutSpace } from '../GlobalConfigStore';
 import './style/index.css';
 // 最小化动画载入
 import '@cn-ui/animate/src/slide.css';
