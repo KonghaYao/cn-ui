@@ -1,0 +1,40 @@
+{
+    "name": "@cn-ui/valine",
+    "version": "1.4.0",
+    "description": "",
+    "main": "./dist/index.mjs",
+    "types": "./src/index.tsx",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "private": false,
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "vite build&& tsc"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "fs-extra": "^10.1.0"
+    },
+    "peerDependencies": {
+        "solid-js": "^1.5.7"
+    },
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ],
+    "dependencies": {
+        "@cn-ui/core": "workspace:^1.6.2",
+        "@cn-ui/markdown": "workspace:^1.0.0",
+        "@cn-ui/use": "workspace:^1.9.1",
+        "blueimp-md5": "^2.19.0",
+        "leancloud-storage": "^4.14.0"
+    }
+}
