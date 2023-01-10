@@ -31,10 +31,14 @@
         "utils"
     ],
     "dependencies": {
+        "@cn-ui/animate": "workspace:^1.0.5",
         "@cn-ui/core": "workspace:^1.6.2",
         "@cn-ui/markdown": "workspace:^1.0.0",
         "@cn-ui/use": "workspace:^1.9.1",
         "blueimp-md5": "^2.19.0",
-        "leancloud-storage": "^4.14.0"
+        "gemoji": "^8.0.0",
+        "leancloud-storage": "^4.14.0",
+        "remark-gemoji": "^7.0.1",
+        "unist-util-visit": "^4.1.1"
     }
 }

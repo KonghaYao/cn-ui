@@ -5,6 +5,7 @@ module.exports = {
         './{src,story}/**/*.{ts,tsx}',
         './node_modules/@cn-ui/core/dist/**',
         './node_modules/@cn-ui/core/src/**',
+        './package/@cn-ui/valine/src/**',
     ],
     theme: {
         extend: {

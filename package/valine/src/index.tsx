@@ -1,10 +1,10 @@
 import { atom, resource } from '@cn-ui/use';
-import { Markdown } from '@cn-ui/markdown';
-import { FloatPanel } from '@cn-ui/core';
 import { Component, For, Show, createContext, mergeProps, useContext } from 'solid-js';
 import AV from 'leancloud-storage';
 import { usePagination } from '@cn-ui/headless';
 import { timeAgo } from './timeage';
+import { ValineMarkdown } from './ValineMarkdown';
+import { InputArea } from './InputArea';
 type ValineConfig = {
     avatar?: string | false;
     avatarForce?: boolean;
@@ -19,51 +19,6 @@ type ValineConfig = {
 };
 export const ValineContext = createContext<Required<ValineConfig>>();
 const META = ['nick', 'mail', 'link'];
-export const InputArea = () => {
-    const { meta } = useContext(ValineContext);
-    const headerMessage = {
-        nick: atom(''),
-        mail: atom(''),
-        link: atom(''),
-    };
-    const mainText = atom('');
-    const PreviewMode = atom(false);
-
-    return (
-        <div>
-            <header>
-                <For each={meta}>
-                    {(item: string) => {
-                        return (
-                            <input
-                                type="text"
-                                value={headerMessage[item]()}
-                                oninput={(e) => headerMessage[item]((e.target as any).value)}
-                                placeholder={item}
-                            />
-                        );
-                    }}
-                </For>
-            </header>
-            <div>
-                <Show
-                    when={PreviewMode()}
-                    fallback={
-                        <textarea
-                            value={mainText()}
-                            oninput={(e) => mainText((e.target as any).value)}
-                            cols="30"
-                            rows="10"
-                        ></textarea>
-                    }
-                >
-                    <Markdown code={mainText()}></Markdown>
-                </Show>
-            </div>
-            <footer></footer>
-        </div>
-    );
-};
 
 export const useTotalCounter = () => {
     const { DatabaseName, url } = useContext(ValineContext);
@@ -90,16 +45,13 @@ export const createCommonQuery = (DatabaseName: string, url: string) => {
     return q;
 };
 
-export const List = () => {
+export const CommentList = () => {
     const { DatabaseName, url } = useContext(ValineContext);
     const total = useTotalCounter();
     const rootIds = atom<string[]>([]);
     const subQuery = resource<CommentObject[]>(
         () => {
-            return createSubQuery(DatabaseName, rootIds()).then((res) => {
-                console.log(res);
-                return res;
-            });
+            return createSubQuery(DatabaseName, rootIds());
         },
         [],
         false
@@ -170,7 +122,7 @@ export const CommentItem: Component<{ data: CommentObject; subChildren: CommentO
                 <div>{attr.nick ?? '匿名'}</div>
             </header>
             <main>
-                <Markdown code={attr.comment}></Markdown>
+                <ValineMarkdown code={attr.comment}></ValineMarkdown>
             </main>
             <footer>
                 <div class="text-sm">{timeAgo(new Date(props.data.createdAt))}</div>
@@ -223,7 +175,7 @@ export const ValineDefault: Component<ValineConfig> = (props) => {
         <ValineContext.Provider value={props as Required<ValineConfig>}>
             <div class="flex flex-col">
                 <InputArea></InputArea>
-                <List></List>
+                <CommentList></CommentList>
             </div>
         </ValineContext.Provider>
     );

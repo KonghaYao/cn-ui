@@ -326,18 +326,26 @@ importers:
 
   package/valine:
     specifiers:
+      '@cn-ui/animate': workspace:^1.0.5
       '@cn-ui/core': workspace:^1.6.2
       '@cn-ui/markdown': workspace:^1.0.0
       '@cn-ui/use': workspace:^1.9.1
       blueimp-md5: ^2.19.0
       fs-extra: ^10.1.0
+      gemoji: ^8.0.0
       leancloud-storage: ^4.14.0
+      remark-gemoji: ^7.0.1
+      unist-util-visit: ^4.1.1
     dependencies:
+      '@cn-ui/animate': link:../animate
       '@cn-ui/core': link:../core
       '@cn-ui/markdown': link:../markdown
       '@cn-ui/use': link:../use
       blueimp-md5: 2.19.0
+      gemoji: 8.0.0
       leancloud-storage: 4.14.0
+      remark-gemoji: 7.0.1
+      unist-util-visit: 4.1.1
     devDependencies:
       fs-extra: 10.1.0
 
@@ -1902,7 +1910,7 @@ packages:
   /@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==}
     dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
+      '@types/unist': 2.0.6
     dev: false
 
   /@types/node/17.0.45:
@@ -3440,6 +3448,14 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /gemoji/7.1.0:
+    resolution: {integrity: sha512-wI0YWDIfQraQMDs0yXAVQiVBZeMm/rIYssf8LZlMDdssKF19YqJKOHkv4zvwtVQTBJ0LNmErv1S+DqlVUudz8g==}
+    dev: false
+
+  /gemoji/8.0.0:
+    resolution: {integrity: sha512-MNjL3CO4OIq07S3GV1KZ6Wedz+iNmdPBuqylZtMAimdaw7Zsvp2xbjEuiST53YQXp6SBMFC4aMje6epYm85lMQ==}
+    dev: false
+
   /generic-names/4.0.0:
     resolution: {integrity: sha512-ySFolZQfw9FoDb3ed9d80Cm9f0+r7qj+HJkWjeD9RBfpxEVTlVhol+gvaQB/78WbwYfbnNh8nWHHBSlg072y6A==}
     dependencies:
@@ -4641,6 +4657,15 @@ packages:
       unified: 10.1.2
     dev: false
 
+  /remark-gemoji/7.0.1:
+    resolution: {integrity: sha512-vhjuntkvYxRgM4Um6L5N7B3SrNu3eX6jNqpqAywpAvSYPbmDPNL3I5E6zWm+KPCyh3OpKRc5OPnz7SifggzePw==}
+    dependencies:
+      '@types/mdast': 3.0.10
+      gemoji: 7.1.0
+      unified: 10.1.2
+      unist-util-visit: 4.1.1
+    dev: false
+
   /remark-parse/10.0.1:
     resolution: {integrity: sha512-1fUyHr2jLsVOkhbvPRBJ5zTKZZyD6yZzYaWCS6BPBdQ8vEMBCH+9zNCDA6tET/zHCi/jLqjCWtlJZUPk+DbnFw==}
     dependencies:
@@ -5166,14 +5191,13 @@ packages:
   /unist-util-stringify-position/3.0.2:
     resolution: {integrity: sha512-7A6eiDCs9UtjcwZOcCpM4aPII3bAAGv13E96IkawkOAW0OhH+yRxtY0lzo8KiHpzEMfH7Q+FizUmwp8Iqy5EWg==}
     dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
+      '@types/unist': 2.0.6
 
   /unist-util-visit-parents/5.1.1:
     resolution: {integrity: sha512-gks4baapT/kNRaWxuGkl5BIhoanZo7sC/cUT/JToSRNL1dYoXRFl75d++NkjYk4TAu2uv2Px+l8guMajogeuiw==}
     dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
-      unist-util-is: registry.npmmirror.com/unist-util-is/5.1.1
-    dev: true
+      '@types/unist': 2.0.6
+      unist-util-is: 5.1.1
 
   /unist-util-visit/4.1.1:
     resolution: {integrity: sha512-n9KN3WV9k4h1DxYR1LoajgN93wpEi/7ZplVe02IoB4gH5ctI1AaF2670BLHQYbwj+pY83gFtyeySFiyMHJklrg==}
@@ -5181,7 +5205,6 @@ packages:
       '@types/unist': 2.0.6
       unist-util-is: 5.1.1
       unist-util-visit-parents: 5.1.1
-    dev: true
 
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
@@ -5249,14 +5272,14 @@ packages:
   /vfile-message/3.1.2:
     resolution: {integrity: sha512-QjSNP6Yxzyycd4SVOtmKKyTsSvClqBPJcd00Z0zuPj3hOIjg0rUPG6DbFGPvUKRgYyaIWLPKpuEclcuvb3H8qA==}
     dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
-      unist-util-stringify-position: registry.npmmirror.com/unist-util-stringify-position/3.0.2
+      '@types/unist': 2.0.6
+      unist-util-stringify-position: 3.0.2
 
   /vfile/5.3.5:
     resolution: {integrity: sha512-U1ho2ga33eZ8y8pkbQLH54uKqGhFJ6GYIHnnG5AhRpAh3OWjkrRHKa/KogbmQn8We+c0KVV3rTOgR9V/WowbXQ==}
     dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
-      is-buffer: registry.npmmirror.com/is-buffer/2.0.5
+      '@types/unist': 2.0.6
+      is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.2
       vfile-message: 3.1.2
 
@@ -7484,12 +7507,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  registry.npmmirror.com/is-buffer/2.0.5:
-    resolution: {integrity: sha512-i2R6zNFDwgEHJyQUtJEk0XFi1i0dPFn/oqjK3/vPCcDeJvW5NQ83V8QbicfF1SupOaB0h8ntgBC2YiE7dfyctQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-buffer/-/is-buffer-2.0.5.tgz}
-    name: is-buffer
-    version: 2.0.5
-    engines: {node: '>=4'}
-
   registry.npmmirror.com/is-core-module/2.10.0:
     resolution: {integrity: sha512-Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-core-module/-/is-core-module-2.10.0.tgz}
     name: is-core-module
@@ -9603,13 +9620,6 @@ packages:
     resolution: {integrity: sha512-F5CZ68eYzuSvJjGhCLPL3cYx45IxkqXSetCcRgUXtbcm50X2L9oOWQlfUfDdAf+6Pd27YDblBfdtmsThXmwpbQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unist-util-is/-/unist-util-is-5.1.1.tgz}
     name: unist-util-is
     version: 5.1.1
-
-  registry.npmmirror.com/unist-util-stringify-position/3.0.2:
-    resolution: {integrity: sha512-7A6eiDCs9UtjcwZOcCpM4aPII3bAAGv13E96IkawkOAW0OhH+yRxtY0lzo8KiHpzEMfH7Q+FizUmwp8Iqy5EWg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unist-util-stringify-position/-/unist-util-stringify-position-3.0.2.tgz}
-    name: unist-util-stringify-position
-    version: 3.0.2
-    dependencies:
-      '@types/unist': registry.npmmirror.com/@types/unist/2.0.6
 
   registry.npmmirror.com/unist-util-visit-parents/5.1.1:
     resolution: {integrity: sha512-gks4baapT/kNRaWxuGkl5BIhoanZo7sC/cUT/JToSRNL1dYoXRFl75d++NkjYk4TAu2uv2Px+l8guMajogeuiw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unist-util-visit-parents/-/unist-util-visit-parents-5.1.1.tgz}
