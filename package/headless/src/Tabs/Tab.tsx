@@ -3,7 +3,6 @@ import { OriginComponent } from '@cn-ui/use';
 import { TabPaneProps } from './interface';
 import { TabsContext } from './Tabs';
 
-/** @deprecated 请使用 @cn-ui/headless 中的 Tabs 组件 */
 export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
     const { register, isSelected } = useContext(TabsContext);
     register(props.id, true);

@@ -33,6 +33,7 @@ export const InputArea = () => {
             </header>
 
             <textarea
+                placeholder="输入你的善意"
                 class="w-full max-h-[50vh] min-h-[20vh] bg-gray-300 outline-none"
                 value={mainText()}
                 oninput={(e) => mainText((e.target as any).value)}
@@ -44,7 +45,6 @@ export const InputArea = () => {
                     animateProps={{ anime: 'scale' }}
                     // visible={true}
                     // disabled={true}
-                    position="tl"
                     popup={() => {
                         return (
                             <div class="flex gap-1 w-screen max-w-xs flex-wrap p-2 rounded-sm">
