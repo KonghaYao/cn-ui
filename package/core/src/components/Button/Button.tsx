@@ -1,5 +1,5 @@
 import { ButtonProps } from './interface';
-import { Icon } from '@cn-ui/core';
+import { Icon } from '../Icon/Icon';
 import { createMemo, mergeProps, Show } from 'solid-js';
 import './style/index.css';
 import {

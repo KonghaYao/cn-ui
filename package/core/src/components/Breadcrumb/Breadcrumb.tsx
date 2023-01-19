@@ -1,6 +1,6 @@
 import { For, JSX, JSXElement } from 'solid-js';
 import { extendsEvent, OriginComponent } from '@cn-ui/use';
-import { Button } from '@cn-ui/core';
+import { Button } from '../Button/Button';
 import { Atom } from '@cn-ui/use';
 import { ButtonProps } from '../Button/interface';
 

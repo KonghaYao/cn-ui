@@ -1,9 +1,9 @@
 import { Atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import { For, JSX, JSXElement, Show, useContext } from 'solid-js';
 import { UploaderContext } from '../base/UploaderContext';
-import { ExFile } from '@cn-ui/core';
 import { UploadController } from '../base/UploadController';
 import { DefaultUploadList } from './DefaultUploadList';
+import { ExFile } from '../base/ExFile';
 
 interface UploaderListProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
     children?: (

@@ -1,11 +1,11 @@
 import { JSX, JSXElement, mergeProps } from 'solid-js';
 
-import { Icon } from '@cn-ui/core';
-import { Box } from '@cn-ui/core';
 import './style/index.css';
 import { OriginComponent, extendsEvent } from '@cn-ui/use';
 import { createAC } from '@cn-ui/headless';
 import { resource } from '@cn-ui/use';
+import { Box } from '../Box';
+import { Icon } from '../Icon';
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
 export type ImagePosition = 'center' | 'top' | 'right' | 'bottom' | 'left' | string;
 export interface ImageProps extends JSX.HTMLAttributes<HTMLImageElement> {

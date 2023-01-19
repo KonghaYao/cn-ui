@@ -1,8 +1,8 @@
 import { JSX, useContext } from 'solid-js';
 import { OriginComponent } from '@cn-ui/use';
 import { UploaderContext } from '../base/UploaderContext';
-import { Explorer } from '@cn-ui/core';
-import { DefaultIcon } from '@cn-ui/core';
+import { Explorer } from '../../Explorer';
+import { DefaultIcon } from '../../Icon';
 
 export interface UploaderExplorerProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 export const UploadExplorer = OriginComponent<UploaderExplorerProps>((props) => {

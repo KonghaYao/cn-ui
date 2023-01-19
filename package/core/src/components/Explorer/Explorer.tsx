@@ -1,9 +1,11 @@
 import { JSX, For, JSXElement } from 'solid-js';
 import { atom, extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
-import { Space, Icon, Breadcrumb } from '@cn-ui/core';
 import { ExFile } from '../Uploader/base/ExFile';
 import { Atom } from '@cn-ui/use';
 import { useEventController } from '@cn-ui/use';
+import { Breadcrumb } from '../Breadcrumb';
+import { Icon } from '../Icon';
+import { Space } from '../Space';
 interface Folder {
     name: string;
     fullPath: string;

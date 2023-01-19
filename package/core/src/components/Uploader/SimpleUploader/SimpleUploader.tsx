@@ -1,11 +1,13 @@
 import { createContext, mergeProps, useContext, JSX } from 'solid-js';
 import { atom, atomization, OriginComponent } from '@cn-ui/use';
-import { Icon, Relative, Position } from '@cn-ui/core';
+
 import { Atom } from '@cn-ui/use';
 import { useDragUpload } from '../base/useDragUpload';
 import { ExFile } from '../base/ExFile';
 import { UploaderContext } from '../base/UploaderContext';
 import { UploadController, UploadFunc } from '../base/UploadController';
+import { Icon } from '../../Icon';
+import { Relative, Position } from '../../Mask';
 export const UploadingContext = createContext<{
     uploading: UploadController;
     Files: Atom<ExFile[]>;

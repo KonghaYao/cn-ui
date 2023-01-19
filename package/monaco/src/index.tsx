@@ -6,7 +6,7 @@ import { initTheme, AllTheme, applyTheme } from './index/initTheme';
 
 import { CodeEditor, LanguageList } from './types';
 import { Component, createEffect, on, onCleanup, onMount, Suspense } from 'solid-js';
-import { Atom, atomization, createIgnoreFirst } from '@cn-ui/use';
+import { Atom, atomization } from '@cn-ui/use';
 export const Monaco: Component<{
     value: Atom<string> | string;
     theme?: Atom<keyof AllTheme> | keyof AllTheme;

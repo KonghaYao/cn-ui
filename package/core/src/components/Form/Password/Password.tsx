@@ -1,9 +1,10 @@
 import { Atom, atom, atomization, OriginComponent } from '@cn-ui/use';
 import { createContext, JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
-import { Icon, Space } from '@cn-ui/core';
 import { FormField } from '../interface';
 import { Gradient } from '../../_util/design';
+import { Icon } from '../../Icon';
+import { Space } from '../../Space';
 export interface PasswordScoreProps {
     userInputs?: string[];
 }

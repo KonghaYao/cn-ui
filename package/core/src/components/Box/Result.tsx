@@ -5,7 +5,7 @@ interface ResultProps extends Omit<BoxProps, 'icon'> {
     icon: stringTag | JSX.FunctionElement | JSX.ArrayElement;
 }
 import { Box, BoxProps } from './Box';
-import { DefaultIcon } from '@cn-ui/core';
+import { DefaultIcon } from '../Icon/DefaultIcon';
 import { Gradient } from '../_util/design';
 
 const CompMap = new Map<stringTag, JSXElement>([

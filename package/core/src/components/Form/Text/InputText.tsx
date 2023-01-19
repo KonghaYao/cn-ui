@@ -1,9 +1,9 @@
 import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, Suspense } from 'solid-js';
 
-import { Icon } from '@cn-ui/core';
 import { FormField } from '../interface';
 import { Gradient } from '../../_util/design';
+import { Icon } from '../../Icon';
 export interface InputTextProps extends FormField {
     value: Atom<string>;
     placeholder?: string;

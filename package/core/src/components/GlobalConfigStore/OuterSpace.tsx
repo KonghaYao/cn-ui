@@ -1,7 +1,8 @@
 import { Portal, render } from 'solid-js/web';
-import { Relative } from '@cn-ui/core';
+
 import { atom, Atom } from '@cn-ui/use';
 import { Component, createContext, For, useContext } from 'solid-js';
+import { Relative } from '../Mask';
 
 interface PositionData {
     // TODO 方向方案暂时没有确定

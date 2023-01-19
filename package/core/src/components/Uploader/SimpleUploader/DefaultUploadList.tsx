@@ -1,7 +1,10 @@
 import { Atom } from '@cn-ui/use';
 import { Match, Switch } from 'solid-js';
-import { Icon, Relative, Position, Space, DefaultIcon, ExFile } from '@cn-ui/core';
 import { UploadController } from '../base/UploadController';
+import { ExFile } from '../base/ExFile';
+import { Icon, DefaultIcon } from '../../Icon';
+import { Relative, Position } from '../../Mask';
+import { Space } from '../../Space';
 
 /** 默认的上传文件展示组件，这个可以作为上传组件的借鉴 */
 export const DefaultUploadList = (

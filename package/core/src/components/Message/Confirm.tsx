@@ -3,7 +3,7 @@ import { OutSpace } from '../GlobalConfigStore';
 import { Position } from '../Mask';
 import { classNames } from '@cn-ui/use';
 import { Gradient } from '../_util';
-import { Divider } from '../Divider';
+import { Divider } from '../Divider/Divider';
 import { createStore } from 'solid-js/store';
 import { Animate } from '@cn-ui/animate';
 

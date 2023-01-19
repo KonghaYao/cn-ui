@@ -1,10 +1,10 @@
 import { JSXElement, JSX, useContext } from 'solid-js';
 import { atom, atomization, OriginComponent, reflect } from '@cn-ui/use';
-import { Relative, Position } from '@cn-ui/core';
 import { UploadWidget } from './UploaderWidget';
 import { UploadExplorer } from './UploadExplorer';
 import { useDragUpload } from '../base/useDragUpload';
 import { UploaderContext } from '../base/UploaderContext';
+import { Relative, Position } from '../../Mask';
 export interface UploadPanelProps extends JSX.HTMLAttributes<HTMLInputElement> {
     children?: JSXElement;
 }

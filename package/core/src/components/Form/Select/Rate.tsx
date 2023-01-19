@@ -6,8 +6,8 @@ import {
     OriginComponent,
     useEventController,
 } from '@cn-ui/use';
-import { Icon } from '@cn-ui/core';
 import { FormField } from '../interface';
+import { Icon } from '../../Icon';
 
 export interface RateProps extends FormField {
     value: Atom<number>;

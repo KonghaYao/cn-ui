@@ -29,14 +29,14 @@ export namespace FormFieldOptions {
     export interface Select<T = { value: string; label?: string }>
         extends baseProp<T>,
             WithDefault<string>,
-            AllowParams<import('@cn-ui/core').SelectProps> {
+            AllowParams<import('./index').SelectProps> {
         type: 'select';
         options: T[];
     }
     export interface Radio<T = { value: boolean; label?: string }>
         extends baseProp<T>,
             WithDefault<string>,
-            AllowParams<import('@cn-ui/core').CheckBoxProps> {
+            AllowParams<import('./index').CheckBoxProps> {
         type: 'radio';
         options: T[];
     }
@@ -44,13 +44,13 @@ export namespace FormFieldOptions {
     export interface Switch<T = boolean>
         extends baseProp<T>,
             WithDefault<T>,
-            AllowParams<import('@cn-ui/core').SwitchProps> {
+            AllowParams<import('./index').SwitchProps> {
         type: 'switch';
     }
     export interface Range<T = number>
         extends baseProp<T>,
             WithDefault<T>,
-            AllowParams<import('@cn-ui/core').InputNumberProps> {
+            AllowParams<import('./index').InputNumberProps> {
         type: 'range';
         unit?: string;
     }
@@ -58,19 +58,19 @@ export namespace FormFieldOptions {
     export interface Color<T = string>
         extends baseProp<T>,
             WithDefault<T>,
-            AllowParams<import('@cn-ui/core').InputColorProps> {
+            AllowParams<import('./index').InputColorProps> {
         type: 'color';
     }
     export interface Rate<T = number>
         extends baseProp<T>,
             WithDefault<T>,
-            AllowParams<import('@cn-ui/core').RateProps> {
+            AllowParams<import('./index').RateProps> {
         type: 'rate';
     }
     export interface Text<T = string>
         extends baseProp<T>,
             WithDefault<T>,
-            AllowParams<import('@cn-ui/core').InputTextProps> {
+            AllowParams<import('./index').InputTextProps> {
         type: 'text';
     }
 }

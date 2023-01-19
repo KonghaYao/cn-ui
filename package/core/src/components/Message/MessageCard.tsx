@@ -2,8 +2,8 @@ import { ComponentProps } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { MessageProps } from './interface';
 import { OriginComponent } from '@cn-ui/use';
-import { DefaultIcon } from '@cn-ui/core';
 import { Gradient } from '../_util/design';
+import { DefaultIcon } from '../Icon';
 
 /** 渲染存在的数据 */
 export const [MessageQueue, setMessage] = createStore<MessageData[]>([]);

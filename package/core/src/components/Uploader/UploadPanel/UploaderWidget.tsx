@@ -1,8 +1,9 @@
 import { JSX, useContext } from 'solid-js';
 import { OriginComponent, Atom } from '@cn-ui/use';
-import { Box } from '@cn-ui/core';
-import { Button } from '@cn-ui/core';
+
 import { UploaderContext } from '../base/UploaderContext';
+import { Box } from '../../Box';
+import { Button } from '../../Button';
 
 export interface UploaderWidgetProps extends JSX.HTMLAttributes<HTMLDivElement> {}
 export const UploadWidget = OriginComponent<UploaderWidgetProps>((props) => {

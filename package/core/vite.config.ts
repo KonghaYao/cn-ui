@@ -3,6 +3,15 @@ import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import tailwindcss from 'tailwindcss';
 import packageJSON from './package.json';
+import fs from 'fs';
+const list = fs.readdirSync('./src/components/');
+const entries = Object.fromEntries(
+    list
+        .filter((i) => !i.startsWith('_'))
+        .map((i) => {
+            return [i, `./src/components/${i}/index.ts`];
+        })
+);
 const ignoreDeps = [
     ...Object.keys({
         ...packageJSON.dependencies,
@@ -10,7 +19,8 @@ const ignoreDeps = [
         ...packageJSON.peerDependencies,
     }),
 ];
-export default defineConfig(({ mode }) => {
+export default defineConfig((config) => {
+    const { mode } = config;
     console.log(mode);
     return {
         plugins: [
@@ -33,16 +43,19 @@ export default defineConfig(({ mode }) => {
         optimizeDeps: {},
         build: {
             lib: {
-                entry: './src/index.ts',
+                entry: {
+                    index: './src/index.ts',
+                    // ...entries,
+                },
                 formats: ['es'],
-                fileName: 'index',
             },
         },
+
         css: {
             postcss: {
                 purge: ['./{src}/**/*.{ts,tsx}'],
                 // 只有生产阶段才使用 tailwindcss 进行打包
-                plugins: mode !== 'production' && [tailwindcss],
+                plugins: mode !== 'production' ? [tailwindcss] : undefined,
             },
         },
     };

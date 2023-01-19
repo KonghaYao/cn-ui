@@ -1,7 +1,7 @@
 import { Atom, atom, atomization, extendsEvent, OriginComponent } from '@cn-ui/use';
 import { JSX, JSXElement, lazy, mergeProps, Suspense } from 'solid-js';
 
-import { Icon } from '@cn-ui/core';
+import { Icon } from '../../Icon/Icon';
 import { defaultSlot } from '../../_util/defaultSlot';
 import { useEventController } from '@cn-ui/use';
 import { FormField } from '../interface';

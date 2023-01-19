@@ -1,7 +1,8 @@
 import { Accessor, createSelector, For, JSX, JSXElement, useContext } from 'solid-js';
-import { Button } from '@cn-ui/core';
+
 import { OriginComponent } from '@cn-ui/use';
 import { TabsContext } from './Tabs';
+import { Button } from '../Button';
 export interface TabsHeaderProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
     children?: (props: string, index: Accessor<number>) => JSXElement;
 }

@@ -1,9 +1,10 @@
 import { Component, mergeProps } from 'solid-js';
-import { Relative, Position } from '@cn-ui/core';
 
 import { CardProps } from './interface';
 
 import { OriginComponent } from '@cn-ui/use';
+import { Relative } from '../Mask/Relative';
+import { Position } from '../Mask/Position';
 export const Card = OriginComponent<CardProps, HTMLDivElement>((props) => {
     props = mergeProps({}, props);
     const defaultPos = { left: '0', right: '0' };

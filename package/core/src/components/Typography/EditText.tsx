@@ -2,8 +2,8 @@ import './style/edit.css';
 import { EditContentProps } from './interface';
 import { createMemo } from 'solid-js';
 import copy from 'copy-to-clipboard';
-import { DefaultIcon, Icon } from '@cn-ui/core';
 import { atom, extendsEvent, useEventController, OriginComponent } from '@cn-ui/use';
+import { DefaultIcon, Icon } from '../Icon';
 export const CopyText = OriginComponent<EditContentProps>((props) => {
     let container: HTMLSpanElement;
     const control = useEventController({});

@@ -1,5 +1,4 @@
 import { For } from 'solid-js';
-import { Position, DefaultIcon } from '@cn-ui/core';
 import { OutSpace } from '../GlobalConfigStore';
 import './style/index.css';
 // 最小化动画载入
@@ -7,6 +6,8 @@ import '@cn-ui/animate/src/slide.css';
 
 import { MessageQueue, MessageCard, setMessage, MessageData } from './MessageCard';
 import { Animate } from '@cn-ui/animate';
+import { DefaultIcon } from '../Icon';
+import { Position } from '../Mask';
 const Root = () => {
     return (
         <Position

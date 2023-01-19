@@ -3,10 +3,10 @@
 import { TagProps } from './interface';
 import { Match, Switch } from 'solid-js';
 import { atom, extendsEvent } from '@cn-ui/use';
-import { Icon } from '@cn-ui/core';
 
 import { OriginComponent } from '@cn-ui/use';
 import { Gradient } from '../_util/design';
+import { Icon } from '../Icon';
 export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
     const closing = atom(false);
     const Close = async (e) => {
