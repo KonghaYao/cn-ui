@@ -61,7 +61,6 @@
         "@cn-ui/swiper": "workspace:",
         "@cn-ui/transition": "workspace:",
         "@cn-ui/use": "workspace:",
-        "@cn-ui/valine": "workspace:^1.4.0",
         "@cn-ui/viewer": "workspace:",
         "@fontsource/material-icons-rounded": "^4.5.4",
         "@vant/area-data": "^1.3.2",

@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
             assetsInlineLimit: 0,
             target: 'es6',
             lib: {
-                entry: './src/index.tsx',
+                entry: './src/index.ts',
                 name: 'index',
                 fileName: 'index',
                 formats: ['es'],

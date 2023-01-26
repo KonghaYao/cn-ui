@@ -1,9 +1,9 @@
 {
-    "name": "@cn-ui/valine",
-    "version": "1.4.0",
+    "name": "@cn-ui/editorjs",
+    "version": "1.0.0",
     "description": "",
     "main": "./dist/index.mjs",
-    "types": "./src/index.tsx",
+    "types": "./dist/index.d.ts",
     "files": [
         "src",
         "dist"
@@ -20,7 +20,8 @@
         "fs-extra": "^10.1.0"
     },
     "peerDependencies": {
-        "solid-js": "^1.5.7"
+        "solid-js": "^1.5.7",
+        "@cn-ui/use": "workspace:^1.9.1"
     },
     "keywords": [
         "pridepack",
@@ -30,15 +31,5 @@
         "component",
         "utils"
     ],
-    "dependencies": {
-        "@cn-ui/animate": "workspace:^1.0.5",
-        "@cn-ui/core": "workspace:^1.6.2",
-        "@cn-ui/markdown": "workspace:^1.0.0",
-        "@cn-ui/use": "workspace:^1.9.1",
-        "blueimp-md5": "^2.19.0",
-        "gemoji": "^8.0.0",
-        "leancloud-storage": "^4.14.0",
-        "remark-gemoji": "^7.0.1",
-        "unist-util-visit": "^4.1.1"
-    }
+    "dependencies": {}
 }
