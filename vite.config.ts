@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
                 // '@cn-ui/animate': '/package/animate/',
                 // '@cn-ui/use': '/package/use/src/index.ts',
                 // '@cn-ui/transition': '/package/transition/src/index.ts',
-                '@cn-ui/valine': '/package/valine/src/index.tsx',
+                '@cn-ui/editor': '/package/editor/src/index.tsx',
             },
         },
         optimizeDeps: {},
