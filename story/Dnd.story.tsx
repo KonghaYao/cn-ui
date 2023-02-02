@@ -21,8 +21,9 @@ export default (props) => {
                     DEFAULT: notice,
                 }}
                 receive={{
-                    DEFAULT(data) {
+                    DEFAULT(data, transfer, e) {
                         count((i) => i + 1);
+                        console.log(data, transfer, e);
                     },
                 }}
             >

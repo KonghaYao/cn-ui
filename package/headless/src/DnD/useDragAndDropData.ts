@@ -19,7 +19,8 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
     const receive = <T>(
         eventTransfer: DataTransfer | false,
         type: string,
-        cb: (data: any, dataTransfer: DataTransfer | false) => T
+        cb: (data: any, dataTransfer: DataTransfer | false, originEvent: unknown) => T,
+        originEvent: unknown
     ): boolean => {
         type = type.toLowerCase();
         const transfer = eventTransfer || holding;
@@ -30,7 +31,7 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
 
                 try {
                     const Payload = JSON.parse(data) as TransferData;
-                    cb(Payload.data, eventTransfer);
+                    cb(Payload.data, eventTransfer, originEvent);
                     return true;
                 } catch (e) {
                     console.warn(e);
@@ -50,14 +51,18 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
         },
         receiveAll(
             eventTransfer: DataTransfer | false,
-            obj: Record<string, (data: any, dataTransfer?: DataTransfer | false) => void>,
-            multi = true
+            obj: Record<
+                string,
+                (data: any, dataTransfer?: DataTransfer | false, originEvent?: unknown) => void
+            >,
+            multi = true,
+            originEvent: unknown
         ) {
             Object.entries(obj)[multi ? 'forEach' : 'some'](([key, value]) => {
                 if (key === 'extra') {
                     return value(null, eventTransfer);
                 } else {
-                    return receive(eventTransfer, key, value);
+                    return receive(eventTransfer, key, value, originEvent);
                 }
             });
         },
@@ -65,17 +70,18 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
         receive,
         detect(
             eventTransfer: DataTransfer,
-            obj: { [key: string]: (transfer: DataTransfer) => void }
+            obj: { [key: string]: (transfer: DataTransfer, originEvent?: unknown) => void },
+            originEvent: unknown
         ) {
             // type 需要解构保持状态
             for (const transType of [...eventTransfer.types]) {
                 if (transType.startsWith('x-application/')) {
-                    obj[transType] && obj[transType](eventTransfer);
+                    obj[transType] && obj[transType](eventTransfer, originEvent);
                     const key = transType.replace('x-application/', '').toUpperCase();
-                    obj[key] && obj[key](eventTransfer);
+                    obj[key] && obj[key](eventTransfer, originEvent);
                 }
             }
-            obj.extra && obj.extra(eventTransfer);
+            obj.extra && obj.extra(eventTransfer, originEvent);
         },
     };
 };

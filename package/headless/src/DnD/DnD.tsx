@@ -39,13 +39,13 @@ export const DropReceiver = (props: {
     const ondragover = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        props.detect && detect(e.dataTransfer, props.detect);
+        props.detect && detect(e.dataTransfer, props.detect, e);
     };
     const onDrop = (e) => {
         e.preventDefault();
         e.stopPropagation();
         // 默认添加到末尾
-        props.receive && receiveAll(e.dataTransfer, props.receive, props.multi ?? true);
+        props.receive && receiveAll(e.dataTransfer, props.receive, props.multi ?? true, e);
     };
     child.addEventListener('dragover', ondragover);
     child.addEventListener('drop', onDrop);
