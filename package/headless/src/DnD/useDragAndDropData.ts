@@ -60,7 +60,7 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
         ) {
             Object.entries(obj)[multi ? 'forEach' : 'some'](([key, value]) => {
                 if (key === 'extra') {
-                    return value(null, eventTransfer);
+                    return value(null, eventTransfer, originEvent);
                 } else {
                     return receive(eventTransfer, key, value, originEvent);
                 }

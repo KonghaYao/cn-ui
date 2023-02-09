@@ -1,0 +1,51 @@
+{
+    "name": "@cn-ui/use",
+    "version": "1.9.1",
+    "description": "",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "solid-start dev",
+        "build": "solid-start build",
+        "start": "solid-start start",
+        "test": "vitest run",
+        "test-watch": "vitest",
+        "test-ui": "vitest --ui",
+        "coverage": "vitest run --coverage"
+    },
+    "type": "module",
+    "license": "MIT",
+    "devDependencies": {
+        "@solidjs/testing-library": "^0.5.2",
+        "@testing-library/jest-dom": "^5.16.5",
+        "@types/testing-library__jest-dom": "^5.14.5",
+        "@vitest/coverage-c8": "^0.26.3",
+        "@vitest/ui": "^0.26.3",
+        "fs-extra": "^10.1.0",
+        "jsdom": "^20.0.3",
+        "solid-js": "^1.6.9",
+        "solid-start": "^0.2.19",
+        "solid-start-node": "^0.2.19",
+        "typescript": "^4.9.4",
+        "undici": "^5.15.1",
+        "vite": "^3.2.5",
+        "vitest": "^0.26.3"
+    },
+    "peerDependencies": {
+        "solid-js": "^1.6.6"
+    },
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ],
+    "dependencies": {
+        "vite-plugin-solid": "^2.3.9"
+    }
+}
