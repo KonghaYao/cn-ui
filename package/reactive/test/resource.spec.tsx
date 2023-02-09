@@ -1,7 +1,6 @@
-import { atom } from '../src/atom';
 import { render, renderHook, waitFor } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
-import { ResourceAtom, resource } from '../src/resource';
+import { ResourceAtom, resource, atom } from '../src/';
 import { ErrorBoundary } from 'solid-js';
 
 describe('resource 测试', () => {
@@ -58,6 +57,31 @@ describe('resource 测试', () => {
             expect(source.error()).eq(err);
         });
     });
+    it('resource deps', async () => {
+        let err = new Error('info');
+        const {
+            result: { source, page },
+        } = renderHook(() => {
+            const page = atom(0);
+            const source = resource(() => asyncFunc(page()), { deps: [page] });
+            return { source, page };
+        });
+        expect(page()).eq(0);
+        expect(source.loading()).eq(true);
+
+        // 等待页面进行加载，然后才能够能够获取到状态
+        await waitFor(async () => {
+            // 依旧是 第一次请求的数据
+            expect(source()).eql(await asyncFunc(0));
+
+            // 开始进行依赖更新
+            page(10);
+            expect(await source.promise()).eq(true);
+            expect(source.error()).eq(false);
+            expect(source.loading()).eq(false);
+            expect(source()).eql(await asyncFunc(10));
+        });
+    });
     it('resource Spec', async () => {
         let Source = null as any as ResourceAtom<number[]>;
         const dom = render(() => {
@@ -70,6 +94,7 @@ describe('resource 测试', () => {
                 <ErrorBoundary fallback={'2222'}>
                     <>
                         {!source.loading() && <div>{page()}</div>}
+                        {/*  @ts-ignore */}
                         {!source.loading() && <div>{source.aaa.eee}</div>}
                         <div>null</div>
                     </>

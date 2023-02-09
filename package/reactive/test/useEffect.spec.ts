@@ -1,8 +1,6 @@
-import { reflect, reflectMemo } from '../src/reflect';
-import { atom } from '../src/atom';
 import { renderHook } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
-import { useEffect, useEffectWithoutFirst } from '../src/useEffect';
+import { useEffect, useEffectWithoutFirst, atom } from '../src/';
 
 describe('useEffect 测试', () => {
     it('useEffect', async () => {

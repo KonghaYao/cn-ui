@@ -1,6 +1,6 @@
 import { Accessor } from 'solid-js';
-import { Atom, atom } from './atom';
-import { reflect } from './reflect';
+import { Atom, atom } from '../atom/atom';
+import { reflect } from '../atom/reflect';
 
 /**
  * @category atom

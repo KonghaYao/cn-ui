@@ -1,5 +1,6 @@
-import { Accessor, createMemo } from 'solid-js';
+import { Accessor, createEffect, createMemo, on } from 'solid-js';
 import { Atom, atom } from './atom';
+import { useEffectWithoutFirst } from './useEffect';
 export interface ResourceBase<T> {
     loading: Accessor<boolean>;
     error: Accessor<Error>;
@@ -13,9 +14,11 @@ export interface ResourceBase<T> {
 }
 export interface ResourceAtom<T> extends ResourceBase<T>, Atom<T> {}
 
-interface ResourceOptions<T> {
+export interface ResourceOptions<T> {
     initValue?: T;
     immediately?: boolean;
+    /** 填写依赖元素，依赖元素发生改变，则会自动更新 */
+    deps?: Accessor<unknown>[];
 }
 /**
  * @zh 安全获取异步数据并返回状态
@@ -23,7 +26,7 @@ interface ResourceOptions<T> {
  */
 export const resource = <T>(
     fetcher: () => Promise<T>,
-    { initValue = null, immediately = true }: ResourceOptions<T> = {}
+    { initValue = null, immediately = true, deps }: ResourceOptions<T> = {}
 ): ResourceAtom<T> => {
     const data = atom<T>(initValue);
     const loading = atom(immediately);
@@ -49,6 +52,7 @@ export const resource = <T>(
 
     // 注意，不能直接进行 refetch，直接 refetch 会导致 solid-js 的整个页面重载
     immediately && setTimeout(() => refetch());
+    deps && deps.length && useEffectWithoutFirst(refetch, deps);
     return Object.assign(data, {
         error,
         loading,

@@ -1,5 +1,4 @@
-import { reflect, reflectMemo } from '../src/reflect';
-import { atom } from '../src/atom';
+import { atom, reflect, reflectMemo } from '../src/';
 import { renderHook } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 
