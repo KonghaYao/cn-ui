@@ -1,4 +1,4 @@
-import { atom } from '../src/';
+import { atom } from '../index';
 import { renderHook } from '@solidjs/testing-library';
 import { describe, expect, it } from 'vitest';
 describe('原子化测试', () => {

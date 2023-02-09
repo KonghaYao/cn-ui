@@ -1,6 +1,6 @@
 import { renderHook } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
-import { useEffect, useEffectWithoutFirst, atom } from '../src/';
+import { useEffect, useEffectWithoutFirst, atom } from '../index';
 
 describe('useEffect 测试', () => {
     it('useEffect', async () => {

@@ -1,6 +1,6 @@
 import { render, renderHook, waitFor } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
-import { ResourceAtom, resource, atom } from '../src/';
+import { ResourceAtom, resource, atom } from '../index';
 import { ErrorBoundary } from 'solid-js';
 
 describe('resource 测试', () => {
