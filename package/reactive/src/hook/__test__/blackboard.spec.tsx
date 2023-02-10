@@ -35,7 +35,7 @@ test('blackboard', () => {
                     const api2 = useHook2();
                     bd.register('api2', api2);
                     // 在 Mount 之后可以获取到相应的数据
-                    onMount(() => expect(bd.getApp('api1').username).eq(87654321));
+                    onMount(() => expect(bd.getApp('api1').username()).eq(87654321));
                     return <div></div>;
                 })()}
             </div>
