@@ -3,7 +3,7 @@ import { Atom, atom } from './atom';
 export type FormKeyAtom<T> = {
     [key in keyof T]: Atom<T[key]>;
 } & Atom<T>;
-/** @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom */
+/** @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom ，所以并不是简单的生成关系 */
 export const ObjectAtom = <T extends Record<string, unknown>>(obj: T) => {
     const hugeAtom = atom(obj, { equals: false });
     const splitStore = new Map();
