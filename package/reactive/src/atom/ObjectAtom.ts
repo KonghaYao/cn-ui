@@ -1,13 +1,17 @@
-import { Atom, atom } from './atom';
+import { Atom, AtomTypeSymbol, atom } from './atom';
 
 export type ObjectAtomType<T> = {
     [key in keyof T]: Atom<T[key]>;
 } & Atom<T>;
-/** @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom ，所以并不是简单的生成关系 */
+/**
+ * @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom ，所以并不是简单的生成关系
+ *
+ */
 export const ObjectAtom = <T extends Record<string, unknown>>(obj: T) => {
     const hugeAtom = atom(obj, { equals: false });
+    hugeAtom[AtomTypeSymbol] = 'object';
     const splitStore = new Map();
-    const keyStore = new Set(Object.keys(obj));
+    const keyStore = new Set([AtomTypeSymbol, ...Object.keys(obj)]);
     return new Proxy(hugeAtom, {
         get(target, key: string, receiver) {
             if (!keyStore.has(key)) throw new Error(`key: ${key} can't be found in formObject!`);

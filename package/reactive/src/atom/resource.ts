@@ -1,5 +1,5 @@
 import { Accessor, createEffect, createMemo, on } from 'solid-js';
-import { Atom, atom } from './atom';
+import { Atom, AtomTypeSymbol, atom } from './atom';
 import { useEffectWithoutFirst } from './useEffect';
 export interface ResourceBase<T> {
     loading: Accessor<boolean>;
@@ -67,5 +67,6 @@ export const resource = <T>(
         promise: () => {
             return p;
         },
+        [AtomTypeSymbol]: 'resource',
     } as ResourceBase<T>);
 };

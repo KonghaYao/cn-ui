@@ -1,5 +1,5 @@
 import { createEffect, createMemo, untrack } from 'solid-js';
-import { atom } from './atom';
+import { AtomTypeSymbol, atom } from './atom';
 
 export interface ReflectOptions<T> {
     immediately?: boolean;
@@ -44,6 +44,7 @@ export const reflect = <T>(
         /** @ts-ignore */
         a(() => memoFunc(lastValue));
     }, initValue);
+    a[AtomTypeSymbol] = 'reflect';
     return a;
 };
 /**
