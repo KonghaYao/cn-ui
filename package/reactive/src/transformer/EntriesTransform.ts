@@ -1,4 +1,4 @@
-import type { Atom } from './atom';
+import type { Atom } from '../atom/atom';
 
 export interface EntriesLike<
     T extends {
