@@ -1,3 +1,4 @@
+import { ArrayAtom, reflect } from 'src/atom';
 import type { Atom } from '../atom/atom';
 
 export interface EntriesLike<
@@ -32,6 +33,9 @@ export const EntriesTransform = <T extends Record<string, unknown>>(a: Atom<T>) 
         return en;
     };
     return {
+        toKeyAtom() {
+            return reflect(() => ArrayAtom(Object.keys(a)));
+        },
         toEntries() {
             return Object.entries(a());
         },

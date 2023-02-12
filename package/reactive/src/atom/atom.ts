@@ -1,15 +1,16 @@
 import { createSignal, Accessor } from 'solid-js';
 import { useEffectWithoutFirst } from './useEffect';
 
+export const AtomTypeSymbol = Symbol('AtomTypeSymbol');
+/** 获取 Atom 的种类 */
+export const getAtomType = (a: Atom<unknown>) => a[AtomTypeSymbol];
+
 export interface PartialSetter<T> {
     <U extends T>(value: (prev: T) => U): U;
     <U extends T>(value: Exclude<U, Function>): U;
     <U extends T>(value: Exclude<U, Function> | ((prev: T) => U)): U;
 }
 
-export const AtomTypeSymbol = Symbol('AtomTypeSymbol');
-/** 获取 Atom 的种类 */
-export const getAtomType = (a: Atom<unknown>) => a[AtomTypeSymbol];
 export interface Atom<T> extends Accessor<T>, PartialSetter<T> {
     reflux: makeReflux<T>;
     [AtomTypeSymbol]: string;

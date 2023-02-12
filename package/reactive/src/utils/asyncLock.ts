@@ -4,8 +4,8 @@
  * @example
  */
 export const asyncLock = function <T extends Function>(asyncFunc: T): T {
-    let running = null;
-    return function (...args: any[]) {
+    let running: Promise<any> | false = false;
+    return function (this: ThisType<T>, ...args: any[]) {
         if (running) return running;
         running = Promise.resolve(asyncFunc.apply(this, args)).then((res) => {
             running = false;

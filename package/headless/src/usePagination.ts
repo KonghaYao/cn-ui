@@ -1,7 +1,8 @@
 import { atom, Atom } from '@cn-ui/use';
 import { reflect } from '@cn-ui/use';
 import { resource } from '@cn-ui/use';
-/** 逐页查询组件，但是是滑动加载的那种，不会清除上次数据
+/**
+ * 逐页查询组件，但是是滑动加载的那种，不会清除上次数据
  * @test
  */
 export const usePaginationStack = <T>(

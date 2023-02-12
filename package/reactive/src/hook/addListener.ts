@@ -3,8 +3,6 @@ import { onCleanup, onMount } from 'solid-js';
 /**
  * 当你需要向 window 等外部的变量进行监听事件时，请使用这个函数
  * 这个函数将会自动绑定并自动清除
- *
- *
  *  */
 export const addListener = <T, D extends (...args: any) => any>(
     dom: T,

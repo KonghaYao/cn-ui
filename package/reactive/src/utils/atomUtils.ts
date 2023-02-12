@@ -1,5 +1,6 @@
-import { Accessor } from 'solid-js';
-import { Atom, atom } from '../atom/atom';
+import type { Accessor } from 'solid-js';
+import { Atom, AtomTypeSymbol, atom } from '../atom/atom';
+
 import { reflect } from '../atom/reflect';
 
 /**
@@ -14,11 +15,24 @@ import { reflect } from '../atom/reflect';
  *    return <div></div>
  * }
  */
-export const atomization = <T>(prop: T | Atom<T> | Accessor<T>) => {
+function atomization<T>(prop: T | Atom<T> | Accessor<T>): Atom<T>;
+function atomization<T extends (...args: any) => any>(prop: T): Atom<ReturnType<T>>;
+function atomization<T>(prop: T | Atom<T> | Accessor<T>) {
     // 保持 Accessor 的样式
-    return typeof prop === 'function' ? prop : atom(prop);
-};
+    return isAtom(prop)
+        ? (prop as Atom<T>)
+        : typeof prop === 'function'
+        ? reflect((prop as Accessor<T> | Function)())
+        : atom(prop);
+}
+export { atomization };
 
+/** 判断是否为 Atom */
+// function isAtom(a: Atom<any>): true;
+function isAtom(a: any): boolean {
+    return typeof (a as any)[AtomTypeSymbol] === 'string';
+}
+export { isAtom };
 /**
  * @category atom
  * @zh 将响应式数组转化为单个响应式对象组成的数组
