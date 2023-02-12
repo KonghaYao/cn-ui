@@ -61,7 +61,7 @@ const comp = () => {
 
 ## 使用 resource 处理异步逻辑
 
-ResourceAtom 是专门用于异步更新的 Atom，内置异步状态管理，依赖更新绑定等实用的功能。
+ResourceAtom 是专门用于异步更新的 Atom，内置异步状态管理，依赖更新绑定等实用的功能。异步函数管理中的取消行为是非常常用的操作，比如说请求分页，但是用户点击太快，发送了多次，那么就需要进行一个取消管理，`resource` 则内置了这个策略。
 
 > SolidJS 在异步函数中没法收集依赖，所以如果需要自动更新，我们应该提供手动依赖以便程序能够自动更新。
 
@@ -71,14 +71,42 @@ const comp = () => {
     const source = resource(
         async () => {
             const data = await asyncFunc(page());
-            page((i) => i + 1);
+
             return data;
+        },
+        {
+            // 如果你需要绑定 page 进行自动更新，那么必须要在下面声明
+            deps: [page],
+
+            //  tap 将会在此次异步函数执行完成之后，并且没有被取消时使用
+            tap(data) {
+                source.maxPage((i) => data.maxPage);
+            },
         }
-        // 如果你需要绑定 page 进行更新，那么必须要在下面声明
-        // { deps: [page] }
     );
     return <div>{source.isReady() ? source() : '默认值'}</div>;
 };
+```
+
+> 当异步函数发生重叠时，默认会进行提示，因为这是设计上的失误，需要进行异步函数的取消行为。放心，`resource` 检测到异步覆盖时，都会在 console 进行提示。如果你认为你的异步函数不会影响太大，那么可以手动屏蔽警告
+
+```tsx
+const controller = new AbortController();
+const { signal, cancel } = controller;
+
+resource(
+    () =>
+        fetch('', {
+            signal,
+        }),
+    {
+        refetch: {
+            cancelCallback: cancel,
+            // 不进行通知
+            // warn:false
+        },
+    }
+);
 ```
 
 ## 使用 reflux 回流来改变自己

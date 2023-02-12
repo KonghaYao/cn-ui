@@ -1,8 +1,5 @@
 import { render, renderHook } from '@solidjs/testing-library';
 import { test, vi } from 'vitest';
-import { createBlackBoard } from '../blackboard';
-import { ObjectAtom } from '../../atom/ObjectAtom';
-import { onMount } from 'solid-js';
 import { usePagination } from '../usePagination';
 import { sleep } from '../../utils';
 
@@ -17,7 +14,6 @@ test('常用页面方式', async () => {
                 return sleep(1000, page);
             },
             {
-                refetch: { warn: false },
                 tap() {
                     maxPage(100);
                 },

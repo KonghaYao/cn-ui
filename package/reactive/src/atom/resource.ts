@@ -52,11 +52,13 @@ export const resource = <T>(
     const refetch = async ({ warn = true, cancelCallback } = defaultRefetch) => {
         // 上一次请求尚未结束
         if (!isReady()) {
-            warn &&
+            if (cancelCallback) {
+                cancelCallback(p); // 调用取消函数立即取消上次使用
+            } else if (warn) {
                 console.warn(
                     'Resource Atom: some fetch has been covered; Recommend to add a cancelCallback to some Hook'
                 );
-            cancelCallback && cancelCallback(p); // 调用取消函数立即取消上次使用
+            }
         }
 
         loading(true);

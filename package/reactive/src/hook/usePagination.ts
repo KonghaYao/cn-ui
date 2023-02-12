@@ -1,13 +1,5 @@
 import { sleep } from '../utils';
-import {
-    type Atom,
-    atom,
-    resource,
-    reflect,
-    ResourceOptions,
-    reflectMemo,
-    RefetchOption,
-} from '../atom/index';
+import { type Atom, atom, resource, ResourceOptions, reflectMemo } from '../atom/index';
 import { debounce } from 'lodash-es';
 /**
  * @zh 逐页查询组件, 内部采用了时间过滤
@@ -17,17 +9,14 @@ export const usePagination = <T>(
     init: ResourceOptions<T> & {
         initIndex?: number;
         debounceTime?: number;
-        refetch?: RefetchOption;
     } = {}
 ) => {
     init.debounceTime = init.debounceTime ?? 100;
-    // init.refetch = init.refetch ?? { warn: true };
-
     const currentIndex = atom<number>(init.initIndex ?? 0);
     const maxPage = atom<number>(10);
     const currentData = resource<T>(() => getData(currentIndex(), maxPage), init);
 
-    const update = debounce(() => currentData.refetch(init.refetch), init.debounceTime!);
+    const refetch = debounce(() => currentData.refetch(), init.debounceTime!);
 
     // 更新数据
     const goto = (index: number) => {
@@ -36,7 +25,7 @@ export const usePagination = <T>(
         } else {
             currentIndex(index);
             // 需要在这里 debounce 而不是数字改变，页码改变如果迅速的话，那应该不进行请求，而是直接忽略
-            return update();
+            return refetch();
         }
     };
     return {
@@ -59,7 +48,8 @@ export const usePagination = <T>(
         async waitForDone() {
             return sleep(init.debounceTime! + 10).then(currentData.promise);
         },
-        updater: update,
+        /** 重新异步获取 */
+        refetch,
         goto,
         currentData,
     };

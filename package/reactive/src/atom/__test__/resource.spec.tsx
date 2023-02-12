@@ -11,20 +11,18 @@ describe('resource 测试', () => {
     };
     it('resource normal', async () => {
         const overAsyncTest = vi.fn();
+        const tapTest = vi.fn();
         const {
             result: { source, page },
         } = renderHook(() => {
             const page = atom(0);
             const source = resource(async () => asyncFunc(page()), {
                 tap(data) {
+                    tapTest();
                     page((i) => i + 1);
                 },
                 refetch: {
-                    warn: true,
-                    cancelCallback: () => {
-                        // console.log(page());
-                        overAsyncTest();
-                    },
+                    cancelCallback: overAsyncTest,
                 },
             });
 
@@ -52,6 +50,7 @@ describe('resource 测试', () => {
         await source.promise();
         expect(source()).eql(await asyncFunc(1));
         expect(overAsyncTest).toBeCalledTimes(0);
+        expect(tapTest).toBeCalledTimes(2);
     });
     it('resource Error', async () => {
         let err = new Error('info');
