@@ -12,7 +12,9 @@
         "resolveJsonModule": true,
         "declaration": true,
         "baseUrl": "./",
+        "noEmit": false,
         "emitDeclarationOnly": true,
+        "ignoreDeprecations": "5.0",
         "declarationDir": "./dist"
     },
     "include": ["src/**/*", "test/**/*"]

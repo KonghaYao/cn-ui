@@ -1,5 +1,5 @@
 import { Accessor, createEffect, lazy, untrack, on } from 'solid-js';
-import { EffectFunction } from 'solid-js/types/reactive/signal';
+import type { EffectFunction } from 'solid-js/types/reactive/signal';
 
 /**
  * @zh 忽略首次执行的 Effect, 但是你需要手动声明依赖
@@ -9,13 +9,15 @@ import { EffectFunction } from 'solid-js/types/reactive/signal';
 export const useEffectWithoutFirst = <T>(
     func: EffectFunction<T, T>,
     deps: Accessor<unknown>[],
-    initVal?: T
+    /** @ts-ignore */
+    initVal?: T = null
 ) => {
     let head = true;
     return useEffect<T>(
         (lastVal) => {
             if (head) {
                 head = false;
+                return null as T;
             } else {
                 return func(lastVal);
             }
@@ -36,7 +38,8 @@ export const createIgnoreFirst = useEffectWithoutFirst;
 export const useEffect = <T>(
     func: EffectFunction<T, T>,
     deps: Accessor<unknown>[],
-    initVal?: T
+    /** @ts-ignore */
+    initVal?: T = null
 ) => {
     let val = initVal;
     return createEffect<T>(

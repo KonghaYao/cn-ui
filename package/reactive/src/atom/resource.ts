@@ -26,7 +26,12 @@ export interface ResourceOptions<T> {
  */
 export const resource = <T>(
     fetcher: () => Promise<T>,
-    { initValue = null, immediately = true, deps }: ResourceOptions<T> = {}
+    {
+        /** @ts-ignore */
+        initValue = null,
+        immediately = true,
+        deps,
+    }: ResourceOptions<T> = {}
 ): ResourceAtom<T> => {
     const data = atom<T>(initValue);
     const loading = atom(immediately);

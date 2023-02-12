@@ -35,7 +35,8 @@ export const reflect = <T>(
         /** 是否立刻求值 (是否忽略第一次求值) */
         immediately = true,
         /** 如果不进行求值，那么将会之用初始值进行替代 */
-        initValue,
+        /** @ts-ignore */
+        initValue = null,
     }: ReflectOptions<T> = {}
 ) => {
     const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue);
@@ -57,7 +58,8 @@ export const reflectMemo = <T>(
         /** 是否立刻求值 (是否忽略第一次求值) */
         immediately = true,
         /** 如果不进行求值，那么将会之用初始值进行替代 */
-        initValue,
+        /** @ts-ignore */
+        initValue = null,
     }: ReflectOptions<T> = {}
 ) => {
     // Memo 与 Effect 不一样，Memo 是立即求值，而 reflect 则在生命周期之后求值

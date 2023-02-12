@@ -59,6 +59,28 @@ const comp = () => {
 };
 ```
 
+## 使用 resource 处理异步逻辑
+
+ResourceAtom 是专门用于异步更新的 Atom，内置异步状态管理，依赖更新绑定等实用的功能。
+
+> SolidJS 在异步函数中没法收集依赖，所以如果需要自动更新，我们应该提供手动依赖以便程序能够自动更新。
+
+```tsx
+const comp = () => {
+    const page = atom(0);
+    const source = resource(
+        async () => {
+            const data = await asyncFunc(page());
+            page((i) => i + 1);
+            return data;
+        }
+        // 如果你需要绑定 page 进行更新，那么必须要在下面声明
+        // { deps: [page] }
+    );
+    return <div>{source.isReady() ? source() : '默认值'}</div>;
+};
+```
+
 ## 使用 reflux 回流来改变自己
 
 在应用程序中，经常会遇到用户输入表单，但是输入的一些数据类型需要一定的变通的情况。这个时候可以使用 reflux 来使得更新关系反转，由子 Atom 通过更新函数更新父 Atom。
