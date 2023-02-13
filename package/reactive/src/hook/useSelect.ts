@@ -1,13 +1,17 @@
 import { atomization } from '../utils';
-import { atom, Atom, reflect } from '../atom/index';
+import { ArrayAtom, atom, Atom, reflect } from '../atom/index';
 import { createEffect } from 'solid-js';
 
 /**
  * @zh 多选状态管理 */
 export const useSelect = function (
-    props: { activeIds?: Atom<string[]>; multi?: Atom<boolean> } = {}
+    props: {
+        activeIds?: Atom<string[]>;
+        /** 默认多选，但是可以取消 */
+        multi?: Atom<boolean> | boolean;
+    } = {}
 ) {
-    const activeIdsArray = atomization(props.activeIds || []);
+    const activeIdsArray = ArrayAtom(atomization(props.activeIds ?? []));
 
     const multi = atomization(props.multi ?? true);
     const activeIdsSet = atom(new Set(activeIdsArray()));
@@ -35,23 +39,30 @@ export const useSelect = function (
                 }
             });
         } else if (state === false) {
-            activeIdsArray((i) => i.filter((ii) => ii !== id));
+            activeIdsArray.removeAll(id);
         }
     };
     return {
+        /** 更改状态 */
         changeSelected,
-        register(id: string, state: boolean) {
+        /** 注册键，可以在任何时候进行注册 */
+        register(id: string, state = false) {
             allRegistered((i) => {
                 i.add(id);
                 return i;
             });
             changeSelected(id, state);
         },
+        /** 取消整个键的采用 */
         deregister(id: string) {
+            activeIdsArray.removeAll(id);
             allRegistered((i) => (i.delete(id), i));
         },
+        /** 所有注册过的键 */
         allRegistered,
+        /** 被选中的键的 Set Atom */
         activeIds: activeIdsSet,
+        /** 检查一个键是否被选中 */
         isSelected: (id: string) => {
             return activeIdsSet().has(id);
         },
