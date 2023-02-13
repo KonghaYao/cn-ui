@@ -1,6 +1,7 @@
 import { renderHook } from '@solidjs/testing-library';
 import { describe, expect, it, vi } from 'vitest';
 import { useEffect, useEffectWithoutFirst, atom } from '../index';
+import { createEffect } from 'solid-js';
 
 describe('useEffect 测试', () => {
     it('useEffect', async () => {
@@ -57,5 +58,35 @@ describe('useEffect 测试', () => {
             source((i) => !i);
             expect(cb).eql(100 + i * 100);
         });
+    });
+    it('createEffect 测试', async () => {
+        const dep = vi.fn();
+        const {
+            result: { a, b, magic },
+        } = renderHook(() => {
+            const a = atom('a');
+            const b = atom('b');
+            const magic = atom(true);
+
+            createEffect(() => {
+                dep();
+                if (magic()) {
+                    a();
+                } else {
+                    // 第一次这里不会被触发，所以其实是没有收集到 b 的依赖的
+                    b();
+                }
+            });
+            return { a, b, magic };
+        });
+        expect(dep).toBeCalledTimes(1);
+        b('c'); // 更改 b 不会触发依赖更新
+        expect(dep).toBeCalledTimes(1);
+
+        magic(false); // 使得分支运行到 false 状态，触发 b 的依赖
+        expect(dep).toBeCalledTimes(2);
+
+        b('b'); // 这次就触发了 effect
+        expect(dep).toBeCalledTimes(3);
     });
 });
