@@ -1,5 +1,6 @@
 import type { SignalOptions } from 'solid-js';
 import { Atom, AtomTypeSymbol, atom } from './atom';
+import { isAtom } from '../utils';
 
 export type ObjectAtomType<T> = {
     [key in keyof T]: Atom<T[key]>;
@@ -9,15 +10,21 @@ export type ObjectAtomType<T> = {
  * @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom ，所以并不是简单的生成关系
  *
  */
-export const ObjectAtom = <T extends Record<string, unknown>>(
+
+function ObjectAtom<T extends Record<string, unknown>>(obj: Atom<T>): ObjectAtomType<T>;
+function ObjectAtom<T extends Record<string, unknown>>(
     obj: T,
     options?: Omit<SignalOptions<T>, 'equals'>
-) => {
-    const hugeAtom = atom(obj, { equals: false });
-
+): ObjectAtomType<T>;
+function ObjectAtom<T extends Record<string, unknown>>(
+    obj: T | Atom<T>,
+    options?: Omit<SignalOptions<T>, 'equals'>
+): ObjectAtomType<T> {
+    const hugeAtom = isAtom(obj) ? (obj as Atom<T>) : atom(obj as T, { equals: false });
+    const inner = isAtom(obj) ? (obj as Atom<T>)() : (obj as T);
     hugeAtom[AtomTypeSymbol] = 'object';
     const splitStore = new Map();
-    const keyStore = new Set([AtomTypeSymbol, ...Object.keys(obj)]);
+    const keyStore = new Set([AtomTypeSymbol, ...Object.keys(inner)]);
     return new Proxy(hugeAtom, {
         get(target, key: string, receiver) {
             if (!keyStore.has(key)) throw new Error(`key: ${key} can't be found in formObject!`);
@@ -37,4 +44,5 @@ export const ObjectAtom = <T extends Record<string, unknown>>(
             return Reflect.apply(target, thisArg, argArray);
         },
     }) as ObjectAtomType<T>;
-};
+}
+export { ObjectAtom };
