@@ -4,12 +4,15 @@ const files =await Astro.glob('./zh-cn/**/*.md')
 ---
 
 <Layout title="正式操作">
-	<main class="flex flex-col gap-2">
+    <section>
 
-        {files.map(i=>{
-            return <a href={i.url}>{
-                i.frontmatter.title
-            }</a>
-        })}
-	</main>
+        <main class="flex flex-col gap-2 ">
+
+            {files.map((i,index)=>{
+                return <a href={i.url} >{
+                    i.frontmatter.title
+                }</a>
+            })}
+        </main>
+</section>
 </Layout>

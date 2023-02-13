@@ -1,9 +1,18 @@
 ---
 import Body from "./Body.astro";
+import Header from "./Header.astro";
+import DocList from "./DocList.astro";
 ---
 
-<Body class="flex items-center justify-center">
-    <main class=" w-full prose xl:prose-sm py-8 ">
-        <slot />
-    </main>
+<Body class="flex flex-col items-center justify-center overflow-hidden h-screen">
+    <Header></Header>
+    <section class="w-full overflow-hidden flex-1 h-full flex ">
+        <DocList></DocList>
+        <main class="w-full flex justify-center overflow-auto">
+
+            <div class=" prose xl:prose-sm h-fit py-8">
+                <slot />
+            </div>
+        </main>
+    </section>
 </Body>

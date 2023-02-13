@@ -1,0 +1,11 @@
+---
+const files =await Astro.glob('../pages/zh-cn/**/*.md')
+---
+
+<nav class="flex flex-col gap-2 font-thin w-fit p-4">
+    {files.map((i,index)=>{
+        return <a href={i.url} >{
+            i.frontmatter.title
+        }</a>
+    })}
+</nav>

@@ -1,0 +1,23 @@
+---
+import {Github} from '@icon-park/svg'
+const iconBtns = [{
+    name:Github({theme:"outline",size:"28",fill:"#7c7c7c"}),
+    link:""
+}]
+---
+
+
+<header class="flex w-full h-16 border-b border-slate-900/10 items-center px-4">
+    <h3 class="text-xl">Reactive Atom Flow</h3>
+    <nav class="flex flex-1 justify-end items-center">
+
+    </nav>
+
+    <nav class="flex gap-4 items-center">
+        {iconBtns.map(i=>{
+            return <a href={i.link} target="_blank" >
+                <Fragment set:html={i.name} />
+            </a>
+        })}
+    </nav>
+</header>
