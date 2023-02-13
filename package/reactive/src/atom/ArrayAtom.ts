@@ -1,6 +1,7 @@
 import type { SignalOptions } from 'solid-js';
 import { Atom, AtomTypeSymbol, atom } from './atom';
-import type { InferArray } from 'src/typeUtils';
+import type { InferArray } from '../typeUtils';
+import { isAtom } from '../utils';
 
 export interface ArrayAtomExtends<T> {
     replace(oldItem: T, newItem: T): this;
@@ -17,11 +18,16 @@ export interface ArrayAtomType<Arr extends any[]>
 /**
  * @zh 更加简单操作数组 Atom 对象
  */
-export const ArrayAtom = <Arr extends any[], T = InferArray<Arr>>(
+function ArrayAtom<Arr extends any[], T = InferArray<Arr>>(init: Atom<Arr>): ArrayAtomType<Arr>;
+function ArrayAtom<Arr extends any[], T = InferArray<Arr>>(
     init: Arr,
     options?: SignalOptions<Arr>
-): ArrayAtomType<Arr> => {
-    const arr = atom(init, options);
+): ArrayAtomType<Arr>;
+function ArrayAtom<Arr extends any[], T = InferArray<Arr>>(
+    init: Arr | Atom<Arr>,
+    options?: SignalOptions<Arr>
+): ArrayAtomType<Arr> {
+    const arr = isAtom(init) ? (init as Atom<Arr>) : atom(init as Arr, options);
     /** 指向第一个匹配到的对象 */
     const cursorItem = <Inner>(
         i: Inner[],
@@ -93,4 +99,5 @@ export const ArrayAtom = <Arr extends any[], T = InferArray<Arr>>(
     };
     /** @ts-ignore */
     return Object.assign(arr, { ...arrM, [AtomTypeSymbol]: 'array' });
-};
+}
+export { ArrayAtom };

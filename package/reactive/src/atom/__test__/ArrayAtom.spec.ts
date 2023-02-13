@@ -1,6 +1,7 @@
 import { renderHook } from '@solidjs/testing-library';
 import { test } from 'vitest';
 import { ArrayAtom } from '../ArrayAtom';
+import { atom } from '../atom';
 const _arr = [...Array(10).keys()];
 test('ArrayAtom number test', () => {
     const { result: arr } = renderHook(() => {
@@ -49,6 +50,20 @@ test('ArrayAtom Object test', () => {
 test('ArrayAtom Object bulk test', () => {
     const { result: arr } = renderHook(() => {
         return ArrayAtom(_arr);
+    });
+    arr.replace(0, 6);
+    expect(arr()[0]).eq(6);
+
+    arr.replaceAll(6, 100);
+    expect(arr()[0]).eq(arr()[6]).eql(100);
+
+    arr.removeAll(100);
+    expect(arr().some((i) => i === 10)).eq(false);
+});
+test('ArrayAtom 输入为 Atom 设计', () => {
+    const { result: arr } = renderHook(() => {
+        const arr = atom(_arr);
+        return ArrayAtom(arr);
     });
     arr.replace(0, 6);
     expect(arr()[0]).eq(6);

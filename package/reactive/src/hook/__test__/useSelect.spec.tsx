@@ -6,7 +6,7 @@ import { useSelect } from '../useSelect';
 
 test('单选方案', async () => {
     const {
-        result: { activeIds },
+        result: { activeIds, changeSelected, register, deregister, isSelected },
     } = renderHook(() => useSelect());
 });
 

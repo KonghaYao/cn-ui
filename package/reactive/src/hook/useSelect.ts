@@ -12,7 +12,7 @@ export const useSelect = function (
     const multi = atomization(props.multi ?? true);
     const activeIdsSet = atom(new Set(activeIdsArray()));
 
-    // 自动强制单选，防止 activeIds 强制多选
+    // 自动强制单选，防止上流 activeIds 强制多选的行为
     createEffect(() => {
         !multi() && activeIdsArray((i) => i.slice(0, 1));
         activeIdsSet(() => new Set(activeIdsArray()));
