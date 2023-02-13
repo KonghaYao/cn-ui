@@ -1,7 +1,7 @@
 import { renderHook } from '@solidjs/testing-library';
 import { test, vi } from 'vitest';
 import { addListener } from '../addListener';
-import mitt from 'mitt';
+import mitt, { Emitter } from 'mitt';
 test('addListener DOM', () => {
     const noop = vi.fn();
 
@@ -33,11 +33,13 @@ test('addListener FrameWork', () => {
         onload: undefined;
     }>();
     const { cleanup } = renderHook(() => {
-        const handle = { on: (i) => i.on, off: (i) => i.off };
-        addListener(center, 'onload', () => noop(), handle);
+        const handle = { on: (i: any) => i.on, off: (i: any) => i.off };
+        addListener(window, 'onload', noop);
+        addListener(center, 'onload', noop, handle);
         center.emit('onload');
     });
     cleanup();
+    // 这一次 emit 将会被忽略
     center.emit('onload');
     expect(noop).toBeCalledTimes(1);
 });

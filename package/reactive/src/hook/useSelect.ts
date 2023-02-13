@@ -4,7 +4,9 @@ import { createEffect } from 'solid-js';
 
 /**
  * @zh 多选状态管理 */
-export const useSelect = function (props: { activeIds?: Atom<string[]>; multi?: Atom<boolean> }) {
+export const useSelect = function (
+    props: { activeIds?: Atom<string[]>; multi?: Atom<boolean> } = {}
+) {
     const activeIdsArray = atomization(props.activeIds || []);
 
     const multi = atomization(props.multi ?? true);

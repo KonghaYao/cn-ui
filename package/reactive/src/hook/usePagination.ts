@@ -12,6 +12,7 @@ export const usePagination = <T>(
     } = {}
 ) => {
     init.debounceTime = init.debounceTime ?? 100;
+
     const currentIndex = atom<number>(init.initIndex ?? 0);
     const maxPage = atom<number>(10);
     const currentData = resource<T>(() => getData(currentIndex(), maxPage), init);
