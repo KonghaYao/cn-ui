@@ -33,7 +33,7 @@ export const EntriesTransform = <T extends Record<string, unknown>>(a: Atom<T>) 
         return en;
     };
     return {
-        toKeyAtom() {
+        toKeysAtom() {
             return reflect(() => ArrayAtom(Object.keys(a)));
         },
         toEntries() {

@@ -8,8 +8,9 @@ export interface ArrayAtomExtends<T> {
     replaceAll(oldItem: T, newItem: T): this;
     remove(item: T): this;
     removeAll(item: T): this;
-    insertBefore(positionItem: T, newItem: T): this;
-    insertAfter(positionItem: T, newItem: T): this;
+    insert(positionItem: T, newItem: T, position?: 'before' | 'after'): this;
+    move(thisItem: T, nearByItem: T, position?: 'before' | 'after'): this;
+    switch(thisItem: T, nearByItem: T): this;
 }
 export interface ArrayAtomType<Arr extends any[]>
     extends Atom<Arr>,
@@ -80,24 +81,36 @@ function ArrayAtom<Arr extends any[], T = InferArray<Arr>>(
             });
             return this;
         },
-        insertBefore(positionItem, newItem) {
+        insert(newItem, positionItem, position = 'before') {
             arr((i) => {
                 return cursorItem<T>(i, positionItem, (arr, index) => {
-                    arr.splice(index, 0, newItem);
+                    arr.splice(position === 'before' ? index : index + 1, 0, newItem);
                 }) as Arr;
             });
             return this;
         },
-        insertAfter(positionItem, newItem) {
-            arr((i) => {
-                return cursorItem<T>(i, positionItem, (arr, index) => {
-                    arr.splice(index + 1, 0, newItem);
-                }) as Arr;
+        move(thisItem, nearByItem, position) {
+            this.remove(thisItem);
+            this.insert(thisItem, nearByItem, position);
+            return this;
+        },
+        switch(thisItem, nearByItem) {
+            arr((oldArr) => {
+                const newA = [...oldArr];
+                const index1 = arr().findIndex((i) => i === thisItem);
+                const index2 = arr().findIndex((i) => i === nearByItem);
+                if (index1 === -1 || index2 === -1)
+                    throw new Error('ArrayAtom: Please check the Items you want to switch ');
+                newA[index1] = nearByItem;
+                newA[index2] = thisItem;
+                return newA as Arr;
             });
+
             return this;
         },
     };
     /** @ts-ignore */
     return Object.assign(arr, { ...arrM, [AtomTypeSymbol]: 'array' });
+    // return { ...arr,  ...arrM, [AtomTypeSymbol]: 'array'};
 }
 export { ArrayAtom };
