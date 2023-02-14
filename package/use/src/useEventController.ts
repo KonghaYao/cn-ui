@@ -1,5 +1,5 @@
 import { batch } from 'solid-js';
-import { Atom } from './atom';
+import { Atom } from '@cn-ui/reactive';
 
 /**
  * @zh 异步管式事件接管
@@ -30,13 +30,13 @@ export const useEventController = (props: { disabled?: Atom<boolean>; oneLine?: 
         };
 
         // 以下为修饰器
-        if (props.oneLine !== false) final = useSingleAsync(final);
+        if (props.oneLine !== false) final = asyncLock(final);
         if (options.batch) final = (...args: Parameters<T>) => batch(() => final(...args));
         return final;
     };
 };
 import { JSX } from 'solid-js';
-import { useSingleAsync } from './useSingleAsync';
+import { asyncLock } from '@cn-ui/reactive';
 /**
  * @zh 配合 useEventController 向组件外暴露异步事件流
  *

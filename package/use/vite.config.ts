@@ -2,8 +2,10 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
-const deps = [Package.devDependencies, Package.peerDependencies].flatMap((i) => Object.keys(i));
-const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
+const deps = [Package?.dependencies, (Package as any)?.peerDependencies]
+    .filter(Boolean)
+    .flatMap((i) => Object.keys(i));
+const warning = [Package?.devDependencies].filter(Boolean).flatMap((i) => Object.keys(i));
 
 export default defineConfig(({ mode }) => {
     return {
@@ -34,6 +36,19 @@ export default defineConfig(({ mode }) => {
                 formats: ['es'],
             },
             sourcemap: true,
+        },
+        test: {
+            deps: {
+                registerNodeLoader: true,
+                inline: [/solid-js/],
+            },
+            environment: 'jsdom',
+            globals: true,
+            setupFiles: [
+                '../../node_modules/@testing-library/jest-dom/extend-expect',
+                // './setupVitest.js',
+            ],
+            transformMode: { web: [/\.[jt]sx?$/] },
         },
     };
 });

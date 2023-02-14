@@ -1,11 +1,10 @@
-export * from './atom';
 export * from './classNames';
 export * from './PropsToAttr';
-export * from './useSingleAsync';
-export * from './createIgnoreHead';
 export * from './createTemplate';
 export * from './OriginComponent';
 export * from './useEventController';
 export * from './extendsEvent';
-export * from './resource';
 export * from './BOM/index';
+
+export * from '@cn-ui/reactive';
+export * from './math';

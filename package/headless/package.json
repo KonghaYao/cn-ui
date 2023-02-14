@@ -17,9 +17,7 @@
     "devDependencies": {
         "fs-extra": "^10.1.0"
     },
-    "peerDependencies": {
-        "solid-js": "^1.5.7"
-    },
+    "peerDependencies": {},
     "keywords": [
         "pridepack",
         "solid-js",
@@ -29,6 +27,7 @@
         "utils"
     ],
     "dependencies": {
-        "@cn-ui/use": "workspace:^1.8.4"
+        "solid-js": "^1.6.10",
+        "@cn-ui/use": "workspace:^2.0.0"
     }
 }

@@ -1,4 +1,4 @@
-import { ArrayAtom, reflect } from 'src/atom';
+import { ArrayAtom, reflect } from '../atom/';
 import type { Atom } from '../atom/atom';
 
 export interface EntriesLike<

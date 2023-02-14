@@ -1,4 +1,4 @@
-import { atom } from '../atom';
+import { atom } from '@cn-ui/reactive';
 import { debounce } from 'lodash-es';
 
 export const useWindowResize = () => {

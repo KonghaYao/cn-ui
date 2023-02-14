@@ -14,4 +14,5 @@ export const asyncLock = function <T extends Function>(asyncFunc: T): T {
         return running;
     } as any as T;
 };
+/** @deprecated use asyncLock instead */
 export const useSingleAsync = asyncLock;

@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/use",
-    "version": "1.9.1",
+    "version": "2.0.0",
     "description": "",
     "main": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
@@ -16,9 +16,6 @@
     "devDependencies": {
         "fs-extra": "^10.1.0"
     },
-    "peerDependencies": {
-        "solid-js": "^1.6.6"
-    },
     "keywords": [
         "pridepack",
         "solid-js",
@@ -26,5 +23,9 @@
         "hooks",
         "component",
         "utils"
-    ]
+    ],
+    "dependencies": {
+        "solid-js": "^1.6.10",
+        "@cn-ui/reactive": "workspace:^2.0.1"
+    }
 }
