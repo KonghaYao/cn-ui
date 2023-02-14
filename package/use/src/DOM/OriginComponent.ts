@@ -23,7 +23,6 @@ export type OriginComponentType = <T, RefType = HTMLElement>(
     comp: Component<OriginComponentInputType<T, RefType>>
 ) => Component<OriginComponentOutputType<T, RefType>>;
 
-
 export const OriginComponent: OriginComponentType = (comp) => {
     return (props) => {
         // 将 style 统一转化为对象结构

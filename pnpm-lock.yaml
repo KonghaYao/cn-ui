@@ -366,10 +366,14 @@ importers:
   package/use:
     specifiers:
       '@cn-ui/reactive': workspace:^2.0.1
+      '@types/lodash-es': ^4.17.6
       fs-extra: ^10.1.0
+      lodash-es: ^4.17.21
       solid-js: ^1.6.10
     dependencies:
       '@cn-ui/reactive': link:../reactive
+      '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
+      lodash-es: registry.npmmirror.com/lodash-es/4.17.21
       solid-js: registry.npmmirror.com/solid-js/1.6.10
     devDependencies:
       fs-extra: 10.1.0
@@ -6617,13 +6621,11 @@ packages:
     version: 4.17.6
     dependencies:
       '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.185
-    dev: true
 
   registry.npmmirror.com/@types/lodash/4.14.185:
     resolution: {integrity: sha512-evMDG1bC4rgQg4ku9tKpuMh5iBNEwNa3tf9zRHdP1qlv+1WUg44xat4IxCE14gIpZRGUUWAx2VhItCZc25NfMA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.185.tgz}
     name: '@types/lodash'
     version: 4.14.185
-    dev: true
 
   registry.npmmirror.com/@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/mdast/-/mdast-3.0.10.tgz}

@@ -25,7 +25,9 @@
         "utils"
     ],
     "dependencies": {
-        "solid-js": "^1.6.10",
-        "@cn-ui/reactive": "workspace:^2.0.1"
+        "@cn-ui/reactive": "workspace:^2.0.1",
+        "@types/lodash-es": "^4.17.6",
+        "lodash-es": "^4.17.21",
+        "solid-js": "^1.6.10"
     }
 }
