@@ -18,5 +18,5 @@
             "@cn-ui/core": ["./package/core/src/index"]
         }
     },
-    "include": ["src/**/*", "story/**/*"]
+    "include": ["src/**/*", "story/**/*", "package/docs/src/components/Story"]
 }

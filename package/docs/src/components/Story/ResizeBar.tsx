@@ -1,6 +1,6 @@
 import { batch, For, useContext } from 'solid-js';
 import { FloatPanelWithAnimate, Icon, InputNumber, Space } from '@cn-ui/core';
-import { StoryContext } from '../StoryShower';
+import { StoryContext } from './StoryRoot';
 
 const sizes = [
     { name: 'iPad Air', size: '820x1180' },
@@ -11,7 +11,7 @@ const sizes = [
 ];
 
 export const ResizeBar = () => {
-    const { height, width, scale, refresh } = useContext(StoryContext);
+    const { height, width, scale, refresh } = useContext(StoryContext)!;
     const IconSetting = { size: 20, class: 'cursor-pointer hover:scale-125 transition-transform' };
     const Devices = (
         <Space vertical>

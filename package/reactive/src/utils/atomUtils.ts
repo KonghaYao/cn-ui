@@ -20,10 +20,10 @@ function atomization<T extends (...args: any) => any>(prop: T): Atom<ReturnType<
 function atomization<T>(prop: T | Atom<T> | Accessor<T>) {
     // 保持 Accessor 的样式
 
-    return isAtom(prop)
-        ? (prop as Atom<T>)
-        : typeof prop === 'function'
-        ? reflect((prop as Accessor<T> | Function)())
+    return typeof prop === 'function'
+        ? isAtom(prop)
+            ? (prop as Atom<T>)
+            : reflect((prop as Accessor<T> | Function)())
         : atom(prop);
 }
 export { atomization };

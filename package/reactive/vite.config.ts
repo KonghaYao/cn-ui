@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
-import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
 const deps = [Package.dependencies].flatMap((i) => Object.keys(i));
 const warning = [Package.devDependencies].flatMap((i) => Object.keys(i));
@@ -23,8 +22,6 @@ export default defineConfig(({ mode }) => {
                 },
             },
             solid(),
-            mode === 'analyze' &&
-                (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
             port: 3000,

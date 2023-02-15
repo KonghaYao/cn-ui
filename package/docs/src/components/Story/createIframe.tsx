@@ -1,17 +1,17 @@
 import { createEffect, onCleanup, useContext } from 'solid-js';
 import { wrap, windowEndpoint, releaseProxy, Remote } from 'comlink';
-import { StoryContext } from '../StoryShower';
-import { createIgnoreFirst } from '@cn-ui/use';
+import { StoryContext } from './StoryRoot';
+import { useEffectWithoutFirst } from '@cn-ui/use';
 
 export const createIframe = () => {
-    const { Props, height, width, scale, autoRefresh, refresh, href } = useContext(StoryContext);
+    const { Props, height, width, scale, autoRefresh, refresh, href } = useContext(StoryContext)!;
     /** 传递参数 */
     let cb = (any: any) => {};
     let api: Remote<{
         changeProps(any: any): void;
     }>;
     let clear = () => {};
-    createIgnoreFirst(() => {
+    useEffectWithoutFirst(() => {
         const data = Props();
         if (autoRefresh()) {
             refresh();
@@ -22,8 +22,11 @@ export const createIframe = () => {
     onCleanup(() => {
         api && api[releaseProxy]();
         clear();
+        /** @ts-ignore */
         api = undefined;
+        /** @ts-ignore */
         cb = undefined;
+        /** @ts-ignore */
         clear = undefined;
         console.log('组件卸载完成');
     });
@@ -38,15 +41,15 @@ export const createIframe = () => {
             src={href()}
             ref={(iframe) => {
                 iframe.onload = () => {
-                    api = wrap(windowEndpoint(iframe.contentWindow));
+                    api = wrap(windowEndpoint(iframe.contentWindow!));
                     cb = api.changeProps;
                     api.changeProps(Props());
                 };
                 clear = () => {
                     iframe.src = 'about:blank';
                     try {
-                        iframe.contentWindow.document.write('');
-                        iframe.contentWindow.document.clear();
+                        iframe.contentWindow!.document.write('');
+                        iframe.contentWindow!.document.clear();
                     } catch (e) {
                         console.log(e);
                     }

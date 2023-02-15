@@ -229,18 +229,25 @@ importers:
       '@astrojs/sitemap': ^1.0.1
       '@astrojs/solid-js': ^2.0.2
       '@astrojs/tailwind': ^3.0.1
+      '@cn-ui/core': workspace:^1.7.0
+      '@cn-ui/use': workspace:^2.0.1
+      '@tailwindcss/line-clamp': ^0.4.2
       astro: ^2.0.11
       comlink: ^4.3.1
       solid-js: ^1.4.3
-      tailwindcss: ^3.0.24
+      tailwindcss: ^3.2.4
     dependencies:
       '@astrojs/sitemap': registry.npmmirror.com/@astrojs/sitemap/1.0.1
       '@astrojs/solid-js': registry.npmmirror.com/@astrojs/solid-js/2.0.2_solid-js@1.6.10
       '@astrojs/tailwind': registry.npmmirror.com/@astrojs/tailwind/3.0.1_abd4tzk6jyc5lamq5kbo5qgoia
+      '@cn-ui/core': link:../core
+      '@cn-ui/use': link:../use
       astro: registry.npmmirror.com/astro/2.0.11
       comlink: registry.npmmirror.com/comlink/4.3.1
       solid-js: registry.npmmirror.com/solid-js/1.6.10
       tailwindcss: registry.npmmirror.com/tailwindcss/3.2.4
+    devDependencies:
+      '@tailwindcss/line-clamp': registry.npmmirror.com/@tailwindcss/line-clamp/0.4.2_tailwindcss@3.2.4
 
   package/headless:
     specifiers:
@@ -4085,7 +4092,7 @@ packages:
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: registry.npmmirror.com/tailwindcss/3.2.4_postcss@8.4.19
+      tailwindcss: registry.npmmirror.com/tailwindcss/3.2.4
     dev: true
 
   registry.npmmirror.com/@tailwindcss/typography/0.5.9_tailwindcss@3.2.4:

@@ -1,10 +1,10 @@
-import { Component, Show, Suspense, createSignal, lazy, onMount } from "solid-js"
-import {expose,windowEndpoint} from 'comlink'
-import { Dynamic } from "solid-js/web"
-export const StroyWrapper = ({Comp}:{Comp:string})=>{
-const Content = lazy(()=>import(/* @vite-ignore */ Comp))
-    const [Props,setProps] = createSignal({})
-    onMount(()=>{
+import { Suspense, createSignal, lazy, onMount } from 'solid-js';
+import { expose, windowEndpoint } from 'comlink';
+import '@cn-ui/core/dist/style.css';
+export const StroyWrapper = ({ Comp }: { Comp: string }) => {
+    const Content = lazy(() => import(/* @vite-ignore */ Comp));
+    const [Props, setProps] = createSignal({});
+    onMount(() => {
         expose(
             {
                 changeProps(props: any) {
@@ -15,8 +15,10 @@ const Content = lazy(()=>import(/* @vite-ignore */ Comp))
             },
             windowEndpoint(self.parent)
         );
-    })
-    return <Suspense>
-        <Content {...Props()}></Content>
-    </Suspense>
-}
+    });
+    return (
+        <Suspense>
+            <Content {...Props()}></Content>
+        </Suspense>
+    );
+};

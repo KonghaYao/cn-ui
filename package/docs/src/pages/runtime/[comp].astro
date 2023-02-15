@@ -1,5 +1,6 @@
 ---
 import allDemo from '../../stroy.json';
+import Layout from '../../layouts/Layout.astro'
 export function getStaticPaths() {
     return allDemo.map((i) => {
         return { params: { comp: i } };
@@ -7,6 +8,8 @@ export function getStaticPaths() {
 }
 import { StroyWrapper } from '../../components/Wrapper';
 const { comp } = Astro.params;
----
 
-<StroyWrapper client:only="solid-js" Comp={`/src/story/${comp}.story.tsx`} />
+---
+<Layout>
+    <StroyWrapper client:only="solid-js" Comp={`/src/story/${comp}.story.tsx`} />
+</Layout>

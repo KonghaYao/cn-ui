@@ -1,5 +1,6 @@
 import { atom } from '../index';
 import { renderHook } from '@solidjs/testing-library';
+import { atomization } from '../../utils';
 import { describe, expect, it } from 'vitest';
 describe('原子化测试', () => {
     it('atom', () => {
@@ -36,5 +37,14 @@ describe('原子化测试', () => {
         expect(source()).eq(100);
         child('200');
         expect(source()).eq(200);
+    });
+    it('atomization', () => {
+        const {
+            result: { source },
+        } = renderHook(() => {
+            const source = atomization(100);
+            return { source };
+        });
+        expect(source()).eq(100);
     });
 });

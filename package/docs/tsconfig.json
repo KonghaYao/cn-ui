@@ -7,8 +7,7 @@
         "baseUrl": "./",
         "paths": {
             "@components/*": ["src/components/*"],
-            "@layouts/*": ["src/layouts/*"],
-            "@cn-ui/core": ["../core/src/index"]
+            "@layouts/*": ["src/layouts/*"]
         }
     }
 }

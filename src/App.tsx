@@ -1,7 +1,7 @@
 import { ControllerGenerator } from './ControllerGenerator';
 import { NavBar } from './NavBar';
-import { StoryShower } from './StoryShower';
-import { StoryRoot } from './StoryRoot';
+import { StoryShower } from '../package/docs/src/components/Story/StoryShower';
+import { StoryRoot } from '../package/docs/src/components/Story/StoryRoot';
 
 export const App = () => {
     return (
