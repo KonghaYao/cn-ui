@@ -1,0 +1,14 @@
+{
+    "extends": "astro/tsconfigs/strict",
+    "compilerOptions": {
+        "jsx": "preserve",
+        "importsNotUsedAsValues": "remove",
+        "jsxImportSource": "solid-js",
+        "baseUrl": "./",
+        "paths": {
+            "@components/*": ["src/components/*"],
+            "@layouts/*": ["src/layouts/*"],
+            "@cn-ui/core": ["../core/src/index"]
+        }
+    }
+}

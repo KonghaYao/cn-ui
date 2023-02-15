@@ -1,5 +1,7 @@
 {
+    "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
+        "strictNullChecks": true,
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "node",

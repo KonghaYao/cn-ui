@@ -39,7 +39,7 @@ export const Controller = [
         })),
     },
 ];
-export default (props) => {
+export default (props:any) => {
     const [type, setType] = createSignal<'red' | 'green'>('red');
 
     console.log('刷新组件');

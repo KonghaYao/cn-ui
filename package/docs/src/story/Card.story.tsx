@@ -1,6 +1,6 @@
 import { Card } from '@cn-ui/core';
 export const Controller = [];
-import './Story.css';
+// import './Story.css';
 export default (props) => {
     return (
         <Card

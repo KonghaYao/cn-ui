@@ -1,0 +1,12 @@
+---
+import allDemo from '../../stroy.json';
+export function getStaticPaths() {
+    return allDemo.map((i) => {
+        return { params: { comp: i } };
+    });
+}
+import { StroyWrapper } from '../../components/Wrapper';
+const { comp } = Astro.params;
+---
+
+<StroyWrapper client:only="solid-js" Comp={`/src/story/${comp}.story.tsx`} />

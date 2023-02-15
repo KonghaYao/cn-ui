@@ -19,10 +19,12 @@ export type OriginComponentOutputType<T, RefType = HTMLElement> =
         class?: string | string[] | typeof classNames;
         classList?: { [k: string]: boolean } | typeof classNames;
     };
+
 export type OriginComponentType = <T, RefType = HTMLElement>(
     comp: Component<OriginComponentInputType<T, RefType>>
 ) => Component<OriginComponentOutputType<T, RefType>>;
 
+/** 封装在组件外层，对内部提供 class style 等属性支持的装饰器 */
 export const OriginComponent: OriginComponentType = (comp) => {
     return (props) => {
         // 将 style 统一转化为对象结构

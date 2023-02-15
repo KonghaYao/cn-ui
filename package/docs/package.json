@@ -1,0 +1,21 @@
+{
+    "name": "docs",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "node src/getAllStory.mjs &&astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astrojs/sitemap": "^1.0.1",
+        "@astrojs/solid-js": "^2.0.2",
+        "@astrojs/tailwind": "^3.0.1",
+        "astro": "^2.0.11",
+        "comlink": "^4.3.1",
+        "solid-js": "^1.4.3",
+        "tailwindcss": "^3.0.24"
+    }
+}

@@ -1,12 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-console.log('using tailwindcss config');
 module.exports = {
-    content: [
-        './{src,story}/**/*.{ts,tsx}',
-        './node_modules/@cn-ui/core/dist/**',
-        './node_modules/@cn-ui/core/src/**',
-        './package/@cn-ui/valine/src/**',
-    ],
+    content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './node_modules/@cn-ui/core/dist/**',
+    './node_modules/@cn-ui/core/src/**',],
     theme: {
         extend: {
             boxShadow: {
