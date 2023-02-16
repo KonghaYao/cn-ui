@@ -15,7 +15,7 @@ const { comp } = Astro.params;
     <section class="flex flex-col h-screen">
         <Header />
 
-        <main class="w-full flex-1 bg-neutral-50">
+        <main class="w-full flex-1 bg-neutral-50 overflow-hidden flex">
             <Story code="" path={comp!} client:only="solid-js" />
         </main>
     </section>

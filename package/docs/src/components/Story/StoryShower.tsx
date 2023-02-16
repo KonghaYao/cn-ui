@@ -1,4 +1,4 @@
-import { batch, createContext, createDeferred, createEffect, Show, useContext } from 'solid-js';
+import { useContext } from 'solid-js';
 import { createIframe } from './createIframe';
 import { ResizeBar } from './ResizeBar';
 import { StoryContext } from './StoryRoot';
@@ -11,18 +11,11 @@ export const StoryShower = () => {
         href()
     );
     return (
-        <main class="flex flex-1 flex-col overflow-hidden">
-            <div class="bg-white shadow-md">
+        <main class="flex flex-1 flex-col overflow-hidden ">
+            <div class="z-10 bg-white shadow-md">
                 <ResizeBar></ResizeBar>
             </div>
-            <div
-                class="bg-grid flex-1"
-                style={{
-                    overflow: 'auto',
-                }}
-            >
-                {iframe}
-            </div>
+            <div class="flex-1  overflow-auto bg-neutral-400">{iframe}</div>
         </main>
     );
 };

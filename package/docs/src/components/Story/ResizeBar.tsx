@@ -1,7 +1,7 @@
 import { batch, For, useContext } from 'solid-js';
-import { FloatPanelWithAnimate, Icon, InputNumber, Space } from '@cn-ui/core';
+import { FloatPanel, InputNumber, Space } from '@cn-ui/core';
 import { StoryContext } from './StoryRoot';
-
+import { BackOne, Phone, Refresh, RefreshOne } from 'icon-park-solid';
 const sizes = [
     { name: 'iPad Air', size: '820x1180' },
     { name: 'iPad Mini', size: '768x1024' },
@@ -9,12 +9,12 @@ const sizes = [
     { name: 'iPhone XR', size: '414x896' },
     { name: 'iPhone SE', size: '375x667' },
 ];
-
+import '@cn-ui/animate/src/scale.css';
+import '@cn-ui/animate/src/base.css';
 export const ResizeBar = () => {
     const { height, width, scale, refresh } = useContext(StoryContext)!;
-    const IconSetting = { size: 20, class: 'cursor-pointer hover:scale-125 transition-transform' };
-    const Devices = (
-        <Space vertical>
+    const createDevices = () => (
+        <Space vertical class="z-10 bg-white">
             <For each={sizes}>
                 {(item) => {
                     return (
@@ -41,33 +41,48 @@ export const ResizeBar = () => {
             size="large"
         >
             <Space>
-                <Icon name="refresh" onClick={() => refresh()} {...IconSetting}></Icon>
-                <Icon name="swipe_right" {...IconSetting}></Icon>
+                <Refresh
+                    theme="outline"
+                    size="26"
+                    fill="#7c7c7c"
+                    strokeWidth={4}
+                    onClick={refresh}
+                ></Refresh>
             </Space>
             <Space>
                 <InputNumber
                     value={scale}
                     min={0}
-                    max={100}
+                    max={200}
                     class="w-24 overflow-hidden"
                     step={1}
                 ></InputNumber>
-                <Icon
-                    name="settings_overscan"
-                    {...IconSetting}
-                    onClick={() => {
-                        scale(100);
-                    }}
-                ></Icon>
+                <BackOne
+                    theme="outline"
+                    size="26"
+                    fill="#333"
+                    strokeLinejoin="bevel"
+                    strokeLinecap="square"
+                    onClick={() => scale(100)}
+                ></BackOne>
             </Space>
-            <Space>
-                <FloatPanelWithAnimate animateProps={{ anime: 'scale' }} popup={Devices}>
-                    <Icon name="devices"></Icon>
-                </FloatPanelWithAnimate>
-                <InputNumber value={width} min={0} class="w-16 overflow-hidden"></InputNumber>
-                <Icon
-                    name="screen_rotation"
-                    {...IconSetting}
+            <div class=" flex items-center gap-4">
+                <FloatPanel popup={createDevices}>
+                    <Phone
+                        theme="outline"
+                        size="26"
+                        fill="#333"
+                        strokeLinejoin="bevel"
+                        strokeLinecap="square"
+                    />
+                </FloatPanel>
+                {width()}
+                <RefreshOne
+                    theme="outline"
+                    size="26"
+                    fill="#333"
+                    strokeLinejoin="bevel"
+                    strokeLinecap="square"
                     onClick={() => {
                         batch(() => {
                             const h = height();
@@ -76,9 +91,9 @@ export const ResizeBar = () => {
                             height(w);
                         });
                     }}
-                ></Icon>
-                <InputNumber value={height} min={0} class="w-16 overflow-hidden"></InputNumber>
-            </Space>
+                ></RefreshOne>
+                {height()}
+            </div>
         </Space>
     );
 };

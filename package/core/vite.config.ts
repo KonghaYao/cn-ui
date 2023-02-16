@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import visualizer from 'rollup-plugin-visualizer';
+// import visualizer from 'rollup-plugin-visualizer';
 import tailwindcss from 'tailwindcss';
 import packageJSON from './package.json';
 import fs from 'fs';
@@ -33,8 +33,8 @@ export default defineConfig((config) => {
                     }
                 },
             },
-            mode === 'analyze' &&
-                (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
+            // mode === 'analyze' &&
+            // (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
             port: 3000,

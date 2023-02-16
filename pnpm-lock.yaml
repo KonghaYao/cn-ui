@@ -229,21 +229,25 @@ importers:
       '@astrojs/sitemap': ^1.0.1
       '@astrojs/solid-js': ^2.0.2
       '@astrojs/tailwind': ^3.0.1
+      '@cn-ui/animate': workspace:^1.0.5
       '@cn-ui/core': workspace:^1.7.0
       '@cn-ui/use': workspace:^2.0.1
       '@tailwindcss/line-clamp': ^0.4.2
       astro: ^2.0.11
       comlink: ^4.3.1
+      icon-park-solid: ^1.4.2
       solid-js: ^1.4.3
       tailwindcss: ^3.2.4
     dependencies:
       '@astrojs/sitemap': registry.npmmirror.com/@astrojs/sitemap/1.0.1
       '@astrojs/solid-js': registry.npmmirror.com/@astrojs/solid-js/2.0.2_solid-js@1.6.10
       '@astrojs/tailwind': registry.npmmirror.com/@astrojs/tailwind/3.0.1_abd4tzk6jyc5lamq5kbo5qgoia
+      '@cn-ui/animate': link:../animate
       '@cn-ui/core': link:../core
       '@cn-ui/use': link:../use
       astro: registry.npmmirror.com/astro/2.0.11
       comlink: registry.npmmirror.com/comlink/4.3.1
+      icon-park-solid: registry.npmmirror.com/icon-park-solid/1.4.2_solid-js@1.6.10
       solid-js: registry.npmmirror.com/solid-js/1.6.10
       tailwindcss: registry.npmmirror.com/tailwindcss/3.2.4
     devDependencies:
@@ -6688,6 +6692,18 @@ packages:
     name: human-signals
     version: 3.0.1
     engines: {node: '>=12.20.0'}
+
+  registry.npmmirror.com/icon-park-solid/1.4.2_solid-js@1.6.10:
+    resolution: {integrity: sha512-BYYSlq5rwUMcx2mJ6jCp/iBXcsAsi30M2a1cdo3Aqrrbw+r+ZSLRo7eU4R4706xoQcl+GosCO4nfm48umJOUrQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/icon-park-solid/-/icon-park-solid-1.4.2.tgz}
+    id: registry.npmmirror.com/icon-park-solid/1.4.2
+    name: icon-park-solid
+    version: 1.4.2
+    engines: {node: '>= 8.0.0', npm: '>= 5.0.0'}
+    peerDependencies:
+      solid-js: '>=1.6.11'
+    dependencies:
+      solid-js: registry.npmmirror.com/solid-js/1.6.10
+    dev: false
 
   registry.npmmirror.com/iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/iconv-lite/-/iconv-lite-0.6.3.tgz}

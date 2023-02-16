@@ -4,7 +4,7 @@ import { Animate } from '@cn-ui/animate';
 export const Controller = [];
 import '@cn-ui/animate/src/scale.css';
 import '@cn-ui/animate/src/base.css';
-export default (props) => {
+export default (props: any) => {
     const visible = atom(true);
     const disabled = atom(false);
     const inner = () => (
