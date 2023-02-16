@@ -3,6 +3,7 @@ import allDemo from '../../stroy.json';
 import Header from '../../components/Header.astro';
 import { Story } from '../../components/Story/index';
 import Layout from '../../layouts/Layout.astro';
+import CompList from '@components/CompList.astro';
 export function getStaticPaths() {
     return allDemo.map((i) => {
         return { params: { comp: i } };
@@ -11,11 +12,12 @@ export function getStaticPaths() {
 const { comp } = Astro.params;
 ---
 
-<Layout>
+<Layout title={comp + '测试'}>
     <section class="flex flex-col h-screen">
         <Header />
 
         <main class="w-full flex-1 bg-neutral-50 overflow-hidden flex">
+            <CompList />
             <Story code="" path={comp!} client:only="solid-js" />
         </main>
     </section>

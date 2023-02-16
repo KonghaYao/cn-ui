@@ -1,0 +1,21 @@
+---
+import allDemo from '../stroy.json';
+export function getStaticPaths() {
+    return allDemo.map((i) => {
+        return { params: { comp: i } };
+    });
+}
+const { comp } = Astro.params;
+---
+
+<nav class="flex flex-col gap-2">
+    {
+        allDemo.map((i) => {
+            return (
+                <a href={`/demo/${i}`}>
+                    <div class:list={[comp === i ? 'bg-green-600 text-white' : '']}>{i}</div>
+                </a>
+            );
+        })
+    }
+</nav>
