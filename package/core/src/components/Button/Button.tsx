@@ -1,9 +1,8 @@
 import { ButtonProps } from './interface';
 import { Icon } from '../Icon/Icon';
-import { createMemo, mergeProps, Show } from 'solid-js';
+import { mergeProps, Show } from 'solid-js';
 import './style/index.css';
 import {
-    atom,
     atomization,
     emitEvent,
     extendsEvent,
@@ -16,6 +15,7 @@ const defaultProps: ButtonProps = {
     size: 'normal',
 };
 import { Gradient, TextColor, SizeTrans } from '../_util/design';
+
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);
     const loading = atomization(props.loading);
