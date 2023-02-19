@@ -1,20 +1,14 @@
-import { Atom, atom, reflect, resource, useEffect } from '@cn-ui/use';
-import { debounce } from 'lodash-es';
-import { Accessor, createMemo } from 'solid-js';
+import { OriginComponentInputType } from '@cn-ui/use';
+import { resource, DebounceAtom } from '@cn-ui/use';
+import { ButtonProps } from './interface';
 
-function DebounceAtom<T>(a: Atom<T>, debounceTime?: 150): Accessor<T> {
-    return createMemo(
-        debounce(() => a()),
-        debounceTime
-    );
-}
-
-export const useButton = ({ onClick }) => {
-    const loading = resource(onClick, { immediately: false });
+export const useButton = (props: OriginComponentInputType<ButtonProps, HTMLButtonElement>) => {
+    const query = resource(props.onClick ?? (() => {}), { immediately: false });
     return {
-        loading: DebounceAtom(loading),
+        // 设置 10 ms 是为了解决同步状态闪过问题
+        loading: DebounceAtom(query.loading, 10),
         onClick(e) {
-            return loading.refetch();
+            return query.refetch();
         },
     };
 };

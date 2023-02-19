@@ -15,6 +15,7 @@ const defaultProps: ButtonProps = {
     size: 'normal',
 };
 import { Gradient, TextColor, SizeTrans } from '../_util/design';
+import { useButton } from './createButton';
 
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
     const props = mergeProps(defaultProps, baseProps);

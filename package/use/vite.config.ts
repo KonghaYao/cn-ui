@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
-import visualizer from 'rollup-plugin-visualizer';
+// import visualizer from 'rollup-plugin-visualizer';
 import Package from './package.json';
 const deps = [Package?.dependencies, (Package as any)?.peerDependencies]
     .filter(Boolean)
@@ -20,8 +20,8 @@ export default defineConfig(({ mode }) => {
                 },
             },
             solidPlugin(),
-            mode === 'analyze' &&
-                (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
+            // mode === 'analyze' &&
+            //     (visualizer({ open: true, filename: 'visualizer/stat.html' }) as any),
         ],
         server: {
             port: 3000,

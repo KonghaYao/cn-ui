@@ -231,7 +231,7 @@ importers:
       '@astrojs/tailwind': ^3.0.1
       '@cn-ui/animate': workspace:^1.0.5
       '@cn-ui/core': workspace:^1.7.0
-      '@cn-ui/use': workspace:^2.0.1
+      '@cn-ui/use': workspace:^2.0.2
       '@tailwindcss/line-clamp': ^0.4.2
       astro: ^2.0.11
       comlink: ^4.3.1
@@ -378,7 +378,7 @@ importers:
 
   package/use:
     specifiers:
-      '@cn-ui/reactive': workspace:^2.0.1
+      '@cn-ui/reactive': workspace:^2.1.0
       '@types/lodash-es': ^4.17.6
       fs-extra: ^10.1.0
       lodash-es: ^4.17.21
