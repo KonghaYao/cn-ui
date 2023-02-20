@@ -7,9 +7,9 @@ const useButtonStyleControl = (level: GlobalSize = 'md'): string => {
     if (level === 'none') return '';
     const Level = {
         sm: 'text-sm p-1 rounded-md border border-solid',
-        md: 'text-md px-2 py-1 rounded-md shadow-lg active:outline-2',
-        lg: 'text-md p-2 rounded-md shadow-lg active:outline-2',
-        xl: 'text-md px-4 py-4 rounded-lg shadow-lg  active:outline-4',
+        md: 'px-2 py-1 rounded-md border border-solid active:outline-2',
+        lg: 'p-2 rounded-lg border border-solid active:outline-2',
+        xl: 'px-4 py-4 rounded-xl border border-solid  active:outline-4',
     };
     return Level[level];
 };
@@ -21,11 +21,13 @@ export interface PureButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
      */
     size?: GlobalSize;
     disabled?: boolean | Atom<boolean>;
+    round?: boolean | Atom<boolean>;
 }
 
 export const PureButton = OriginComponent<PureButtonProps, HTMLButtonElement>((props) => {
     const onClick = useEventProtect(props, 'onClick');
     const disabled = atomization(props.disabled);
+    const round = atomization(props.round);
     return (
         <button
             {...(props as any)}
@@ -37,7 +39,8 @@ export const PureButton = OriginComponent<PureButtonProps, HTMLButtonElement>((p
             // 添加失活态控制
             disabled={disabled()}
             classList={{
-                'brightness-90 opacity-80 cursor-not-allowed active:scale-100': disabled(),
+                'grayscale-[0.5] cursor-not-allowed active:scale-100': disabled(),
+                ' rounded-full aspect-square': round(),
             }}
             style={props.style}
             onClick={onClick}
