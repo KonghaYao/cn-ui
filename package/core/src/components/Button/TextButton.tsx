@@ -4,7 +4,7 @@ import { PureButtonProps, PureButton } from './PureButton';
 
 export interface TextButtonProps extends PureButtonProps {
     color?: keyof typeof TextColor;
-    gradient?: false;
+    text?: true;
 }
 const useColorStyle = (color: keyof typeof TextColor = 'blue') => {
     return TextColor[color];

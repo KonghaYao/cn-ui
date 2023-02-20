@@ -22,25 +22,28 @@ export interface PureButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
     size?: GlobalSize;
     disabled?: boolean | Atom<boolean>;
     round?: boolean | Atom<boolean>;
+    block?: boolean | Atom<boolean>;
 }
 
 export const PureButton = OriginComponent<PureButtonProps, HTMLButtonElement>((props) => {
     const onClick = useEventProtect(props, 'onClick');
     const disabled = atomization(props.disabled);
     const round = atomization(props.round);
+    const block = atomization(props.block);
     return (
         <button
             {...(props as any)}
             ref={props?.ref}
             class={props.class(
                 useButtonStyleControl(props.size),
-                'box-border inline-flex select-none items-center justify-center whitespace-nowrap outline-none transition-all duration-150 active:scale-95 active:outline-2 active:outline-gray-200 '
+                'box-border inline-flex select-none items-center justify-center gap-2 whitespace-nowrap outline-none transition-all duration-150 active:scale-95 active:outline-2 active:outline-gray-200'
             )}
             // 添加失活态控制
             disabled={disabled()}
             classList={{
                 'grayscale-[0.5] cursor-not-allowed active:scale-100': disabled(),
                 ' rounded-full aspect-square': round(),
+                'w-full': block(),
             }}
             style={props.style}
             onClick={onClick}
