@@ -4,10 +4,11 @@
         "jsx": "preserve",
         "importsNotUsedAsValues": "remove",
         "jsxImportSource": "solid-js",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "paths": {
             "@components/*": ["src/components/*"],
-            "@layouts/*": ["src/layouts/*"]
+            "@layouts/*": ["src/layouts/*"],
+            "@cn-ui/core": ["./node_modules/@cn-ui/core/src/index.ts"]
         }
     }
 }

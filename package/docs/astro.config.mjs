@@ -10,4 +10,11 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
     integrations: [solidJs(), tailwind(), sitemap()],
+    vite: {
+        resolve: {
+            alias: {
+                '@cn-ui/core': '/node_modules/@cn-ui/core/src/index.ts',
+            },
+        },
+    },
 });

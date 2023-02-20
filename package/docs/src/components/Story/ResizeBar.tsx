@@ -67,7 +67,7 @@ export const ResizeBar = () => {
                 ></BackOne>
             </Space>
             <div class=" flex items-center gap-4">
-                <FloatPanel popup={createDevices}>
+                {/* <FloatPanel popup={createDevices}>
                     <Phone
                         theme="outline"
                         size="26"
@@ -75,7 +75,7 @@ export const ResizeBar = () => {
                         strokeLinejoin="bevel"
                         strokeLinecap="square"
                     />
-                </FloatPanel>
+                </FloatPanel> */}
                 {width()}
                 <RefreshOne
                     theme="outline"

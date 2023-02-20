@@ -1,8 +1,9 @@
-import { ButtonProps } from './interface';
+// import { ButtonProps } from './interface';
 import { Icon } from '../Icon/Icon';
-import { mergeProps, Show } from 'solid-js';
+import { JSX, JSXElement, mergeProps, Show } from 'solid-js';
 import './style/index.css';
 import {
+    Atom,
     atomization,
     emitEvent,
     extendsEvent,
@@ -10,15 +11,38 @@ import {
     reflect,
     useEventController,
 } from '@cn-ui/use';
-const defaultProps: ButtonProps = {
-    color: 'blue',
-    size: 'normal',
-};
-import { Gradient, TextColor, SizeTrans } from '../_util/design';
-import { useButton } from './createButton';
 
-export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps) => {
-    const props = mergeProps(defaultProps, baseProps);
+interface ButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+    children?: JSXElement;
+    text?: boolean;
+    round?: boolean;
+    square?: boolean;
+    color?: keyof typeof Gradient;
+    /**
+     * @zh 按钮的尺寸
+     */
+    size?: keyof typeof SizeTrans;
+
+    /**
+     * @zh 是否禁用
+     */
+    disabled?: boolean;
+
+    /**
+     * @zh 设置按钮的图标
+     */
+    icon?: JSXElement;
+
+    /**
+     * @zh 按钮宽度随容器自适应。
+     */
+    block?: boolean;
+    loading?: boolean | Atom<boolean>;
+}
+
+import { Gradient, TextColor, SizeTrans } from '../_util/design';
+
+export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) => {
     const loading = atomization(props.loading);
 
     const getColorSet = () => {
@@ -49,7 +73,6 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((baseProps
                 ...props.style,
                 'border-radius': props.round ? '4em' : props.square ? '0' : '0.6em',
             }}
-            type={props.type}
             {...extendsEvent(props, ['onClick'])}
             onClick={control([() => loading(true), emitEvent(props.onClick), () => loading(false)])}
         >

@@ -12,8 +12,4 @@ const { comp } = Astro.params;
 
 <Layout title="">
     <StroyWrapper client:only="solid-js" Comp={`/src/story/${comp}.story.tsx`} />
-    <link
-        href="https://cdn.jsdelivr.net/npm/@fontsource/material-icons-rounded/index.css"
-        rel="stylesheet"
-    />
 </Layout>
