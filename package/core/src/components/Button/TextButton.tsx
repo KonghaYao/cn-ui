@@ -13,7 +13,10 @@ export const TextButton = OriginComponent<TextButtonProps, HTMLButtonElement>((p
     return (
         <PureButton
             {...props}
-            class={props.class(useColorStyle(props.color), 'bg-transparent hover:bg-gray-100')}
+            class={props.class(
+                useColorStyle(props.color),
+                'border border-solid bg-transparent hover:bg-gray-100'
+            )}
         ></PureButton>
     );
 });

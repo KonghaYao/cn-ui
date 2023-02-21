@@ -12,7 +12,6 @@ export default () => {
                 onTrigger={(arr, text, index) => {
                     console.log(arr, text, index);
                 }}
-                buttonProps={{ color: 'white' }}
             ></Breadcrumb>
         </>
     );

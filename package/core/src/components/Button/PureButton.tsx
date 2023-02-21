@@ -6,10 +6,10 @@ import { useEventProtect } from './createButton';
 const useButtonStyleControl = (level: GlobalSize = 'md'): string => {
     if (level === 'none') return '';
     const Level = {
-        sm: 'text-sm p-1 rounded-md border border-solid',
-        md: 'px-2 py-1 rounded-md border border-solid active:outline-2',
-        lg: 'p-2 rounded-lg border border-solid active:outline-2',
-        xl: 'px-4 py-4 rounded-xl border border-solid  active:outline-4',
+        sm: 'text-sm p-1 rounded-md ',
+        md: 'px-2 py-1 rounded-md  active:outline-2',
+        lg: 'p-2 rounded-lg  active:outline-2',
+        xl: 'px-4 py-4 rounded-xl   active:outline-4',
     };
     return Level[level];
 };

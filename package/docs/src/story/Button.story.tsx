@@ -1,7 +1,7 @@
 import { createSignal } from 'solid-js';
 
-import { PureButton, GradientButton, ColorButton, TextButton, Icon, Button } from '@cn-ui/core';
-export default (props: any) => {
+import { ColorButton, Icon, Button } from '@cn-ui/core';
+export default () => {
     const [type, setType] = createSignal<'red' | 'green'>('red');
     const onClick = () => console.log('点击成功');
     console.log('刷新组件');

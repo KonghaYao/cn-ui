@@ -2,7 +2,7 @@
 import './style/index.css';
 import { OriginComponent } from '@cn-ui/use';
 
-type ButtonProps = PureButtonProps &
+export type ButtonProps = PureButtonProps &
     TextButtonProps &
     ColorButtonProps &
     GradientButtonProps & {
