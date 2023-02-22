@@ -1,5 +1,5 @@
 import { JSX, JSXElement } from 'solid-js';
-import { Atom, OriginComponent, atomization } from '@cn-ui/use';
+import { Atom, OriginComponent, atomization, emitEvent, useEventController } from '@cn-ui/use';
 import { GlobalSize } from '../_util/design';
 import { useEventProtect } from './createButton';
 
@@ -26,8 +26,8 @@ export interface PureButtonProps extends JSX.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const PureButton = OriginComponent<PureButtonProps, HTMLButtonElement>((props) => {
-    const onClick = useEventProtect(props, 'onClick');
     const disabled = atomization(props.disabled);
+    const control = useEventController({ disabled });
     const round = atomization(props.round);
     const block = atomization(props.block);
     return (
@@ -46,7 +46,7 @@ export const PureButton = OriginComponent<PureButtonProps, HTMLButtonElement>((p
                 'w-full': block(),
             }}
             style={props.style}
-            onClick={onClick}
+            onClick={control([emitEvent(props.onclick), emitEvent(props.onClick)])}
         ></button>
     );
 });

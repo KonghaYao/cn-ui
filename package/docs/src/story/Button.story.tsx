@@ -95,10 +95,6 @@ export default () => {
                     <Icon name="file_copy"></Icon>文本描述
                 </ColorButton>
             </div>
-            <link
-                href="https://cdn.jsdelivr.net/npm/@fontsource/material-icons-rounded/index.css"
-                rel="stylesheet"
-            ></link>
         </>
     );
 };

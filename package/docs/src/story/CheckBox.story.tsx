@@ -1,35 +1,21 @@
 import { atom, reflect } from '@cn-ui/use';
 import { Message, CheckBox, CheckGroup, Button, CheckGroupHelper, sleep } from '@cn-ui/core';
 import { For } from 'solid-js';
-export const Controller = [
-    {
-        type: 'switch',
-        default: true,
-        prop: 'multi',
-    },
-    {
-        type: 'switch',
-        default: false,
-        prop: 'disabled',
-    },
-    {
-        type: 'switch',
-        default: false,
-        prop: 'indeterminate',
-    },
-];
-
-export default (props) => {
+Message.init();
+export default (props: any) => {
     const checkbox = atom(true);
     const groupController = ['用户', '姓名', '操作'].map((i) => {
-        return { value: atom(false), disabled: props.disabled, children: i };
+        return { value: atom(false), disabled: false, children: i };
     });
-    // const { inverse } = useCheckGroup(groupController);
     const selectedIds = atom<string[]>([]);
     return (
         <>
             <CheckGroup activeIds={selectedIds}>
-                <CheckBox label="同步更新" value={checkbox}></CheckBox>
+                <CheckBox
+                    label="同步更新"
+                    value={checkbox}
+                    // TODO 同步更新失效
+                ></CheckBox>
                 <CheckBox
                     label="异步更新"
                     value={checkbox}
@@ -49,23 +35,20 @@ export default (props) => {
             <CheckGroup multi={props.multi}>
                 <div class="flex gap-2">
                     <For each={groupController}>
-                        {(item) => {
-                            return <CheckBox label={item.children} value={item.value}></CheckBox>;
-                        }}
+                        {(item) => <CheckBox label={item.children} value={item.value}></CheckBox>}
                     </For>
                 </div>
                 <CheckGroupHelper>
                     {({ inverse, setAll, activeIds, allRegistered }) => {
                         return (
                             <div class="flex gap-2">
-                                <Button onClick={inverse} size="mini">
+                                <Button onClick={inverse} size="sm" color="blue">
                                     反选
                                 </Button>
                                 <Button
-                                    onClick={() => {
-                                        setAll(activeIds().size === 0);
-                                    }}
-                                    size="mini"
+                                    onClick={() => setAll(activeIds().size === 0)}
+                                    size="sm"
+                                    color="blue"
                                 >
                                     {activeIds().size !== allRegistered().size ? '全选' : '全取消'}
                                 </Button>
