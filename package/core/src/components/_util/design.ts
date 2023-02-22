@@ -87,3 +87,27 @@ export const SizeTrans = {
 };
 
 export type GlobalSize = 'none' | 'sm' | 'md' | 'lg' | 'xl';
+
+export const hSizeStairs = {
+    sm: 'h-2',
+    md: 'h-4',
+    lg: 'h-6',
+    xl: 'h-8',
+};
+export const wSizeStairs = {
+    sm: 'w-2',
+    md: 'w-4',
+    lg: 'w-6',
+    xl: 'w-8',
+};
+export const ensureGet = <Result, O extends Object = Object, T extends string = string>(
+    obj: O,
+    prop: T,
+    voidVal?: Result
+) => {
+    console.log(prop);
+    if (prop in obj) {
+        return (obj as any)[prop] as Result;
+    }
+    return voidVal;
+};

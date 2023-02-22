@@ -19,7 +19,7 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                               <Button
                                   class="border-none"
                                   color={isSelected(name) ? 'blue' : 'white'}
-                                  size="mini"
+                                  size="sm"
                                   onClick={() => changeSelected(name, true)}
                               >
                                   {name}

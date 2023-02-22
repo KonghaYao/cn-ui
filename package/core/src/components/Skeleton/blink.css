@@ -1,0 +1,8 @@
+.cn-skeleton.blink {
+    animation: cn_skeleton_blink 2s ease-in-out infinite;
+}
+@keyframes cn_skeleton_blink {
+    60% {
+        opacity: 0.6;
+    }
+}
