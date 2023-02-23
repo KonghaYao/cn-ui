@@ -14,7 +14,7 @@ export const useEventController = (props: { disabled?: Atom<boolean>; oneLine?: 
         } = {}
     ) => {
         const F = func instanceof Array ? func : [func];
-        const channel = F.filter((i) => i);
+        const channel = F.filter(Boolean);
 
         /** 主体执行函数 */
         let final = async (...args: Parameters<T>) => {
@@ -51,6 +51,7 @@ export const emitEvent = <
     T extends (...args: Input) => void | boolean | Promise<void | boolean>
 >(
     event: T | JSX.EventHandlerUnion<any, any> | undefined,
+    /** 转换输入参数 */
     propsChanger?: (args: Input) => Readonly<Parameters<T>>
 ) => {
     return (...args: Input) =>
