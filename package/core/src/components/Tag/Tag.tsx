@@ -1,21 +1,22 @@
-// import React, { useState, useContext, forwardRef, CSSProperties } from 'react';
-
-import { TagProps } from './interface';
 import { Match, Switch } from 'solid-js';
-import { atom, extendsEvent } from '@cn-ui/use';
-
+import { OriginComponentInputType, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
-import { Gradient } from '../_util/design';
 import { Icon } from '../Icon';
-export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
-    const closing = atom(false);
-    const Close = async (e) => {
-        closing(true);
-        if (props.onClose) await props.onClose(e);
 
-        closing(false);
-    };
+import { JSX } from 'solid-js';
+import { GlobalSize, Gradient, Colors, hSizeStairs } from '../_util/design';
 
+export interface TagProps extends JSX.HTMLAttributes<HTMLDivElement> {
+    color?: keyof typeof Colors;
+    size?: GlobalSize;
+    visible?: boolean;
+    closable?: boolean;
+    gradient?: boolean;
+    onClose?: (e) => void;
+}
+
+export const PureTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+    const control = useEventController({});
     return (
         <div
             ref={props.ref}
@@ -23,24 +24,46 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
             class={props.class(
                 'cn-tag',
                 'box-border inline-flex cursor-pointer select-none items-center rounded-md px-2 py-1 text-sm font-light leading-none  shadow-suit',
-                {
-                    [`loading`]: closing(),
-                },
-                props.size,
-                Gradient.position,
-                Gradient[props.color ?? 'blue']
+                hSizeStairs[props.size]
             )}
             {...extendsEvent(props)}
         >
             <div class="content">{props.children}</div>
             <Switch>
-                <Match when={closing()}>
-                    <Icon name="refresh" spin class="loading-icon" />
-                </Match>
-                <Match when={props.closable && props.closeIcon !== null}>
-                    <Icon name="close" class={`close-icon`} onClick={Close} />
+                <Match when={props.closable}>
+                    <Icon
+                        name="close"
+                        class={`close-icon`}
+                        onClick={control([emitEvent(props.onClick), emitEvent(props.onclick)])}
+                    />
                 </Match>
             </Switch>
         </div>
+    );
+});
+export const GradientTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+    return (
+        <PureTag {...props} class={props.class(Gradient.position, Gradient[props.color])}></PureTag>
+    );
+});
+export const ColorTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+    return (
+        <PureTag
+            {...props}
+            class={props.class(Colors[props.color], props.color !== 'white' && 'text-white')}
+        ></PureTag>
+    );
+});
+
+export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+    return (
+        <Switch fallback={() => <PureTag {...props}></PureTag>}>
+            <Match when={props.gradient}>
+                <GradientTag {...props}></GradientTag>
+            </Match>
+            <Match when={props.color}>
+                <ColorTag {...props}></ColorTag>
+            </Match>
+        </Switch>
     );
 });

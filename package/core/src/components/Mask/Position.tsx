@@ -1,4 +1,4 @@
-import { Component, JSX, JSXElement, mergeProps, splitProps } from 'solid-js';
+import { JSX, JSXElement, splitProps } from 'solid-js';
 import { extendsEvent, OriginComponent, reflect } from '@cn-ui/use';
 import './style/index.css';
 export interface PositionProps extends JSX.HTMLAttributes<HTMLSpanElement> {

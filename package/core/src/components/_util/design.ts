@@ -105,7 +105,6 @@ export const ensureGet = <Result, O extends Object = Object, T extends string = 
     prop: T,
     voidVal?: Result
 ) => {
-    console.log(prop);
     if (prop in obj) {
         return (obj as any)[prop] as Result;
     }
