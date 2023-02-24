@@ -1,17 +1,24 @@
 import { Match, Switch } from 'solid-js';
-import { OriginComponentInputType, emitEvent, extendsEvent, useEventController } from '@cn-ui/use';
+import {
+    OriginComponentInputType,
+    OriginComponentOutputType,
+    OriginComponentType,
+    emitEvent,
+    extendsEvent,
+    useEventController,
+} from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { Icon } from '../Icon';
 
 import { JSX } from 'solid-js';
 import { GlobalSize, Gradient, Colors, hSizeStairs } from '../_util/design';
+import { IWithColorPart, withColor } from '../_util/design/withColor';
+import { IWithGradientPart, withGradient } from '../_util/design/withGradient';
 
-export interface TagProps extends JSX.HTMLAttributes<HTMLDivElement> {
-    color?: keyof typeof Colors;
+export interface PureTagProps extends JSX.HTMLAttributes<HTMLDivElement> {
     size?: GlobalSize;
     visible?: boolean;
     closable?: boolean;
-    gradient?: boolean;
     onClose?: (e) => void;
 }
 
@@ -41,21 +48,12 @@ export const PureTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
         </div>
     );
 });
-export const GradientTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
-    return (
-        <PureTag {...props} class={props.class(Gradient.position, Gradient[props.color])}></PureTag>
-    );
-});
-export const ColorTag = OriginComponent<TagProps, HTMLDivElement>((props) => {
-    return (
-        <PureTag
-            {...props}
-            class={props.class(Colors[props.color], props.color !== 'white' && 'text-white')}
-        ></PureTag>
-    );
-});
 
-export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
+export const GradientTag = withGradient(PureTag);
+export const ColorTag = withColor(PureTag);
+
+export type TagProps = PureTagProps & IWithColorPart & IWithGradientPart & {};
+export const Tag = (props: OriginComponentInputType<TagProps, HTMLDivElement>) => {
     return (
         <Switch fallback={() => <PureTag {...props}></PureTag>}>
             <Match when={props.gradient}>
@@ -66,4 +64,4 @@ export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
             </Match>
         </Switch>
     );
-});
+};

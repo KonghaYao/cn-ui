@@ -1,19 +1,13 @@
 // import { ButtonProps } from './interface';
 import './style/index.css';
-import { OriginComponent } from '@cn-ui/use';
-
-export type ButtonProps = PureButtonProps &
-    TextButtonProps &
-    ColorButtonProps &
-    GradientButtonProps & {
-        gradient?: boolean;
-    };
+import { OriginComponent, OriginComponentInputType } from '@cn-ui/use';
 import { PureButton, PureButtonProps } from './PureButton';
 import { TextButton, TextButtonProps } from './TextButton';
-import { ColorButton, ColorButtonProps } from './ColorButton';
-import { GradientButton, GradientButtonProps } from './GradientButton';
+import { IWithColorPart, withColor } from '../_util/design/withColor';
+import { IWithGradientPart, withGradient } from '../_util/design/withGradient';
 
-export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) => {
+export type ButtonProps = PureButtonProps & TextButtonProps & IWithColorPart & IWithGradientPart;
+export const Button = (props: OriginComponentInputType<ButtonProps, HTMLButtonElement>) => {
     if (props.gradient) {
         return <GradientButton {...props}></GradientButton>;
     } else if (props.text) {
@@ -23,4 +17,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) =>
     } else {
         return <PureButton {...props}></PureButton>;
     }
-});
+};
+
+export const ColorButton = withColor(PureButton);
+export const GradientButton = withGradient(PureButton);
