@@ -61,3 +61,16 @@ EntriesTransform(fd).toHeaders();
 EntriesTransform(fd).toMaps();
 // ...
 ```
+
+## 处理重复操作？DebounceAtom、ThrottleAtom
+
+这一类是处理一定时间内多次数据更新的 `过滤原子`，可以帮助程序在时间上降低响应次数，维护程序的可靠性。
+
+```tsx
+const Comp = () => {
+    const text = atom('');
+    const dText = DebounceAtom(text, 300); // 300 ms debounce
+
+    return <input value={text()} onInput={(e) => text(e.target.value)}></input>;
+};
+```

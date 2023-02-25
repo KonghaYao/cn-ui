@@ -1,4 +1,4 @@
-import { ColorButton, Icon, Button } from '@cn-ui/core';
+import { Button, Icon, Button } from '@cn-ui/core';
 
 export default () => {
     const onClick = () => console.log('点击成功');
@@ -68,32 +68,32 @@ export default () => {
                 </Button>
             </div>
             <div class="flex  items-start gap-2 p-2">
-                <ColorButton round onclick={onClick} color="indigo" size="sm">
+                <Button round onclick={onClick} color="indigo" size="sm">
                     <Icon name="file_copy"></Icon>
-                </ColorButton>
-                <ColorButton round onclick={onClick} color="orange">
+                </Button>
+                <Button round onclick={onClick} color="orange">
                     <Icon name="file_copy"></Icon>
-                </ColorButton>
-                <ColorButton round onClick={onClick} color="emerald" size="lg">
+                </Button>
+                <Button round onClick={onClick} color="emerald" size="lg">
                     <Icon name="file_copy"></Icon>
-                </ColorButton>
-                <ColorButton round onClick={onClick} color="rose" size="xl">
+                </Button>
+                <Button round onClick={onClick} color="rose" size="xl">
                     <Icon name="file_copy"></Icon>
-                </ColorButton>
+                </Button>
             </div>
             <div class="flex  w-screen flex-wrap items-start gap-2 p-2">
-                <ColorButton block color="indigo" size="sm">
+                <Button block color="indigo" size="sm">
                     <Icon name="file_copy"></Icon> 文本描述
-                </ColorButton>
-                <ColorButton block color="orange">
+                </Button>
+                <Button block color="orange">
                     <Icon name="file_copy"></Icon>文本描述
-                </ColorButton>
-                <ColorButton block color="emerald" size="lg">
+                </Button>
+                <Button block color="emerald" size="lg">
                     <Icon name="file_copy"></Icon>文本描述
-                </ColorButton>
-                <ColorButton block color="rose" size="xl">
+                </Button>
+                <Button block color="rose" size="xl">
                     <Icon name="file_copy"></Icon>文本描述
-                </ColorButton>
+                </Button>
             </div>
         </>
     );

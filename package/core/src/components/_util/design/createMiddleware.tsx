@@ -25,7 +25,7 @@ export function createMiddleware<P extends Object, D extends Object>(
         Info = getOriginInputFromComp<T>
     >(
         Element: T
-    ) =>
+    ): Component<OriginComponentOutputType<Info & P, Ref>> =>
         OriginComponent<Info & P, Ref>((props) => {
             /** @ts-ignore  只是一个小小的继承识别错误 */
             const newProps = middleware(props);

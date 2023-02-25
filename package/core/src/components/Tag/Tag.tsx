@@ -11,7 +11,7 @@ import { OriginComponent } from '@cn-ui/use';
 import { Icon } from '../Icon';
 
 import { JSX } from 'solid-js';
-import { GlobalSize, Gradient, Colors, hSizeStairs } from '../_util/design';
+import { GlobalSize, hSizeStairs } from '../_util/design';
 import { IWithColorPart, withColor } from '../_util/design/withColor';
 import { IWithGradientPart, withGradient } from '../_util/design/withGradient';
 
@@ -53,7 +53,7 @@ export const GradientTag = withGradient(PureTag);
 export const ColorTag = withColor(PureTag);
 
 export type TagProps = PureTagProps & IWithColorPart & IWithGradientPart & {};
-export const Tag = (props: OriginComponentInputType<TagProps, HTMLDivElement>) => {
+export const Tag = OriginComponent<TagProps, HTMLDivElement>((props) => {
     return (
         <Switch fallback={() => <PureTag {...props}></PureTag>}>
             <Match when={props.gradient}>
@@ -64,4 +64,4 @@ export const Tag = (props: OriginComponentInputType<TagProps, HTMLDivElement>) =
             </Match>
         </Switch>
     );
-};
+});

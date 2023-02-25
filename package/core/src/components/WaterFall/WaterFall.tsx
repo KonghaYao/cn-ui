@@ -15,6 +15,9 @@ interface WaterFallProps<T> {
     colClass?: string;
 }
 
+/**
+ * 进行瀑布流式布局的组件库
+ */
 export const WaterFall = OriginComponent(function <T>(
     props: OriginComponentInputType<WaterFallProps<T>>
 ) {

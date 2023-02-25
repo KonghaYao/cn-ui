@@ -1,6 +1,7 @@
 import { children, Component, JSX, JSXElement, Show } from 'solid-js';
 import { Atom, OriginComponent, atomization } from '@cn-ui/use';
 import { debounce, throttle } from 'lodash-es';
+import { usePositionString } from './usePositionString';
 
 const TailwindOrigin = {
     right: 'origin-right',
@@ -12,100 +13,13 @@ const TailwindOrigin = {
     'top left': 'origin-top-left',
     'top right': 'origin-top-right',
 };
-const usePositionString = (
-    s: 'l' | 'r' | 't' | 'b' | 'tl' | 'lt' | 'lb' | 'bl' | 'br' | 'rb' | 'rt' | 'tr'
-): JSX.CSSProperties => {
-    switch (s) {
-        case 'l':
-            return {
-                top: '50%',
-                left: 0,
-                'transform-origin': 'right',
-                translate: '-100% -50%',
-            };
-        case 'r':
-            return {
-                top: '50%',
-                right: 0,
-                'transform-origin': 'left',
-                translate: '100% -50%',
-            };
-        case 't':
-            return {
-                top: 0,
-                left: '50%',
-                'transform-origin': 'bottom',
-                translate: '-50% -100%',
-            };
-        case 'b':
-            return {
-                left: '50%',
-                bottom: 0,
-                'transform-origin': 'top',
-                translate: '-50% 100%',
-            };
-        case 'tl':
-            return {
-                top: 0,
-                left: 0,
-                'transform-origin': 'bottom left',
-                translate: '0% -100%',
-            };
-        case 'tr':
-            return {
-                top: 0,
-                right: 0,
-                'transform-origin': 'bottom right',
-                translate: '0% -100%',
-            };
-        case 'rt':
-            return {
-                right: 0,
-                top: 0,
-                'transform-origin': 'top left',
-                translate: '100% 0',
-            };
-        case 'lt':
-            return {
-                left: 0,
-                top: 0,
-                'transform-origin': 'top right',
-                translate: '-100% 0',
-            };
-        case 'lb':
-            return {
-                left: 0,
-                bottom: 0,
-                'transform-origin': 'bottom right',
-                translate: '-100% 0',
-            };
-        case 'rb':
-            return {
-                right: 0,
-                bottom: 0,
-                'transform-origin': 'bottom left',
-                translate: '100% 0',
-            };
-        case 'bl':
-            return {
-                left: 0,
-                bottom: 0,
-                'transform-origin': 'top left',
-                translate: '0% 100%',
-            };
-        case 'br':
-            return {
-                right: 0,
-                bottom: 0,
-                'transform-origin': 'top right',
-                translate: '0 100%',
-            };
-    }
-};
 export interface FloatPanelProps {
     position?: 'l' | 'r' | 't' | 'b' | 'tl' | 'lt' | 'lb' | 'bl' | 'br' | 'rb' | 'rt' | 'tr';
     visible?: boolean | Atom<boolean>;
     disabled?: boolean | Atom<boolean>;
+
+    /** 样式更改的 debounce  */
+    debounce?: number | false;
     class?: string;
     popupClass?: string;
     children: JSXElement;
@@ -123,18 +37,19 @@ export const FloatPanel = OriginComponent<FloatPanelProps>((props) => {
     const show = atomization(props.visible ?? false);
     const disabled = atomization(props.disabled ?? false);
 
-    const changeShow = debounce((target: boolean) => {
+    /** 改变面板状态 */
+    const change = (target: boolean) => {
         if (disabled()) return;
         show(target);
-    }, 300);
-    const mouseover = () => changeShow(true);
-    el.addEventListener('mouseover', mouseover);
+    };
+    const changeShow = props.debounce === false ? change : debounce(change, props.debounce ?? 150);
+    const lockShowType = () => changeShow(true);
+    el.addEventListener('mouseover', lockShowType);
     const pos = usePositionString(props.position ?? 'bl');
-    // console.log(pos);
     return (
         <div
             class={props.class('relative')}
-            onMouseLeave={() => changeShow(false)}
+            onmouseleave={() => changeShow(false)}
             onmouseout={() => changeShow(false)}
         >
             {el}
@@ -146,7 +61,10 @@ export const FloatPanel = OriginComponent<FloatPanelProps>((props) => {
                 }
                 ref={props.ref}
                 style={{ ...props.style, ...pos }}
-                onmouseover={mouseover}
+                onmouseover={lockShowType}
+                // 这两个事件绑定是为了用户在输入的时候不会关闭
+                onfocusin={() => disabled(true)}
+                onfocusout={() => disabled(false)}
             >
                 {props.popup instanceof Function
                     ? props.popup({

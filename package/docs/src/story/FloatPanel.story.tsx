@@ -1,29 +1,24 @@
-import { atom } from '@cn-ui/use';
+import { Atom, atom } from '@cn-ui/use';
 import { Button, FloatPanel, FloatPanelWithAnimate } from '@cn-ui/core';
-import { Animate } from '@cn-ui/animate';
 export const Controller = [];
 import '@cn-ui/animate/src/scale.css';
 import '@cn-ui/animate/src/base.css';
+import { Show } from 'solid-js';
 export default (props: any) => {
-    const visible = atom(true);
     const disabled = atom(false);
     const inner = () => (
         <div class="m-2 h-full w-60 rounded-md ring-2 ring-slate-300 ">
             这是显示面板<br></br>
+            <input placeholder="这里应该锁定"></input>
             还有一行
         </div>
     );
-    const popup = ({ show, transformOrigin, TailwindOriginClass }) => (
-        // 可以外扩一层 Animate 控制显示动画
-        <Animate
-            trigger={show}
-            anime="scale"
-            // 如果需要设定动画方向的话，可以这样使用
-            extraClass={'animate-duration-300 ' + TailwindOriginClass}
-        >
+    /** 无动画弹出 */
+    const popup = ({ show }: { show: Atom<boolean> }) => (
+        <Show when={show()}>
             {/* 可以通过 margin 来改变与触发点的距离 */}
             {inner()}
-        </Animate>
+        </Show>
     );
 
     return (
