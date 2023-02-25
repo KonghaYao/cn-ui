@@ -53,15 +53,16 @@
     @apply mb-4;
 }
 
-.cn-typography p {
+/* 两边对齐会导致 部分文本间隔过大 */
+/* .cn-typography p {
     @apply text-justify;
-}
+} */
 
 .cn-typography hr {
     @apply my-2;
 }
 .cn-typography blockquote {
-    @apply relative mx-4 my-2 border-l-4 border-solid border-slate-400 pl-4 font-normal text-slate-400;
+    @apply relative  my-2 border-l-4 border-solid border-slate-400 pl-2 font-normal text-slate-400;
 }
 .cn-typography :not(pre) code {
     @apply mx-1 my-2 rounded-md bg-slate-100 px-1;
@@ -145,14 +146,11 @@
     font-weight: inherit;
 }
 
-/* 着重号，只能在少量（少于100个字符）且全是全角字符的情况下使用 */
+/* 不使用着重号，*/
 .cn-typography em {
     @apply relative mx-1;
 }
-.cn-typography em:after {
-    content: '・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・';
-    @apply absolute top-2 left-0 w-full overflow-hidden whitespace-nowrap;
-}
+
 .cn-typography abbr {
     @apply underline-offset-4;
 }
@@ -161,7 +159,7 @@
     @apply max-w-[100%];
 }
 .cn-typography > p {
-    @apply whitespace-pre-wrap indent-[2em] leading-normal;
+    @apply whitespace-pre-wrap indent-[2em] leading-7;
 }
 .cn-typography a {
     @apply text-sky-500 hover:text-sky-400;

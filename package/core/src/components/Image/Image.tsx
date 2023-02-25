@@ -72,7 +72,11 @@ export const Image = OriginComponent<ImageProps, HTMLImageElement>((props) => {
         });
     });
     return (
-        <span class={props.class('cn-image relative align-bottom')} {...extendsEvent(props)}>
+        <span
+            class={props.class('cn-image relative align-bottom')}
+            {...extendsEvent(props)}
+            style={props.style}
+        >
             <img
                 height={props.height}
                 width={props.width}

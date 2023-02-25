@@ -2,15 +2,14 @@ import { Typography } from '@cn-ui/core';
 import { useCodeStyle } from '@cn-ui/highlight';
 export const Controller = [];
 import { Demo } from './Typo/Demo';
-export default (props) => {
+export default () => {
     const { link } = useCodeStyle('github-dark');
     return (
         <>
-        <header class='text-xl'>3784274832</header>
-        <Typography class="bg-white">
-            {Demo()}
-            {link}
-        </Typography>
+            <Typography class="bg-white">
+                {Demo()}
+                {link}
+            </Typography>
         </>
     );
 };

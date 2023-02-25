@@ -1,6 +1,6 @@
 export const Controller = [];
 import { Image, Result, Box } from '@cn-ui/core';
-export default (props) => {
+export default () => {
     const baseStyle = { height: '200px', width: '100%' };
     return (
         <>
@@ -10,7 +10,11 @@ export default (props) => {
                     icon={
                         <Image
                             src="https://doodleipsum.com/700x525/hand-drawn?i=dee23ea78d4bed889e6b2c07f25f3a13"
-                            style={{ 'max-width': '70%', 'max-height': '70%', overflow: 'hidden' }}
+                            style={{
+                                'max-width': '70vw',
+                                'max-height': '70vh',
+                                overflow: 'hidden',
+                            }}
                         ></Image>
                     }
                     subTitle="数据为空"
