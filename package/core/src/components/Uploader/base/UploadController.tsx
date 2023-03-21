@@ -1,6 +1,6 @@
 import { atom, useEventController } from '@cn-ui/use';
 import { Atom } from '@cn-ui/use';
-import { sha256 } from '../../_util/sha256/sha256';
+import { Sha256 } from '@aws-crypto/sha256-browser';
 import { ExFile } from './ExFile';
 
 /** 开发者自定义的 Uploader，只需要进行上传和通知即可 */
@@ -35,7 +35,10 @@ export class UploadController implements Omit<UploaderRootProps, 'children'> {
     /** 计算 sha 值，并进行缓存 */
     async calcSha(file: ExFile) {
         if (file.sha) return file.sha;
-        return sha256(await file.arrayBuffer());
+        // FIXME 不知道这里是不是 hex 16 进制
+        const hash = new Sha256();
+        hash.update(await file.arrayBuffer());
+        return new Blob([await hash.digest()]).text();
     }
 
     /** 在存储库中加入一个键值对 */
