@@ -109,7 +109,7 @@ export class UploadController implements Omit<UploaderRootProps, 'children'> {
     }
     delete(sha: string) {
         const p = this.getNotice(sha);
-        if (p > 0 && p < 100) {
+        if (typeof p === 'number' && p > 0 && p < 100) {
             // 先暂停，再次点击关闭
             this.cancel(sha);
         } else {

@@ -1,5 +1,5 @@
 import { Atom } from '@cn-ui/use';
-import { Match, Switch } from 'solid-js';
+import { Match, Show, Switch } from 'solid-js';
 import { UploadController } from '../base/UploadController';
 import { ExFile } from '../base/ExFile';
 import { Icon, DefaultIcon } from '../../Icon';
@@ -40,7 +40,7 @@ export const DefaultUploadList = (
                             }}
                         ></DefaultIcon>
                     </Match>
-                    <Match when={progress() > 0 && progress() < 100}>
+                    <Match when={(progress() as number) > 0 && (progress() as number) < 100}>
                         <DefaultIcon
                             name="replay"
                             color="orange"
