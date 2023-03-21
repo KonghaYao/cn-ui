@@ -2,22 +2,23 @@
     "name": "@cn-ui/headless",
     "version": "1.11.2",
     "description": "",
-    "main": "./dist/index.mjs",
+    "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "files": [
         "src",
         "dist"
     ],
+    "type": "module",
     "scripts": {
         "build": "vite build&& tsc",
-        "doc": "typedoc --tsconfig tsconfig.json --options typedoc.js",
         "prepublish": "pnpm build"
     },
     "license": "MIT",
     "devDependencies": {
-        "fs-extra": "^10.1.0"
+        "fs-extra": "^10.1.0",
+        "rollup-plugin-visualizer": "^5.9.0",
+        "solid-js": "^1.6.15"
     },
-    "peerDependencies": {},
     "keywords": [
         "pridepack",
         "solid-js",
@@ -27,7 +28,6 @@
         "utils"
     ],
     "dependencies": {
-        "solid-js": "^1.6.10",
-        "@cn-ui/use": "workspace:^2.0.0"
+        "@cn-ui/use": "workspace:^2.0.2"
     }
 }

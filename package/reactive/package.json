@@ -42,8 +42,8 @@
         "utils"
     ],
     "dependencies": {
-        "solid-js": "^1.6.10",
         "lodash-es": "^4.17.21",
-        "mitt": "^3.0.0"
+        "mitt": "^3.0.0",
+        "solid-js": "^1.6.15"
     }
 }

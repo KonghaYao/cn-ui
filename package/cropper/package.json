@@ -18,9 +18,11 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "fs-extra": "^10.1.0"
+        "fs-extra": "^10.1.0",
+        "rollup-plugin-visualizer": "^5.9.0"
     },
     "peerDependencies": {
+        "@cn-ui/core": "workspace:",
         "solid-js": "^1.5.7"
     },
     "keywords": [
@@ -32,7 +34,6 @@
         "utils"
     ],
     "dependencies": {
-        "@cn-ui/core": "workspace:",
         "cropperjs": "1.5.12",
         "lodash-es": "^4.17.21"
     }

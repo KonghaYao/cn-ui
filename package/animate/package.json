@@ -25,5 +25,7 @@
         "component",
         "utils"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "rollup-plugin-visualizer": "^5.9.0"
+    }
 }
