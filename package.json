@@ -43,6 +43,7 @@
         "@astrojs/solid-js": "^2.0.2",
         "@astrojs/tailwind": "^3.0.1",
         "@cn-ui/animate": "workspace:",
+        "@cn-ui/command-palette": "^2.2.1",
         "@cn-ui/core": "workspace:",
         "@cn-ui/cropper": "workspace:",
         "@cn-ui/headless": "workspace:",
