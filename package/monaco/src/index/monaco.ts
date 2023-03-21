@@ -1,4 +1,5 @@
 // import MonacoLoader from "https://cdn.skypack.dev/@monaco-editor/loader";
+/** @ts-ignore */
 import MonacoLoader from '@monaco-editor/loader';
 import { CDN } from '../cdn';
 

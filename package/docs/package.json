@@ -16,6 +16,8 @@
         "@cn-ui/animate": "workspace:^1.0.5",
         "@cn-ui/core": "workspace:^1.7.0",
         "@cn-ui/use": "workspace:^2.0.2",
+        "@cn-ui/viewer": "workspace:^1.7.1",
+        "@cn-ui/monaco": "workspace:^1.0.0",
         "astro": "^2.0.14",
         "comlink": "^4.3.1",
         "icon-park-solid": "^1.4.2",
