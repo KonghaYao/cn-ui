@@ -40,3 +40,18 @@ module.exports = {
 -   [ ] 3D 动态效果 https://micku7zu.github.io/vanilla-tilt.js/
 -   [ ] spinners https://github.com/craigjennings11/wc-spinners
 -   [ ] https://perfectscrollbar.com/#section-intro
+
+# 这个项目启动
+
+项目的依赖关系
+
+```sh
+# 安装 git 分包
+git submodule init
+git submodule update
+
+bash build.sh # 这个脚本会直接安装依赖并将整个项目打包并生成 typescript 类型文件
+# 第一次执行即可，时间会很长
+
+cd package/docs && pnpm dev # 第一次生成页面会较久，但是 Vite 缓存后速度就可以了
+```
