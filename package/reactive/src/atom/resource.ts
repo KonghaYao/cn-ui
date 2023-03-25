@@ -1,4 +1,4 @@
-import { Accessor, createEffect, createMemo, on } from 'solid-js';
+import { Accessor, batch, createEffect, createMemo, on } from 'solid-js';
 import { Atom, AtomTypeSymbol, atom } from './atom';
 import { useEffectWithoutFirst } from './useEffect';
 export interface ResourceBase<T> {
@@ -64,15 +64,20 @@ export const resource = <T>(
         loading(true);
         const tempP = fetcher()
             .then((res) => {
-                data(() => res);
-                loading(false);
+                batch(() => {
+                    data(() => res);
+                    loading(false);
+                    error(false);
+                });
                 // 当自己没有被 cancel 时，进行 tap 函数
                 if (tempP === p) tapFn(res);
                 return true;
             })
             .catch((err) => {
-                error(err);
-                loading(false);
+                batch(() => {
+                    error(err);
+                    loading(false);
+                });
                 // 直接抛出异常
                 return err;
             });
