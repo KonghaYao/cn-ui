@@ -26,14 +26,16 @@ export function DragPoster<T>(props: {
     child.draggable = true;
     return child;
 }
+
 /** 接收 Drag Channel 数据信息 */
 export const DropReceiver = (props: {
     detect?: Parameters<ReturnType<typeof useDragAndDropData>['detect']>[1];
     receive?: Parameters<ReturnType<typeof useDragAndDropData>['receiveAll']>[1];
     children: JSXElement;
+    /** 是否允许接受多个事件 */
     multi?: boolean;
 }) => {
-    const child = children(() => props.children)() as any as HTMLDivElement;
+    const child = children(() => props.children)() as unknown as HTMLDivElement;
     const { detect, receiveAll } = useDragAndDropData();
 
     const ondragover = (e) => {

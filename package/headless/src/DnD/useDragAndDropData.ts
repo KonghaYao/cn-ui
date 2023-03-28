@@ -1,5 +1,6 @@
 /**
- * ! HTML5 中的 DataTransfer 会全局变化，所以 dragover 收集不到信息
+ * ! HTML5 中的 DataTransfer 会全局变化
+ * ! 所以 dragover 的时候收集不到信息
  */
 let holding = {
     info: '',
@@ -11,15 +12,16 @@ let holding = {
     },
     types: [],
 } as any as DataTransfer;
+
 export const useDragAndDropData = <TransferData extends { type: string; data: any }>() => {
     /**
      *
      * @param eventTransfer 如果为 false，接收全局默认的数据
      */
     const receive = <T>(
-        eventTransfer: DataTransfer | false,
+        eventTransfer: DataTransfer,
         type: string,
-        cb: (data: any, dataTransfer: DataTransfer | false, originEvent: unknown) => T,
+        cb: (data: any, dataTransfer: DataTransfer, originEvent: unknown) => T,
         originEvent: unknown
     ): boolean => {
         type = type.toLowerCase();
@@ -50,12 +52,12 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
             holding.setData(type, string);
         },
         receiveAll(
-            eventTransfer: DataTransfer | false,
+            eventTransfer: DataTransfer,
             obj: Record<
                 string,
-                (data: any, dataTransfer?: DataTransfer | false, originEvent?: unknown) => void
+                (data: any, dataTransfer: DataTransfer, originEvent: unknown) => void
             >,
-            multi = true,
+            multi = false,
             originEvent: unknown
         ) {
             Object.entries(obj)[multi ? 'forEach' : 'some'](([key, value]) => {
@@ -70,18 +72,18 @@ export const useDragAndDropData = <TransferData extends { type: string; data: an
         receive,
         detect(
             eventTransfer: DataTransfer,
-            obj: { [key: string]: (transfer: DataTransfer, originEvent?: unknown) => void },
+            payload: { [key: string]: (transfer: DataTransfer, originEvent: unknown) => void },
             originEvent: unknown
         ) {
             // type 需要解构保持状态
             for (const transType of [...eventTransfer.types]) {
                 if (transType.startsWith('x-application/')) {
-                    obj[transType] && obj[transType](eventTransfer, originEvent);
+                    payload[transType] && payload[transType](eventTransfer, originEvent);
                     const key = transType.replace('x-application/', '').toUpperCase();
-                    obj[key] && obj[key](eventTransfer, originEvent);
+                    payload[key] && payload[key](eventTransfer, originEvent);
                 }
             }
-            obj.extra && obj.extra(eventTransfer, originEvent);
+            payload.extra && payload.extra(eventTransfer, originEvent);
         },
     };
 };
