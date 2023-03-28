@@ -1,15 +1,17 @@
 import { sleep } from '../utils';
 import { type Atom, atom, resource, ResourceOptions, reflectMemo } from '../atom/index';
 import { debounce } from 'lodash-es';
+export type PaginationOptions<T> = ResourceOptions<T> & {
+    initIndex?: number;
+    debounceTime?: number;
+};
+
 /**
  * @zh 逐页查询组件, 内部采用了时间过滤
  *  */
 export const usePagination = <T>(
     getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>,
-    init: ResourceOptions<T> & {
-        initIndex?: number;
-        debounceTime?: number;
-    } = {}
+    init: PaginationOptions<T> = {}
 ) => {
     init.debounceTime = init.debounceTime ?? 100;
 
@@ -43,9 +45,8 @@ export const usePagination = <T>(
             return goto(currentIndex() + 1);
         },
         /**
-         * @zh 保证在下一次请求完成后，promise 结束,如果结束了，那么就稍等 debounceTime 再返回
-         *
-         *  */
+         * @zh 保证在下一次请求完成后，promise 结束,如果结束了，那么就稍等 debounceTime 再返回，测试用途较多
+         */
         async waitForDone() {
             return sleep(init.debounceTime! + 10).then(currentData.promise);
         },
@@ -53,5 +54,42 @@ export const usePagination = <T>(
         refetch,
         goto,
         currentData,
+    };
+};
+
+import { batch } from 'solid-js';
+
+/**
+ * 滑动加载逐页查询组件，也可称无限加载逻辑组件
+ * @test
+ */
+export const usePaginationStack = <T>(
+    getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>,
+    init: PaginationOptions<T>
+) => {
+    const dataSlices = atom<T[]>([], { equals: false });
+    const p = usePagination(async (...args) => {
+        const data = await getData(...args);
+        dataSlices((i) => {
+            i[args[0]] = data;
+            return i;
+        });
+        return data;
+    }, init);
+    return {
+        ...p,
+        /** 重置加载 */
+        resetStack(
+            /** 立即重新加载 */
+            refetch = true
+        ) {
+            batch(() => {
+                dataSlices([]);
+                p.currentIndex(0);
+                refetch && p.currentData.refetch();
+            });
+        },
+        /** 这个才是需要渲染的最终数据 */
+        dataSlices,
     };
 };

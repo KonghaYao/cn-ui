@@ -16,15 +16,22 @@ export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
     );
     return newA;
 }
-export function ThrottleAtom<T>(a: Atom<T>, debounceTime: number = 150) {
+export function ThrottleAtom<T>(
+    a: Atom<T>,
+    debounceTime: number = 150,
+    options?: Parameters<typeof throttle>[2]
+) {
     let lastVal = a();
     const newA = atom(lastVal);
     useEffectWithoutFirst(
-        throttle(() => {
-            const data = a();
-            console.log('  ' + data);
-            data !== undefined && newA(() => data as T);
-        }, debounceTime),
+        throttle(
+            () => {
+                const data = a();
+                data !== undefined && newA(() => data as T);
+            },
+            debounceTime,
+            options
+        ),
         [a]
     );
     return newA;
