@@ -7,12 +7,13 @@ import {
     reflect,
 } from '@cn-ui/use';
 import { Accessor, For, JSXElement, createMemo } from 'solid-js';
-interface WaterFallProps<T> {
+export interface WaterFallProps<T> {
     items: T[] | Atom<T[]>;
     column: number | Atom<number>;
     children: (data: T, index?: Accessor<number>) => JSXElement;
     // 控制列的 class
     colClass?: string;
+    fallback: () => JSXElement;
 }
 
 /**
@@ -34,7 +35,7 @@ export const WaterFall = OriginComponent(function <T>(
     });
     return (
         <section class={props.class('flex')} style={props.style} {...extendsEvent(props)}>
-            <For each={columnItems()}>
+            <For each={columnItems()} fallback={props.fallback}>
                 {(items, colIndex) => {
                     return (
                         <div class={'flex flex-1 flex-col ' + props.colClass ?? ''}>

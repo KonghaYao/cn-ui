@@ -1,7 +1,7 @@
 import { Component, createContext, createMemo } from 'solid-js';
 
 import { TabsProps } from './interface';
-import { useSelect } from '@cn-ui/headless';
+import { useSelect } from '@cn-ui/use';
 import { atom, atomization, reflect } from '@cn-ui/use';
 export type TabsContextType = ReturnType<typeof useSelect>;
 export const TabsContext = createContext<TabsContextType>();
