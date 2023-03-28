@@ -25,7 +25,7 @@ export const usePagination = <T>(
             return false;
         } else {
             currentIndex(index);
-            // 需要在这里 debounce 而不是数字改变，页码改变如果迅速的话，那应该不进行请求，而是直接忽略
+            //! 页码改变如果迅速的话，那应该不进行请求，而是直接忽略
             return refetch();
         }
     };
