@@ -2,7 +2,7 @@ import { Component, createContext, For, JSXElement, useContext } from 'solid-js'
 import { Atom, atomization } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import { CheckBoxProps } from './CheckBox';
-import { useSelect } from '@cn-ui/headless';
+import { useSelect } from '@cn-ui/use';
 
 export type CheckGroupData = Omit<CheckBoxProps, 'value'> & { value: Atom<boolean> };
 export interface CheckGroupProps {

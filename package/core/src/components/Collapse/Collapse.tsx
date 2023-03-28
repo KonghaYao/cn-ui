@@ -1,8 +1,8 @@
 import { Atom, atom, OriginComponentInputType, reflect } from '@cn-ui/use';
 import { OriginComponent } from '@cn-ui/use';
 import './style/index.css';
-import { useSelect } from '@cn-ui/headless';
-import { createContext, createEffect, JSX, JSXElement, on } from 'solid-js';
+import { useSelect } from '@cn-ui/use';
+import { createContext, JSX, JSXElement } from 'solid-js';
 import { atomization } from '@cn-ui/use';
 export const CollapseContext = createContext<
     {
