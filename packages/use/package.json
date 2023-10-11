@@ -1,0 +1,30 @@
+{
+    "name": "@cn-ui/use",
+    "version": "2.0.4",
+    "description": "",
+    "main": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "vite build && tsc",
+        "prepublish": "pnpm build"
+    },
+    "license": "MIT",
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ],
+    "dependencies": {
+        "@cn-ui/reactive": "workspace:^2.1.0",
+        "lodash-es": "^4.17.21"
+    },
+    "peerDependencies": {
+        "solid-js": "^1.7.8"
+    }
+}
