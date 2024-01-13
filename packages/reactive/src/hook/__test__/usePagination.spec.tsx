@@ -14,7 +14,7 @@ test('常用页面方式', async () => {
                 return sleep(1000, index);
             },
             {
-                tap() {
+                onSuccess() {
                     maxPage(100);
                 },
                 debounceTime: 10,
@@ -59,7 +59,7 @@ test('携带初始赋值', async () => {
             {
                 initIndex: 5,
                 immediately: false,
-                tap() {
+                onSuccess() {
                     maxPage(100);
                 },
                 debounceTime: 30,

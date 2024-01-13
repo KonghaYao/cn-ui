@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
             },
             environment: 'jsdom',
             globals: true,
-            setupFiles: ['../../node_modules/@testing-library/jest-dom/extend-expect'],
+            setupFiles: ['../../node_modules/@testing-library/jest-dom/vitest'],
             transformMode: { web: [/\.[jt]sx?$/] },
         },
     };

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, optimizeDeps } from 'vite';
 import solid from 'vite-plugin-solid';
 import Package from './package.json';
 console.log(Package.version);
@@ -48,7 +48,7 @@ export default defineConfig(({ mode }) => {
             },
             environment: 'jsdom',
             globals: true,
-            setupFiles: ['../../node_modules/@testing-library/jest-dom/extend-expect'],
+            setupFiles: ['../../node_modules/@testing-library/jest-dom/vitest'],
             transformMode: { web: [/\.[jt]sx?$/] },
         },
     };

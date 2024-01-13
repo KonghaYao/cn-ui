@@ -14,7 +14,7 @@ test('无限加载-常用方式', async () => {
                 return sleep(100, index);
             },
             {
-                tap() {
+                onSuccess() {
                     maxPage(100);
                 },
                 debounceTime: 10,
