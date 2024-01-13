@@ -12,7 +12,7 @@ export interface EntriesLike<
 }
 
 /**
- * @zh ObjectAtom 的转换器，主要是服务于 FormData 等一系列的特殊属性
+ * @zh ObjectAtom 的转换器，主要是服务于 对象转换成 FormData 等一系列的特殊属性
  * @example EntriesTransform(atomA).toFromData()
  */
 
