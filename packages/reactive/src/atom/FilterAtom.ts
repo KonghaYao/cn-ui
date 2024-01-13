@@ -2,7 +2,6 @@ import { debounce, throttle } from 'lodash-es';
 import { Atom, atom } from './atom';
 import { useEffectWithoutFirst } from './useEffect';
 
-/** 呈现 debounceTime 内数据的最新情况 */
 export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
     let lastVal = a();
     const newA = atom(lastVal);
@@ -16,11 +15,7 @@ export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
     );
     return newA;
 }
-export function ThrottleAtom<T>(
-    a: Atom<T>,
-    debounceTime: number = 150,
-    options?: Parameters<typeof throttle>[2]
-) {
+export function ThrottleAtom<T>(a: Atom<T>, debounceTime: number = 150, options?: Parameters<typeof throttle>[2]) {
     let lastVal = a();
     const newA = atom(lastVal);
     useEffectWithoutFirst(
@@ -36,3 +31,4 @@ export function ThrottleAtom<T>(
     );
     return newA;
 }
+export { throttle, debounce };
