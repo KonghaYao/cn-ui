@@ -1,5 +1,5 @@
 import { renderHook } from '@solidjs/testing-library';
-import { test, vi, describe, it } from 'vitest';
+import { vi, describe, it } from 'vitest';
 import { SetAtom, SetAtomType } from '../SetAtom';
 import { Atom, reflect } from '..';
 

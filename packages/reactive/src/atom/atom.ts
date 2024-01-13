@@ -1,4 +1,4 @@
-import { createSignal, Accessor } from 'solid-js';
+import { createSignal, Accessor, Setter } from 'solid-js';
 import { useEffectWithoutFirst } from './useEffect';
 
 export const AtomTypeSymbol = Symbol('AtomTypeSymbol');
@@ -13,6 +13,9 @@ export interface PartialSetter<T> {
 
 export interface Atom<T> extends Accessor<T>, PartialSetter<T> {
     reflux: makeReflux<T>;
+    toSignal(): [Accessor<T>, Setter<T>];
+    getGetter(): Accessor<T>;
+    getSetter(): Setter<T>;
     [AtomTypeSymbol]: string;
 }
 type SignalOptions<T> = { equals?: false | ((prev: T, next: T) => boolean) };
@@ -44,7 +47,20 @@ export const atom = <T>(value: T, props?: SignalOptions<T>): Atom<T> => {
             /** @ts-ignore */
             return setState(...args);
         },
-        { reflux, [AtomTypeSymbol]: 'atom' }
+        {
+            reflux,
+            [AtomTypeSymbol]: 'atom',
+            /** 转换为原来的写法，为了兼容其他 api 的要求 */
+            toSignal() {
+                return [state, setState];
+            },
+            getSetter() {
+                return setState;
+            },
+            getGetter() {
+                return state;
+            },
+        }
     ) as Atom<T>;
 };
 
