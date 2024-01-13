@@ -13,7 +13,7 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
         /** 方便直接写入 v-model 的语法糖 */
         $input: () => {
             value: ModelType;
-            'on:input': JSX.InputEventHandlerUnion<HTMLInputElement, InputEvent>;
+            'on:input': (e: { target: { value: ModelType } }) => void;
         };
     };
 /** OriginComponent 函数封装的结果函数的入参 */
@@ -57,7 +57,7 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
         };
         const $input = () => ({
             value: props['v-model']?.(),
-            'on:input'(e) {
+            'on:input'(e: { target: { value: ModelType } }) {
                 return props['v-model']?.(() => e.target.value);
             },
         });
