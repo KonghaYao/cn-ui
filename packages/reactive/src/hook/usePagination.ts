@@ -7,7 +7,7 @@ export type PaginationOptions<T> = ResourceOptions<T> & {
 };
 
 /**
- * @zh 逐页查询组件, 内部采用了时间过滤
+ * @zh 逐页查询组件, 页码跳转内部采用了时间过滤
  *  */
 export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>, init: PaginationOptions<T> = {}) => {
     init.debounceTime = init.debounceTime ?? 100;

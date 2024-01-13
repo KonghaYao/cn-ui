@@ -26,7 +26,7 @@ export interface ReflectOptions<T> {
  *
  * b('Hi, I am a hack'); // you can change the atom this time, but next time it will computed from source
  *
- * @design refect 是为了衍生 Atom，同时具有读写权限。但是不能复用 atom ，atom 中传入函数是把函数当做初始值。 Memo 是只读的，这是它们的区别。
+ * @design reflect 是为了衍生 Atom，同时具有读写权限。但是不能复用 atom ，atom 中传入函数是把函数当做初始值。 Memo 是只读的，这是它们的区别。
  */
 export const reflect = <T>(
     /** 衍生函数 */

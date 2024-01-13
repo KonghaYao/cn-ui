@@ -17,7 +17,7 @@ describe('resource 测试', () => {
         } = renderHook(() => {
             const page = atom(0);
             const source = resource(async () => asyncFunc(page()), {
-                tap(data) {
+                onSuccess(data) {
                     tapTest();
                     page((i) => i + 1);
                 },

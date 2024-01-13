@@ -9,6 +9,18 @@ export type ObjectAtomType<T> = {
 /**
  * @zh 将键值对进行 key 分离，所有的 keyAtom 将会回流向原始 Atom ，所以并不是简单的生成关系
  *
+ * @example
+ * const form = ObjectAtom({
+ *     username: '江夏尧',
+ *     password: '124567890',
+ * })
+ *
+ * form.username()
+ * form.password()
+ *
+ * const submit = ()=>{
+ *     const result = form()
+ * }
  */
 
 function ObjectAtom<T extends Record<string, unknown>>(obj: Atom<T>): ObjectAtomType<T>;

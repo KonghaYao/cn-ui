@@ -1,18 +1,18 @@
 import { Accessor, batch, createMemo } from 'solid-js';
 import { Atom, AtomTypeSymbol, atom } from './atom';
 import { useEffectWithoutFirst } from './useEffect';
-export interface ResourceBase<T> {
+export interface ResourceBase<T, Params> {
     loading: Accessor<boolean>;
     error: Accessor<Error>;
     isReady: Accessor<boolean>;
     /** 重新进行异步行为 */
-    refetch: (option?: RefetchOption) => Promise<boolean>;
+    refetch: (params?: Params, option?: RefetchOption) => Promise<boolean>;
     /** 同步突变数据 */
     mutate: (data: T) => void;
     /** 正在进行的 Promise */
     promise: () => Promise<boolean>;
 }
-export interface ResourceAtom<T> extends ResourceBase<T>, Atom<T> {}
+export interface ResourceAtom<T, Params = unknown> extends ResourceBase<T, Params>, Atom<T> {}
 
 export interface ResourceOptions<T> {
     initValue?: T;
@@ -20,7 +20,11 @@ export interface ResourceOptions<T> {
     /** 填写依赖元素，依赖元素发生改变，则会自动更新 */
     deps?: Accessor<unknown>[];
     refetch?: RefetchOption;
-    tap?: (data: T) => void;
+
+    /** 当成功时，发送副作用 */
+    onSuccess?: (data: T) => void;
+    /** 当发生错误时，发送副作用 */
+    onError?: (data: T) => void;
 }
 export interface RefetchOption {
     /** 如果发生了异步函数覆盖，进行警告*/
@@ -30,7 +34,7 @@ export interface RefetchOption {
 }
 /**
  * @zh 安全获取异步数据并返回状态
- * @description 使用 resource 创建一个异步绑定的 Atom
+ * @description 使用 resource 创建一个异步绑定的 Atom，默认直接调用
  */
 export const resource = <T, Params>(
     fetcher: (val?: Params) => Promise<T>,
@@ -40,15 +44,26 @@ export const resource = <T, Params>(
         immediately = true,
         deps,
         refetch: defaultRefetch = {},
-        tap: tapFn = () => {},
+        onSuccess = () => {},
+        onError = () => {},
     }: ResourceOptions<T> = {}
-): ResourceAtom<T> => {
+): ResourceAtom<T, Params> => {
+    /** 存储结果数据 */
     const data = atom<T>(initValue);
+
+    /** 加载态 */
     const loading = atom(false);
+
+    /** 存储错误信息 */
     const error = atom<Error | false>(false);
+
+    /** 判断数据是否已加载完毕 */
     const isReady = createMemo(() => !!(!loading() && !error()));
+
+    /** 初始化 Promise，并初始值为 false */
     let p = Promise.resolve(false);
 
+    /** 重新使用异步函数 */
     const refetch = async (val?: Params, { warn = true, cancelCallback } = defaultRefetch) => {
         // 上一次请求尚未结束
         if (!isReady()) {
@@ -68,7 +83,7 @@ export const resource = <T, Params>(
                     error(false);
                 });
                 // 当自己没有被 cancel 时，进行 tap 函数
-                if (tempP === p) tapFn(res);
+                if (tempP === p) onSuccess(res);
                 return true;
             })
             .catch((err) => {
@@ -76,6 +91,7 @@ export const resource = <T, Params>(
                     error(err);
                     loading(false);
                 });
+                onError(err);
                 // 直接抛出异常
                 return err;
             });
@@ -85,11 +101,13 @@ export const resource = <T, Params>(
 
     // 注意，不能直接进行 refetch，直接 refetch 会导致 solid-js 的整个页面重载
     immediately && refetch(); // 第一次肯定不需要测试覆盖
+
+    // 延续依赖
     deps && deps.length && useEffectWithoutFirst(() => refetch(undefined, defaultRefetch), deps);
+
     return Object.assign(data, {
         error,
         loading,
-
         mutate(newData) {
             data(() => newData);
         },
@@ -100,5 +118,5 @@ export const resource = <T, Params>(
             return p;
         },
         [AtomTypeSymbol]: 'resource',
-    } as ResourceBase<T>);
+    } as ResourceBase<T, Params>);
 };
