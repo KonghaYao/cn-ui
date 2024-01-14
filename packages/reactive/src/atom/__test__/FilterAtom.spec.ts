@@ -1,10 +1,10 @@
-import { renderHook, waitFor } from '@solidjs/testing-library';
-import { afterEach, beforeEach, expect, test, vi } from 'vitest';
+import { renderHook } from '@solidjs/testing-library';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { DebounceAtom, ThrottleAtom } from '../FilterAtom';
 import { atom } from '../atom';
 import { genArray } from '../../utils';
 
-test('FilterTest', () => {
+describe('FilterTest', () => {
     beforeEach(() => {
         vi.useFakeTimers();
     });

@@ -30,7 +30,6 @@
         "solid-js": "^1.7.8"
     },
     "dependencies": {
-        "@types/testing-library__jest-dom": "5.14.9",
         "lodash-es": "^4.17.21",
         "mitt": "^3.0.0",
         "solidjs-use": "^2.3.0"
