@@ -1,6 +1,7 @@
 import { sleep } from '../utils';
 import { type Atom, atom, resource, ResourceOptions, reflectMemo } from '../atom/index';
 import { debounce } from 'lodash-es';
+import { batch } from 'solid-js';
 export type PaginationOptions<T> = ResourceOptions<T> & {
     initIndex?: number;
     debounceTime?: number;
@@ -53,8 +54,6 @@ export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<num
         currentData,
     };
 };
-
-import { batch } from 'solid-js';
 
 /**
  * 滑动加载逐页查询组件，也可称无限加载逻辑组件

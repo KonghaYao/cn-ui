@@ -37,6 +37,7 @@ export interface RefetchOption {
  * @description 使用 resource 创建一个异步绑定的 Atom，默认直接调用
  */
 export const resource = <T, Params>(
+    // TODO 添加第二个参数用于取消
     fetcher: (val?: Params) => Promise<T>,
     {
         /** @ts-ignore */

@@ -84,6 +84,9 @@ importers:
       solid-js:
         specifier: ^1.7.8
         version: 1.8.1
+      solidjs-use:
+        specifier: ^2.3.0
+        version: 2.3.0
 
   packages/use:
     dependencies:
@@ -2412,6 +2415,16 @@ packages:
   /@sinclair/typebox@0.27.8:
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
+  /@solidjs-use/shared@2.3.0:
+    resolution: {integrity: sha512-xuPNzZ9fwigkmYXTO+a8kaT45XQCPt6jVlyiDDYCD9NRZheRJOZWiUcVjYHzjececbWTctcY8NFdsXVyxARHKg==}
+    dependencies:
+      '@solidjs-use/solid-to-vue': 2.3.0
+    dev: false
+
+  /@solidjs-use/solid-to-vue@2.3.0:
+    resolution: {integrity: sha512-I2onRwzdYl2eq20M3hcTkVIeYq4hNoBpHvRJB9yzoyXRDSyp7R2glIbvdBzpsXqnTvX7HJhB2KePfxYXFvyJxw==}
+    dev: false
+
   /@solidjs/router@0.8.3(solid-js@1.8.1):
     resolution: {integrity: sha512-oJuqQo10rVTiQYhe1qXIG1NyZIZ2YOwHnlLc8Xx+g/iJhFCJo1saLOIrD/Dkh2fpIaIny5ZMkz1cYYqoTYGJbg==}
     peerDependencies:
@@ -3148,10 +3161,10 @@ packages:
   /@storybook/csf-tools@8.0.0-alpha.9:
     resolution: {integrity: sha512-KsYNQd+bpYPNHhnXBvPCUn3rMzaA4E7FlS4kOXt/lZrPpvJW381oqBhUdT7Qbhx6zDfVyqHUWzD5+VWxJdsAsQ==}
     dependencies:
-      '@babel/generator': 7.23.0
-      '@babel/parser': 7.23.0
+      '@babel/generator': 7.23.6
+      '@babel/parser': 7.23.6
       '@babel/traverse': 7.23.7
-      '@babel/types': 7.23.0
+      '@babel/types': 7.23.6
       '@storybook/csf': 0.1.2
       '@storybook/types': 8.0.0-alpha.9
       fs-extra: 11.1.1
@@ -3680,6 +3693,10 @@ packages:
   /@types/unist@2.0.8:
     resolution: {integrity: sha512-d0XxK3YTObnWVp6rZuev3c49+j4Lo8g4L1ZRm9z5L0xpoZycUPshHgczK5gsUMaZOstjVYYi09p5gYvUtfChYw==}
     dev: true
+
+  /@types/web-bluetooth@0.0.16:
+    resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
+    dev: false
 
   /@types/yargs-parser@21.0.1:
     resolution: {integrity: sha512-axdPBuLuEJt0c4yI5OZssC19K2Mq1uKdrfZBzuxLvaztgqUtFYZUNw7lETExPYJR9jdEoIg4mb7RQKRQzOkeGQ==}
@@ -7192,6 +7209,13 @@ packages:
       '@babel/types': 7.23.0
       solid-js: 1.8.1
     dev: true
+
+  /solidjs-use@2.3.0:
+    resolution: {integrity: sha512-ZyH2jiUSQU+5S5vd8zyvqz9X2ikhMjJhDeh/TjRzjLDJlZ1RuZaMxdM+jGsrJxo3X/xBW9kDpYNONXs6wYrQCQ==}
+    dependencies:
+      '@solidjs-use/shared': 2.3.0
+      '@types/web-bluetooth': 0.0.16
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
