@@ -26,7 +26,7 @@ describe('OriginComponent', () => {
     });
     test('v-model', async () => {
         const WrappedComp = OriginComponent((props) => {
-            return <input type="number" {...props.$input()} onInput={(e) => console.log(e.target.value)}></input>;
+            return <input {...props.$input()} onInput={(e) => console.log(e.target.value)}></input>;
         });
 
         const data = atom('12');
