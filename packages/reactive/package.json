@@ -13,7 +13,8 @@
         "test-watch": "vitest",
         "test-ui": "vitest --ui",
         "coverage": "vitest run --coverage",
-        "prepublish": "pnpm build"
+        "prepublish": "pnpm build",
+        "release": "release-it"
     },
     "type": "module",
     "license": "MIT",
