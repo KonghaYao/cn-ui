@@ -1,4 +1,4 @@
-import { Component, createMemo, JSX, mergeProps, children } from 'solid-js';
+import { Component, createMemo, JSX, mergeProps } from 'solid-js';
 import { classNames } from './classNames';
 import { Atom } from '../atom/atom';
 
