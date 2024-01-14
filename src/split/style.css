@@ -1,0 +1,16 @@
+.gutter {
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transition: background-color, 0.3s;
+}
+.gutter:hover {
+    background-color: #efefef;
+}
+
+.gutter.gutter-horizontal {
+    cursor: col-resize;
+}
+
+.gutter.gutter-vertical {
+    cursor: row-resize;
+}
