@@ -1,7 +1,6 @@
 import { Component, createMemo, JSX, mergeProps } from 'solid-js';
 import { classNames } from './classNames';
 import { Atom } from '../atom/atom';
-
 /** OriginComponent 函数内部的输入参数修改 */
 export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = string> =
     // 对内的类型注解
@@ -16,6 +15,8 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
             'on:input': (e: { target: { value: ModelType } }) => void;
         };
     };
+
+type ExtractChildren<T> = T extends { children: infer U } ? U : JSX.Element;
 /** OriginComponent 函数封装的结果函数的入参 */
 export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = string> =
     // 对外的类型注解
@@ -26,8 +27,7 @@ export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = stri
         class?: string | string[] | typeof classNames;
         classList?: { [k: string]: boolean } | typeof classNames;
         'v-model'?: Atom<ModelType>;
-
-        children?: JSX.Element;
+        children?: ExtractChildren<T>;
     };
 
 export type OriginComponentType = typeof OriginComponent;
