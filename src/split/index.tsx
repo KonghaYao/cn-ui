@@ -70,7 +70,7 @@ export const Split = OriginComponent<SplitProps>((props) => {
             ref={(container: HTMLElement) => {
                 ref = container;
             }}
-            class={props.class('flex')}
+            class={props.class('flex', 'cn-ui-split')}
             classList={{
                 'flex-col': props.vertical,
             }}
