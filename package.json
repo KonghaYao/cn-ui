@@ -13,6 +13,7 @@
     "dependencies": {
         "@cn-ui/reactive": "workspace:",
         "@formkit/auto-animate": "^0.8.1",
+        "lodash-es": "^4.17.21",
         "solid-js": "^1.8.1",
         "sortablejs": "^1.15.2",
         "split.js": "^1.6.5",
