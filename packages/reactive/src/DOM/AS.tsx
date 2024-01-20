@@ -1,4 +1,4 @@
-import { ResourceAtom } from '@cn-ui/reactive';
+import { ResourceAtom } from '../atom/resource';
 import { JSXElement, Match, Switch } from 'solid-js';
 export interface ASProps<T> {
     resource: ResourceAtom<T>;

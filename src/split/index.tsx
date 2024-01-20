@@ -31,8 +31,6 @@ import { children as getChildren } from 'solid-js';
  * @zh 分割面板，使用 split.js 作为基础进行封装
  */
 export const Split = OriginComponent<SplitProps>((props) => {
-    let ref: HTMLElement;
-
     let lastSplit = { destroy() {} } as unknown as OriginSplit.Instance;
     const childBind = getChildren(() => props.children);
     createEffect(() => {
@@ -45,12 +43,12 @@ export const Split = OriginComponent<SplitProps>((props) => {
             const message = {
                 ...others,
                 direction: props.vertical ? 'vertical' : 'horizontal',
-                elementStyle(dimension, size, gutterSize) {
+                elementStyle(_dimension, size, _gutterSize) {
                     return {
                         'flex-basis': 'calc(' + size + '%)',
                     };
                 },
-                gutterStyle(dimension, gutterSize) {
+                gutterStyle(_dimension, gutterSize) {
                     return {
                         'flex-basis': gutterSize + 'px',
                     };
@@ -67,9 +65,7 @@ export const Split = OriginComponent<SplitProps>((props) => {
     return (
         <section
             role="presentation"
-            ref={(container: HTMLElement) => {
-                ref = container;
-            }}
+            ref={props.ref}
             class={props.class('flex', 'cn-ui-split')}
             classList={{
                 'flex-col': props.vertical,

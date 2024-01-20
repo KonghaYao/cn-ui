@@ -1,12 +1,28 @@
 {
     "compilerOptions": {
-        "composite": true,
-        "skipLibCheck": true,
-        "module": "ESNext",
-        "moduleResolution": "bundler",
         "declaration": true,
+        "emitDeclarationOnly": true,
         "outDir": "dist",
-        "allowSyntheticDefaultImports": true
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "jsxImportSource": "solid-js",
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true
     },
-    "include": ["vite.config.ts"]
+    "include": ["vite.config.ts", "src"],
+    "exclude": ["/**/*.stories.tsx"]
 }
