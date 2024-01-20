@@ -5,7 +5,7 @@ import { Atom } from '../atom/atom';
 export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = string> =
     // 对内的类型注解
     Omit<T, 'style' | 'class'> & {
-        ref?: RefType | ((el: RefType) => void);
+        ref?: (el: RefType) => void;
         style: JSX.CSSProperties;
         class: typeof classNames;
         model?: Atom<ModelType>;
@@ -21,7 +21,7 @@ type ExtractChildren<T> = T extends { children: infer U } ? U : JSX.Element;
 export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = string> =
     // 对外的类型注解
     Omit<T, 'style' | 'class'> & {
-        ref?: RefType | ((el: RefType) => void);
+        ref?: (el: RefType) => void;
         style?: JSX.CSSProperties;
         className?: string | string[] | typeof classNames;
         class?: string | string[] | typeof classNames;
