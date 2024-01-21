@@ -1,0 +1,22 @@
+import { createMemo, Show } from 'solid-js'
+import { OriginComponent, OriginDiv } from '@cn-ui/reactive'
+import { TabPaneProps } from './interface'
+import { TabsContext } from './Tabs'
+
+/** Tabs 组件 */
+export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
+    const { register, isSelected } = TabsContext.use()!
+    register(props.name, true)
+    const show = createMemo(() => {
+        if (!props.destroyOnHide) return true
+        return props.destroyOnHide && isSelected(props.name)
+    })
+
+    return (
+        <Show when={show()}>
+            <OriginDiv prop={props} style={{ display: isSelected(props.name) ? 'block' : 'none' }}>
+                {props.children}
+            </OriginDiv>
+        </Show>
+    )
+})
