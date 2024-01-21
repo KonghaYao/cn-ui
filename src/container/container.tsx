@@ -23,23 +23,27 @@ export const Main = OriginComponent((props) => {
         </main>
     )
 })
-export const Header = OriginComponent((props) => {
+export const Header = OriginComponent<{
+    height?: string
+}>((props) => {
     return (
-        <header class={props.class('px-5')} style={props.style} {...extendsEvent(props)}>
+        <header class={props.class('px-5')} style={{ ...props.style, height: props.height }} {...extendsEvent(props)}>
             {props.children}
         </header>
     )
 })
-export const Aside = OriginComponent((props) => {
+export const Aside = OriginComponent<{ width?: string }>((props) => {
     return (
-        <aside class={props.class('flex-none')} style={props.style} {...extendsEvent(props)}>
+        <aside class={props.class('flex-none')} style={{ ...props.style, width: props.width }} {...extendsEvent(props)}>
             {props.children}
         </aside>
     )
 })
-export const Footer = OriginComponent((props) => {
+export const Footer = OriginComponent<{
+    height?: string
+}>((props) => {
     return (
-        <footer class={props.class('px-5')} style={props.style} {...extendsEvent(props)}>
+        <footer class={props.class('px-5')} style={{ ...props.style, height: props.height }} {...extendsEvent(props)}>
             {props.children}
         </footer>
     )
