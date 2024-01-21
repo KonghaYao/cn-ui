@@ -1,1 +1,2 @@
-export * from './EntriesTransform';
+export * from './EntriesTransform'
+export * from './useMapper'
