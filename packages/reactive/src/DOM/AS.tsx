@@ -29,7 +29,7 @@ export const AS = function <T>(props: ASProps<T>) {
 };
 
 /** 只需要输入默认的组件即可创建异步组件 */
-export function createAC(Default: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>) {
+function createAC(Default: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>) {
     return function <T>(props: ASProps<T>) {
         return (
             <AS resource={props.resource} loading={props.loading ?? (Default.loading as any)} error={props.error ?? (Default.error as any)}>
@@ -38,3 +38,20 @@ export function createAC(Default: Pick<ASProps<unknown>, 'children' | 'error' | 
         );
     };
 }
+
+export const DefaultAC: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'> = {
+    children: () => null,
+    error: () => null,
+    loading: () => null,
+};
+/** 默认异步组件 */
+export function AC<T>(props: ASProps<T>) {
+    return createAC(DefaultAC)(props);
+}
+/**
+ * @zh 设置全局统一的 AC 默认 error、loading 等
+ */
+export const DefineAC = (DefaultACConfig: Partial<Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>>) => {
+    return Object.assign(DefaultAC, DefaultACConfig);
+};
+export type ACType = ReturnType<typeof createAC>;
