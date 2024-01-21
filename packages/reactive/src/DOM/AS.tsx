@@ -1,10 +1,14 @@
-import { ResourceAtom } from '../atom/resource';
-import { JSXElement, Match, Switch } from 'solid-js';
+import { ResourceAtom } from '../atom/resource'
+import { JSXElement, Match, Switch, createMemo } from 'solid-js'
+import { ensureFunctionResult } from '../utils/ensureFunctionResult'
 export interface ASProps<T> {
-    resource: ResourceAtom<T>;
-    children?: JSXElement | ((data: T) => JSXElement);
-    loading?: (data: ResourceAtom<T>) => JSXElement;
-    error?: (data: ResourceAtom<T>) => JSXElement;
+    resource: ResourceAtom<T>
+    /** fallback */
+    children?: JSXElement | ((data: T) => JSXElement)
+    fallback?: (data: ResourceAtom<T>) => JSXElement
+
+    loading?: (data: ResourceAtom<T>) => JSXElement
+    error?: (data: ResourceAtom<T>) => JSXElement
 }
 
 /**
@@ -19,39 +23,47 @@ export interface ASProps<T> {
  * );
  */
 export const AS = function <T>(props: ASProps<T>) {
+    const fallback = createMemo(() => {
+        if (props.children) {
+            return ensureFunctionResult(props.children)
+        }
+        if (props.fallback) {
+            return props.fallback(props.resource)
+        }
+    })
     return (
         <Switch>
-            <Match when={props.resource.isReady()}>{typeof props.children === 'function' ? props.children(props.resource()) : props.children}</Match>
+            <Match when={props.resource.isReady()}>{fallback()}</Match>
             <Match when={props.resource.loading()}>{props.loading && props.loading(props.resource)}</Match>
             <Match when={props.resource.error()}>{props.error && props.error(props.resource)}</Match>
         </Switch>
-    );
-};
+    )
+}
 
 /** 只需要输入默认的组件即可创建异步组件 */
-function createAC(Default: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>) {
+function createAC(Default: Omit<ASProps<unknown>, 'resource'>) {
     return function <T>(props: ASProps<T>) {
         return (
             <AS resource={props.resource} loading={props.loading ?? (Default.loading as any)} error={props.error ?? (Default.error as any)}>
                 {props.children ?? Default.children}
             </AS>
-        );
-    };
+        )
+    }
 }
 
-export const DefaultAC: Pick<ASProps<unknown>, 'children' | 'error' | 'loading'> = {
+export const DefaultAC: Omit<ASProps<unknown>, 'resource'> = {
     children: () => null,
     error: () => null,
-    loading: () => null,
-};
+    loading: () => null
+}
 /** 默认异步组件 */
 export function AC<T>(props: ASProps<T>) {
-    return createAC(DefaultAC)(props);
+    return createAC(DefaultAC)(props)
 }
 /**
  * @zh 设置全局统一的 AC 默认 error、loading 等
  */
-export const DefineAC = (DefaultACConfig: Partial<Pick<ASProps<unknown>, 'children' | 'error' | 'loading'>>) => {
-    return Object.assign(DefaultAC, DefaultACConfig);
-};
-export type ACType = ReturnType<typeof createAC>;
+export const DefineAC = (DefaultACConfig: Partial<Omit<ASProps<unknown>, 'resource'>>) => {
+    return Object.assign(DefaultAC, DefaultACConfig)
+}
+export type ACType = ReturnType<typeof createAC>

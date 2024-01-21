@@ -6,7 +6,7 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
     // 对内的类型注解
     Omit<T, 'style' | 'class'> & {
         ref?: (el: RefType) => void
-        style: JSX.CSSProperties
+        style: () => JSX.CSSProperties
         class: typeof classNames
         model?: Atom<ModelType>
         /** 方便直接写入 v-model 的语法糖 */
@@ -63,7 +63,7 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
             }
         })
         let _props_ = mergeProps(props, {
-            style: style(),
+            style: style,
             class: classString,
             model: props['v-model'],
             $input

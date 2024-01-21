@@ -1,3 +1,4 @@
+import { createMemo, JSX } from 'solid-js'
 import { OriginComponent, OriginComponentInputType } from './OriginComponent'
 import { extendsEvent } from './extendsEvent'
 /** 自动继承组件属性  */
@@ -10,6 +11,9 @@ export const OriginDiv = OriginComponent(
             HTMLDivElement
         >
     ) => {
+        const style = createMemo<JSX.CSSProperties>(() => {
+            return { ...props.style(), ...props.prop.style() }
+        })
         return (
             <div
                 ref={(el) => {
@@ -17,7 +21,7 @@ export const OriginDiv = OriginComponent(
                     props.ref && props.ref(el)
                 }}
                 class={props.prop.class('cn-origin-div', props.class())}
-                style={{ ...props.style, ...props.prop.style }}
+                style={style()}
                 {...extendsEvent(props)}
                 {...extendsEvent(props.prop)}
             >
