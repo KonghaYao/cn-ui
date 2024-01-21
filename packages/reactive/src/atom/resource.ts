@@ -36,7 +36,7 @@ export interface RefetchOption {
  * @zh 安全获取异步数据并返回状态
  * @description 使用 resource 创建一个异步绑定的 Atom，默认直接调用
  */
-export const resource = <T, Params>(
+export const resource = <T, Params = Object>(
     // TODO 添加第二个参数用于取消
     fetcher: (val?: Params) => Promise<T>,
     {

@@ -1,32 +1,31 @@
 import { sleep } from '../utils';
 import { type Atom, atom, resource, ResourceOptions, reflectMemo } from '../atom/index';
 import { debounce } from 'lodash-es';
-import { batch } from 'solid-js';
 export type PaginationOptions<T> = ResourceOptions<T> & {
     initIndex?: number;
     debounceTime?: number;
 };
 
 /**
- * @zh 逐页查询组件, 页码跳转内部采用了时间过滤
+ * @zh 逐页查询组件, 内部采用了时间过滤
  *  */
 export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>, init: PaginationOptions<T> = {}) => {
     init.debounceTime = init.debounceTime ?? 100;
 
     const currentIndex = atom<number>(init.initIndex ?? 0);
     const maxPage = atom<number>(10);
-    const currentData = resource(() => getData(currentIndex(), maxPage), init);
+    const currentData = resource<T>(() => getData(currentIndex(), maxPage), init);
 
-    const refetch = debounce(() => currentData.refetch(), init.debounceTime!);
-
+    const refetchImmediate = () => currentData.refetch();
+    const refetch = debounce(refetchImmediate, init.debounceTime!);
     // 更新数据
-    const goto = (index: number) => {
+    const goto = (index: number, immediate = false) => {
         if (index < 0 || index >= maxPage()) {
             return false;
         } else {
             currentIndex(index);
             //! 页码改变如果迅速的话，那应该不进行请求，而是直接忽略
-            return refetch();
+            return immediate ? refetchImmediate() : refetch();
         }
     };
     return {
@@ -50,10 +49,13 @@ export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<num
         },
         /** 重新异步获取 */
         refetch,
+        refetchImmediate,
         goto,
         currentData,
     };
 };
+
+import { batch } from 'solid-js';
 
 /**
  * 滑动加载逐页查询组件，也可称无限加载逻辑组件
