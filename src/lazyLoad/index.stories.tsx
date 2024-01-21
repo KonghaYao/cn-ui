@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { LazyLoad } from './index'
-import { DefineAC, sleep } from '@cn-ui/reactive'
+import { sleep } from '@cn-ui/reactive'
+import { defineExampleAC } from './example/defineExampleAC'
 
 const meta = {
     title: 'Utils/LazyLoad',
@@ -13,10 +14,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-DefineAC({
-    loading: () => <div class="h-32 w-32 flex justify-center items-center bg-yellow-600">加载中</div>,
-    error: () => <div class="h-32 w-32 flex justify-center items-center bg-rose-600">加载失败</div>
-})
+defineExampleAC()
 
 /**  */
 export const Primary: Story = {
@@ -25,13 +23,11 @@ export const Primary: Story = {
         return (
             <LazyLoad
                 load={async () => {
-                    await sleep(1000)
+                    await sleep(500)
                     return import('./example/sample')
                 }}
                 loadKey="Sample"
-            >
-                <div class="h-32 w-32 flex justify-center items-center bg-purple-600">未加载</div>
-            </LazyLoad>
+            ></LazyLoad>
         )
     },
     args: {}

@@ -1,6 +1,7 @@
-import { Atom, atom, DefaultAC, extendsEvent, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive'
+import { Atom, atom, DefaultAC, OriginDiv, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive'
 import { debounce } from 'lodash-es'
 import { children as getChildren, Component, createEffect, JSXElement, lazy, onMount, Suspense, Show, mergeProps } from 'solid-js'
+import { ensureFunctionResult } from '../../packages/reactive/src/utils/ensureFunctionResult'
 
 interface LazyLoadProps<T extends Record<string, Component | any>> extends IntersectionObserverInit {
     /** 未进入 loading 态时的操作 */
@@ -23,7 +24,7 @@ export const LazyLoad = OriginComponent(function <T extends Record<string, Compo
         } as OriginComponentInputType<LazyLoadProps<T>>,
         props
     )
-    const fallback = getChildren(() => props.children)
+    const fallback = props.children ? getChildren(() => props.children) : ensureFunctionResult(DefaultAC.fallback) ?? ensureFunctionResult(DefaultAC.children)
     const visible = atom(false)
     let observer: IntersectionObserver
     const ref = atom<HTMLDivElement | null>(null)
@@ -53,10 +54,10 @@ export const LazyLoad = OriginComponent(function <T extends Record<string, Compo
         </Suspense>
     )
     return (
-        <div class={props.class()} style={props.style} {...extendsEvent(props)} ref={ref}>
+        <OriginDiv prop={props} ref={ref}>
             <Show when={visible()} fallback={fallback as any}>
                 {item}
             </Show>
-        </div>
+        </OriginDiv>
     )
 })
