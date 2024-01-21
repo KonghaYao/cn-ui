@@ -1,6 +1,6 @@
-import { Atom, atom, extendsEvent, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive';
+import { Atom, atom, DefaultAC, extendsEvent, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive';
 import { debounce } from 'lodash-es';
-import { children as getChildren, Component, createEffect, JSXElement, lazy, onMount, Suspense, Show } from 'solid-js';
+import { children as getChildren, Component, createEffect, JSXElement, lazy, onMount, Suspense, Show, mergeProps } from 'solid-js';
 
 interface LazyLoadProps<T extends Record<string, Component | any>> extends IntersectionObserverInit {
     /** 未进入 loading 态时的操作 */
@@ -15,6 +15,13 @@ interface LazyLoadProps<T extends Record<string, Component | any>> extends Inter
 }
 
 export const LazyLoad = OriginComponent(function <T extends Record<string, Component | any>>(props: OriginComponentInputType<LazyLoadProps<T>>) {
+    props = mergeProps(
+        {
+            loading: DefaultAC.loading,
+            error: DefaultAC.error,
+        } as OriginComponentInputType<LazyLoadProps<T>>,
+        props
+    );
     const fallback = getChildren(() => props.children);
     const visible = atom(false);
     let observer: IntersectionObserver;
