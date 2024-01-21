@@ -8,6 +8,6 @@ import { computed } from '../atom/reflect'
  *     col: 'flex-col'
  * })
  */
-export function useMapper<T extends keyof D, D>(type: T, Mapper: D) {
-    return computed(() => Mapper[type])
+export function useMapper<T extends keyof D, D>(type: T | (() => T), Mapper: D) {
+    return computed(() => (typeof type === 'function' ? Mapper[type()] : Mapper[type]))
 }
