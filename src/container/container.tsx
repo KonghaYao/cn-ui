@@ -10,7 +10,7 @@ export const Container = OriginComponent<ContainerProps>((props) => {
         col: 'flex-col'
     })
     return (
-        <section class={props.class(' w-full flex ', direction())} style={props.style} {...extendsEvent(props)}>
+        <section class={props.class(' w-full flex ', direction())} style={props.style()} {...extendsEvent(props)}>
             {props.children}
         </section>
     )
@@ -18,7 +18,7 @@ export const Container = OriginComponent<ContainerProps>((props) => {
 
 export const Main = OriginComponent((props) => {
     return (
-        <main class={props.class('block flex-1 p-5')} style={props.style} {...extendsEvent(props)}>
+        <main class={props.class('block flex-1 p-5')} style={props.style()} {...extendsEvent(props)}>
             {props.children}
         </main>
     )
@@ -27,14 +27,14 @@ export const Header = OriginComponent<{
     height?: string
 }>((props) => {
     return (
-        <header class={props.class('px-5')} style={{ ...props.style, height: props.height }} {...extendsEvent(props)}>
+        <header class={props.class('px-5')} style={{ ...props.style(), height: props.height }} {...extendsEvent(props)}>
             {props.children}
         </header>
     )
 })
 export const Aside = OriginComponent<{ width?: string }>((props) => {
     return (
-        <aside class={props.class('flex-none')} style={{ ...props.style, width: props.width }} {...extendsEvent(props)}>
+        <aside class={props.class('flex-none')} style={{ ...props.style(), width: props.width }} {...extendsEvent(props)}>
             {props.children}
         </aside>
     )
@@ -43,7 +43,7 @@ export const Footer = OriginComponent<{
     height?: string
 }>((props) => {
     return (
-        <footer class={props.class('px-5')} style={{ ...props.style, height: props.height }} {...extendsEvent(props)}>
+        <footer class={props.class('px-5')} style={{ ...props.style(), height: props.height }} {...extendsEvent(props)}>
             {props.children}
         </footer>
     )
