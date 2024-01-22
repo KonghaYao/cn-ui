@@ -23,8 +23,8 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "paths": {
-            "@cn-ui/reactive": ["./package/reactives/src/index"]
+            "@cn-ui/reactive": ["./packages/reactive/src/index"]
         }
     },
-    "include": ["src/**/*", "packages/reactive/src/transformer/useMapper.ts"]
+    "include": ["src/**/*"]
 }

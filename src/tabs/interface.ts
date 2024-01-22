@@ -27,7 +27,7 @@ export interface TabPaneProps extends JSX.HTMLAttributes<HTMLDivElement> {
     name: string
     children?: JSXElement
     /**
-     * @zh 选项卡的标题显示, 空则为 id
+     * @zh 选项卡的标题显示, 空则为 name
      * @en The label of Tab
      */
     label?: string | JSXElement
