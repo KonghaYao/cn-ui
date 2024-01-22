@@ -5,11 +5,14 @@ import { TabsContext } from './Tabs'
 
 /** Tabs 组件 */
 export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
-    const { register, isSelected } = TabsContext.use()!
+    const { register, isSelected, destroyOnHide } = TabsContext.use()!
     register(props.name, true)
     const show = createMemo(() => {
-        if (!props.destroyOnHide) return true
-        return props.destroyOnHide && isSelected(props.name)
+        if (!(props.destroyOnHide || destroyOnHide)) {
+            return true
+        } else {
+            return isSelected(props.name)
+        }
     })
 
     return (

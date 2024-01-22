@@ -3,7 +3,9 @@ import { OriginComponent, OriginDiv, createCtx, useSelect } from '@cn-ui/reactiv
 import { atom, atomization, reflect } from '@cn-ui/reactive'
 import { TabsHeader } from './TabsHeader'
 import { createAutoAnimate } from '@formkit/auto-animate/solid'
-export type TabsContextType = ReturnType<typeof useSelect> & {}
+export type TabsContextType = ReturnType<typeof useSelect> & {
+    destroyOnHide: boolean
+}
 export const TabsContext = createCtx<TabsContextType>()
 
 export const Tabs = OriginComponent<TabsProps>((props) => {
@@ -15,7 +17,8 @@ export const Tabs = OriginComponent<TabsProps>((props) => {
                 ...useSelect({
                     activeIds: reflect(() => [activeId()]),
                     multi: atom(false)
-                })
+                }),
+                destroyOnHide: props.destroyOnHide ?? false
             }}
         >
             <OriginDiv prop={props} class="flex flex-col cn-tabs">

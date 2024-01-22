@@ -32,7 +32,15 @@ export const Primary: Story = {
                     )
                 })}
                 <Tab name="lazyload">
-                    <LazyLoad load={() => import('../lazyLoad/example/sample')} loadKey="Sample"></LazyLoad>
+                    {/* 如果这个 tab 页非常大的话，非常推荐单独写一份 tab 文件 */}
+                    <LazyLoad
+                        loadOnce
+                        load={() => {
+                            console.log('loading')
+                            return import('../lazyLoad/example/sample')
+                        }}
+                        loadKey="Sample"
+                    ></LazyLoad>
                 </Tab>
             </Tabs>
         )

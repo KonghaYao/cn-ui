@@ -12,7 +12,7 @@ interface LazyLoadProps<T extends Record<string, Component | any>> extends Inter
     loading?: Component
     error?: Component
     /** 是否只在第一次进行加载 */
-    once?: boolean
+    loadOnce?: boolean
     debounceTime?: number
 }
 
@@ -31,13 +31,14 @@ export const LazyLoad = OriginComponent(function <T extends Record<string, Compo
     onMount(() => {
         if (observer) observer.disconnect()
         // 处理用户手速太快划过去的问题
-        const visibleDebounce = debounce(visible, props.debounceTime ?? 150, { leading: false }) as any as Atom<boolean>
+        const visibleDebounce = debounce(visible, props.debounceTime ?? 150, { leading: false })
         observer = new IntersectionObserver(([entries]) => {
             visibleDebounce(entries.isIntersecting)
         }, props)
         observer.observe(ref()!)
     })
-    props.once &&
+    // 第一次见到的时候，删除监听，则不会再次触发
+    props.loadOnce &&
         createEffect(() => {
             visible() && observer && observer.disconnect()
         })

@@ -6,7 +6,11 @@ export interface TabsProps extends JSX.HTMLAttributes<HTMLDivElement> {
     children?: JSXElement
     /** 替换原来的 Header */
     header?: Component
-
+    /**
+     * @zh
+     * 选项卡隐藏的时候是否销毁标签页内的DOM结构，子代默认行为
+     */
+    destroyOnHide?: boolean
     /**
      * @zh `activeTab` 改变的回调
      * @en Callback when `activeTab` changed
