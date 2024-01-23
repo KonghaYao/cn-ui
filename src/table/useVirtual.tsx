@@ -1,22 +1,25 @@
-import { Atom } from '@cn-ui/reactive'
+import { Atom, DebounceAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
-import { createVirtualizer } from '@tanstack/solid-virtual'
+import { VirtualItem, createVirtualizer } from '@tanstack/solid-virtual'
 import { createMemo } from 'solid-js'
 import { MagicTableProps } from './Table'
 
 export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, props: MagicTableProps<T>) {
+    const averageWidth = createMemo(() => {
+        const columnsWidths =
+            table
+                .getRowModel()
+                .rows[0]?.getCenterVisibleCells()
+                ?.slice(0, 16)
+                ?.map((cell) => cell.column.getSize()) ?? []
+        return columnsWidths.reduce((a, b) => a + b, 0) / columnsWidths.length
+    })
     const columnVirtualizer = createVirtualizer({
         get count() {
-            return table.getVisibleLeafColumns().length
+            return props.columns.length
         },
         estimateSize: () => {
-            const columnsWidths =
-                table
-                    .getRowModel()
-                    .rows[0]?.getCenterVisibleCells()
-                    ?.slice(0, 16)
-                    ?.map((cell) => cell.column.getSize()) ?? []
-            return columnsWidths.reduce((a, b) => a + b, 0) / columnsWidths.length
+            return averageWidth()
         }, //average column width in pixels
         getScrollElement: () => tableContainerRef(),
         horizontal: true,
@@ -31,8 +34,9 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
         estimateSize: () => 33, //estimate row height for accurate scrollbar dragging
         getScrollElement: () => tableContainerRef(),
         //measure dynamic row height, except in firefox because it measures table border height incorrectly
-        measureElement: typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
-        overscan: 5
+        measureElement:
+            typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
+        overscan: 3
     })
 
     const virtualRows = rowVirtualizer.getVirtualItems()
@@ -48,5 +52,13 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
         }
         return { left: virtualPaddingLeft ?? 0, right: virtualPaddingRight ?? 0 }
     })
-    return { virtualPadding, virtualColumns, rowVirtualizer, virtualRows }
+    const virtualColumnsIndex = createMemo(() => {
+        return columnVirtualizer.getVirtualItems().map((column) => column.index)
+    })
+    return {
+        virtualPadding,
+        rowVirtualizer,
+        virtualRows: DebounceAtom((() => virtualRows) as Atom<VirtualItem[]>, 10),
+        virtualColumnsIndex
+    }
 }
