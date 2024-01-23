@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Table } from './index'
+import { MagicTable } from './index'
 
 const meta = {
     title: 'Layout/Table 表格组件',
-    component: Table,
+    component: MagicTable,
     tags: ['autodocs'],
     argTypes: {}
-} satisfies Meta<typeof Table>
+} satisfies Meta<typeof MagicTable>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const makeColumns = (num: number) =>
+const makeColumns = (num: number) =>
     [...Array(num)].map((_, i) => {
         return {
             accessorKey: i.toString(),
@@ -20,14 +20,14 @@ export const makeColumns = (num: number) =>
         }
     })
 
-export const makeData = (num: number, columns: { accessorKey: string }[]) =>
+const makeData = (num: number, columns: { accessorKey: string }[]) =>
     [...Array(num).keys()].map((y) => ({
         ...Object.fromEntries(columns.map((col, x) => [col.accessorKey, [x, y].join('-')]))
     }))
 export const Primary: Story = {
     render() {
         const cols = makeColumns(100)
-        return <Table columns={cols} data={makeData(100, cols)}></Table>
+        return <MagicTable columns={cols} data={makeData(100, cols)}></MagicTable>
     },
     args: {}
 }

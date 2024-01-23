@@ -52,12 +52,12 @@ export const createCtx = <T>(data?: T) => {
     const ctx = createContext(data)
     return {
         ...ctx,
-        use() {
+        use<D = T>() {
             const context = useContext(ctx)
             if (context === undefined) {
                 throw new Error('context is empty: place check parent jsx element!')
             }
-            return context as T
+            return context as D
         }
     }
 }
