@@ -12,6 +12,7 @@
         "build-storybook": "storybook build"
     },
     "dependencies": {
+        "solidjs-use": "^2.3.0",
         "@cn-ui/reactive": "workspace:",
         "@formkit/auto-animate": "^0.8.1",
         "lodash-es": "^4.17.21",
