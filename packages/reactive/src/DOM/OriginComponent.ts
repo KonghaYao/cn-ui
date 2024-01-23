@@ -63,7 +63,7 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
             }
         })
         let _props_ = mergeProps(props, {
-            style: style,
+            style,
             class: classString,
             model: props['v-model'],
             $input
