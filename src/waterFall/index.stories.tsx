@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from 'storybook-solidjs';
+import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { WaterFall } from './index';
-import { photos } from './example/photos';
+import { WaterFall } from './index'
+import { photos } from './example/photos'
 
 const meta = {
     title: 'Layout/WaterFall',
     component: WaterFall,
     tags: ['autodocs'],
-    argTypes: {},
-} satisfies Meta<typeof WaterFall>;
+    argTypes: {}
+} satisfies Meta<typeof WaterFall>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
     render() {
@@ -23,14 +23,14 @@ export const Primary: Story = {
                             class="object-cover"
                             // 自动铺满需要这样设置
                             style={{
-                                'aspect-ratio': `${item.height}/${item.width}`,
+                                'aspect-ratio': `${item.height}/${item.width}`
                             }}
                             src={item.src}
                         ></img>
-                    );
+                    )
                 }}
             </WaterFall>
-        );
+        )
     },
-    args: {},
-};
+    args: {}
+}

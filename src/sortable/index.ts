@@ -1,2 +1,2 @@
-export * from './Sortable';
-export * from './useSortable';
+export * from './Sortable'
+export * from './useSortable'

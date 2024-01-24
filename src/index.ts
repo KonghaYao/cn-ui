@@ -1,1 +1,1 @@
-export * from './viewer/index';
+export * from './viewer/index'

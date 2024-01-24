@@ -1,34 +1,34 @@
-import { debounce, throttle } from 'lodash-es';
-import { Atom, atom } from './atom';
-import { useEffectWithoutFirst } from './useEffect';
+import { debounce, throttle } from 'lodash-es'
+import { Atom, atom } from './atom'
+import { useEffectWithoutFirst } from './useEffect'
 
 export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
-    let lastVal = a();
-    const newA = atom(lastVal);
+    let lastVal = a()
+    const newA = atom(lastVal)
     useEffectWithoutFirst(
         debounce(() => {
-            const data = a();
+            const data = a()
 
-            data !== undefined && newA(() => data as T);
+            data !== undefined && newA(() => data as T)
         }, debounceTime),
         [a]
-    );
-    return newA;
+    )
+    return newA
 }
 export function ThrottleAtom<T>(a: Atom<T>, debounceTime: number = 150, options?: Parameters<typeof throttle>[2]) {
-    let lastVal = a();
-    const newA = atom(lastVal);
+    let lastVal = a()
+    const newA = atom(lastVal)
     useEffectWithoutFirst(
         throttle(
             () => {
-                const data = a();
-                data !== undefined && newA(() => data as T);
+                const data = a()
+                data !== undefined && newA(() => data as T)
             },
             debounceTime,
             options
         ),
         [a]
-    );
-    return newA;
+    )
+    return newA
 }
-export { throttle, debounce };
+export { throttle, debounce }

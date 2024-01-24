@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from 'storybook-solidjs';
+import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Code } from './index';
+import { Code } from './index'
 
 const meta = {
     title: 'Article/Code',
     component: Code,
     tags: ['autodocs'],
-    argTypes: {},
-} satisfies Meta<typeof Code>;
+    argTypes: {}
+} satisfies Meta<typeof Code>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
-import SampleCode from './Code?raw';
+import SampleCode from './Code?raw'
 export const Primary: Story = {
     render() {
-        return <Code code={SampleCode} lang="tsx"></Code>;
+        return <Code code={SampleCode} lang="tsx"></Code>
     },
-    args: {},
-};
+    args: {}
+}

@@ -1,45 +1,45 @@
-import type { Meta, StoryObj } from 'storybook-solidjs';
+import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { SortableList } from './index';
+import { SortableList } from './index'
 
 const meta = {
     title: 'Layout/Sortable',
     component: SortableList,
     tags: ['autodocs'],
-    argTypes: {},
-} satisfies Meta<typeof SortableList>;
+    argTypes: {}
+} satisfies Meta<typeof SortableList>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
     render() {
         const data = [
             {
                 id: '223232',
-                label: 'info',
+                label: 'info'
             },
             {
                 id: '111',
-                label: 'info1',
+                label: 'info1'
             },
             {
                 id: '222',
-                label: 'info2',
-            },
-        ];
+                label: 'info2'
+            }
+        ]
         return (
             <SortableList
                 each={data}
                 getId={(item) => {
-                    return item['label'];
+                    return item['label']
                 }}
             >
                 {(item) => {
-                    return <button>{item.label}</button>;
+                    return <button>{item.label}</button>
                 }}
             </SortableList>
-        );
+        )
     },
-    args: {},
-};
+    args: {}
+}

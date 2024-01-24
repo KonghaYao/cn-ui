@@ -1,2 +1,2 @@
-export * from './Code';
-export * from './useCodeStyle';
+export * from './Code'
+export * from './useCodeStyle'

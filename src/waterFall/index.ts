@@ -1,1 +1,1 @@
-export * from './WaterFall';
+export * from './WaterFall'

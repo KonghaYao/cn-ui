@@ -1,14 +1,14 @@
-import { ArrayAtom, reflect } from '../atom/';
-import type { Atom } from '../atom/atom';
+import { ArrayAtom, reflect } from '../atom/'
+import type { Atom } from '../atom/atom'
 
 export interface EntriesLike<
     T extends {
-        set(key: string, val: string): void;
+        set(key: string, val: string): void
     }
 > {
-    new (): T;
-    prototype: T;
-    toString(): string;
+    new (): T
+    prototype: T
+    toString(): string
 }
 
 /**
@@ -19,40 +19,40 @@ export interface EntriesLike<
 export const EntriesTransform = <T extends Record<string, unknown>>(a: Atom<T>) => {
     const _addToEntriesLike = <
         D extends {
-            set(key: string, val: string): void;
+            set(key: string, val: string): void
         }
     >(
         atom: Atom<T>,
         proto: EntriesLike<D>,
         input?: D
     ) => {
-        const en = input ?? new proto();
+        const en = input ?? new proto()
         Object.entries(atom()).forEach(([key, val]) => {
-            en!.set(key, (val as any).toString());
-        });
-        return en;
-    };
+            en!.set(key, (val as any).toString())
+        })
+        return en
+    }
     return {
         toKeysAtom() {
-            return reflect(() => ArrayAtom(Object.keys(a)));
+            return reflect(() => ArrayAtom(Object.keys(a)))
         },
         toEntries() {
-            return Object.entries(a());
+            return Object.entries(a())
         },
         toFromData(fd?: FormData) {
-            return _addToEntriesLike<FormData>(a, FormData, fd);
+            return _addToEntriesLike<FormData>(a, FormData, fd)
         },
         toSearchParams(sp?: URLSearchParams) {
-            return _addToEntriesLike<URLSearchParams>(a, URLSearchParams, sp);
+            return _addToEntriesLike<URLSearchParams>(a, URLSearchParams, sp)
         },
         toHeaders(headers?: Headers) {
-            return _addToEntriesLike<Headers>(a, Headers, headers);
+            return _addToEntriesLike<Headers>(a, Headers, headers)
         },
         toMap<D extends Map<any, any>>(map?: D) {
-            return _addToEntriesLike<Map<any, any>>(a, Map, map);
+            return _addToEntriesLike<Map<any, any>>(a, Map, map)
         },
         toJSON() {
-            return JSON.stringify(a());
-        },
-    };
-};
+            return JSON.stringify(a())
+        }
+    }
+}

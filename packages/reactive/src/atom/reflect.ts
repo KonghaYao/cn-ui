@@ -1,9 +1,9 @@
-import { createEffect, createMemo, untrack } from 'solid-js';
-import { AtomTypeSymbol, atom } from './atom';
+import { createEffect, createMemo, untrack } from 'solid-js'
+import { AtomTypeSymbol, atom } from './atom'
 
 export interface ReflectOptions<T> {
-    immediately?: boolean;
-    initValue?: T;
+    immediately?: boolean
+    initValue?: T
 }
 /**
  * @category atom
@@ -36,18 +36,18 @@ export const reflect = <T>(
         immediately = true,
         /** 如果不进行求值，那么将会之用初始值进行替代 */
         /** @ts-ignore */
-        initValue = null,
+        initValue = null
     }: ReflectOptions<T> = {}
 ) => {
-    const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue);
+    const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue)
     // createEffect 会经过 solid 的生命周期，在这之前，是没有值的
     createEffect((lastValue: T) => {
-        return a(() => memoFunc(lastValue));
-    }, initValue);
-    a[AtomTypeSymbol] = 'reflect';
-    return a;
-};
-export const computed = reflect;
+        return a(() => memoFunc(lastValue))
+    }, initValue)
+    a[AtomTypeSymbol] = 'reflect'
+    return a
+}
+export const computed = reflect
 /**
  * @zh Memo 形式的映射，注意，其为只读特性
  */
@@ -59,17 +59,17 @@ export const reflectMemo = <T>(
         immediately = true,
         /** 如果不进行求值，那么将会之用初始值进行替代 */
         /** @ts-ignore */
-        initValue = null,
+        initValue = null
     }: ReflectOptions<T> = {}
 ) => {
     // Memo 与 Effect 不一样，Memo 是立即求值，而 reflect 则在生命周期之后求值
     return createMemo<T>((lastValue) => {
-        const val = memoFunc(lastValue);
+        const val = memoFunc(lastValue)
         if (immediately) {
-            return val;
+            return val
         } else {
-            immediately = true;
-            return initValue;
+            immediately = true
+            return initValue
         }
-    }, initValue);
-};
+    }, initValue)
+}

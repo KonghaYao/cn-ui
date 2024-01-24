@@ -21,7 +21,10 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                               false: ''
                           })
                           return (
-                              <button class={classNames(' h-10 border-none hover:text-blue-400 transition-all', color())} onClick={() => changeSelected(name, true)}>
+                              <button
+                                  class={classNames(' h-10 border-none hover:text-blue-400 transition-all', color())}
+                                  onClick={() => changeSelected(name, true)}
+                              >
                                   {name}
                               </button>
                           )

@@ -1,4 +1,4 @@
-import { Atom, atomization, reflect } from '@cn-ui/reactive';
+import { Atom, atomization, reflect } from '@cn-ui/reactive'
 
 export const CodeStyleNames = [
     'a11y-dark',
@@ -72,23 +72,23 @@ export const CodeStyleNames = [
     'vs',
     'vs2015',
     'xcode',
-    'xt256',
-] as const;
-type List2Union<List extends readonly unknown[]> = List[number];
-export type AllowedCodeStyleNames = List2Union<typeof CodeStyleNames>;
+    'xt256'
+] as const
+type List2Union<List extends readonly unknown[]> = List[number]
+export type AllowedCodeStyleNames = List2Union<typeof CodeStyleNames>
 
 /**
  * @zh easily to use prism-themes！
  */
 export const useCodeStyle = (codeStyleName: AllowedCodeStyleNames | Atom<AllowedCodeStyleNames> = CodeStyleNames[0]) => {
-    const themeValue = atomization(codeStyleName);
+    const themeValue = atomization(codeStyleName)
     const url = reflect(() => {
-        const name = themeValue();
-        console.log(name);
-        return name.startsWith('http') ? name : 'https://cdn.jsdelivr.net/npm/highlight.js/styles/' + themeValue() + '.css';
-    });
+        const name = themeValue()
+        console.log(name)
+        return name.startsWith('http') ? name : 'https://cdn.jsdelivr.net/npm/highlight.js/styles/' + themeValue() + '.css'
+    })
 
     return {
-        link: <link rel="stylesheet" href={url()} />,
-    };
-};
+        link: <link rel="stylesheet" href={url()} />
+    }
+}

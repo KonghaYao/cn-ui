@@ -1,7 +1,7 @@
-import type { Accessor } from 'solid-js';
-import { Atom, AtomTypeSymbol, atom } from '../atom/atom';
+import type { Accessor } from 'solid-js'
+import { Atom, AtomTypeSymbol, atom } from '../atom/atom'
 
-import { reflect } from '../atom/reflect';
+import { reflect } from '../atom/reflect'
 
 /**
  * @category atom
@@ -15,25 +15,21 @@ import { reflect } from '../atom/reflect';
  *    return <div></div>
  * }
  */
-function atomization<T>(prop: T | Atom<T> | Accessor<T>): Atom<T>;
-function atomization<T extends (...args: any) => any>(prop: T): Atom<ReturnType<T>>;
+function atomization<T>(prop: T | Atom<T> | Accessor<T>): Atom<T>
+function atomization<T extends (...args: any) => any>(prop: T): Atom<ReturnType<T>>
 function atomization<T>(prop: T | Atom<T> | Accessor<T>) {
     // 保持 Accessor 的样式
 
-    return typeof prop === 'function'
-        ? isAtom(prop)
-            ? (prop as Atom<T>)
-            : reflect((prop as Accessor<T> | Function)())
-        : atom(prop);
+    return typeof prop === 'function' ? (isAtom(prop) ? (prop as Atom<T>) : reflect((prop as Accessor<T> | Function)())) : atom(prop)
 }
-export { atomization };
+export { atomization }
 
 /** 判断是否为 Atom */
 // function isAtom(a: Atom<any>): true;
 function isAtom(a: any): boolean {
-    return typeof (a as any)[AtomTypeSymbol] === 'string';
+    return typeof (a as any)[AtomTypeSymbol] === 'string'
 }
-export { isAtom };
+export { isAtom }
 /**
  * @category atom
  * @zh 将响应式数组转化为单个响应式对象组成的数组
@@ -45,6 +41,6 @@ export { isAtom };
  */
 export const AtomToArray = <T>(atom: Atom<T[]>) => {
     return atom().map((_, index) => {
-        return reflect(() => atom()[index]);
-    });
-};
+        return reflect(() => atom()[index])
+    })
+}

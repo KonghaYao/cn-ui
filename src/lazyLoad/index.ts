@@ -1,1 +1,1 @@
-export * from './LazyLoad';
+export * from './LazyLoad'

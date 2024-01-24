@@ -1,61 +1,61 @@
-import { renderHook } from '@solidjs/testing-library';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { DebounceAtom, ThrottleAtom } from '../FilterAtom';
-import { atom } from '../atom';
-import { genArray } from '../../utils';
+import { renderHook } from '@solidjs/testing-library'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { DebounceAtom, ThrottleAtom } from '../FilterAtom'
+import { atom } from '../atom'
+import { genArray } from '../../utils'
 
 describe('FilterTest', () => {
     beforeEach(() => {
-        vi.useFakeTimers();
-    });
+        vi.useFakeTimers()
+    })
     afterEach(() => {
-        vi.restoreAllMocks();
-    });
+        vi.restoreAllMocks()
+    })
     test('debounce', () => {
         const {
-            result: { a, source },
+            result: { a, source }
         } = renderHook(() => {
-            const source = atom('');
+            const source = atom('')
             return {
                 a: DebounceAtom(source),
-                source,
-            };
-        });
+                source
+            }
+        })
 
-        expect(source()).eql(a());
+        expect(source()).eql(a())
         genArray(10).forEach(() => {
-            vi.advanceTimersByTime(1);
-            source(Math.random().toString());
-        });
-        expect(a()).eql('');
-        vi.advanceTimersByTime(151);
+            vi.advanceTimersByTime(1)
+            source(Math.random().toString())
+        })
+        expect(a()).eql('')
+        vi.advanceTimersByTime(151)
 
-        expect(a()).eql(source());
-    });
+        expect(a()).eql(source())
+    })
     test('throttle', () => {
         const {
-            result: { a, source },
+            result: { a, source }
         } = renderHook(() => {
-            const source = atom('');
+            const source = atom('')
             return {
                 a: ThrottleAtom(source),
-                source,
-            };
-        });
+                source
+            }
+        })
 
-        expect(source()).eql(a());
+        expect(source()).eql(a())
 
         const tags = genArray(10).map(() => {
-            vi.advanceTimersByTime(1);
-            const tag = Math.random().toString();
+            vi.advanceTimersByTime(1)
+            const tag = Math.random().toString()
 
-            source(tag);
-            return tag;
-        });
-        expect(a()).eql(tags[0]);
-        vi.advanceTimersByTime(100);
-        expect(a()).eql(tags[0]);
-        vi.advanceTimersByTime(1000);
-        expect(a()).eql(tags.at(-1));
-    });
-});
+            source(tag)
+            return tag
+        })
+        expect(a()).eql(tags[0])
+        vi.advanceTimersByTime(100)
+        expect(a()).eql(tags[0])
+        vi.advanceTimersByTime(1000)
+        expect(a()).eql(tags.at(-1))
+    })
+})
