@@ -1,13 +1,14 @@
 import { flexRender, Row } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
-import { For, Index } from 'solid-js'
-import { DebounceAtom } from '@cn-ui/reactive'
+import { For, Index, JSXElement } from 'solid-js'
 
 export function MagicTableBody<T>(props: { table: Table<T> }) {
     const table = props.table
 
     const { rowVirtualizer, virtualRows, virtualPadding, virtualColumnsIndex } = MagicTableCtx.use<MagicTableCtxType<T>>()
+
+    const getRow = (index: number): Row<T> => table.getRowModel().rows[index]
     return (
         <tbody
             style={{
@@ -18,8 +19,7 @@ export function MagicTableBody<T>(props: { table: Table<T> }) {
         >
             <Index each={virtualRows()}>
                 {(virtualRow) => {
-                    const getRow = (): Row<T> => table.getRowModel().rows[virtualRow().index]
-                    const row = getRow()
+                    const row = getRow(virtualRow().index)
                     const visibleCells = row.getVisibleCells()
                     return (
                         <tr

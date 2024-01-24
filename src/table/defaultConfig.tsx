@@ -2,15 +2,17 @@ import { ColumnDef } from '@tanstack/solid-table'
 
 export const selectionConfig = {
     id: 'select',
-    size: 24,
+    size: 25,
     header: ({ table }) => {
         return (
-            <input
-                type="checkbox"
-                checked={table.getIsAllRowsSelected()}
-                indeterminate={table.getIsSomeRowsSelected()}
-                onChange={table.getToggleAllRowsSelectedHandler()}
-            ></input>
+            <div class="px-1">
+                <input
+                    type="checkbox"
+                    checked={table.getIsAllRowsSelected()}
+                    indeterminate={table.getIsSomeRowsSelected()}
+                    onChange={table.getToggleAllRowsSelectedHandler()}
+                ></input>
+            </div>
         )
     },
     cell: ({ row }: { row: any }) => {

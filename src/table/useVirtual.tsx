@@ -1,42 +1,31 @@
-import { Atom, DebounceAtom } from '@cn-ui/reactive'
+import { Atom, ThrottleAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
-import { VirtualItem, createVirtualizer } from '@tanstack/solid-virtual'
-import { createMemo } from 'solid-js'
-import { MagicTableProps } from './Table'
+import { createVirtualizer } from '@tanstack/solid-virtual'
+import { createMemo, Accessor } from 'solid-js'
 
-export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, props: MagicTableProps<T>) {
-    const averageWidth = createMemo(() => {
-        const columnsWidths =
-            table
-                .getRowModel()
-                .rows[0]?.getCenterVisibleCells()
-                ?.slice(0, 16)
-                ?.map((cell) => cell.column.getSize()) ?? []
-        return columnsWidths.reduce((a, b) => a + b, 0) / columnsWidths.length
-    })
+export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, data: { composedColumns: Accessor<unknown[]> }) {
     const columnVirtualizer = createVirtualizer({
         get count() {
-            return props.columns.length
+            return data.composedColumns().length
         },
-        estimateSize: () => {
-            return averageWidth()
+        estimateSize(index) {
+            return data.composedColumns()[index].size ?? 100
         }, //average column width in pixels
         getScrollElement: () => tableContainerRef(),
         horizontal: true,
-        overscan: 3
+        overscan: 12
     })
-
     //dynamic row height virtualization - alternatively you could use a simpler fixed row height strategy without the need for `measureElement`
     const rowVirtualizer = createVirtualizer({
         get count() {
-            return props.data.length
+            return table.getRowModel().rows.length
         },
         estimateSize: () => 33, //estimate row height for accurate scrollbar dragging
         getScrollElement: () => tableContainerRef(),
         //measure dynamic row height, except in firefox because it measures table border height incorrectly
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
-        overscan: 3
+        overscan: 12
     })
 
     const virtualRows = rowVirtualizer.getVirtualItems()
@@ -58,7 +47,7 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
     return {
         virtualPadding,
         rowVirtualizer,
-        virtualRows: DebounceAtom((() => virtualRows) as Atom<VirtualItem[]>, 10),
-        virtualColumnsIndex
+        virtualRows: ThrottleAtom(() => virtualRows, 16),
+        virtualColumnsIndex: ThrottleAtom(virtualColumnsIndex, 16)
     }
 }

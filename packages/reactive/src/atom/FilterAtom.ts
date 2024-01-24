@@ -1,8 +1,9 @@
 import { debounce, throttle } from 'lodash-es'
-import { Atom, atom } from './atom'
+import { atom } from './atom'
 import { useEffectWithoutFirst } from './useEffect'
+import { Accessor } from 'solid-js'
 
-export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
+export function DebounceAtom<T>(a: Accessor<T>, debounceTime: number = 150) {
     let lastVal = a()
     const newA = atom(lastVal)
     useEffectWithoutFirst(
@@ -15,7 +16,7 @@ export function DebounceAtom<T>(a: Atom<T>, debounceTime: number = 150) {
     )
     return newA
 }
-export function ThrottleAtom<T>(a: Atom<T>, debounceTime: number = 150, options?: Parameters<typeof throttle>[2]) {
+export function ThrottleAtom<T>(a: Accessor<T>, debounceTime: number = 150, options?: Parameters<typeof throttle>[2]) {
     let lastVal = a()
     const newA = atom(lastVal)
     useEffectWithoutFirst(

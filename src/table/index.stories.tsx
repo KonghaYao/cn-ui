@@ -33,7 +33,7 @@ export const Primary: Story = {
     render() {
         console.time('createData')
         const cols = makeColumns(1000)
-        const data = makeData(1000, cols)
+        const data = makeData(100, cols)
         console.timeEnd('createData')
         return <MagicTable columns={cols} data={data}></MagicTable>
     },

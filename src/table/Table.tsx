@@ -6,7 +6,8 @@ import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
 import { selectionConfig } from './defaultConfig'
-
+import { useResizeObserver } from 'solidjs-use'
+import { createMemo } from 'solid-js'
 export interface MagicTableProps<T> {
     data: T[]
     columns: ColumnDef<T>[]
@@ -15,12 +16,13 @@ export interface MagicTableProps<T> {
 
 export function MagicTable<T>(props: MagicTableProps<T>) {
     const rowSelection = atom<RowSelectionState>({})
+    const composedColumns = createMemo(() => [selectionConfig, ...props.columns])
     const table = createSolidTable({
         get data() {
             return props.data
         },
         get columns() {
-            return [selectionConfig, ...props.columns]
+            return composedColumns()
         },
         state: {
             get rowSelection() {
@@ -36,7 +38,14 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     })
 
     const tableContainerRef = atom<HTMLDivElement | null>(null)
-    const virtualSettings = useVirtual<T>(table, tableContainerRef, props)
+    const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
+    const boxHeight = atom(400)
+
+    useResizeObserver(tableContainerRef, (entries) => {
+        const [entry] = entries
+        const { width, height } = entry.contentRect
+        boxHeight(height)
+    })
     return (
         <MagicTableCtx.Provider
             value={{
