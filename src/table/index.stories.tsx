@@ -18,7 +18,8 @@ const makeColumns = (num: number) =>
             header: 'Col ' + i.toString(),
             size: 100,
             minSize: 50, //enforced during column resizing
-            maxSize: 500 //enforced during column resizing
+            maxSize: 500, //enforced during column resizing
+            sticky: i > 50
         }
     })
 
