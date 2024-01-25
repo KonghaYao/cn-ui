@@ -3,8 +3,8 @@ import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
 import { For } from 'solid-js'
 import { atom, computed, useEffect } from '@cn-ui/reactive'
 import { useScroll } from 'solidjs-use'
-import { BodyCell } from '../slot/BodyCell'
 import { HeaderCell } from '../slot/HeaderCell'
+import { BodyRow } from '../slot/BodyRow'
 
 function getScrollBarWidth() {
     try {
@@ -20,10 +20,9 @@ function getScrollBarWidth() {
     }
 }
 
-export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }) {
+export function StickyViewBody<T>() {
     const scrollbarHeight = getScrollBarWidth()
-    const table = props.table
-    const { stickingItems, virtualRows, rowVirtualizer, tableScroll } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { stickingItems, virtualRows, rowVirtualizer, tableScroll, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const receiverTable = atom<HTMLElement | null>(null)
     // 同步滚动条
     const whenShow = computed(() => !!stickingItems().length)
@@ -43,15 +42,8 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
             }}
             ref={receiverTable}
         >
-            <table style={{ display: 'grid', 'table-layout': 'fixed' }}>
-                <thead
-                    style={{
-                        display: 'grid',
-                        position: 'sticky',
-                        top: 0,
-                        'z-index': 1
-                    }}
-                >
+            <table class="grid table-fixed">
+                <thead class="grid sticky top-0 z-10">
                     {table.getHeaderGroups().map((headerGroup) => {
                         return (
                             <div style={{ display: 'flex', width: '100%' }}>
@@ -64,38 +56,15 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
                     })}
                 </thead>
                 <tbody
+                    class="grid relative"
                     style={{
-                        display: 'grid',
-                        height: `${rowVirtualizer.getTotalSize()}px`, //tells scrollbar how big the table is
-                        position: 'relative' //needed for absolute positioning of rows
+                        height: `${rowVirtualizer.getTotalSize()}px` //tells scrollbar how big the table is
                     }}
                 >
                     <For each={virtualRows()}>
                         {(virtualRow) => {
-                            const row = getRow(virtualRow.index)
-                            const visibleCells = row.getAllCells()
-                            return (
-                                <tr
-                                    data-index={virtualRow.index} //needed for dynamic row height measurement
-                                    style={{
-                                        display: 'flex',
-                                        position: 'absolute',
-                                        transform: `translateY(${virtualRow.start}px)`,
-                                        width: '100%',
-                                        background: row.getIsSelected() ? '#0000ff24' : 'transparent'
-                                    }}
-                                    onClick={() => {
-                                        props.selection && row.toggleSelected()
-                                    }}
-                                >
-                                    <For each={stickingItems()}>
-                                        {(index) => {
-                                            const cell = visibleCells[index]
-                                            return <BodyCell cell={cell}></BodyCell>
-                                        }}
-                                    </For>
-                                </tr>
-                            )
+                            const visibleCells = getRow(virtualRow.index).getAllCells()
+                            return <BodyRow padding={false} cells={visibleCells} bindScroll={false} columns={stickingItems()} virtualRow={virtualRow}></BodyRow>
                         }}
                     </For>
                 </tbody>

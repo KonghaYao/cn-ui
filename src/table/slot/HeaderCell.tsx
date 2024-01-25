@@ -3,8 +3,8 @@ import { Header, flexRender } from '@tanstack/solid-table'
 export function HeaderCell<T, D>(props: { header: Header<T, D> }) {
     return (
         <th
+            class="flex bg-gray-100 py-2 text-sm"
             style={{
-                display: 'flex',
                 width: props.header.getSize() + 'px'
             }}
         >

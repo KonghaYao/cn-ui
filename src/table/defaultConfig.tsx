@@ -6,7 +6,7 @@ export const selectionConfig = {
     size: 25,
     header: ({ table }) => {
         return (
-            <div class="px-1">
+            <div class="px-2">
                 <input
                     type="checkbox"
                     checked={table.getIsAllRowsSelected()}
@@ -18,7 +18,7 @@ export const selectionConfig = {
     },
     cell: ({ row }) => {
         return (
-            <div class="px-1">
+            <div class="p-2">
                 <input type="checkbox" checked={row.getIsSelected()} disabled={!row.getCanSelect()} onChange={row.getToggleSelectedHandler()}></input>
             </div>
         )
@@ -29,7 +29,7 @@ export const indexConfig = {
     id: '$index',
     size: 60,
     cell(ctx) {
-        return <div class="px-1">{ctx.row.index}</div>
+        return <div class="p-2">{ctx.row.index}</div>
     },
     sticky: true
 } as ColumnDef<any>

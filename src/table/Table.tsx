@@ -48,7 +48,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const tableContainerRef = atom<HTMLDivElement | null>(null)
     const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
     const tableBox = atom<HTMLDivElement | null>(null)
-    const { width, height } = useAutoResize(tableBox)
+    const { height } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
     return (
         <MagicTableCtx.Provider
@@ -56,7 +56,8 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                 rowSelection,
                 table: table as Table<unknown>,
                 ...virtualSettings,
-                tableScroll
+                tableScroll,
+                selection: () => props.selection
             }}
         >
             <div class="relative h-full w-full" ref={tableBox}>
@@ -68,12 +69,12 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                     }}
                     ref={tableContainerRef}
                 >
-                    <table class="border border-gray-200 " style={{ display: 'grid', 'table-layout': 'fixed' }}>
-                        <MagicTableHeader table={table}></MagicTableHeader>
-                        <MagicTableBody selection={!!props.selection} table={table}></MagicTableBody>
+                    <table style={{ display: 'grid', 'table-layout': 'fixed' }}>
+                        <MagicTableHeader></MagicTableHeader>
+                        <MagicTableBody></MagicTableBody>
                     </table>
                 </div>
-                <StickyViewBody selection={!!props.selection} table={table}></StickyViewBody>
+                <StickyViewBody></StickyViewBody>
             </div>
         </MagicTableCtx.Provider>
     )

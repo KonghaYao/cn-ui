@@ -1,11 +1,9 @@
-import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { For } from 'solid-js'
 import { HeaderCell } from './slot/HeaderCell'
 
-export function MagicTableHeader<T>(props: { table: Table<T> }) {
-    const table = props.table
-    const { virtualPadding, virtualColumnsIndex } = MagicTableCtx.use<MagicTableCtxType<T>>()
+export function MagicTableHeader<T>() {
+    const { virtualPadding, virtualColumnsIndex, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
     return (
         <thead
             style={{
