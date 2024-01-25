@@ -1,5 +1,5 @@
 import { atom, computed } from '@cn-ui/reactive'
-import { MagicColumnConfig } from '.'
+import { MagicColumnConfig } from '../'
 import { Accessor } from 'solid-js'
 import { defaultRangeExtractor, Range } from '@tanstack/solid-virtual'
 
@@ -25,7 +25,8 @@ export const useSticky = <T>(columns: Accessor<MagicColumnConfig<T>[]>) => {
         isStickying,
         isCanSticky,
         getStickingIndex,
-        /** 给内部虚拟化列的配置,
+        /**
+         * 给内部虚拟化列的配置,
          * @private
          */
         rangeExtractor: (range: Range) => {

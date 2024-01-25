@@ -6,10 +6,10 @@ import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
 import { indexConfig, selectionConfig } from './defaultConfig'
-import { useResizeObserver, useScroll } from 'solidjs-use'
+import { useScroll } from 'solidjs-use'
 import { createMemo } from 'solid-js'
 import { MagicColumnConfig } from '.'
-import { StickyViewBody } from './StickyView'
+import { StickyViewBody } from './sticky/StickyView'
 export interface MagicTableProps<T> {
     data: T[]
     columns: MagicColumnConfig<T, unknown>[]
@@ -47,13 +47,6 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const tableContainerRef = atom<HTMLDivElement | null>(null)
     const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
 
-    const boxHeight = atom(400)
-
-    useResizeObserver(tableContainerRef, (entries) => {
-        const [entry] = entries
-        const { width, height } = entry.contentRect
-        boxHeight(height)
-    })
     const tableScroll = useScroll(tableContainerRef)
     return (
         <MagicTableCtx.Provider

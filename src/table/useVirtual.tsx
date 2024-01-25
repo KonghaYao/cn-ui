@@ -2,7 +2,7 @@ import { Atom, ThrottleAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
 import { createVirtualizer } from '@tanstack/solid-virtual'
 import { createMemo, Accessor } from 'solid-js'
-import { useSticky } from './useSticky'
+import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
 
 export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, data: { composedColumns: Accessor<MagicColumnConfig<T>[]> }) {

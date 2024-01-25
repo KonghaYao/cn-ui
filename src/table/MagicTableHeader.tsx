@@ -1,7 +1,7 @@
-import { flexRender } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
-import { For, Index } from 'solid-js'
+import { For } from 'solid-js'
+import { HeaderCell } from './slot/HeaderCell'
 
 export function MagicTableHeader<T>(props: { table: Table<T> }) {
     const table = props.table
@@ -27,25 +27,7 @@ export function MagicTableHeader<T>(props: { table: Table<T> }) {
                             <For each={virtualColumnsIndex()}>
                                 {(index) => {
                                     const header = headers[index]
-                                    return (
-                                        <th
-                                            style={{
-                                                display: 'flex',
-                                                width: header.getSize() + 'px'
-                                            }}
-                                        >
-                                            <div
-                                                class={header.column.getCanSort() ? 'cursor-pointer select-none' : ''}
-                                                onClick={header.column.getToggleSortingHandler}
-                                            >
-                                                {flexRender(header.column.columnDef.header, header.getContext())}
-                                                {{
-                                                    asc: ' 🔼',
-                                                    desc: ' 🔽'
-                                                }[header.column.getIsSorted() as string] ?? null}
-                                            </div>
-                                        </th>
-                                    )
+                                    return <HeaderCell header={header}></HeaderCell>
                                 }}
                             </For>
 

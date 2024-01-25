@@ -1,7 +1,8 @@
-import { flexRender, Row } from '@tanstack/solid-table'
+import { Row } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { For } from 'solid-js'
+import { BodyCell } from './slot/BodyCell'
 
 export function MagicTableBody<T>(props: { table: Table<T>; selection: boolean }) {
     const table = props.table
@@ -43,16 +44,7 @@ export function MagicTableBody<T>(props: { table: Table<T>; selection: boolean }
                             <For each={virtualColumnsIndex()}>
                                 {(index) => {
                                     const cell = visibleCells[index]
-                                    return (
-                                        <td
-                                            style={{
-                                                display: 'flex',
-                                                width: cell.column.getSize() + 'px'
-                                            }}
-                                        >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    )
+                                    return <BodyCell cell={cell}></BodyCell>
                                 }}
                             </For>
                             {virtualPadding().right ? (

@@ -1,8 +1,10 @@
-import { Row, Table, flexRender } from '@tanstack/solid-table'
-import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
-import { For, Show } from 'solid-js'
-import { atom, computed, useEffect, useEffectWithoutFirst } from '@cn-ui/reactive'
+import { Row, Table } from '@tanstack/solid-table'
+import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
+import { For } from 'solid-js'
+import { atom, computed, useEffect } from '@cn-ui/reactive'
 import { useScroll } from 'solidjs-use'
+import { BodyCell } from '../slot/BodyCell'
+import { HeaderCell } from '../slot/HeaderCell'
 
 function getScrollBarWidth() {
     try {
@@ -35,6 +37,7 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
         <nav
             class="absolute bg-gray-50 top-0 left-0 overflow-hidden"
             style={{
+                // fix: 修复多出滚动条高度的问题
                 height: `calc(100% - ${scrollbarHeight}px)`,
                 'z-index': 100
             }}
@@ -54,25 +57,7 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
                             <div style={{ display: 'flex', width: '100%' }}>
                                 {stickingItems().map((index) => {
                                     const header = headerGroup.headers[index]
-                                    return (
-                                        <th
-                                            style={{
-                                                display: 'flex',
-                                                width: header.getSize() + 'px'
-                                            }}
-                                        >
-                                            <div
-                                                class={header.column.getCanSort() ? 'cursor-pointer select-none' : ''}
-                                                onClick={header.column.getToggleSortingHandler}
-                                            >
-                                                {flexRender(header.column.columnDef.header, header.getContext())}
-                                                {{
-                                                    asc: ' 🔼',
-                                                    desc: ' 🔽'
-                                                }[header.column.getIsSorted() as string] ?? null}
-                                            </div>
-                                        </th>
-                                    )
+                                    return <HeaderCell header={header}></HeaderCell>
                                 })}
                             </div>
                         )
@@ -106,16 +91,7 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
                                     <For each={stickingItems()}>
                                         {(index) => {
                                             const cell = visibleCells[index]
-                                            return (
-                                                <td
-                                                    style={{
-                                                        display: 'flex',
-                                                        width: cell.column.getSize() + 'px'
-                                                    }}
-                                                >
-                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                                </td>
-                                            )
+                                            return <BodyCell cell={cell}></BodyCell>
                                         }}
                                     </For>
                                 </tr>
