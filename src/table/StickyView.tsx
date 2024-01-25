@@ -4,7 +4,22 @@ import { For, Show } from 'solid-js'
 import { atom, computed, useEffect, useEffectWithoutFirst } from '@cn-ui/reactive'
 import { useScroll } from 'solidjs-use'
 
+function getScrollBarWidth() {
+    try {
+        let el = document.createElement('div')
+        el.style.cssText = 'overflow:scroll; visibility:hidden; position:absolute;'
+        document.body.appendChild(el)
+        let width = el.offsetWidth - el.clientWidth
+        el.remove()
+        return width
+    } catch (e) {
+        console.warn('滚动条高度获取失败')
+        return 15
+    }
+}
+
 export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }) {
+    const scrollbarHeight = getScrollBarWidth()
     const table = props.table
     const { stickingItems, virtualRows, rowVirtualizer, tableScroll } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const receiverTable = atom<HTMLElement | null>(null)
@@ -20,7 +35,7 @@ export function StickyViewBody<T>(props: { table: Table<T>; selection: boolean }
         <nav
             class="absolute bg-gray-50 top-0 left-0 overflow-hidden"
             style={{
-                height: '100%',
+                height: `calc(100% - ${scrollbarHeight}px)`,
                 'z-index': 100
             }}
             ref={receiverTable}
