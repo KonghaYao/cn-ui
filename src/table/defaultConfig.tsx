@@ -1,7 +1,8 @@
 import { ColumnDef } from '@tanstack/solid-table'
+import { MagicColumnConfig } from '.'
 
 export const selectionConfig = {
-    id: 'select',
+    id: '$select',
     size: 25,
     header: ({ table }) => {
         return (
@@ -15,11 +16,20 @@ export const selectionConfig = {
             </div>
         )
     },
-    cell: ({ row }: { row: any }) => {
+    cell: ({ row }) => {
         return (
             <div class="px-1">
                 <input type="checkbox" checked={row.getIsSelected()} disabled={!row.getCanSelect()} onChange={row.getToggleSelectedHandler()}></input>
             </div>
         )
-    }
+    },
+    sticky: true
+} as MagicColumnConfig
+export const indexConfig = {
+    id: '$index',
+    size: 60,
+    cell(ctx) {
+        return <div class="px-1">{ctx.row.index}</div>
+    },
+    sticky: true
 } as ColumnDef<any>

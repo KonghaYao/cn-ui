@@ -15,19 +15,18 @@ export function MagicTableHeader<T>(props: { table: Table<T> }) {
                 'z-index': 1
             }}
         >
-            <Index each={table.getHeaderGroups()}>
+            <For each={table.getHeaderGroups()}>
                 {(headerGroup) => {
-                    const headers = headerGroup().headers
+                    const headers = headerGroup.headers
                     return (
                         <tr style={{ display: 'flex', width: '100%' }}>
                             {virtualPadding().left ? (
                                 //fake empty column to the left for virtualization scroll padding
                                 <th style={{ display: 'flex', width: virtualPadding().left + 'px' }} />
                             ) : null}
-                            <Index each={virtualColumnsIndex()}>
+                            <For each={virtualColumnsIndex()}>
                                 {(index) => {
-                                    const header = headers[index()]
-
+                                    const header = headers[index]
                                     return (
                                         <th
                                             style={{
@@ -48,7 +47,8 @@ export function MagicTableHeader<T>(props: { table: Table<T> }) {
                                         </th>
                                     )
                                 }}
-                            </Index>
+                            </For>
+
                             {virtualPadding().right ? (
                                 //fake empty column to the right for virtualization scroll padding
                                 <th style={{ display: 'flex', width: virtualPadding().right + 'px' }} />
@@ -56,7 +56,7 @@ export function MagicTableHeader<T>(props: { table: Table<T> }) {
                         </tr>
                     )
                 }}
-            </Index>
+            </For>
         </thead>
     )
 }

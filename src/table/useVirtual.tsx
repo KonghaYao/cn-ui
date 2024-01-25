@@ -2,8 +2,12 @@ import { Atom, ThrottleAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
 import { createVirtualizer } from '@tanstack/solid-virtual'
 import { createMemo, Accessor } from 'solid-js'
+import { useSticky } from './useSticky'
+import { MagicColumnConfig } from '.'
 
-export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, data: { composedColumns: Accessor<unknown[]> }) {
+export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, data: { composedColumns: Accessor<MagicColumnConfig<T>[]> }) {
+    // 构建固定列
+    const sticky = useSticky(data.composedColumns)
     const columnVirtualizer = createVirtualizer({
         get count() {
             return data.composedColumns().length
@@ -12,6 +16,7 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
             return data.composedColumns()[index].size ?? 100
         }, //average column width in pixels
         getScrollElement: () => tableContainerRef(),
+        rangeExtractor: sticky.rangeExtractor,
         horizontal: true,
         overscan: 12
     })
@@ -47,7 +52,9 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
     return {
         virtualPadding,
         rowVirtualizer,
-        virtualRows: ThrottleAtom(() => virtualRows, 16),
-        virtualColumnsIndex: ThrottleAtom(virtualColumnsIndex, 16)
+        virtualColumns: ThrottleAtom(() => virtualColumns, 100),
+        virtualRows: ThrottleAtom(() => virtualRows, 100),
+        virtualColumnsIndex: ThrottleAtom(virtualColumnsIndex, 100),
+        ...sticky
     }
 }

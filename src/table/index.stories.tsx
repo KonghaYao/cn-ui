@@ -21,7 +21,7 @@ const makeColumns = (num: number) =>
             size: 100,
             minSize: 50, //enforced during column resizing
             maxSize: 500 //enforced during column resizing
-        } as ColumnDef<Record<string, string>>
+        }
     })
 
 const makeData = (num: number, columns: { accessorKey: string }[]): Record<string, string>[] =>
@@ -36,6 +36,17 @@ export const Primary: Story = {
         const data = makeData(100, cols)
         console.timeEnd('createData')
         return <MagicTable columns={cols} data={data}></MagicTable>
+    },
+    args: {}
+}
+export const Selection: Story = {
+    name: 'Selection and Index',
+    render() {
+        console.time('createData')
+        const cols = makeColumns(100)
+        const data = makeData(100, cols)
+        console.timeEnd('createData')
+        return <MagicTable selection index columns={cols} data={data}></MagicTable>
     },
     args: {}
 }

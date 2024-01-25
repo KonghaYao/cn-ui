@@ -1,23 +1,30 @@
 import { atom, toCSSPx } from '@cn-ui/reactive'
-import { getSortedRowModel, getCoreRowModel, ColumnDef, createSolidTable, RowSelectionState } from '@tanstack/solid-table'
+import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
-import { selectionConfig } from './defaultConfig'
-import { useResizeObserver } from 'solidjs-use'
+import { indexConfig, selectionConfig } from './defaultConfig'
+import { useResizeObserver, useScroll } from 'solidjs-use'
 import { createMemo } from 'solid-js'
+import { MagicColumnConfig } from '.'
+import { StickyViewBody } from './StickyView'
 export interface MagicTableProps<T> {
     data: T[]
-    columns: ColumnDef<T>[]
+    columns: MagicColumnConfig<T, unknown>[]
     height?: number | string
+    selection?: boolean | 'single' | 'multi'
+    index?: boolean
 }
 
 export function MagicTable<T>(props: MagicTableProps<T>) {
     const rowSelection = atom<RowSelectionState>({})
-    const composedColumns = createMemo(() => [selectionConfig, ...props.columns])
-    const table = createSolidTable({
+    const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
+        /** @ts-ignore */
+        [props.selection && selectionConfig, props.index && indexConfig, ...props.columns].filter((i) => i)
+    )
+    const table = createSolidTable<T>({
         get data() {
             return props.data
         },
@@ -39,6 +46,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
 
     const tableContainerRef = atom<HTMLDivElement | null>(null)
     const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
+
     const boxHeight = atom(400)
 
     useResizeObserver(tableContainerRef, (entries) => {
@@ -46,26 +54,31 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
         const { width, height } = entry.contentRect
         boxHeight(height)
     })
+    const tableScroll = useScroll(tableContainerRef)
     return (
         <MagicTableCtx.Provider
             value={{
                 rowSelection,
                 table: table as Table<unknown>,
-                ...virtualSettings
+                ...virtualSettings,
+                tableScroll
             }}
         >
-            <div
-                style={{
-                    overflow: 'auto', //our scrollable table container
-                    position: 'relative', //needed for sticky header
-                    height: toCSSPx(props.height, '400px') //should be a fixed height
-                }}
-                ref={tableContainerRef}
-            >
-                <table class="border border-gray-200 " style={{ display: 'grid', 'table-layout': 'fixed' }}>
-                    <MagicTableHeader table={table}></MagicTableHeader>
-                    <MagicTableBody table={table}></MagicTableBody>
-                </table>
+            <div class="relative">
+                <div
+                    style={{
+                        overflow: 'auto', //our scrollable table container
+                        position: 'relative', //needed for sticky header
+                        height: toCSSPx(props.height, '400px') //should be a fixed height
+                    }}
+                    ref={tableContainerRef}
+                >
+                    <table class="border border-gray-200 " style={{ display: 'grid', 'table-layout': 'fixed' }}>
+                        <MagicTableHeader table={table}></MagicTableHeader>
+                        <MagicTableBody selection={!!props.selection} table={table}></MagicTableBody>
+                    </table>
+                </div>
+                <StickyViewBody selection={!!props.selection} table={table}></StickyViewBody>
             </div>
         </MagicTableCtx.Provider>
     )
