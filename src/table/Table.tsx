@@ -10,6 +10,7 @@ import { useScroll } from 'solidjs-use'
 import { createMemo } from 'solid-js'
 import { MagicColumnConfig } from '.'
 import { StickyViewBody } from './sticky/StickyView'
+import { useAutoResize } from './hook/useAutoResize'
 export interface MagicTableProps<T> {
     data: T[]
     columns: MagicColumnConfig<T, unknown>[]
@@ -46,7 +47,8 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
 
     const tableContainerRef = atom<HTMLDivElement | null>(null)
     const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
-
+    const tableBox = atom<HTMLDivElement | null>(null)
+    const { width, height } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
     return (
         <MagicTableCtx.Provider
@@ -57,12 +59,12 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                 tableScroll
             }}
         >
-            <div class="relative">
+            <div class="relative h-full w-full" ref={tableBox}>
                 <div
                     style={{
                         overflow: 'auto', //our scrollable table container
                         position: 'relative', //needed for sticky header
-                        height: toCSSPx(props.height, '400px') //should be a fixed height
+                        height: toCSSPx(props.height ?? height(), '400px') //should be a fixed height
                     }}
                     ref={tableContainerRef}
                 >

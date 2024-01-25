@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
-
 import { MagicTable } from './index'
-import { ColumnDef } from '@tanstack/solid-table'
 
 const meta = {
     title: 'Layout/Table 表格组件',
@@ -33,9 +31,18 @@ export const Primary: Story = {
     render() {
         console.time('createData')
         const cols = makeColumns(1000)
-        const data = makeData(100, cols)
+        const data = makeData(1000, cols)
         console.timeEnd('createData')
-        return <MagicTable columns={cols} data={data}></MagicTable>
+        return (
+            <>
+                <MagicTable columns={cols} data={data}></MagicTable>
+                <style>
+                    {`html,body,#storybook-root {
+                height:100%
+            }`}
+                </style>
+            </>
+        )
     },
     args: {}
 }
@@ -46,7 +53,16 @@ export const Selection: Story = {
         const cols = makeColumns(100)
         const data = makeData(100, cols)
         console.timeEnd('createData')
-        return <MagicTable selection index columns={cols} data={data}></MagicTable>
+        return (
+            <>
+                <MagicTable selection index columns={cols} data={data}></MagicTable>
+                <style>
+                    {`html,body,#storybook-root {
+                height:100%
+            }`}
+                </style>
+            </>
+        )
     },
     args: {}
 }
