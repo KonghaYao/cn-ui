@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 import { MagicTable } from './index'
+import { random } from 'lodash-es'
 
 const meta = {
     title: 'Layout/Table 表格组件',
@@ -16,10 +17,9 @@ const makeColumns = (num: number) =>
         return {
             accessorKey: i.toString(),
             header: 'Col ' + i.toString(),
-            size: 100,
+            size: random(10, 100),
             minSize: 50, //enforced during column resizing
             maxSize: 500, //enforced during column resizing
-            sticky: i > 50
         }
     })
 

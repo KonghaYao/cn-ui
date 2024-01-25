@@ -17,5 +17,5 @@ export function BodyCell<T, D>(props: { cell: Cell<T, D> }) {
 }
 
 function defaultBodyCell<T>(ctx: CellContext<T, unknown>) {
-    return <div class="w-full h-full flex-1 p-2">{ctx.getValue()}</div>
+    return <div class="w-full h-full flex-1 p-2 overflow-hidden">{ctx.getValue()}</div>
 }

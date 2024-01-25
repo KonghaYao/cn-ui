@@ -30,8 +30,13 @@ export const useSticky = <T>(columns: Accessor<MagicColumnConfig<T>[]>) => {
          * @private
          */
         rangeExtractor: (range: Range) => {
-            const stickingRows = [...allSticky()].filter((index) => range.startIndex > index)
-            stickingItems(() => stickingRows)
+            const sideLine = range.startIndex + stickingItems().length
+            if (range.startIndex !== 0) {
+                const stickingRows = [...allSticky()].filter((index) => sideLine > index)
+                stickingItems(() => stickingRows)
+            } else {
+                stickingItems([])
+            }
             return defaultRangeExtractor(range)
         }
     }
