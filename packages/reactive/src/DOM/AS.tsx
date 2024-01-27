@@ -4,7 +4,7 @@ import { ensureFunctionResult } from '../utils/ensureFunctionResult'
 export interface ASProps<T> {
     resource: ResourceAtom<T>
     /** fallback */
-    children?: JSXElement | ((data: T) => JSXElement)
+    children?: (data: T) => JSXElement
     fallback?: (data: ResourceAtom<T>) => JSXElement
 
     loading?: (data: ResourceAtom<T>) => JSXElement
@@ -25,7 +25,7 @@ export interface ASProps<T> {
 export const AS = function <T>(props: ASProps<T>) {
     const fallback = createMemo(() => {
         if (props.children) {
-            return ensureFunctionResult(props.children)
+            return ensureFunctionResult(props.children, [props.resource()])
         }
         if (props.fallback) {
             return props.fallback(props.resource)
@@ -44,9 +44,12 @@ export const AS = function <T>(props: ASProps<T>) {
 function createAC(Default: Omit<ASProps<unknown>, 'resource'>) {
     return function <T>(props: ASProps<T>) {
         return (
-            <AS resource={props.resource} loading={props.loading ?? (Default.loading as any)} error={props.error ?? (Default.error as any)}>
-                {props.children ?? Default.children}
-            </AS>
+            <AS
+                resource={props.resource}
+                loading={props.loading ?? (Default.loading as any)}
+                error={props.error ?? (Default.error as any)}
+                children={props.children ?? Default.children}
+            ></AS>
         )
     }
 }

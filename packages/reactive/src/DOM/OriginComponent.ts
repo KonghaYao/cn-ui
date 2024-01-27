@@ -4,32 +4,34 @@ import { Atom } from '../atom/atom'
 /** OriginComponent 函数内部的输入参数修改 */
 export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = string> =
     // 对内的类型注解
-    Omit<T, 'style' | 'class'> & {
-        ref?: (el: RefType) => void
-        style: () => JSX.CSSProperties
-        class: typeof classNames
-        model?: Atom<ModelType>
-        /** 方便直接写入 v-model 的语法糖 */
-        $input: () => {
-            value: ModelType
-            'on:input': (e: { target: { value: ModelType } }) => void
+    Omit<JSX.HTMLAttributes<RefType>, 'style' | 'class' | 'children'> &
+        Omit<T, 'style' | 'class'> & {
+            ref?: (el: RefType) => void
+            style: () => JSX.CSSProperties
+            class: typeof classNames
+            model?: Atom<ModelType>
+            /** 方便直接写入 v-model 的语法糖 */
+            $input: () => {
+                value: ModelType
+                'on:input': (e: { target: { value: ModelType } }) => void
+            }
+            children?: ExtractChildren<T>
         }
-        children?: ExtractChildren<T>
-    }
 
 type ExtractChildren<T> = T extends { children: infer U } ? U : JSX.Element
 /** OriginComponent 函数封装的结果函数的入参 */
 export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = string> =
     // 对外的类型注解
-    Omit<T, 'style' | 'class'> & {
-        ref?: (el: RefType) => void
-        style?: JSX.CSSProperties
-        className?: string | string[] | typeof classNames
-        class?: string | string[] | typeof classNames
-        classList?: { [k: string]: boolean } | typeof classNames
-        'v-model'?: Atom<ModelType>
-        children?: ExtractChildren<T>
-    }
+    Omit<JSX.HTMLAttributes<RefType>, 'style' | 'class'> &
+        Omit<T, 'style' | 'class'> & {
+            ref?: (el: RefType) => void
+            style?: JSX.CSSProperties
+            className?: string | string[] | typeof classNames
+            class?: string | string[] | typeof classNames
+            classList?: { [k: string]: boolean } | typeof classNames
+            'v-model'?: Atom<ModelType>
+            children?: ExtractChildren<T>
+        }
 
 export type OriginComponentType = typeof OriginComponent
 
