@@ -17,6 +17,7 @@ export interface MagicTableProps<T> {
     height?: number | string
     selection?: boolean | 'single' | 'multi'
     index?: boolean
+    estimateHeight?: number
 }
 
 export function MagicTable<T>(props: MagicTableProps<T>) {
@@ -46,7 +47,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     })
 
     const tableContainerRef = atom<HTMLDivElement | null>(null)
-    const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns })
+    const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns, estimateHeight: () => props.estimateHeight })
     const tableBox = atom<HTMLDivElement | null>(null)
     const { height } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
@@ -57,7 +58,8 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                 table: table as Table<unknown>,
                 ...virtualSettings,
                 tableScroll,
-                selection: () => props.selection
+                selection: () => props.selection,
+                estimateHeight: () => props.estimateHeight
             }}
         >
             <div class="relative h-full w-full" ref={tableBox}>

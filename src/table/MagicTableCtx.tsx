@@ -10,6 +10,7 @@ export type MagicTableCtxType<T = unknown> = {
     rowSelection: Atom<RowSelectionState>
     tableScroll: ReturnType<typeof useScroll>
     selection: Accessor<MagicTableProps<T>['selection']>
+    estimateHeight: Accessor<number | undefined>
 } & ReturnType<typeof useVirtual<T>>
 
 export const MagicTableCtx = createCtx<MagicTableCtxType>()

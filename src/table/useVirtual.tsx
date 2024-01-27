@@ -5,7 +5,11 @@ import { createMemo, Accessor } from 'solid-js'
 import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
 
-export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivElement | null>, data: { composedColumns: Accessor<MagicColumnConfig<T>[]> }) {
+export function useVirtual<T>(
+    table: Table<T>,
+    tableContainerRef: Atom<HTMLDivElement | null>,
+    data: { composedColumns: Accessor<MagicColumnConfig<T>[]>; estimateHeight: Accessor<number | undefined> }
+) {
     // 构建固定列
     const sticky = useSticky(data.composedColumns)
     const columnVirtualizer = createVirtualizer({
@@ -25,7 +29,7 @@ export function useVirtual<T>(table: Table<T>, tableContainerRef: Atom<HTMLDivEl
         get count() {
             return table.getRowModel().rows.length
         },
-        estimateSize: () => 33, //estimate row height for accurate scrollbar dragging
+        estimateSize: () => data.estimateHeight() ?? 48, //estimate row height for accurate scrollbar dragging
         getScrollElement: () => tableContainerRef(),
         //measure dynamic row height, except in firefox because it measures table border height incorrectly
         measureElement:
