@@ -18,7 +18,7 @@ export const Tab = OriginComponent<TabPaneProps, HTMLDivElement>((props) => {
     return (
         <Show when={show()}>
             <OriginDiv prop={props} style={{ display: isSelected(props.name) ? 'block' : 'none' }}>
-                {props.children}
+                {typeof props.children === 'function' ? props.children() : props.children}
             </OriginDiv>
         </Show>
     )

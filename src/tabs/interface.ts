@@ -18,18 +18,18 @@ export interface TabsProps extends JSX.HTMLAttributes<HTMLDivElement> {
     onActiveChange?: (key: string) => void
 
     /** 所有 tabs 的父级*/
-    panelClass?: string
+    wrapperClass?: string
 }
 
 /**
  * @title Tabs.TabPane
  */
-export interface TabPaneProps extends JSX.HTMLAttributes<HTMLDivElement> {
+export interface TabPaneProps extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
     /**
      * @zh tab 的唯一标识符号
      */
     name: string
-    children?: JSXElement
+    children?: JSXElement | (() => JSXElement)
     /**
      * @zh 选项卡的标题显示, 空则为 name
      * @en The label of Tab
