@@ -1,7 +1,10 @@
-.cn-accordion > div:not(:first-child) {
+.cn-collapse > div:not(:first-child) {
     border-bottom: 1px solid rgb(228, 228, 229);
 }
-.cn-accordion > div:first-child {
+.cn-collapse > div:first-child {
     border-bottom: 1px solid rgb(228, 228, 229);
     border-top: 1px solid rgb(228, 228, 229);
+}
+.cn-collapse-container > * {
+    min-height: 0;
 }

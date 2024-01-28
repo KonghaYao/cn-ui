@@ -16,7 +16,7 @@ export interface CollapseProps {
 export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((props) => {
     return (
         <Accordion.Root
-            class={props.class('cn-accordion')}
+            class={props.class('cn-collapse')}
             style={props.style()}
             value={props.model() ?? []}
             onValueChange={(value) => {
@@ -46,17 +46,16 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((p
                                             </Accordion.ItemIndicator>
                                         </Accordion.ItemTrigger>
                                         <div
-                                            class={classNames('transition-all  ease-linear text-gray-500', api().isOpen && 'pb-4')}
+                                            class={classNames('cn-collapse-container duration-300 transition-all grid  text-gray-500', api().isOpen && 'pb-4')}
                                             style={
                                                 api().isOpen
                                                     ? {
-                                                          'max-height': '100vh',
+                                                          'grid-template-rows': '1fr',
                                                           opacity: 1
                                                       }
                                                     : {
-                                                          'max-height': '0',
-                                                          opacity: 0,
-                                                          transform: 'translateY(0.25rem)'
+                                                          'grid-template-rows': '0fr',
+                                                          opacity: 0
                                                       }
                                             }
                                         >
