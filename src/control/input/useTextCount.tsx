@@ -1,16 +1,23 @@
-import { Atom, computed } from '@cn-ui/reactive'
+import { Atom, classNames, computed } from '@cn-ui/reactive'
 import { Show } from 'solid-js'
 import { watch } from 'solidjs-use'
-import { CountProps, CountConfig } from './BaseInput'
+import { CountConfig } from './BaseInput'
 
-const FractionDeps = (props: { max?: number; count: string | number }) => {
+const FractionDeps = (props: { max?: number; count: number }) => {
     return (
-        <span>
+        <span class={classNames('text-sm ', props.max && (props.max ?? Infinity) < props.count ? 'text-rose-500' : 'text-gray-500')}>
             {props.count} {props.max ? ' / ' + props.max : null}
         </span>
     )
 }
-export const useTextCount = (props: CountProps & { model: Atom<string> }) => {
+
+export interface CountProps {
+    count?: boolean | CountConfig // Character count config
+    model: Atom<string>
+    allowExceed?: boolean
+}
+
+export const useTextCount = (props: CountProps) => {
     const countOptional = computed(() => {
         let baseCount = props.count ?? {}
         if (typeof props.count === 'boolean') {
@@ -21,7 +28,7 @@ export const useTextCount = (props: CountProps & { model: Atom<string> }) => {
                 return value.length
             },
             exceedFormatter(value: string, config: CountConfig) {
-                if (config.max) {
+                if (config.max && !props.allowExceed) {
                     return value.slice(0, config.max)
                 } else {
                     return value

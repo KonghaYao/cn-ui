@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { BaseInput } from './index'
-import { atom } from '@cn-ui/reactive'
+import { atom, useMapper } from '@cn-ui/reactive'
 
 const meta = {
     title: 'Controls/BaseInput',
@@ -34,7 +34,44 @@ export const Primary: Story = {
     },
     args: {}
 }
+export const Password: Story = {
+    render() {
+        const data = atom('123232')
+        return (
+            <div class="flex gap-4">
+                <BaseInput
+                    v-model={data}
+                    type="password"
+                    suffixIcon={(expose) => {
+                        const mapper = useMapper(
+                            // @ts-ignore
+                            expose.inputType,
+                            {
+                                password: <AiFillEye></AiFillEye>,
+                                text: <AiFillEyeInvisible></AiFillEyeInvisible>
+                            }
+                        )
+                        return (
+                            <Icon
+                                onclick={() => {
+                                    expose.inputType((i) => {
+                                        return i === 'password' ? 'text' : 'password'
+                                    })
+                                }}
+                            >
+                                {mapper()}
+                            </Icon>
+                        )
+                    }}
+                ></BaseInput>
+                <BaseInput v-model={data} type="password" disabled></BaseInput>
+            </div>
+        )
+    },
+    args: {}
+}
 import { runes } from 'runes2'
+import { AiFillEye, AiFillEyeInvisible } from 'solid-icons/ai'
 export const Count: Story = {
     render() {
         const data = atom('🔥🔥🔥')
@@ -54,6 +91,14 @@ export const Count: Story = {
                         show: true,
                         max: 10
                     }}
+                ></BaseInput>
+                <BaseInput
+                    v-model={atom('Hello world')}
+                    count={{
+                        show: true,
+                        max: 10
+                    }}
+                    allowExceed
                 ></BaseInput>
 
                 <BaseInput

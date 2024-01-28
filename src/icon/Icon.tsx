@@ -1,15 +1,18 @@
-import { Component, JSXElement } from 'solid-js'
+import { OriginComponent, extendsEvent } from '@cn-ui/reactive'
+import { JSXElement } from 'solid-js'
 
-export const Icon: Component<{ children: JSXElement }> = (props) => {
+export const Icon = OriginComponent<{ children: JSXElement }>((props) => {
     return (
         <span
             role="img"
-            class="inline-flex align-center text-center leading-[0]"
+            class={props.class('inline-flex align-center text-center leading-[0]')}
             style={{
+                ...props.style,
                 'vertical-align': '-0.125em'
             }}
+            {...extendsEvent(props)}
         >
             {props.children}
         </span>
     )
-}
+})

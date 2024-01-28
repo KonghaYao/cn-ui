@@ -5,7 +5,7 @@ interface ContainerProps {
 }
 
 export const Container = OriginComponent<ContainerProps>((props) => {
-    const direction = useMapper(props.direction ?? 'col', {
+    const direction = useMapper(() => props.direction ?? 'col', {
         row: 'flex-row',
         col: 'flex-col'
     })
