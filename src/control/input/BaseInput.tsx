@@ -1,9 +1,10 @@
-import { Atom, NullAtom, OriginComponent, atom, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
+import { Atom, NullAtom, OriginComponent, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
 import { mergeProps, onMount } from 'solid-js'
 import { JSXElement } from 'solid-js'
 import { CountProps, useTextCount } from './useTextCount'
 import { ensureFunctionResult } from '@cn-ui/reactive'
 import { triggerFocus, FocusOptions } from './triggerFocus'
+import { ControlCenter } from '../register'
 // Character count config
 export interface CountConfig {
     max?: number // Max character count. Different from the native `maxLength`, it will be marked warning but not truncated
@@ -29,6 +30,7 @@ interface BaseInputProps extends Omit<CountProps, 'model'> {
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
+    ControlCenter.register('text', BaseInput, { allowSameRegister: true }) // 把自己作为依赖注入控制组件族
     props = mergeProps(props, {
         placeholder: '请输入文本',
         rounded: true

@@ -8,8 +8,9 @@ export const createBlackBoard = <T extends Record<string, any>>() => {
     const store = new Map()
     return {
         /** 应该在组件声明时进行注册 App，保证在 onMount 时能够获取到数据 */
-        register<D extends keyof T>(name: D, api: T[D]) {
+        register<D extends keyof T>(name: D, api: T[D], opts: { allowSameRegister?: boolean } = {}) {
             if (store.has(name)) {
+                if (opts.allowSameRegister) return store
                 throw new Error('Blackboard has a same app named ' + name.toString())
             }
             return store.set(name, api)
