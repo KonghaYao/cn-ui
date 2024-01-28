@@ -13,6 +13,7 @@ export interface CountConfig {
 
 export interface InputExpose {
     inputType: Atom<string>
+    model: Atom<string>
 }
 
 interface BaseInputProps extends Omit<CountProps, 'model'> {
@@ -43,7 +44,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         rounded: true
     })
     const inputType = atomization(props.type ?? 'text')
-    const expose = { inputType }
+    const expose = { inputType, model: props.model }
     /** 域内前缀 */
     const Prefix = computed(() => {
         return <span class="mr-1">{ensureFunctionResult(props.prefixIcon, [expose])}</span>
@@ -63,7 +64,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
     return (
         <span
             class={props.class(
-                'transition inline-flex border py-1 px-3',
+                'cn-base-input transition inline-flex border py-1 px-3',
                 props.rounded && 'rounded',
                 props.disabled && 'bg-gray-100 text-gray-400',
                 !props.disabled && 'hover:border-blue-400'

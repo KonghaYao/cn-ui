@@ -21,6 +21,7 @@ export const Primary: Story = {
             <div class="flex gap-4">
                 <BaseInput v-model={data}></BaseInput>
                 <BaseInput v-model={data} disabled></BaseInput>
+                <BaseInput v-model={data} suffixIcon={ClearControl}></BaseInput>
                 <BaseInput
                     v-model={data}
                     prefixIcon={
@@ -35,44 +36,24 @@ export const Primary: Story = {
     args: {}
 }
 export const Password: Story = {
+    name: 'Password 密码',
     render() {
         const data = atom('123232')
         return (
             <div class="flex gap-4">
-                <BaseInput
-                    v-model={data}
-                    type="password"
-                    suffixIcon={(expose) => {
-                        const mapper = useMapper(
-                            // @ts-ignore
-                            expose.inputType,
-                            {
-                                password: <AiFillEye></AiFillEye>,
-                                text: <AiFillEyeInvisible></AiFillEyeInvisible>
-                            }
-                        )
-                        return (
-                            <Icon
-                                onclick={() => {
-                                    expose.inputType((i) => {
-                                        return i === 'password' ? 'text' : 'password'
-                                    })
-                                }}
-                            >
-                                {mapper()}
-                            </Icon>
-                        )
-                    }}
-                ></BaseInput>
-                <BaseInput v-model={data} type="password" disabled></BaseInput>
+                <BaseInput v-model={data} type="password" suffixIcon={PasswordControl}></BaseInput>
+                <BaseInput v-model={data} type="password" disabled suffixIcon={PasswordControl}></BaseInput>
             </div>
         )
     },
     args: {}
 }
 import { runes } from 'runes2'
-import { AiFillEye, AiFillEyeInvisible } from 'solid-icons/ai'
+import { ClearControl, PasswordControl } from './utils'
+
+/** 右侧计数 */
 export const Count: Story = {
+    name: 'count 计数',
     render() {
         const data = atom('🔥🔥🔥')
         return (
