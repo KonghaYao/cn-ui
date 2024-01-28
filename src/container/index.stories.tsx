@@ -4,7 +4,7 @@ import { Container } from './index'
 import { Main, Header, Aside, Footer, Center } from './container'
 
 const meta = {
-    title: 'Basic 基础组件/Container 预设布局',
+    title: 'Layout 布局组件/Container 预设布局',
     component: Container,
     tags: ['autodocs'],
     argTypes: {}

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 import { SortableList } from './index'
 
 const meta = {
-    title: 'Layout/Sortable',
+    title: 'Layout 布局组件/Sortable',
     component: SortableList,
     tags: ['autodocs'],
     argTypes: {}

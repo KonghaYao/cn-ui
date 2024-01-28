@@ -3,7 +3,7 @@ import { MagicTable } from './index'
 import { random } from 'lodash-es'
 
 const meta = {
-    title: 'Layout/Table 表格组件',
+    title: 'Layout 布局组件/Table 表格组件',
     component: MagicTable,
     tags: ['autodocs'],
     argTypes: {}
@@ -19,7 +19,7 @@ const makeColumns = (num: number) =>
             header: 'Col ' + i.toString(),
             size: random(10, 100),
             minSize: 50, //enforced during column resizing
-            maxSize: 500, //enforced during column resizing
+            maxSize: 500 //enforced during column resizing
         }
     })
 

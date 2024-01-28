@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 import { Row, Col } from './index'
 
 const meta = {
-    title: 'Layout/RowAndCol 行列布局',
+    title: 'Layout 布局组件/RowAndCol 行列布局',
     component: Row,
     tags: ['autodocs'],
     argTypes: {}

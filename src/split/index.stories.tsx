@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 import { Split } from './index'
 
 const meta = {
-    title: 'Layout/Split',
+    title: 'Layout 布局组件/Split',
     component: Split,
     tags: ['autodocs'],
     argTypes: {}
