@@ -1,6 +1,6 @@
 import { Component, createMemo, JSX, mergeProps } from 'solid-js'
 import { classNames } from './classNames'
-import { Atom } from '../atom/atom'
+import { atom, Atom } from '../atom/atom'
 /** OriginComponent 函数内部的输入参数修改 */
 export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = string> =
     // 对内的类型注解
@@ -9,11 +9,11 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
             ref?: (el: RefType) => void
             style: () => JSX.CSSProperties
             class: typeof classNames
-            model?: Atom<ModelType>
+            model: Atom<ModelType>
             /** 方便直接写入 v-model 的语法糖 */
             $input: () => {
                 value: ModelType
-                'on:input': (e: { target: { value: ModelType } }) => void
+                'on:input': (e: { target: { value: ModelType } }) => void | ModelType
             }
             children?: ExtractChildren<T>
         }
@@ -58,16 +58,17 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
                 return classNames(c, cn, cl, ...args)
             })()
         }
+        const inputModel = props['v-model'] ?? atom<ModelType>(null as unknown as ModelType)
         const $input = () => ({
-            value: props['v-model']?.(),
+            value: inputModel(),
             'on:input'(e: { target: { value: ModelType } }) {
-                return props['v-model']?.(() => e.target.value)
+                return inputModel(() => e.target.value)
             }
         })
         let _props_ = mergeProps(props, {
             style,
             class: classString,
-            model: props['v-model'],
+            model: inputModel,
             $input
         } as OriginComponentInputType<T, RefType, ModelType>)
 
