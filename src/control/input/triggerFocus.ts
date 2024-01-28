@@ -1,3 +1,9 @@
+export interface FocusOptions {
+    preventScroll?: boolean
+    cursor?: 'end' | 'start' | 'all'
+}
+
+/** 聚焦在某个元素上 */
 export function triggerFocus(element?: HTMLInputElement | HTMLTextAreaElement, option: FocusOptions = {}) {
     if (!element) {
         return

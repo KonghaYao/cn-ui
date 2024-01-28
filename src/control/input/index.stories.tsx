@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { BaseInput } from './index'
-import { atom, useMapper } from '@cn-ui/reactive'
+import { BaseInput, InputExpose } from './index'
+import { NullAtom, atom, useMapper } from '@cn-ui/reactive'
 
 const meta = {
     title: 'Controls/BaseInput',
@@ -91,6 +91,63 @@ export const Count: Story = {
                         exceedFormatter: (txt, { max }) => runes(txt).slice(0, max).join('')
                     }}
                 ></BaseInput>
+            </div>
+        )
+    },
+    args: {}
+}
+export const Expose: Story = {
+    name: 'Focus 聚焦',
+    render() {
+        const data = atom('123232')
+        const inputExpose = NullAtom<InputExpose>(null)
+        return (
+            <div class="flex gap-4">
+                <button
+                    onClick={() => {
+                        inputExpose()!.focus({
+                            cursor: 'start'
+                        })
+                    }}
+                >
+                    Focus at first
+                </button>
+                <button
+                    onClick={() => {
+                        inputExpose()!.focus({
+                            cursor: 'end'
+                        })
+                    }}
+                >
+                    Focus at last
+                </button>
+                <button
+                    onClick={() => {
+                        inputExpose()!.focus({
+                            cursor: 'all'
+                        })
+                    }}
+                >
+                    Focus to select all
+                </button>
+                <button
+                    onClick={() => {
+                        inputExpose()!.focus({
+                            preventScroll: true
+                        })
+                    }}
+                >
+                    Focus prevent scroll
+                </button>
+                {/* <Switch
+                    checked={input}
+                    checkedChildren="Input"
+                    unCheckedChildren="TextArea"
+                    onChange={() => {
+                        setInput(!input)
+                    }}
+                /> */}
+                <BaseInput v-model={data} expose={inputExpose}></BaseInput>
             </div>
         )
     },

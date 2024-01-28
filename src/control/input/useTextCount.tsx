@@ -17,6 +17,7 @@ export interface CountProps {
     allowExceed?: boolean
 }
 
+/** input 右侧的计数文本组件 */
 export const useTextCount = (props: CountProps) => {
     const countOptional = computed(() => {
         let baseCount = props.count ?? {}

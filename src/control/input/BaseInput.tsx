@@ -1,8 +1,9 @@
-import { Atom, OriginComponent, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
-import { createEffect, mergeProps } from 'solid-js'
+import { Atom, NullAtom, OriginComponent, atom, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
+import { mergeProps, onMount } from 'solid-js'
 import { JSXElement } from 'solid-js'
 import { CountProps, useTextCount } from './useTextCount'
 import { ensureFunctionResult } from '@cn-ui/reactive'
+import { triggerFocus, FocusOptions } from './triggerFocus'
 // Character count config
 export interface CountConfig {
     max?: number // Max character count. Different from the native `maxLength`, it will be marked warning but not truncated
@@ -14,6 +15,7 @@ export interface CountConfig {
 export interface InputExpose {
     inputType: Atom<string>
     model: Atom<string>
+    focus: (opts: FocusOptions) => void
 }
 
 interface BaseInputProps extends Omit<CountProps, 'model'> {
@@ -23,19 +25,7 @@ interface BaseInputProps extends Omit<CountProps, 'model'> {
     suffixIcon?: JSXElement | ((expose: InputExpose) => JSXElement) // The suffix icon for the Input
     rounded?: boolean // Whether to round the corners of the input box
     type?: 'text' | 'textarea' | 'password' | string // The type of input, see: MDN (use Input.TextArea instead of type="textarea")
-}
-interface InputProps extends BaseInputProps {
-    addonAfter?: JSXElement // The label text displayed after (on the right side of) the input field
-    addonBefore?: JSXElement // The label text displayed before (on the left side of) the input field
-    allowClear?: boolean | { clearIcon: JSXElement } // If allow to remove input content with clear icon
-
-    status?: 'error' | 'warning' // Set validation status
-    size?: 'large' | 'middle' | 'small' // The size of the input box. Note: in the context of a form, the middle size is used
-
-    variant?: 'outlined' | 'borderless' | 'filled' // Variants of Input
-
-    onChange?: (e: any) => void // Callback when user input
-    onPressEnter?: (e: any) => void // The callback function that is triggered when Enter key is pressed
+    expose?: (expose: InputExpose) => void
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
@@ -43,8 +33,18 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         placeholder: '请输入文本',
         rounded: true
     })
+    const inputEl = NullAtom<HTMLInputElement>(null)
     const inputType = atomization(props.type ?? 'text')
-    const expose = { inputType, model: props.model }
+    const expose: InputExpose = {
+        inputType,
+        model: props.model,
+        focus(opts) {
+            triggerFocus(inputEl()!, opts)
+        }
+    }
+    onMount(() => {
+        props.expose?.(expose)
+    })
     /** 域内前缀 */
     const Prefix = computed(() => {
         return <span class="mr-1">{ensureFunctionResult(props.prefixIcon, [expose])}</span>
@@ -73,6 +73,8 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         >
             {Prefix()}
             <input
+                ref={inputEl}
+                id={props.id}
                 type={inputType()}
                 disabled={props.disabled}
                 class={classNames('bg-transparent appearance-none outline-none ', props.disabled && ' cursor-not-allowed')}

@@ -4,6 +4,7 @@ import { useMapper } from '@cn-ui/reactive'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineCloseCircle } from 'solid-icons/ai'
 import { Icon } from '../../icon/Icon'
 
+/** 密码 icon */
 export const PasswordControl: Component<InputExpose> = (expose) => {
     const mapper = useMapper(
         // @ts-ignore
@@ -25,6 +26,7 @@ export const PasswordControl: Component<InputExpose> = (expose) => {
         </Icon>
     )
 }
+/** 清空 icon */
 export const ClearControl: Component<InputExpose> = (expose) => {
     return (
         <Icon
