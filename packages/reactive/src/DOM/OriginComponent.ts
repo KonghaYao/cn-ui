@@ -1,4 +1,4 @@
-import { Component, createMemo, JSX, mergeProps } from 'solid-js'
+import { Accessor, Component, createMemo, JSX, mergeProps } from 'solid-js'
 import { classNames } from './classNames'
 import { atom, Atom } from '../atom/atom'
 /** OriginComponent 函数内部的输入参数修改 */
@@ -29,7 +29,7 @@ export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = stri
             className?: string | string[] | typeof classNames
             class?: string | string[] | typeof classNames
             classList?: { [k: string]: boolean } | typeof classNames
-            'v-model'?: Atom<ModelType>
+            'v-model'?: Atom<ModelType> | Accessor<ModelType>
             children?: ExtractChildren<T>
         }
 
@@ -58,7 +58,8 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
                 return classNames(c, cn, cl, ...args)
             })()
         }
-        const inputModel = props['v-model'] ?? atom<ModelType>(null as unknown as ModelType)
+        // @ts-ignore
+        const inputModel: Atom<ModelType> = props['v-model'] ?? atom<ModelType>(null as unknown as ModelType)
         const $input = () => ({
             value: inputModel(),
             'on:input'(e: { target: { value: ModelType } }) {

@@ -3,7 +3,7 @@ import { MagicTable } from './index'
 import { random } from 'lodash-es'
 
 const meta = {
-    title: 'Layout 布局组件/Table 表格组件',
+    title: 'Data 数据展示/Table 表格组件',
     component: MagicTable,
     tags: ['autodocs'],
     argTypes: {}
