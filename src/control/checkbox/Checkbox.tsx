@@ -34,13 +34,17 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
 })
 
 export interface CheckboxGroupExpose extends ReturnType<typeof useSelect> {}
-export const CheckboxGroup = OriginComponent<{
+interface CheckboxGroupProps {
     options: (string | number | CheckboxProps)[]
     expose?: (expose: CheckboxGroupExpose) => void
-}>((props) => {
+    multiple?: boolean
+}
+
+export const CheckboxGroup = OriginComponent<CheckboxGroupProps, HTMLElement, string[]>((props) => {
+    props.model([])
     const selectSetting = useSelect({
-        activeIds: atom<string[]>([]),
-        multi: atom(true)
+        activeIds: props.model,
+        multi: props.multiple ?? true
     })
     const options = computed(() => {
         if (typeof props.options[0] === 'object') {

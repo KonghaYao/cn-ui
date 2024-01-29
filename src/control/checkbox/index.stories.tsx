@@ -29,9 +29,9 @@ export const Primary: Story = {
     args: {}
 }
 const optionsWithDisabled = [
-    { label: 'Apple', value: 'Apple' },
-    { label: 'Pear', value: 'Pear' },
-    { label: 'Orange', value: 'Orange', disabled: false }
+    { label: '苹果', value: 'Apple' },
+    { label: '梨子', value: 'Pear' },
+    { label: '橙子', value: 'Orange', disabled: false }
 ]
 
 export const Group: Story = {
@@ -43,6 +43,18 @@ export const Group: Story = {
             <div class="flex gap-4">
                 <Checkbox indeterminate={indeterminate()} v-model={isAllChecked} label={'切换选中'} value={'2333'} onChange={onChange}></Checkbox>
                 <CheckboxGroup options={optionsWithDisabled} expose={checkBoxCtx}></CheckboxGroup>
+            </div>
+        )
+    },
+    args: {}
+}
+export const RadioGroup: Story = {
+    render() {
+        const selected = atom<string[]>([])
+        return (
+            <div class="flex gap-4">
+                {JSON.stringify(selected())}
+                <CheckboxGroup options={optionsWithDisabled} v-model={selected} multiple={false}></CheckboxGroup>
             </div>
         )
     },
