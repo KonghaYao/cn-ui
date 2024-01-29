@@ -36,7 +36,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
                                     {page.value}
                                 </P.Item>
                             ) : (
-                                <P.Ellipsis class={baseBtn} index={index()}>
+                                <P.Ellipsis class={classNames(baseBtn, 'flex items-center justify-center')} index={index()}>
                                     <Icon>
                                         <AiOutlineEllipsis></AiOutlineEllipsis>
                                     </Icon>

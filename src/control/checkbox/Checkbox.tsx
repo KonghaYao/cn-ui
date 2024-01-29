@@ -20,7 +20,7 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
                 // @ts-ignore
                 indeterminate={props.indeterminate}
                 disabled={props.disabled}
-                type="checkbox"
+                type={group?.multi?.() === false ? 'radio' : 'checkbox'}
                 checked={group?.isSelected?.(props.value) ?? props.model()}
                 {...extendsEvent(props)}
                 oninput={(e) => {

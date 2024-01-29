@@ -47,6 +47,7 @@ export const useSelect = function (
         }
     }
     return {
+        multi,
         /** 更改状态 */
         changeSelected,
         /** 清空选中 */
