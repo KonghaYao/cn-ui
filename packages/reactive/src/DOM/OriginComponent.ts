@@ -22,7 +22,7 @@ type ExtractChildren<T> = T extends { children: infer U } ? U : JSX.Element
 /** OriginComponent 函数封装的结果函数的入参 */
 export type OriginComponentOutputType<T, RefType = HTMLElement, ModelType = string> =
     // 对外的类型注解
-    Omit<JSX.HTMLAttributes<RefType>, 'style' | 'class'> &
+    Omit<JSX.HTMLAttributes<RefType>, 'style' | 'class' | 'children'> &
         Omit<T, 'style' | 'class'> & {
             ref?: (el: RefType) => void
             style?: JSX.CSSProperties

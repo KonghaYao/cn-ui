@@ -1,4 +1,5 @@
-import { Atom, atomization, OriginComponentInputType, extendsEvent, OriginComponent, reflect } from '@cn-ui/reactive'
+import { Atom, atomization, OriginComponentInputType, extendsEvent, OriginComponent, reflect, classNames, OriginComponentOutputType } from '@cn-ui/reactive'
+import { createAutoAnimate } from '@formkit/auto-animate/solid'
 import { Accessor, For, JSXElement, createMemo } from 'solid-js'
 export interface WaterFallProps<T> {
     items: T[] | Atom<T[]>
@@ -24,12 +25,13 @@ export const WaterFall = OriginComponent(function <T>(props: OriginComponentInpu
             [...Array(column()).keys()].map(() => [] as T[])
         )
     })
+  
     return (
         <section class={props.class('flex')} style={props.style()} {...extendsEvent(props)}>
             <For each={columnItems()} fallback={props.fallback && props.fallback()}>
                 {(items, colIndex) => {
                     return (
-                        <div class={'flex flex-1 flex-col ' + (props.colClass ?? '')}>
+                        <div class={classNames('flex flex-1 flex-col ', props.colClass)}>
                             <For each={items}>
                                 {(item, rowIndex) =>
                                     props.children(

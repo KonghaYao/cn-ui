@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { SortableList } from './index'
+import { atom } from '@cn-ui/reactive'
 
 const meta = {
-    title: 'Layout 布局组件/Sortable',
+    title: 'Layout 布局组件/Sortable 拖拽排序',
     component: SortableList,
     tags: ['autodocs'],
     argTypes: {}
@@ -14,7 +15,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
     render() {
-        const data = [
+        const data = atom([
             {
                 id: '223232',
                 label: 'info'
@@ -27,7 +28,7 @@ export const Primary: Story = {
                 id: '222',
                 label: 'info2'
             }
-        ]
+        ])
         return (
             <SortableList
                 each={data}

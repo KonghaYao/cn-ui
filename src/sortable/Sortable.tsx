@@ -12,7 +12,7 @@ export const SortableShared = createContext<{
 }>({})
 
 /* TODO 还有很多示例未完成数据统一化 */
-export interface SortableListProps<T extends { id: string }> extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'children'> {
+export interface SortableListProps<T extends { id: string }> {
     each: T[] | Atom<T[]>
     fallback?: JSX.Element
     /** 获取 each 中的元素的 id 的方法，默认获取 */
@@ -41,7 +41,7 @@ export const SortableList = OriginComponent(function <T extends { id: string }>(
             options: context.options ?? {}
         },
         baseProps
-    ) as unknown as SortableListProps<T>
+    )
     const each = atomization(props.each)
     const VoidId = Math.random().toString()
 
@@ -105,7 +105,7 @@ export const SortableList = OriginComponent(function <T extends { id: string }>(
             }}
             /** @ts-ignore */
             class={props.class('cn-sortable')}
-            style={props.style}
+            style={props.style()}
             {...extendsEvent(props)}
         >
             <For each={[...each(), null]} fallback={props.fallback}>

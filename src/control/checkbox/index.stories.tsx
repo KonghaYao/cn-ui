@@ -16,6 +16,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
+    name: 'Checkbox 多选框',
     render() {
         const data = atom(false)
         return (
@@ -35,6 +36,7 @@ const optionsWithDisabled = [
 ]
 
 export const Group: Story = {
+    name: 'CheckboxGroup 多选组',
     render() {
         const checkBoxCtx = NullAtom<CheckboxGroupExpose>(null)
 
@@ -49,12 +51,15 @@ export const Group: Story = {
     args: {}
 }
 export const RadioGroup: Story = {
+    name: 'Radio 单选框',
     render() {
         const selected = atom<string[]>([])
         return (
             <div class="flex gap-4">
                 {JSON.stringify(selected())}
-                <CheckboxGroup options={optionsWithDisabled} v-model={selected} multiple={false}></CheckboxGroup>
+                <Flex vertical>
+                    <CheckboxGroup options={optionsWithDisabled} v-model={selected} multiple={false}></CheckboxGroup>
+                </Flex>
             </div>
         )
     },

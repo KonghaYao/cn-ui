@@ -4,7 +4,7 @@ import { WaterFall } from './index'
 import { photos } from './example/photos'
 
 const meta = {
-    title: 'Layout 布局组件/WaterFall',
+    title: 'Layout 布局组件/WaterFall 瀑布流',
     component: WaterFall,
     tags: ['autodocs'],
     argTypes: {}
