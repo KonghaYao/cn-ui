@@ -15,7 +15,7 @@ export const useSelect = function (
     const activeIdsArray = ArrayAtom(atomization(props.activeIds ?? []))
 
     const multi = atomization(props.multi ?? true)
-    const activeIdsSet = atom(new Set(activeIdsArray()))
+    const activeIdsSet = SetAtom(activeIdsArray())
 
     const disabledSet = SetAtom<string>([])
 
@@ -49,6 +49,18 @@ export const useSelect = function (
     return {
         /** 更改状态 */
         changeSelected,
+        /** 清空选中 */
+        clearAll() {
+            activeIdsArray([])
+        },
+        /** 选中所有 */
+        selectAll() {
+            if (multi()) {
+                activeIdsArray([...allRegistered()])
+            } else {
+                throw new Error('单选不能进行全选')
+            }
+        },
         /** 注册键，可以在任何时候进行注册 */
         register(id: string, state = false) {
             allRegistered((i) => {
@@ -56,6 +68,14 @@ export const useSelect = function (
                 return i
             })
             changeSelected(id, state)
+        },
+        /** 所有选中 */
+        isAllSelected() {
+            return allRegistered().size === activeIdsSet().size
+        },
+        /** 是否选中有 */
+        isIndeterminate() {
+            return allRegistered().size !== activeIdsSet().size && activeIdsSet().size > 0
         },
         /** 取消整个键的采用 */
         deregister(id: string) {
