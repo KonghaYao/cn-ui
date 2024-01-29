@@ -1,4 +1,4 @@
-import { Atom, OriginComponent, computed, createCtx, extendsEvent, useSelect } from '@cn-ui/reactive'
+import { Atom, OriginComponent, computed, createCtx, extendsEvent, useMapper, useSelect } from '@cn-ui/reactive'
 import { atom } from '@cn-ui/reactive'
 import { For } from 'solid-js'
 
@@ -14,14 +14,26 @@ export interface CheckboxProps {
 export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean>((props) => {
     const group = CheckboxGroupCtx.use()
     group?.register?.(props.value)
+
+    const inputType = computed(() => (group?.multi?.() === false ? 'radio' : 'checkbox'))
+    const isChecked = computed(() => group?.isSelected?.(props.value) ?? props.model())
+    const inputClass = useMapper(inputType, {
+        radio: ['rounded-full border-4 border-gray-200', 'rounded-full border-4 border-blue-600'],
+        checkbox: ['rounded-md border-2', 'rounded-md border-2 bg-blue-600 border-blue-200']
+    })
     return (
-        <label class="select-none">
+        <label class="select-none cursor-pointer">
             <input
+                class={props.class(
+                    inputClass()[isChecked() ? 1 : 0],
+                    'appearance-none transition w-5 h-5 mr-2 translate-y-[3px]',
+                    props.indeterminate && 'border-blue-600'
+                )}
                 // @ts-ignore
                 indeterminate={props.indeterminate}
                 disabled={props.disabled}
-                type={group?.multi?.() === false ? 'radio' : 'checkbox'}
-                checked={group?.isSelected?.(props.value) ?? props.model()}
+                type={inputType()}
+                checked={isChecked()}
                 {...extendsEvent(props)}
                 oninput={(e) => {
                     group?.changeSelected?.(props.value, e.target.checked)
