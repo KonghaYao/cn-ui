@@ -1,5 +1,5 @@
 import { sleep } from '../utils'
-import { type Atom, atom, resource, ResourceOptions, reflectMemo } from '../atom/index'
+import { type Atom, atom, resource, ResourceOptions, reflectMemo, computed } from '../atom/index'
 import { debounce } from 'lodash-es'
 export type PaginationOptions<T> = ResourceOptions<T> & {
     initIndex?: number
@@ -9,12 +9,13 @@ export type PaginationOptions<T> = ResourceOptions<T> & {
 /**
  * @zh 逐页查询组件, 内部采用了时间过滤
  *  */
-export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>, init: PaginationOptions<T> = {}) => {
+export const usePagination = <T>(getData: (pageIndex: number, maxPage: Atom<number>, count: Atom<number>) => Promise<T>, init: PaginationOptions<T> = {}) => {
     init.debounceTime = init.debounceTime ?? 100
 
-    const currentIndex = atom<number>(init.initIndex ?? 0)
-    const maxPage = atom<number>(10)
-    const currentData = resource<T>(() => getData(currentIndex(), maxPage), init)
+    const currentIndex = atom(init.initIndex ?? 0)
+    const maxPage = atom(10)
+    const count = atom(10)
+    const currentData = resource<T>(() => getData(currentIndex(), maxPage, count), init)
 
     const refetchImmediate = () => currentData.refetch()
     const refetch = debounce(refetchImmediate, init.debounceTime!)
@@ -28,11 +29,13 @@ export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<num
             return immediate ? refetchImmediate() : refetch()
         }
     }
+    const currentPageModel = currentIndex.reflux(currentIndex() + 1, (self) => self - 1)
     return {
+        count,
         /** index 数值，从 0 开始 */
         currentIndex,
         /** 页数 数值，从 1 开始 */
-        currentPage: reflectMemo(() => currentIndex() + 1),
+        currentPage: createMemo(() => currentIndex() + 1),
         /** 类似于数组的 length ，表示页数 */
         maxPage,
         prev() {
@@ -51,17 +54,25 @@ export const usePagination = <T>(getData: (pageNumber: number, maxPage: Atom<num
         refetch,
         refetchImmediate,
         goto,
-        currentData
+        currentData,
+        /** 转化成 Pagination 组件使用的模式 */
+        toPaginationModel() {
+            return {
+                'v-model': currentPageModel,
+                count: count(),
+                onPageChange: refetch
+            }
+        }
     }
 }
 
-import { batch } from 'solid-js'
+import { batch, createMemo } from 'solid-js'
 
 /**
  * 滑动加载逐页查询组件，也可称无限加载逻辑组件
  * @test
  */
-export const usePaginationStack = <T>(getData: (pageNumber: number, maxPage: Atom<number>) => Promise<T>, init: PaginationOptions<T>) => {
+export const usePaginationStack = <T>(getData: (pageNumber: number, maxPage: Atom<number>, count: Atom<number>) => Promise<T>, init: PaginationOptions<T>) => {
     const dataSlices = atom<T[]>([], { equals: false })
     const p = usePagination(async (...args) => {
         const data = await getData(...args)
