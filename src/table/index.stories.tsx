@@ -5,7 +5,6 @@ import { random } from 'lodash-es'
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
     component: MagicTable,
-    tags: ['autodocs'],
     argTypes: {}
 } satisfies Meta<typeof MagicTable>
 
