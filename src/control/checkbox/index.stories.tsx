@@ -38,13 +38,13 @@ const optionsWithDisabled = [
 export const Group: Story = {
     name: 'CheckboxGroup 多选组',
     render() {
+        const selected = atom<string[]>(['Apple'])
         const checkBoxCtx = NullAtom<CheckboxGroupExpose>(null)
-
         const { indeterminate, isAllChecked, onChange } = useControlCheckbox(checkBoxCtx)
         return (
             <div class="flex gap-4">
                 <Checkbox indeterminate={indeterminate()} v-model={isAllChecked} label={'切换选中'} value={'2333'} onChange={onChange}></Checkbox>
-                <CheckboxGroup options={optionsWithDisabled} expose={checkBoxCtx}></CheckboxGroup>
+                <CheckboxGroup options={optionsWithDisabled} v-model={selected} expose={checkBoxCtx}></CheckboxGroup>
             </div>
         )
     },
@@ -53,7 +53,7 @@ export const Group: Story = {
 export const RadioGroup: Story = {
     name: 'Radio 单选框',
     render() {
-        const selected = atom<string[]>([])
+        const selected = atom<string[]>(['Apple'])
         return (
             <div class="flex gap-4">
                 {JSON.stringify(selected())}
