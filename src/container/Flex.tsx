@@ -45,7 +45,7 @@ export const Flex = OriginComponent<FlexProps>((props) => {
         }
     )
     return (
-        <div class={props.class('flex', Wrap(), Justify(), Align(), props.vertical ? 'flex-col' : 'flex-row')} style={props.style()}>
+        <div class={props.class('flex', Wrap(), Justify(), Align(), props.vertical ? 'flex-col' : 'flex-row')} style={{ ...props.style(), gap: props.gap }}>
             {props.children}
         </div>
     )
