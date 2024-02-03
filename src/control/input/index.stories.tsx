@@ -12,7 +12,7 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
-import { OcPersonfill2 } from 'solid-icons/oc'
+import { AiOutlineUser } from 'solid-icons/ai'
 import { Icon } from '../../icon/Icon'
 export const Primary: Story = {
     render() {
@@ -26,7 +26,7 @@ export const Primary: Story = {
                     v-model={data}
                     prefixIcon={
                         <Icon>
-                            <OcPersonfill2 size={16}></OcPersonfill2>
+                            <AiOutlineUser size={16}></AiOutlineUser>
                         </Icon>
                     }
                 ></BaseInput>

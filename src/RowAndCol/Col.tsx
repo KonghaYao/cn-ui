@@ -44,8 +44,10 @@ export const Col = OriginComponent<ColProps>((props) => {
         <OriginDiv
             prop={props}
             style={{
-                'padding-left': RowContext.gutter,
-                'padding-right': RowContext.gutter,
+                'padding-left': RowContext.gutterX,
+                'padding-right': RowContext.gutterX,
+                'padding-top': RowContext.gutterY,
+                'padding-bottom': RowContext.gutterY,
                 'max-width': spanWidth(),
                 flex: `0 0 ${spanWidth()}`
             }}
