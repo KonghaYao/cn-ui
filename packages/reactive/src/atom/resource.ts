@@ -12,7 +12,7 @@ export interface ResourceBase<T, Params> {
     /** 正在进行的 Promise */
     promise: () => Promise<boolean>
 }
-export interface ResourceAtom<T, Params = unknown> extends ResourceBase<T, Params>, Atom<T> {}
+export interface ResourceAtom<T, Params = unknown> extends ResourceBase<T, Params>, Atom<T> { }
 
 export interface ResourceOptions<T> {
     initValue?: T
@@ -45,8 +45,8 @@ export const resource = <T, Params = unknown>(
         immediately = true,
         deps,
         refetch: defaultRefetch = {},
-        onSuccess = () => {},
-        onError = () => {}
+        onSuccess = () => { },
+        onError = () => { }
     }: ResourceOptions<T> = {}
 ): ResourceAtom<T, Params> => {
     /** 存储结果数据 */
@@ -113,7 +113,6 @@ export const resource = <T, Params = unknown>(
             data(() => newData)
         },
         isReady,
-
         refetch,
         promise: () => {
             return p

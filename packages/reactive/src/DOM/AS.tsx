@@ -2,6 +2,8 @@ import { ResourceAtom } from '../atom/resource'
 import { JSXElement, Match, Switch, createMemo } from 'solid-js'
 import { ensureFunctionResult } from '../utils/ensureFunctionResult'
 export interface ASProps<T> {
+    /** 在 loading 态保留上一个状态 */
+    keepLastState?: boolean
     resource: ResourceAtom<T>
     /** fallback */
     children?: (data: T) => JSXElement
@@ -32,11 +34,14 @@ export const AS = function <T>(props: ASProps<T>) {
         }
     })
     return (
-        <Switch>
-            <Match when={props.resource.isReady()}>{fallback()}</Match>
-            <Match when={props.resource.loading()}>{props.loading && props.loading(props.resource)}</Match>
-            <Match when={props.resource.error()}>{props.error && props.error(props.resource)}</Match>
-        </Switch>
+        <>
+            <Switch>
+                <Match when={props.resource.isReady()}>{fallback()}</Match>
+                <Match when={props.resource.loading()}>{props.loading && props.loading(props.resource)}</Match>
+                <Match when={props.resource.error()}>{props.error && props.error(props.resource)}</Match>
+            </Switch>
+            {props.keepLastState && props.resource.loading() && fallback()}
+        </>
     )
 }
 
@@ -45,6 +50,7 @@ function createAC(Default: Omit<ASProps<unknown>, 'resource'>) {
     return function <T>(props: ASProps<T>) {
         return (
             <AS
+                {...props}
                 resource={props.resource}
                 loading={props.loading ?? (Default.loading as any)}
                 error={props.error ?? (Default.error as any)}
@@ -61,8 +67,10 @@ export const DefaultAC: Omit<ASProps<unknown>, 'resource'> = {
 }
 /** 默认异步组件 */
 export function AC<T>(props: ASProps<T>) {
+    if (props.keepLastState) return <div class="relative h-full w-full">{createAC(DefaultAC)(props)}</div>
     return createAC(DefaultAC)(props)
 }
+
 /**
  * @zh 设置全局统一的 AC 默认 error、loading 等
  */
