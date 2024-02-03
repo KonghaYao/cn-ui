@@ -2,6 +2,7 @@ import { OriginComponent, useMapper } from '@cn-ui/reactive'
 import { JSX, JSXElement } from 'solid-js'
 export interface FlexProps {
     vertical?: boolean
+    fill?: boolean
     wrap?: JSX.CSSProperties['flex-wrap']
     justify?: JSX.CSSProperties['justify-content']
     align?: JSX.CSSProperties['align-items']
@@ -45,7 +46,10 @@ export const Flex = OriginComponent<FlexProps>((props) => {
         }
     )
     return (
-        <div class={props.class('flex', Wrap(), Justify(), Align(), props.vertical ? 'flex-col' : 'flex-row')} style={{ ...props.style(), gap: props.gap }}>
+        <div
+            class={props.class('flex', Wrap(), Justify(), Align(), props.fill && 'w-full h-full', props.vertical ? 'flex-col' : 'flex-row')}
+            style={{ ...props.style(), gap: props.gap }}
+        >
             {props.children}
         </div>
     )
