@@ -66,6 +66,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
             }
             return cleanUp
         })
+        props.model() ? show() : hide()
     })
     return (
         <>
