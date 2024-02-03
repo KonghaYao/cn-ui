@@ -1,4 +1,4 @@
-import { AC, DebounceAtom, atom, computed, resource } from '@cn-ui/reactive'
+import { AC, ArrayFolder, DebounceAtom, atom, computed, resource } from '@cn-ui/reactive'
 import { BaseInput } from '../control/input'
 import Fuse from 'fuse.js'
 
@@ -51,10 +51,10 @@ export const IconSearch = () => {
         <div class="h-[90vh]">
             <BaseInput v-model={searchText} suffixIcon={`${result().length} / ${totalAvailable().length}`}></BaseInput>
             <BaseInput v-model={size} suffixIcon={`${result().length} / ${totalAvailable().length}`}></BaseInput>
-            <Tabs class="h-full" wrapperClass="h-full overflow-scroll" v-model={watchingTab}>
+            <Tabs class="h-full" wrapperClass="h-full" v-model={watchingTab}>
                 {Object.keys(loader).map((key) => {
                     return (
-                        <Tab name={key}>
+                        <Tab name={key} class="h-full">
                             <AC resource={pack}>
                                 {() => {
                                     return (
@@ -72,24 +72,27 @@ export const IconSearch = () => {
     )
 }
 import copy from 'copy-to-clipboard'
+import { VirtualList } from '../virtualList'
 const IconGallery = (props: { comps: Record<string, Component>; result: { label: string }[]; size: string | number }) => {
     return (
-        <div class="flex flex-wrap gap-4 p-4">
-            {props.result
-                .map((i) => ({ ...i, comp: props.comps[i.label] }))
-                .filter((i) => i.comp)
-                .map((i) => {
-                    return (
-                        // TODO tooltips
-                        <div
-                            title={i.label}
-                            class="shadow-xs hover:shadow-lg transition p-4 rounded-lg flex aspect-square justify-center items-center"
-                            ondblclick={() => copy(i.label)}
-                        >
-                            <Dynamic component={i.comp} size={parseInt(props.size)}></Dynamic>
-                        </div>
-                    )
-                })}
-        </div>
+        <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))}>
+            {(row) => {
+                return (
+                    <div class="grid grid-cols-10">
+                        {row.map((i) => {
+                            return (
+                                <div
+                                    title={i.label}
+                                    class="shadow-xs hover:shadow-lg transition p-4 rounded-lg flex aspect-square justify-center items-center"
+                                    ondblclick={() => copy(i.label)}
+                                >
+                                    <Dynamic component={i.comp} size={parseInt(props.size)}></Dynamic>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )
+            }}
+        </VirtualList>
     )
 }

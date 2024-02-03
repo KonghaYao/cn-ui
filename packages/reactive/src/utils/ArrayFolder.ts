@@ -1,5 +1,5 @@
 /** 一维数组折叠为二维数组，通过 Proxy 减少计算*/
-export const ArrayFolder = (arr: number[], spaceSize = 10) => {
+export const ArrayFolder = <T>(arr: T[], spaceSize = 10) => {
     return new Proxy(arr, {
         get(target, key) {
             if (key === 'length') {
@@ -9,5 +9,5 @@ export const ArrayFolder = (arr: number[], spaceSize = 10) => {
             if (isNaN(numberKey)) return
             return target.slice(numberKey * spaceSize, (numberKey + 1) * spaceSize)
         }
-    }) as unknown as number[][]
+    }) as unknown as T[][]
 }
