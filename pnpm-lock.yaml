@@ -56,6 +56,9 @@ importers:
       viewerjs:
         specifier: ^1.11.6
         version: 1.11.6
+      wc-spinners:
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       '@solidjs/testing-library':
         specifier: ^0.8.4
@@ -11426,6 +11429,11 @@ packages:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
     dev: true
+
+  /wc-spinners@1.1.1:
+    resolution: {integrity: sha512-N6XTH64mWzMrijhFhniSQKckI8n1opB9qSTzZYHwOF/qAMMIbsD9zSiG+eYTCX5Xb/qYgm6xnKOeDMM6+3rZJA==}
+    engines: {node: '>=8.9.0'}
+    dev: false
 
   /wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}

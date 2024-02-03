@@ -27,7 +27,8 @@
     "sortablejs": "^1.15.2",
     "split.js": "^1.6.5",
     "ts-toolbelt": "^9.6.0",
-    "viewerjs": "^1.11.6"
+    "viewerjs": "^1.11.6",
+    "wc-spinners": "^1.1.1"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.4",
