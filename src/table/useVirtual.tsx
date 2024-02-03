@@ -1,6 +1,6 @@
 import { Atom, ThrottleAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
-import { createVirtualizer } from '@tanstack/solid-virtual'
+import { createVirtualizer } from './virtual/createVirtualizer'
 import { createMemo, Accessor } from 'solid-js'
 import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
@@ -12,6 +12,9 @@ export function useVirtual<T>(
 ) {
     // 构建固定列
     const sticky = useSticky(data.composedColumns)
+    const getGridSize = () => {
+        return data.composedColumns().length * table.getRowModel().rows.length
+    }
     const columnVirtualizer = createVirtualizer({
         get count() {
             return data.composedColumns().length
@@ -22,7 +25,8 @@ export function useVirtual<T>(
         getScrollElement: () => tableContainerRef(),
         rangeExtractor: sticky.rangeExtractor,
         horizontal: true,
-        overscan: 12
+        overscan: 12,
+        gridSize: getGridSize
     })
     //dynamic row height virtualization - alternatively you could use a simpler fixed row height strategy without the need for `measureElement`
     const rowVirtualizer = createVirtualizer({
@@ -34,7 +38,8 @@ export function useVirtual<T>(
         //measure dynamic row height, except in firefox because it measures table border height incorrectly
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
-        overscan: 12
+        overscan: 12,
+        gridSize: getGridSize
     })
 
     const virtualRows = rowVirtualizer.getVirtualItems()
@@ -56,9 +61,9 @@ export function useVirtual<T>(
     return {
         virtualPadding,
         rowVirtualizer,
-        virtualColumns: ThrottleAtom(() => virtualColumns, 100),
-        virtualRows: ThrottleAtom(() => virtualRows, 100),
-        virtualColumnsIndex: ThrottleAtom(virtualColumnsIndex, 100),
+        virtualColumns: () => virtualColumns,
+        virtualRows: () => virtualRows,
+        virtualColumnsIndex,
         ...sticky
     }
 }

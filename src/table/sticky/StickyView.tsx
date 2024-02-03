@@ -59,7 +59,7 @@ export function StickyViewBody<T>() {
                 >
                     <For each={virtualRows()}>
                         {(virtualRow) => {
-                            const visibleCells = getRow(virtualRow.index).getAllCells()
+                            const visibleCells = getRow(virtualRow.index).getVisibleCells()
                             return <BodyRow padding={false} cells={visibleCells} bindScroll={false} columns={stickingItems()} virtualRow={virtualRow}></BodyRow>
                         }}
                     </For>

@@ -37,8 +37,11 @@ export const selectionConfig = {
 export const indexConfig = {
     id: '$index',
     size: 60,
+    header: ({ table }) => {
+        return <div class="p-2 w-full text-center">#</div>
+    },
     cell(ctx) {
-        return <div class="p-2 w-full">{ctx.row.index}</div>
+        return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
     sticky: true
 } as ColumnDef<any>

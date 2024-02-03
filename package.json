@@ -18,6 +18,7 @@
     "@popperjs/core": "^2.11.8",
     "@tanstack/solid-table": "^8.11.7",
     "@tanstack/solid-virtual": "^3.0.2",
+    "@tanstack/virtual-core": "^3.0.4",
     "copy-to-clipboard": "^3.3.3",
     "lodash-es": "^4.17.21",
     "solid-icons": "^1.1.0",
