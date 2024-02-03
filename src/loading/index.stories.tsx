@@ -18,6 +18,7 @@ import 'wc-spinners/src/index'
 import { Flex } from '../container'
 import { Col, Row } from '../RowAndCol'
 import { For } from 'solid-js'
+import { createAutoAnimate } from '@formkit/auto-animate/solid'
 const list = [
     'atom-spinner',
     'breeding-rhombus-spinner',
@@ -75,6 +76,7 @@ const list = [
 ]
 /**  */
 export const Primary: Story = {
+    name: 'Loading 加载组件',
     render() {
         const res = resource(() => new Promise((resolve) => {}))
         return (
@@ -102,6 +104,24 @@ export const Primary: Story = {
                     }}
                 </For>
             </Row>
+        )
+    },
+    args: {}
+}
+
+export const Floating: Story = {
+    name: 'Floating 浮动加载层',
+    render() {
+        const res = resource(() => sleep(1000, Math.random()), { initValue: Math.random() })
+        return (
+            <div class="h-screen">
+                <button onclick={() => res.refetch()}>refetch</button>
+                <AC resource={res} keepLastState loading={() => <Loading floating></Loading>}>
+                    {() => {
+                        return res()
+                    }}
+                </AC>
+            </div>
         )
     },
     args: {}
