@@ -27,12 +27,13 @@ export const PasswordControl: Component<InputExpose> = (expose) => {
     )
 }
 /** 清空 icon */
-export const ClearControl: Component<InputExpose> = (expose) => {
+export const ClearControl: Component<InputExpose & { onClear?: () => void }> = (expose) => {
     return (
         <Icon
             class="cn-clear-btn opacity-0 transition cursor-pointer"
             onclick={() => {
                 expose.model('')
+                expose.onClear?.()
             }}
         >
             <AiOutlineCloseCircle color="#777" />

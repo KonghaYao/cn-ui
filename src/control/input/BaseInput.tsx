@@ -75,7 +75,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         >
             {Prefix()}
             <input
-                ref={inputEl}
+                ref={(el) => (inputEl(el), props.ref?.(el))}
                 id={props.id}
                 type={inputType()}
                 disabled={props.disabled}
