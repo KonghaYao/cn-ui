@@ -1,4 +1,4 @@
-import { createSignal, Accessor, Setter } from 'solid-js'
+import { createSignal, Accessor, Setter, Signal } from 'solid-js'
 import { useEffectWithoutFirst } from './useEffect'
 
 export const AtomTypeSymbol = Symbol('AtomTypeSymbol')
@@ -37,7 +37,13 @@ type SignalOptions<T> = { equals?: false | ((prev: T, next: T) => boolean) }
  * @description atom 的理念来自 solid-use, 使用一个函数进行响应式数据的管理
  */
 export const atom = <T>(value: T, props?: SignalOptions<T>): Atom<T> => {
-    const [state, setState] = createSignal<T>(value, props)
+    const signal = createSignal<T>(value, props)
+    return SignalToAtom(signal)
+}
+
+/** Signal 转为 Atom */
+export const SignalToAtom = <T>(signal: Signal<T>) => {
+    const [state, setState] = signal
 
     return Object.assign(
         (...args: [] | [T]) => {
