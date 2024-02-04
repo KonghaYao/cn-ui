@@ -7,6 +7,7 @@ import { useAutoResize } from '../table/hook/useAutoResize'
 interface VirtualListProps<T> {
     each: T[]
     estimateSize?: number
+    containerHeight?: number
     horizontal?: boolean
     children: (item: T, index: Accessor<number>) => JSXElement
 }
@@ -18,7 +19,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
             return props.each.length
         },
         estimateSize(index) {
-            return props.estimateSize ?? 100
+            return props.estimateSize ?? 24
         }, //average column width in pixels
         getScrollElement: () => tableContainerRef(),
         get horizontal() {
@@ -34,7 +35,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
             style={{
                 overflow: 'auto', //our scrollable table container
                 position: 'relative', //needed for sticky header
-                height: toCSSPx(height(), '400px') //should be a fixed height
+                height: toCSSPx(height() || props.containerHeight, '400px') //should be a fixed height
             }}
         >
             <div
