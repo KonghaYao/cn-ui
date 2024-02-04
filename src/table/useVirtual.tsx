@@ -41,8 +41,6 @@ export function useVirtual<T>(
         overscan: 12,
         gridSize: getGridSize
     })
-
-    const virtualRows = rowVirtualizer.getVirtualItems()
     const virtualColumns = columnVirtualizer.getVirtualItems()
     const virtualPadding = createMemo(() => {
         //different virtualization strategy for columns - instead of absolute and translateY, we add empty columns to the left and right
@@ -62,7 +60,7 @@ export function useVirtual<T>(
         virtualPadding,
         rowVirtualizer,
         virtualColumns: () => virtualColumns,
-        virtualRows: () => virtualRows,
+        virtualRows: () => rowVirtualizer.getVirtualItems(),
         virtualColumnsIndex,
         ...sticky
     }

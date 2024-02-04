@@ -16,6 +16,7 @@ export * from '@tanstack/virtual-core'
 
 import { createSignal, onMount, onCleanup, createComputed, mergeProps } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
+import { nextTick } from 'solidjs-use'
 
 function createVirtualizerBase<TScrollElement extends Element | Window, TItemElement extends Element>(
     options: VirtualizerOptions<TScrollElement, TItemElement> & { gridSize: () => number }
@@ -73,7 +74,10 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
                 )
             })
         )
-        virtualizer.measure()
+        // 防止与 sorting 冲突导致无限循环
+        nextTick(() => {
+            virtualizer.measure()
+        })
     })
 
     return virtualizer

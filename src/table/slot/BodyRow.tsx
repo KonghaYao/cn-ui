@@ -14,8 +14,11 @@ export function BodyRow<T, D>(props: {
     virtualRow: VirtualItem
 }) {
     const { rowVirtualizer, virtualPadding, virtualColumnsIndex, table, selection } = MagicTableCtx.use<MagicTableCtxType<T>>()
-    const row = table.getRowModel().rows[props.virtualRow.index]
-    const visibleRows = createMemo(() => props.cells ?? row.getVisibleCells())
+
+    const row = createMemo(() => {
+        return table.getSortedRowModel().rows[props.virtualRow.index]
+    })
+    const visibleRows = createMemo(() => props.cells ?? row().getVisibleCells())
     return (
         <tr
             data-index={props.virtualRow.index} //needed for dynamic row height measurement
@@ -24,22 +27,22 @@ export function BodyRow<T, D>(props: {
             }} //measure dynamic row height
             class={classNames(
                 'flex absolute w-full duration-300 transition-colors ',
-                row.getIsSelected() ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100'
+                row().getIsSelected() ? 'bg-blue-100 hover:bg-blue-200' : 'hover:bg-gray-100'
             )}
             style={{
                 transform: `translateY(${props.virtualRow.start}px)`
             }}
             onClick={() => {
-                selection() && row.toggleSelected()
+                selection() && row().toggleSelected()
             }}
         >
             {props.padding && virtualPadding().left ? (
                 //fake empty column to the left for virtualization scroll padding
                 <td style={{ display: 'flex', width: virtualPadding().left + 'px' }} />
             ) : null}
-            <For each={props.columns || virtualColumnsIndex()}>
-                {(index) => {
-                    return <BodyCell cell={visibleRows()[index]}></BodyCell>
+            <For each={(props.columns || virtualColumnsIndex()).map((i) => visibleRows()[i])}>
+                {(cell) => {
+                    return <BodyCell cell={cell}></BodyCell>
                 }}
             </For>
             {props.padding && virtualPadding().right ? (

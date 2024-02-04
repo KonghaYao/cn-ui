@@ -1,13 +1,13 @@
 import { atom, toCSSPx } from '@cn-ui/reactive'
-import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState } from '@tanstack/solid-table'
+import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
 import { indexConfig, selectionConfig } from './defaultConfig'
-import { useScroll } from 'solidjs-use'
-import { createMemo } from 'solid-js'
+import { nextTick, useScroll } from 'solidjs-use'
+import { createMemo, createSignal } from 'solid-js'
 import { MagicColumnConfig } from '.'
 import { StickyViewBody } from './sticky/StickyView'
 import { useAutoResize } from './hook/useAutoResize'
@@ -37,6 +37,7 @@ export interface MagicTableExpose<T> {
 
 export function MagicTable<T>(props: MagicTableProps<T>) {
     const rowSelection = atom<RowSelectionState>({})
+    const [sorting, setSorting] = createSignal<SortingState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
         [props.selection && selectionConfig, props.index && indexConfig, ...props.columns].filter((i) => i)
@@ -51,6 +52,9 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
         state: {
             get rowSelection() {
                 return rowSelection()
+            },
+            get sorting() {
+                return sorting()
             }
         },
         getCoreRowModel: getCoreRowModel(),
@@ -58,7 +62,9 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
         enableRowSelection: true,
         onRowSelectionChange: (updateOrValue) => {
             rowSelection((selection) => (typeof updateOrValue === 'function' ? updateOrValue(selection) : updateOrValue))
-        }
+        },
+        onSortingChange: setSorting,
+        debugTable: true
     })
 
     const tableContainerRef = atom<HTMLDivElement | null>(null)

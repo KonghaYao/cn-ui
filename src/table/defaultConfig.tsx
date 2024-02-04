@@ -1,10 +1,11 @@
 import { ColumnDef } from '@tanstack/solid-table'
 import { MagicColumnConfig } from '.'
 import { Checkbox } from '../control/checkbox'
+import { computed } from '@cn-ui/reactive'
 
 export const selectionConfig = {
     id: '$select',
-    size: 25,
+    size: 35,
     header: ({ table }) => {
         return (
             <div class="px-2">
@@ -18,16 +19,11 @@ export const selectionConfig = {
             </div>
         )
     },
-    cell: ({ row }) => {
+    cell: (props) => {
+        const checked = computed(() => props.row.getIsSelected())
         return (
             <div class="p-2">
-                <Checkbox
-                    v-model={() => row.getIsSelected()}
-                    label=""
-                    value=""
-                    disabled={!row.getCanSelect()}
-                    onChange={row.getToggleSelectedHandler()}
-                ></Checkbox>
+                <Checkbox v-model={checked} label="" value="" disabled={!props.row.getCanSelect()} onChange={props.row.getToggleSelectedHandler()}></Checkbox>
             </div>
         )
     },
@@ -37,11 +33,13 @@ export const selectionConfig = {
 export const indexConfig = {
     id: '$index',
     size: 60,
-    header: ({ table }) => {
-        return <div class="p-2 w-full text-center">#</div>
-    },
+    header: '#',
     cell(ctx) {
         return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
-    sticky: true
+    sticky: true,
+    forceSorting: true,
+    accessorFn(_, index) {
+        return index
+    }
 } as ColumnDef<any>
