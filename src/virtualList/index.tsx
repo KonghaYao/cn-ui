@@ -33,7 +33,9 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         <div
             ref={tableContainerRef}
             style={{
-                overflow: 'auto', //our scrollable table container
+                width: '100%',
+                'overflow-x': 'hidden', //our scrollable table container
+                'overflow-y': 'auto', //our scrollable table container
                 position: 'relative', //needed for sticky header
                 height: toCSSPx(height() || props.containerHeight, '400px') //should be a fixed height
             }}

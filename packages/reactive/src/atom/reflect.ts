@@ -1,9 +1,13 @@
 import { createEffect, createMemo, untrack } from 'solid-js'
-import { AtomTypeSymbol, atom } from './atom'
+import { Atom, AtomTypeSymbol, atom } from './atom'
 
 export interface ReflectOptions<T> {
     immediately?: boolean
     initValue?: T
+}
+
+interface ComputedAtom<T> extends Atom<T> {
+    recomputed(): void
 }
 /**
  * @category atom
@@ -45,7 +49,11 @@ export const reflect = <T>(
         return a(() => memoFunc(lastValue))
     }, initValue)
     a[AtomTypeSymbol] = 'reflect'
-    return a
+    return Object.assign(a, {
+        recomputed() {
+            return a((val) => memoFunc(val))
+        }
+    }) as ComputedAtom<T>
 }
 export const computed = reflect
 /**

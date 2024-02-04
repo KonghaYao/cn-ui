@@ -48,6 +48,7 @@ export const useSelect = function (
     }
     return {
         multi,
+        activeIdsArray,
         /** 更改状态 */
         changeSelected,
         /** 清空选中 */

@@ -1,11 +1,11 @@
-import { JSXSlot, NullAtom, OriginComponent, computed, ensureFunctionResult, useMapper } from '@cn-ui/reactive'
+import { JSXSlot, NullAtom, OriginComponent, atom, classNames, computed, ensureFunctionResult, useMapper } from '@cn-ui/reactive'
 import { children, createEffect, onMount } from 'solid-js'
 import { Instance, Placement, createPopper } from '@popperjs/core'
-import { useEventListener, watch } from 'solidjs-use'
+import { onClickOutside, useElementHover, useEventListener, watch } from 'solidjs-use'
 export interface PopoverProps {
     content: JSXSlot
     placement?: Placement
-    trigger?: 'click' | 'hover' | 'focus'
+    trigger?: 'click' | 'hover' | 'focus' | 'none'
 }
 
 export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
@@ -13,6 +13,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
     const arrow = NullAtom<HTMLDivElement>(null)
     const c = children(() => props.children)
     const button = computed(() => c.toArray()[0] as HTMLDivElement)
+    const hidden = atom(true)
     let popperInstance: Instance
     onMount(() => {
         popperInstance = createPopper(button(), tooltip()!, {
@@ -38,7 +39,11 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
             }
         )
         const toggle = (state = !props.model()) => {
-            tooltip()!.classList[state ? 'remove' : 'add']('hidden')
+            if (isHovered() && state === false) {
+                // 还浮动在 panel 上时，不进行关闭
+                return
+            }
+            hidden(!state)
             popperInstance.setOptions((options) => ({
                 ...options,
                 modifiers: [...options.modifiers!, { name: 'eventListeners', enabled: state }]
@@ -52,26 +57,31 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
         const key = useMapper(() => props.trigger ?? 'click', {
             focus: ['focus', 'blur'],
             hover: ['mouseenter', 'mouseleave'],
-            click: 'click'
+            click: 'click',
+            none: null
         })
         createEffect<(() => void)[]>((clean = []) => {
             clean.forEach((i) => i())
             const cleanUp: (() => void)[] = []
+            if (key() === null) return []
             if (Array.isArray(key())) {
-                const [add, remove] = key()
+                const [add, remove] = key()!
                 cleanUp.push(useEventListener(button(), add, show))
                 cleanUp.push(useEventListener(button(), remove, hide))
             } else if (typeof key() === 'string') {
-                cleanUp.push(useEventListener(button(), key(), () => toggle()))
+                cleanUp.push(useEventListener(button(), key()!, () => toggle()))
             }
             return cleanUp
         })
-        props.model() ? show() : hide()
+        createEffect(() => {
+            props.model() ? show() : hide()
+        })
     })
+    const isHovered = useElementHover(tooltip)
     return (
         <>
             {c.toArray()}
-            <div class="cn-popover-wrapper  p-2 hidden" ref={tooltip} style={{ '--cn-popover-bg': 'white' }}>
+            <div class={classNames('cn-popover-wrapper  p-2', hidden() && !isHovered() && 'hidden')} ref={tooltip} style={{ '--cn-popover-bg': 'white' }}>
                 <div class="shadow-lg border border-gray-300 rounded-lg p-2">{ensureFunctionResult(props.content)}</div>
             </div>
         </>
