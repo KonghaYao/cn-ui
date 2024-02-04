@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
-import { MagicTable } from './index'
+import { MagicTable, MagicTableExpose } from './index'
 import { random } from 'lodash-es'
+import { NullAtom, atom } from '@cn-ui/reactive'
+import { onMount } from 'solid-js'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -53,9 +55,11 @@ export const Selection: Story = {
         const cols = makeColumns(100)
         const data = makeData(100, cols)
         console.timeEnd('createData')
+        const expose = NullAtom<MagicTableExpose<Record<string, string>>>(null)
+        onMount(() => {})
         return (
             <>
-                <MagicTable selection index columns={cols} data={data}></MagicTable>
+                <MagicTable selection index columns={cols} data={data} expose={expose}></MagicTable>
                 <style>
                     {`html,body,#storybook-root {
                 height:100%

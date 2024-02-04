@@ -18,6 +18,21 @@ export interface MagicTableProps<T> {
     selection?: boolean | 'single' | 'multi'
     index?: boolean
     estimateHeight?: number
+    expose?: (expose: MagicTableExpose<T>) => void
+}
+
+export interface MagicTableExpose<T> {
+    clearSelection: () => void
+    getSelectionRows: () => T[]
+    toggleRowSelection: (index: number | string, selected?: boolean) => void
+    toggleAllSelection: (selected?: boolean) => void
+    // setCurrentRow: (row: T) => void
+    // clearSort: () => void
+    // clearFilter: (columnKeys?: string[]) => void
+    // sort: (prop: string, order: 'ascend' | 'descend') => void
+    // scrollTo: (options: ScrollToOptions | number, yCoord?: number) => void
+    // setScrollTop: (top: number) => void
+    // setScrollLeft: (left: number) => void
 }
 
 export function MagicTable<T>(props: MagicTableProps<T>) {
@@ -51,6 +66,25 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const tableBox = atom<HTMLDivElement | null>(null)
     const { height } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
+
+    const expose: MagicTableExpose<T> = {
+        clearSelection() {
+            table.resetRowSelection()
+        },
+        getSelectionRows() {
+            return table.getFilteredSelectedRowModel().rows.map((i) => i.original)
+        },
+        toggleAllSelection(selected) {
+            table.toggleAllRowsSelected(selected)
+        },
+        toggleRowSelection(row, selected) {
+            table.setRowSelection((selectedObj) => {
+                selectedObj[row.toString()] = selected ?? !selectedObj[row.toString()]
+                return selectedObj
+            })
+        }
+    }
+    props.expose?.(expose)
     return (
         <MagicTableCtx.Provider
             value={{

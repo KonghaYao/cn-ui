@@ -39,7 +39,7 @@
 -   [ ] TimePicker
 -   [ ] Transfer
 -   [ ] TreeSelect
--   [ ] Upload]
+-   [ ] Upload
 -   [ ] Pin Input
 -   [ ] Infinite Scroll
 
@@ -53,7 +53,9 @@
 -   [ ] Empty
 -   [x] Image
     -   [ ] Image Preview
--   [ ] List
+-   [x] List
+    -   [x] Virtual
+    -   [ ] Chat List
 -   [x] Popover
 -   [ ] QRCode
 -   [ ] Segmented
