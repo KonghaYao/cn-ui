@@ -1,23 +1,23 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Split } from './index'
+import { Splitter } from './index'
 
 const meta = {
-    title: 'Layout 布局组件/Split 拖拽区域',
-    component: Split,
+    title: 'Layout 布局组件/Splitter 拖拽区域',
+    component: Splitter,
     tags: ['autodocs'],
     argTypes: {}
-} satisfies Meta<typeof Split>
+} satisfies Meta<typeof Splitter>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
 const Sample = () => {
     return (
-        <Split>
+        <Splitter>
             <div style="background: pink;height: 300px">1</div>
             <div style="background: green;height: 300px">2</div>
-        </Split>
+        </Splitter>
     )
 }
 /** 自动实现子代元素分割的组建 */

@@ -3,7 +3,7 @@ import { createEffect, onCleanup, JSX, JSXElement, splitProps } from 'solid-js'
 import OriginSplit from 'split.js'
 import './style.css'
 
-export interface SplitProps extends JSX.HTMLAttributes<HTMLElement> {
+export interface SplitterProps extends JSX.HTMLAttributes<HTMLElement> {
     /**
      * @zh 初始每个部分的百分比占比
      */
@@ -30,7 +30,7 @@ import { children as getChildren } from 'solid-js'
 /**
  * @zh 分割面板，使用 split.js 作为基础进行封装
  */
-export const Split = OriginComponent<SplitProps>((props) => {
+export const Splitter = OriginComponent<SplitterProps>((props) => {
     let lastSplit = { destroy() {} } as unknown as OriginSplit.Instance
     const childBind = getChildren(() => props.children)
     createEffect(() => {

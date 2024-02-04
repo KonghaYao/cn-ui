@@ -52,6 +52,7 @@
 -   [ ] Description
 -   [ ] Empty
 -   [x] Image
+    -   [ ] Image Preview
 -   [ ] List
 -   [x] Popover
 -   [ ] QRCode

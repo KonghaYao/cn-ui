@@ -1,10 +1,12 @@
 .gutter {
     background-repeat: no-repeat;
     background-position: 50%;
-    transition: background-color, 0.3s;
+    transition: background-color, transform, 0.3s;
+    flex-basis: 3px !important;
 }
 .gutter:hover {
-    background-color: #efefef;
+    transform: scaleX(1.5);
+    background-color: #1a53ff;
 }
 
 .gutter.gutter-horizontal {
