@@ -79,7 +79,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
                 id={props.id}
                 type={inputType()}
                 disabled={props.disabled}
-                class={classNames('bg-transparent appearance-none outline-none ', props.disabled && ' cursor-not-allowed')}
+                class={classNames('bg-transparent appearance-none outline-none w-full ', props.disabled && ' cursor-not-allowed')}
                 {...props.$input()}
                 {...extendsEvent(props)}
             ></input>

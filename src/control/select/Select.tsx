@@ -1,7 +1,7 @@
-import { NullAtom, OriginComponent, SignalToAtom, classNames, computed, createCtx, useSelect } from '@cn-ui/reactive'
+import { NullAtom, OriginComponent, SignalToAtom, atom, classNames, computed, createCtx, useSelect } from '@cn-ui/reactive'
 import { BaseInput } from '../input/BaseInput'
 import { Popover } from '../../popover'
-import { useEventListener, useFocus } from 'solidjs-use'
+import { nextTick, useEventListener, useFocus } from 'solidjs-use'
 import { Accessor, For, Signal, createEffect } from 'solid-js'
 import { VirtualList } from '../../virtualList'
 import { Icon } from '../../icon/Icon'
@@ -11,18 +11,16 @@ import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
-export const Select = OriginComponent<
-    {
-        options: SelectItemsType[]
-        multiple?: boolean
-        disabled?: boolean
-        disabledOptions?: string[]
-    },
-    HTMLDivElement,
-    string[]
->((props) => {
-    const input = NullAtom<HTMLDivElement>(null)
-    const focusing = SignalToAtom(useFocus(input, { initialValue: true }) as Signal<boolean>)
+export interface SelectProps {
+    options: SelectItemsType[]
+    multiple?: boolean
+    disabled?: boolean
+    disabledOptions?: string[]
+    onInput?: (text: string) => void
+    filterable?: boolean
+}
+
+export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((props) => {
     const selectSystem = useSelect({
         activeIds: computed(() => props.model() ?? []),
         multi: !!props.multiple
@@ -30,27 +28,30 @@ export const Select = OriginComponent<
     createEffect(() => {
         selectSystem.disabledSet(() => new Set(props.disabledOptions))
     })
-    const inputText = computed(() => {
-        const val = [...selectSystem.activeIds()][0]
-        const item = props.options.find((i) => i.value === val)
-        return (item?.label ?? item?.value ?? '').toString()
-    })
     createEffect(() => {
-        props.options.map((item) => {
-            selectSystem.register(item.value.toString(), false)
+        selectSystem.allRegistered((i) => {
+            const set = new Set<string>()
+            props.options.forEach((item) => {
+                set.add(item.value.toString())
+            })
+            return set
         })
     })
     createEffect(() => {
         props.model(() => selectSystem.activeIdsArray())
     })
+    const input = NullAtom<HTMLDivElement>(null)
+    const focusing = SignalToAtom(useFocus(input, { initialValue: true }) as Signal<boolean>)
+    const inputText = atom('')
 
     const filteredOptions = computed(
         () => {
-            if (!inputText()) return props.options
+            if (!inputText() || props.filterable === false) return props.options
             return props.options.filter((i) => getLabelFromOptions(i).includes(inputText()))
         },
-        { step: true }
+        { step: true, deps: [() => props.filterable, () => props.options] }
     )
+    let keepState = inputText()
     return (
         <SelectCtx.Provider value={selectSystem}>
             <Popover
@@ -59,7 +60,14 @@ export const Select = OriginComponent<
                 content={() => (
                     // TODO width
                     <nav class={classNames('max-h-32 w-48 ', props.options.length <= 100 && 'overflow-y-scroll')}>
-                        <SelectPanel options={filteredOptions()} multiple={props.multiple}></SelectPanel>
+                        <SelectPanel
+                            onSelect={(item, state) => {
+                                !props.multiple && inputText(state ? getLabelFromOptions(item) : '')
+                                input()?.focus()
+                            }}
+                            options={filteredOptions()}
+                            multiple={props.multiple}
+                        ></SelectPanel>
                     </nav>
                 )}
                 placement="bottom-start"
@@ -71,9 +79,14 @@ export const Select = OriginComponent<
                     disabled={props.disabled}
                     oninput={() => {
                         filteredOptions.recomputed()
+                        props.onInput?.(inputText())
+                    }}
+                    onfocus={() => {
+                        keepState = inputText()
                     }}
                     onblur={() => {
-                        inputText.recomputed()
+                        // TODO blur 时，严格数据填入
+                        inputText(() => keepState)
                     }}
                     prefixIcon={(expose) => {
                         if (!props.multiple) return
@@ -102,7 +115,7 @@ export interface SelectItemsType {
     value: string | number
 }
 
-export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: boolean }) => {
+export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: boolean; onSelect?: (item: SelectItemsType, state: boolean) => void }) => {
     const selectSystem = SelectCtx.use()
     const innerContent = (item: SelectItemsType) => (
         <>
@@ -121,6 +134,10 @@ export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: bool
         const isDisabled = selectSystem.disabledSet().has(item.value.toString())
         return classNames(parentClass, isSelected && selectedClass, isDisabled && disabledClass, !isSelected && !isDisabled && normalClass)
     }
+    const selectItem = (item: SelectItemsType) => {
+        const state = selectSystem.changeSelected(item.value.toString())
+        props.onSelect?.(item, state)
+    }
     return (
         <>
             {props.options.length > 100 ? (
@@ -129,7 +146,7 @@ export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: bool
                         createEffect(() => {
                             itemClass(createClass(item))
                             useEventListener(itemRef, 'click', () => {
-                                selectSystem.changeSelected(item.value.toString())
+                                selectItem(item)
                             })
                         })
                         return <>{innerContent(item)}</>
@@ -143,7 +160,7 @@ export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: bool
                                 role="option"
                                 class={createClass(item)}
                                 onClick={() => {
-                                    selectSystem.changeSelected(item.value.toString())
+                                    selectItem(item)
                                 }}
                             >
                                 {innerContent(item)}

@@ -1,10 +1,11 @@
-import { createEffect, createMemo, untrack } from 'solid-js'
+import { Accessor, createEffect, createMemo, on, untrack } from 'solid-js'
 import { Atom, AtomTypeSymbol, atom } from './atom'
 
 export interface ReflectOptions<T> {
     immediately?: boolean
     initValue?: T
     step?: boolean
+    deps?: Accessor<any>[]
 }
 
 interface ComputedAtom<T> extends Atom<T> {
@@ -43,14 +44,24 @@ export const reflect = <T>(
         /** @ts-ignore */
         initValue = null,
         /** 是否手动进行依赖触发 */
-        step = false
+        step = false,
+        deps = []
     }: ReflectOptions<T> = {}
 ) => {
     const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue)
-    // createEffect 会经过 solid 的生命周期，在这之前，是没有值的
-    !step && createEffect((lastValue: T) => {
-        return a(() => memoFunc(lastValue))
-    }, initValue)
+    if (step) {
+        createEffect(() => {
+            deps.forEach(i => i())
+            untrack(() => {
+                a((i) => memoFunc(i))
+            })
+        })
+    } else {
+        // createEffect 会经过 solid 的生命周期，在这之前，是没有值的
+        createEffect((lastValue: T) => {
+            return a(() => memoFunc(lastValue))
+        }, initValue)
+    }
     a[AtomTypeSymbol] = 'reflect'
     return Object.assign(a, {
         recomputed() {

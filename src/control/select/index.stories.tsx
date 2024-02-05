@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Select } from './index'
-import { genArray } from '@cn-ui/reactive'
+import { Select, SelectItemsType } from './index'
+import { genArray, resource } from '@cn-ui/reactive'
+import Mock from 'mockjs-ts'
 const meta = {
     title: 'Controls/Select 选择器',
     component: Select,
@@ -62,6 +63,31 @@ export const Multi: Story = {
                         }
                     ]}
                 ></Select>
+            </div>
+        )
+    },
+    args: {}
+}
+
+export const Search: Story = {
+    name: 'Remote Search 远程搜索',
+    render() {
+        const res = resource(
+            async () =>
+                Mock.mock<{ data: SelectItemsType[] }>({
+                    'data|10': [
+                        {
+                            value: '@name',
+                            label: '@cname'
+                        }
+                    ]
+                }).data,
+            { initValue: [] }
+        )
+
+        return (
+            <div class="flex flex-col gap-4">
+                <Select filterable={false} options={res()} onInput={res.refetch}></Select>
             </div>
         )
     },

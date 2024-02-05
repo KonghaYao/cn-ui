@@ -30,7 +30,7 @@ export const useSelect = function (
 
     /** 更改相应 id 的状态 */
     const changeSelected = (id: string, state?: boolean) => {
-        if (disabledSet().has(id)) return
+        if (disabledSet().has(id)) return false
         // 默认自动置反
         if (state === undefined) state = !activeIdsSet().has(id)
 
@@ -45,6 +45,7 @@ export const useSelect = function (
         } else if (state === false) {
             activeIdsArray.removeAll(id)
         }
+        return state
     }
     return {
         multi,
