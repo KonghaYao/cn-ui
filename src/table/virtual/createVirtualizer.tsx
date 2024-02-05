@@ -18,9 +18,13 @@ import { createSignal, onMount, onCleanup, createComputed, mergeProps } from 'so
 import { createStore, reconcile } from 'solid-js/store'
 import { nextTick } from 'solidjs-use'
 
+export interface CNVirtualizer<TScrollElement extends Element | Window, TItemElement extends Element> extends Virtualizer<TScrollElement, TItemElement> {
+    updateView(instance: Virtualizer<TScrollElement, TItemElement>, sync: boolean): void
+}
+
 function createVirtualizerBase<TScrollElement extends Element | Window, TItemElement extends Element>(
     options: VirtualizerOptions<TScrollElement, TItemElement> & { gridSize: () => number }
-): Virtualizer<TScrollElement, TItemElement> {
+): CNVirtualizer<TScrollElement, TItemElement> {
     const resolvedOptions: VirtualizerOptions<TScrollElement, TItemElement> = mergeProps(options)
 
     const instance = new Virtualizer<TScrollElement, TItemElement>(resolvedOptions)
@@ -49,29 +53,22 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
         virtualizer._willUpdate()
         onCleanup(cleanup)
     })
-
+    const updateView = (instance: Virtualizer<TScrollElement, TItemElement>, sync: boolean) => {
+        instance._willUpdate()
+        setVirtualItems(
+            reconcile(instance.getVirtualItems(), {
+                key: 'index'
+            })
+        )
+        setTotalSize(instance.getTotalSize())
+        options.onChange?.(instance, sync)
+    }
     createComputed(() => {
         virtualizer.setOptions(
             mergeProps(resolvedOptions, options, {
-                onChange: throttle(
-                    (instance: Virtualizer<TScrollElement, TItemElement>, sync: boolean) => {
-                        instance._willUpdate()
-                        setVirtualItems(
-                            reconcile(instance.getVirtualItems(), {
-                                key: 'index'
-                            })
-                        )
-                        setTotalSize(instance.getTotalSize())
-                        options.onChange?.(instance, sync)
-                    },
-                    () => {
-                        const time = Math.min(Math.ceil(options.gridSize() / 7000), 500)
-                        return time
-                    },
-                    {
-                        trailing: true
-                    }
-                )
+                onChange: throttle(updateView, () => Math.min(Math.ceil(options.gridSize() / 7000), 500), {
+                    trailing: true
+                })
             })
         )
         // 防止与 sorting 冲突导致无限循环
@@ -80,14 +77,14 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
         })
     })
 
-    return virtualizer
+    return { ...virtualizer, updateView } as unknown as CNVirtualizer<TScrollElement, TItemElement>
 }
 
 export function createVirtualizer<TScrollElement extends Element, TItemElement extends Element>(
     options: PartialKeys<VirtualizerOptions<TScrollElement, TItemElement>, 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'> & {
         gridSize: () => number
     }
-): Virtualizer<TScrollElement, TItemElement> {
+): CNVirtualizer<TScrollElement, TItemElement> {
     return createVirtualizerBase<TScrollElement, TItemElement>(
         mergeProps(
             {
@@ -105,7 +102,7 @@ export function createWindowVirtualizer<TItemElement extends Element>(
     options: PartialKeys<VirtualizerOptions<Window, TItemElement>, 'getScrollElement' | 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'> & {
         gridSize: () => number
     }
-): Virtualizer<Window, TItemElement> {
+): CNVirtualizer<Window, TItemElement> {
     return createVirtualizerBase<Window, TItemElement>(
         mergeProps(
             {

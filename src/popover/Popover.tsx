@@ -1,4 +1,4 @@
-import { JSXSlot, NullAtom, OriginComponent, atom, classNames, computed, ensureFunctionResult, useMapper } from '@cn-ui/reactive'
+import { JSXSlot, NullAtom, OriginComponent, atom, classNames, computed, ensureFunctionResult, toCSSPx, useMapper } from '@cn-ui/reactive'
 import { children, createEffect, onMount } from 'solid-js'
 import { Instance, Placement, createPopper } from '@popperjs/core'
 import { onClickOutside, useElementHover, useEventListener, watch } from 'solidjs-use'
@@ -6,6 +6,7 @@ export interface PopoverProps {
     content: JSXSlot
     placement?: Placement
     trigger?: 'click' | 'hover' | 'focus' | 'none'
+    padding?: string | number
 }
 
 export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
@@ -81,8 +82,10 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
     return (
         <>
             {c.toArray()}
-            <div class={classNames('cn-popover-wrapper  p-2', hidden() && !isHovered() && 'hidden')} ref={tooltip} style={{ '--cn-popover-bg': 'white' }}>
-                <div class="shadow-lg border border-gray-300 rounded-lg p-2">{ensureFunctionResult(props.content)}</div>
+            <div class={classNames('cn-popover-wrapper p-2', hidden() && !isHovered() && 'hidden')} ref={tooltip} style={{ '--cn-popover-bg': 'white' }}>
+                <div class="shadow-lg border border-gray-300 rounded-lg" style={{ padding: toCSSPx(props.padding, '0.5rem') }}>
+                    {ensureFunctionResult(props.content)}
+                </div>
             </div>
         </>
     )

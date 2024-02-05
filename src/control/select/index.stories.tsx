@@ -45,6 +45,7 @@ export const Multi: Story = {
         return (
             <div class="flex gap-4">
                 <Select
+                    disabledOptions={['jack']}
                     multiple
                     options={[
                         {

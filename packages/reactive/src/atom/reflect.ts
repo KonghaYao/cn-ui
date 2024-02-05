@@ -4,6 +4,7 @@ import { Atom, AtomTypeSymbol, atom } from './atom'
 export interface ReflectOptions<T> {
     immediately?: boolean
     initValue?: T
+    step?: boolean
 }
 
 interface ComputedAtom<T> extends Atom<T> {
@@ -40,12 +41,14 @@ export const reflect = <T>(
         immediately = true,
         /** 如果不进行求值，那么将会之用初始值进行替代 */
         /** @ts-ignore */
-        initValue = null
+        initValue = null,
+        /** 是否手动进行依赖触发 */
+        step = false
     }: ReflectOptions<T> = {}
 ) => {
     const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue)
     // createEffect 会经过 solid 的生命周期，在这之前，是没有值的
-    createEffect((lastValue: T) => {
+    !step && createEffect((lastValue: T) => {
         return a(() => memoFunc(lastValue))
     }, initValue)
     a[AtomTypeSymbol] = 'reflect'

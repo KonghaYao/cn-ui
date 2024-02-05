@@ -1,0 +1,11 @@
+/* selected rounded corners style  */
+.cn-select-option.cn-selected:not(.cn-select-option.disabled):has(+ .cn-select-option.cn-selected:not(.cn-select-option.disabled)) {
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+}
+
+.cn-select-option.cn-selected:not(.cn-select-option.disabled):has(+ .cn-select-option.cn-selected:not(.cn-select-option.disabled))
+    + .cn-select-option.cn-selected:not(.cn-select-option.disabled) {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+}
