@@ -4,6 +4,7 @@ import { Portal } from 'solid-js/web'
 export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> {
     content: JSXSlot
     trigger?: 'click' | 'hover' | 'focus' | 'none'
+    initialFocusEl?: $PopoverProps['initialFocusEl']
 }
 import './index.css'
 import { children, createMemo } from 'solid-js'
@@ -41,6 +42,7 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
     })
     return (
         <Popover.Root
+            initialFocusEl={props.initialFocusEl}
             autoFocus={false}
             closeOnInteractOutside={true}
             portalled
@@ -49,10 +51,10 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
             positioning={positioning()}
             onOpenChange={(value) => props.model(value.open)}
         >
-            <Trigger as={child}></Trigger>
+            <PopoverTrigger as={child}></PopoverTrigger>
             <Portal>
                 <Popover.Positioner>
-                    <Popover.Content class="popover__content outline-none">
+                    <Popover.Content class="popover__content outline-none bg-white rounded-md flex flex-col z-50 p-2">
                         <Popover.Arrow class="popover__arrow">
                             <Popover.ArrowTip class="popover__arrowTip" />
                         </Popover.Arrow>
@@ -64,7 +66,7 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
     )
 })
 export { _Popover as Popover }
-const Trigger = (props: { as: () => HTMLElement }) => {
+export const PopoverTrigger = (props: { as: () => HTMLElement }) => {
     const api = usePopoverContext()
     spread(props.as(), api().triggerProps)
     return props.as()

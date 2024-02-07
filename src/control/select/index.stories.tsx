@@ -14,7 +14,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-    name: 'Select 多选框',
+    name: 'Select 单选框',
     render() {
         return (
             <div class="flex gap-4">

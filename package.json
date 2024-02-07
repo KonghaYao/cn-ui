@@ -15,7 +15,6 @@
         "@ark-ui/solid": "^2.0.1",
         "@cn-ui/reactive": "workspace:",
         "@formkit/auto-animate": "^0.8.1",
-        "@popperjs/core": "^2.11.8",
         "@tanstack/solid-table": "^8.11.7",
         "@tanstack/solid-virtual": "^3.0.2",
         "@tanstack/virtual-core": "^3.0.4",

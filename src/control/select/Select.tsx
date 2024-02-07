@@ -41,7 +41,6 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         props.model(() => selectSystem.activeIdsArray())
     })
     const input = NullAtom<HTMLDivElement>(null)
-    const focusing = SignalToAtom(useFocus(input, { initialValue: true }) as Signal<boolean>)
     const inputText = atom('')
 
     const filteredOptions = computed(
@@ -55,11 +54,11 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
     return (
         <SelectCtx.Provider value={selectSystem}>
             <Popover
-                v-model={focusing}
+                initialFocusEl={input}
+                sameWidth
                 trigger="none"
                 content={() => (
-                    // TODO width
-                    <nav class={classNames('max-h-32 w-48 ', props.options.length <= 100 && 'overflow-y-scroll')}>
+                    <nav class={classNames('max-h-32 w-full ', props.options.length <= 100 && 'overflow-y-auto')}>
                         <SelectPanel
                             onSelect={(item, state) => {
                                 !props.multiple && inputText(state ? getLabelFromOptions(item) : '')
@@ -85,7 +84,6 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                         keepState = inputText()
                     }}
                     onblur={() => {
-                        // TODO blur 时，严格数据填入
                         inputText(() => keepState)
                     }}
                     prefixIcon={(expose) => {
