@@ -1,0 +1,59 @@
+.popover__arrow {
+    --arrow-size: 0.75rem;
+    --arrow-background: white;
+}
+
+.popover__arrowTip {
+    border-top-width: 1px;
+    border-left-width: 1px;
+}
+
+.popover__positioner {
+    position: relative;
+}
+
+.popover__content {
+    background: white;
+    border-radius: 0.25rem;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    max-width: 12rem;
+    z-index: 9999;
+    padding: 0.5rem;
+}
+
+.popover__content:is([open], [data-state='open']) {
+    animation: fadeIn 0.25s;
+}
+
+.popover__content:is([data-state='closed']) {
+    animation: fadeOut 0.2s;
+}
+
+.popover__content:is([hidden]) {
+    display: none;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+}

@@ -21,9 +21,6 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
     render() {
         const positions = [
-            'auto',
-            'auto-start',
-            'auto-end',
             'top-start',
             'top',
             'top-end',
@@ -48,12 +45,13 @@ export const Primary: Story = {
 
                 <For each={positions}>
                     {(position) => {
+                        const open = atom(false)
                         return (
                             <Col span={6} class="h-48 py-4">
                                 <Flex class="h-full bg-gray-100">
                                     <Popover
-                                        content={<div>helpper</div>}
-                                        v-model={atom(true)}
+                                        content={<div>{position}</div>}
+                                        v-model={open}
                                         placement={position}
                                         trigger={trigger()[0] as PopoverProps['trigger']}
                                     >

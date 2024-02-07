@@ -1,92 +1,71 @@
-import { JSXSlot, NullAtom, OriginComponent, atom, classNames, computed, ensureFunctionResult, toCSSPx, useMapper } from '@cn-ui/reactive'
-import { children, createEffect, onMount } from 'solid-js'
-import { Instance, Placement, createPopper } from '@popperjs/core'
-import { onClickOutside, useElementHover, useEventListener, watch } from 'solidjs-use'
-export interface PopoverProps {
+import { JSXSlot, OriginComponent, ensureFunctionResult } from '@cn-ui/reactive'
+import { Popover, PopoverRootProps as $PopoverProps, usePopoverContext } from '@ark-ui/solid'
+import { Portal } from 'solid-js/web'
+export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> {
     content: JSXSlot
-    placement?: Placement
     trigger?: 'click' | 'hover' | 'focus' | 'none'
-    padding?: string | number
 }
-
-export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
-    const tooltip = NullAtom<HTMLDivElement>(null)
-    const arrow = NullAtom<HTMLDivElement>(null)
+import './index.css'
+import { children, createMemo } from 'solid-js'
+import { pick } from 'lodash-es'
+import { spread } from './spread'
+const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
+    const positioning = createMemo(() =>
+        pick(props, [
+            'placement',
+            'strategy',
+            'offset',
+            'gutter',
+            'shift',
+            'overflowPadding',
+            'arrowPadding',
+            'flip',
+            'slide',
+            'overlap',
+            'sameWidth',
+            'fitViewport',
+            'boundary',
+            'listeners',
+            'onComplete',
+            'onPositioned',
+            'onCleanup',
+            'getAnchorRect',
+            'updatePosition'
+        ])
+    )
     const c = children(() => props.children)
-    const button = computed(() => c.toArray()[0] as HTMLDivElement)
-    const hidden = atom(true)
-    let popperInstance: Instance
-    onMount(() => {
-        popperInstance = createPopper(button(), tooltip()!, {
-            modifiers: [
-                {
-                    name: 'arrow',
-                    options: {
-                        element: arrow()
-                    }
-                }
-            ]
-        })
-
-        watch(
-            () => props.placement,
-            () => {
-                popperInstance.setOptions((options) => ({
-                    ...options,
-                    placement: props.placement,
-                    modifiers: [...options.modifiers!]
-                }))
-                popperInstance.update()
-            }
-        )
-        const toggle = (state = !props.model()) => {
-            if (isHovered() && state === false) {
-                // 还浮动在 panel 上时，不进行关闭
-                return
-            }
-            hidden(!state)
-            popperInstance.setOptions((options) => ({
-                ...options,
-                modifiers: [...options.modifiers!, { name: 'eventListeners', enabled: state }]
-            }))
-            popperInstance.update()
-            props.model(state)
-        }
-        const show = () => toggle(true)
-        const hide = () => toggle(false)
-
-        const key = useMapper(() => props.trigger ?? 'click', {
-            focus: ['focus', 'blur'],
-            hover: ['mouseenter', 'mouseleave'],
-            click: 'click',
-            none: null
-        })
-        createEffect<(() => void)[]>((clean = []) => {
-            clean.forEach((i) => i())
-            const cleanUp: (() => void)[] = []
-            if (key() === null) return []
-            if (Array.isArray(key())) {
-                const [add, remove] = key()!
-                cleanUp.push(useEventListener(button(), add, show))
-                cleanUp.push(useEventListener(button(), remove, hide))
-            } else if (typeof key() === 'string') {
-                cleanUp.push(useEventListener(button(), key()!, () => toggle()))
-            }
-            return cleanUp
-        })
-        createEffect(() => {
-            props.model() ? show() : hide()
-        })
+    const child = createMemo(() => {
+        const doms = c.toArray()
+        if (doms.length !== 1) throw new Error('Popover need only 1 child!')
+        return doms[0] as HTMLElement
     })
-    const isHovered = useElementHover(tooltip)
     return (
-        <>
-            {c.toArray()}
-            <div class={classNames('cn-popover-wrapper p-2', hidden() && !isHovered() && 'hidden')} ref={tooltip} style={{ '--cn-popover-bg': 'white' }}>
-                <div class="shadow-lg border border-gray-300 rounded-lg" style={{ padding: toCSSPx(props.padding, '0.5rem') }}>
-                    {ensureFunctionResult(props.content)}
-                </div>
-            </div>
-        </>
+        <Popover.Root
+            autoFocus={false}
+            closeOnInteractOutside={true}
+            portalled
+            lazyMount={true}
+            open={props.model()}
+            positioning={positioning()}
+            onOpenChange={(value) => props.model(value.open)}
+        >
+            <Trigger as={child}></Trigger>
+            <Portal>
+                <Popover.Positioner>
+                    <Popover.Content class="popover__content outline-none">
+                        <Popover.Arrow class="popover__arrow">
+                            <Popover.ArrowTip class="popover__arrowTip" />
+                        </Popover.Arrow>
+                        <div>{ensureFunctionResult(props.content)}</div>
+                    </Popover.Content>
+                </Popover.Positioner>
+            </Portal>
+        </Popover.Root>
     )
 })
+export { _Popover as Popover }
+const Trigger = (props: { as: () => HTMLElement }) => {
+    const api = usePopoverContext()
+    spread(props.as(), api().triggerProps)
+    return props.as()
+}
