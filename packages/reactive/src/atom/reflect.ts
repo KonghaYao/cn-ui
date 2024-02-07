@@ -1,4 +1,4 @@
-import { Accessor, createEffect, createMemo, on, untrack } from 'solid-js'
+import { Accessor, createEffect, createMemo, untrack } from 'solid-js'
 import { Atom, AtomTypeSymbol, atom } from './atom'
 
 export interface ReflectOptions<T> {
@@ -8,7 +8,7 @@ export interface ReflectOptions<T> {
     deps?: Accessor<any>[]
 }
 
-interface ComputedAtom<T> extends Atom<T> {
+export interface ComputedAtom<T> extends Atom<T> {
     recomputed(): void
 }
 /**
