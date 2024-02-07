@@ -6,14 +6,13 @@ export { SortableCore }
 /** Sortable 组件的公共参数 */
 export const SortableShared = createContext<{
     /** 当使用 sharedList 的时候进行数据的统一 */
-    sharedData?: Atom<unknown[]>[]
+    sharedData?: Atom<any[]>[]
     /** 默认参数 */
     options?: SortableCore.Options
 }>({})
 
 /* TODO 还有很多示例未完成数据统一化 */
 export interface SortableListProps<T extends { id: string }> {
-    each: T[] | Atom<T[]>
     fallback?: JSX.Element
     /** 获取 each 中的元素的 id 的方法，默认获取 */
     getId?: (item: T) => string
@@ -34,15 +33,17 @@ export type SortableListType = <
 /**
  * @zh 使用响应式对象操控可排序列表, 内部列表不用再写 data-id 属性
  */
-export const SortableList = OriginComponent(function <T extends { id: string }>(baseProps: OriginComponentInputType<SortableListProps<T>>) {
-    const context = useContext(SortableShared)
+export const SortableList = OriginComponent(function <T extends { id: string }>(
+    baseProps: OriginComponentInputType<SortableListProps<T>, HTMLDivElement, T[]>
+) {
+    const context = useContext(SortableShared)!
     const props = mergeProps(
         {
-            options: context.options ?? {}
+            options: context?.options ?? {}
         },
         baseProps
     )
-    const each = atomization(props.each)
+    const each = atomization(props.model)
     const VoidId = Math.random().toString()
 
     const getId = props.getId || ((item) => item.id.toString())
