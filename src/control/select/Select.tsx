@@ -5,7 +5,7 @@ import { nextTick, useEventListener, useFocus } from 'solidjs-use'
 import { Accessor, For, Signal, createEffect } from 'solid-js'
 import { VirtualList } from '../../virtualList'
 import { Icon } from '../../icon/Icon'
-import { AiOutlineCheck } from 'solid-icons/ai'
+import { AiOutlineCheck, AiOutlineCloudDownload, AiOutlineDown, AiOutlineSearch } from 'solid-icons/ai'
 import { ClearControl } from '../input/utils'
 import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
@@ -51,9 +51,11 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         { step: true, deps: [() => props.filterable, () => props.options] }
     )
     let keepState = inputText()
+    const PopoverOpen = atom(false)
     return (
         <SelectCtx.Provider value={selectSystem}>
             <Popover
+                v-model={PopoverOpen}
                 initialFocusEl={input}
                 sameWidth
                 trigger="none"
@@ -100,7 +102,12 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                         )
                     }}
                     suffixIcon={(expose) => {
-                        return <Icon>{!props.disabled && <ClearControl {...expose} onClear={() => selectSystem.clearAll()}></ClearControl>}</Icon>
+                        return (
+                            <>
+                                <Icon>{!props.disabled && <ClearControl {...expose} onClear={() => selectSystem.clearAll()}></ClearControl>}</Icon>
+                                <Icon>{PopoverOpen() ? <AiOutlineSearch color="#777"></AiOutlineSearch> : <AiOutlineDown color="#777"></AiOutlineDown>}</Icon>
+                            </>
+                        )
                     }}
                 ></BaseInput>
             </Popover>

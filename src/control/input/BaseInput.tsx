@@ -49,14 +49,14 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
     })
     /** 域内前缀 */
     const Prefix = computed(() => {
-        return <span class="mr-1">{ensureFunctionResult(props.prefixIcon, [expose])}</span>
+        return <span class="mr-1 flex-none">{ensureFunctionResult(props.prefixIcon, [expose])}</span>
     })
     const { TextCount, textLengthControl } = useTextCount(props)
     textLengthControl()
     /** 域内后缀 */
     const Suffix = computed(() => {
         return (
-            <span class="ml-1">
+            <span class="ml-1 flex-none">
                 {ensureFunctionResult(props.suffixIcon, [expose])}
                 {TextCount}
             </span>

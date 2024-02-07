@@ -75,10 +75,10 @@ import copy from 'copy-to-clipboard'
 import { VirtualList } from '../virtualList'
 const IconGallery = (props: { comps: Record<string, Component>; result: { label: string }[]; size: string | number }) => {
     return (
-        <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))}>
+        <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))} estimateSize={48}>
             {(row) => {
                 return (
-                    <div class="grid grid-cols-10">
+                    <div class="grid grid-cols-10 h-12">
                         {row.map((i) => {
                             return (
                                 <div
