@@ -1,6 +1,6 @@
 import { JSXSlot, OriginComponent, OriginDiv, computed, ensureFunctionResult } from '@cn-ui/reactive'
-import { ClearControl } from '../control/input/utils'
-import { Accessor } from 'solid-js'
+import { Icon } from '../icon/Icon'
+import { AiOutlineClose } from 'solid-icons/ai'
 
 export const Tag = OriginComponent<{
     color?: string
@@ -10,25 +10,21 @@ export const Tag = OriginComponent<{
     return (
         <OriginDiv
             prop={props}
-            class="flex flex-row px-2 rounded-md"
+            class="flex flex-row items-center px-2 rounded-md select-none border"
             style={{
                 'background-color': props.color ?? '#eee'
             }}
         >
             {ensureFunctionResult(props.icon)}
             <span>{props.children}</span>
-            <ClearControl onClear={props.onClose}></ClearControl>
+            <Icon
+                class="cn-clear-btn cursor-pointer"
+                onclick={() => {
+                    props.onClose?.()
+                }}
+            >
+                <AiOutlineClose color="#777" />
+            </Icon>
         </OriginDiv>
     )
 })
-export const useAutoColor = (text: Accessor<string>) => {
-    return computed(() => {
-        const t = text()
-        let color = 0
-        for (let index = 0; index < t.length; index++) {
-            const element = t.charCodeAt(index)
-            color += element
-        }
-        return '#' + (color % 0xffffff).toString(16).padStart(6, '0')
-    })
-}

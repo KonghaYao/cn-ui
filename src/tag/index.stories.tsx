@@ -59,7 +59,7 @@ export const Sortable: Story = {
             }).data
         )
         return (
-            <SortableList v-model={data}>
+            <SortableList v-model={data} class="flex gap-4">
                 {(item) => {
                     return <Tag color={item.color}>{item.text}</Tag>
                 }}
