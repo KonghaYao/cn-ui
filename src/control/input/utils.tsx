@@ -1,6 +1,6 @@
 import { Component } from 'solid-js'
 import { InputExpose } from '.'
-import { useMapper } from '@cn-ui/reactive'
+import { Atom, useMapper } from '@cn-ui/reactive'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineCloseCircle } from 'solid-icons/ai'
 import { Icon } from '../../icon/Icon'
 
@@ -27,12 +27,15 @@ export const PasswordControl: Component<InputExpose> = (expose) => {
     )
 }
 /** 清空 icon */
-export const ClearControl: Component<InputExpose & { onClear?: () => void }> = (expose) => {
+export const ClearControl: Component<{
+    model?: Atom<string>
+    onClear?: () => void
+}> = (expose) => {
     return (
         <Icon
             class="cn-clear-btn opacity-0 transition cursor-pointer"
             onclick={() => {
-                expose.model('')
+                expose.model?.('')
                 expose.onClear?.()
             }}
         >
