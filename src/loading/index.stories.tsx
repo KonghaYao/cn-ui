@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { Loading } from './index'
-import { AC, resource, sleep } from '@cn-ui/reactive'
+import { AC, DefaultAC, DefineAC, ensureOnlyChild, resource, sleep } from '@cn-ui/reactive'
 import { defineExampleAC } from '../lazyLoad/example/defineExampleAC'
 
 const meta = {
@@ -14,11 +14,16 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 defineExampleAC()
+DefineAC({
+    loading: (state, rendering) => {
+        const child = ensureOnlyChild(() => rendering)
+        return <Loading portalled el={child}></Loading>
+    }
+})
 import 'wc-spinners/src/index'
-import { Flex } from '../container'
 import { Col, Row } from '../RowAndCol'
 import { For } from 'solid-js'
-import { createAutoAnimate } from '@formkit/auto-animate/solid'
+import { Dynamic } from 'solid-js/web'
 const list = [
     'atom-spinner',
     'breeding-rhombus-spinner',
@@ -87,17 +92,19 @@ export const Primary: Story = {
                             <Col span={4}>
                                 <AC
                                     resource={res}
-                                    loading={() => {
-                                        const el = document.createElement(item)
-                                        el.id = item
+                                    loading={(state, rendering) => {
+                                        const child = ensureOnlyChild(() => rendering)
                                         return (
-                                            <Flex fill class="bg-gray-900 overflow-hidden aspect-square">
-                                                {el}
-                                            </Flex>
+                                            <Loading portalled el={child}>
+                                                <Dynamic component={item}></Dynamic>
+                                            </Loading>
                                         )
                                     }}
+                                    fallback={() => {
+                                        return <div class="h-32 w-full">fallback</div>
+                                    }}
                                 >
-                                    {() => 111}
+                                    {() => <div class="h-32">129032</div>}
                                 </AC>
                             </Col>
                         )
@@ -116,9 +123,10 @@ export const Floating: Story = {
         return (
             <div class="h-screen">
                 <button onclick={() => res.refetch()}>refetch</button>
-                <AC resource={res} keepLastState loading={() => <Loading floating></Loading>}>
+                {/*  keepLastState must render success */}
+                <AC resource={res} keepLastState>
                     {() => {
-                        return res()
+                        return <div class="h-full">{res()}</div>
                     }}
                 </AC>
             </div>

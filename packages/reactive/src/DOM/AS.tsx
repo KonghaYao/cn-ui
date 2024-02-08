@@ -9,7 +9,7 @@ export interface ASProps<T> {
     children?: (data: T) => JSXElement
     fallback?: (data: ResourceAtom<T>) => JSXElement
 
-    loading?: (data: ResourceAtom<T>) => JSXElement
+    loading?: (data: ResourceAtom<T>, rendering: JSXElement) => JSXElement
     error?: (data: ResourceAtom<T>) => JSXElement
 }
 
@@ -25,22 +25,26 @@ export interface ASProps<T> {
  * );
  */
 export const AS = function <T>(props: ASProps<T>) {
-    const fallback = createMemo(() => {
-        if (props.children) {
+    const rendering = createMemo(() => {
+        if (props.children && (props.resource.isReady() || props.keepLastState)) {
             return ensureFunctionResult(props.children, [props.resource()])
         }
         if (props.fallback) {
             return props.fallback(props.resource)
         }
     })
+
     return (
         <>
             <Switch>
-                <Match when={props.resource.isReady()}>{fallback()}</Match>
-                <Match when={props.resource.loading()}>{props.loading && props.loading(props.resource)}</Match>
+                <Match when={props.resource.isReady()}>{rendering()}</Match>
+                <Match when={props.resource.loading()}>
+                    {props.loading && props.loading(props.resource, rendering())}
+                    {rendering()}
+                </Match>
+
                 <Match when={props.resource.error()}>{props.error && props.error(props.resource)}</Match>
             </Switch>
-            {props.keepLastState && props.resource.loading() && fallback()}
         </>
     )
 }
@@ -52,6 +56,7 @@ function createAC(Default: Omit<ASProps<unknown>, 'resource'>) {
             <AS
                 {...props}
                 resource={props.resource}
+                fallback={props.fallback ?? (Default.fallback as any)}
                 loading={props.loading ?? (Default.loading as any)}
                 error={props.error ?? (Default.error as any)}
                 children={props.children ?? Default.children}
@@ -67,7 +72,6 @@ export const DefaultAC: Omit<ASProps<unknown>, 'resource'> = {
 }
 /** 默认异步组件 */
 export function AC<T>(props: ASProps<T>) {
-    if (props.keepLastState) return <div class="relative h-full w-full">{createAC(DefaultAC)(props)}</div>
     return createAC(DefaultAC)(props)
 }
 
