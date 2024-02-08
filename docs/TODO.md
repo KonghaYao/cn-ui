@@ -20,6 +20,7 @@
 -   [ ] Breadcurmb
 -   [ ] Dropdown
 -   [ ] Menu
+-   [ ] ContextMenu
 -   [ ] Steps
 
 -   [x] Checkbox
@@ -33,7 +34,7 @@
 -   [ ] Mentions
 -   [ ] Radio
 -   [ ] Rate
--   [ ] Select
+-   [x] Select
 -   [ ] Slider
 -   [ ] Switch
 -   [ ] TimePicker
@@ -62,7 +63,7 @@
 -   [ ] Statistic
 -   [x] Table
 -   [x] Tabs
--   [ ] Tag
+-   [x] Tag
 -   [ ] Timeline
 -   [ ] Tooltip
 -   [ ] Tour
@@ -82,4 +83,3 @@
 -   [ ] Watermark
 
 -   [ ] Affix
--   [ ]

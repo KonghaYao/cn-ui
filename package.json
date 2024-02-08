@@ -25,6 +25,7 @@
         "solidjs-use": "^2.3.0",
         "sortablejs": "^1.15.2",
         "split.js": "^1.6.5",
+        "tailwindcss-animate": "^1.0.7",
         "ts-toolbelt": "^9.6.0",
         "viewerjs": "^1.11.6",
         "wc-spinners": "^1.1.1"
