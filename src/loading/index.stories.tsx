@@ -124,7 +124,14 @@ export const Floating: Story = {
             <div class="h-screen">
                 <button onclick={() => res.refetch()}>refetch</button>
                 {/*  keepLastState must render success */}
-                <AC resource={res} keepLastState>
+                <AC
+                    resource={res}
+                    keepLastState
+                    loading={(state, rendering) => {
+                        const child = ensureOnlyChild(() => rendering)
+                        return <Loading portalled el={child}></Loading>
+                    }}
+                >
                     {() => {
                         return <div class="h-full">{res()}</div>
                     }}
