@@ -9,6 +9,9 @@ import { AiOutlineCheck, AiOutlineCloudDownload, AiOutlineDown, AiOutlineSearch 
 import { ClearControl } from '../input/utils'
 import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
+import { TagGroup } from '../../tag/Tag'
+import { Flex } from '../../container'
+import { createAutoAnimate } from '@formkit/auto-animate/solid'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
 export interface SelectProps {
@@ -52,6 +55,11 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
     )
     let keepState = inputText()
     const PopoverOpen = atom(false)
+    const multipleTags = computed(() =>
+        selectSystem.activeIdsArray().map((i) => ({
+            text: i
+        }))
+    )
     return (
         <SelectCtx.Provider value={selectSystem}>
             <Popover
@@ -90,15 +98,17 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                     }}
                     prefixIcon={(expose) => {
                         if (!props.multiple) return
-                        // TODO tags group
+                        const [parent] = createAutoAnimate()
                         return (
-                            <div>
-                                {selectSystem
-                                    .activeIdsArray()
-                                    .slice(0, 2)
-                                    .map((i) => i)}
-                                {selectSystem.activeIdsArray().length > 2 && <span>{selectSystem.activeIdsArray().length - 1} +</span>}
-                            </div>
+                            <Flex class=" flex-nowrap gap-2" justify="start" ref={parent}>
+                                <TagGroup
+                                    v-model={multipleTags}
+                                    maxSize={2}
+                                    onClose={(item) => {
+                                        selectSystem.changeSelected(item.text as string, false)
+                                    }}
+                                ></TagGroup>
+                            </Flex>
                         )
                     }}
                     suffixIcon={(expose) => {

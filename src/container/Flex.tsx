@@ -1,4 +1,4 @@
-import { OriginComponent, useMapper } from '@cn-ui/reactive'
+import { OriginComponent, OriginDiv, classNames, useMapper } from '@cn-ui/reactive'
 import { JSX, JSXElement } from 'solid-js'
 export interface FlexProps {
     vertical?: boolean
@@ -46,11 +46,12 @@ export const Flex = OriginComponent<FlexProps>((props) => {
         }
     )
     return (
-        <div
-            class={props.class('flex', Wrap(), Justify(), Align(), props.fill && 'w-full h-full', props.vertical ? 'flex-col' : 'flex-row')}
-            style={{ ...props.style(), gap: props.gap }}
+        <OriginDiv
+            prop={props}
+            class={classNames('flex', Wrap(), Justify(), Align(), props.fill && 'w-full h-full', props.vertical ? 'flex-col' : 'flex-row')}
+            style={{ gap: props.gap }}
         >
             {props.children}
-        </div>
+        </OriginDiv>
     )
 })
