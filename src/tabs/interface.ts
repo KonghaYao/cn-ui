@@ -19,6 +19,9 @@ export interface TabsProps extends JSX.HTMLAttributes<HTMLDivElement> {
 
     /** 所有 tabs 的父级*/
     wrapperClass?: string
+
+    /** 是否采用 100% 高度扩展 */
+    fill?: boolean
 }
 
 /**
