@@ -15,6 +15,7 @@ import { createAutoAnimate } from '@formkit/auto-animate/solid'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
 export interface SelectProps {
+    /** TODO 异步态监控 */
     options: SelectItemsType[]
     multiple?: boolean
     disabled?: boolean
