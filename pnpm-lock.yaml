@@ -17,6 +17,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.1
         version: 0.8.1
+      '@solid-primitives/keyed':
+        specifier: ^1.2.1
+        version: 1.2.1(solid-js@1.8.1)
       '@tanstack/solid-table':
         specifier: ^8.11.7
         version: 8.11.7(solid-js@1.8.1)
@@ -38,6 +41,9 @@ importers:
       solid-js:
         specifier: ^1.8.1
         version: 1.8.1
+      solid-transition-group:
+        specifier: ^0.2.3
+        version: 0.2.3(solid-js@1.8.1)
       solidjs-use:
         specifier: ^2.3.0
         version: 2.3.0
@@ -3181,6 +3187,39 @@ packages:
     resolution: {integrity: sha512-rUV5WyJrJLoloD4NDN1V1+LDMDWOa4OTsT4yYJwQNpTU6FWxkxHpL7eu4w+DmiH8x/EAM1otkPE1+LaspIbplw==}
     engines: {node: '>=18'}
     dev: true
+
+  /@solid-primitives/keyed@1.2.1(solid-js@1.8.1):
+    resolution: {integrity: sha512-fLZ3CX41IiG2kshCWFMDBq4LeSuuHpZ91UrWqcr6EFq3lGWE5iPswHyHilSiaeLWZLpbhZ/HAwrM/wlh2S1mYQ==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.1
+    dev: false
+
+  /@solid-primitives/refs@1.0.6(solid-js@1.8.1):
+    resolution: {integrity: sha512-ruh4YdVMxThEVnvqbpeLXKojW442vpFU8q7dSKtElGOTa31aKOAkRb9BTbdaTwVjN4BEq79fiiYIXozJNl4dSw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.2(solid-js@1.8.1)
+      solid-js: 1.8.1
+    dev: false
+
+  /@solid-primitives/transition-group@1.0.4(solid-js@1.8.1):
+    resolution: {integrity: sha512-9nPg6HYAmEi7riH0C2bSCVw/2asgGSzHuN0yFFYyK9JgmXqJgyeyA+6thZbj7GgUQMRhtBxpH8yG7N2nEh8ttA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.1
+    dev: false
+
+  /@solid-primitives/utils@6.2.2(solid-js@1.8.1):
+    resolution: {integrity: sha512-11ypVbp987XxETeRqY5Y3OmmTpm8/jZqJXRvo6AyqBthzkvvjEdReuUMU2yVb+pwWGxfZpWHZ6EUCcGXUMhfwg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.8.1
+    dev: false
 
   /@solidjs-use/shared@2.3.0:
     resolution: {integrity: sha512-xuPNzZ9fwigkmYXTO+a8kaT45XQCPt6jVlyiDDYCD9NRZheRJOZWiUcVjYHzjececbWTctcY8NFdsXVyxARHKg==}
@@ -10230,6 +10269,17 @@ packages:
       '@babel/types': 7.23.0
       solid-js: 1.8.1
     dev: true
+
+  /solid-transition-group@0.2.3(solid-js@1.8.1):
+    resolution: {integrity: sha512-iB72c9N5Kz9ykRqIXl0lQohOau4t0dhel9kjwFvx81UZJbVwaChMuBuyhiZmK24b8aKEK0w3uFM96ZxzcyZGdg==}
+    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/refs': 1.0.6(solid-js@1.8.1)
+      '@solid-primitives/transition-group': 1.0.4(solid-js@1.8.1)
+      solid-js: 1.8.1
+    dev: false
 
   /solidjs-use@2.3.0:
     resolution: {integrity: sha512-ZyH2jiUSQU+5S5vd8zyvqz9X2ikhMjJhDeh/TjRzjLDJlZ1RuZaMxdM+jGsrJxo3X/xBW9kDpYNONXs6wYrQCQ==}

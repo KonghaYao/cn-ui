@@ -1,0 +1,59 @@
+.cn-modal {
+    .cn-virtual-list-item {
+        transition: transform 0.3s, opacity linear 0.1s;
+        animation: show 0.3s;
+    }
+}
+.cn-modal-stack {
+    .cn-virtual-list::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+    .cn-virtual-list-item:nth-child(1) {
+        z-index: 9999;
+    }
+}
+.cn-modal-stack:not(:hover) {
+    /* 压低容器高度，防止滚动条出现*/
+    .cn-virtual-list-container {
+        height: 100px !important;
+    }
+    /* 其他元素的最终状态 */
+    .cn-virtual-list-item {
+        transform: translateY(1.25rem) scale(0.8) !important;
+        opacity: 0;
+    }
+    .cn-virtual-list-item:nth-child(1) {
+        transform: translateY(0) !important;
+        z-index: 9999;
+        opacity: 1;
+    }
+    /* 下面是起到装饰用途的倒数几个元素的样式 */
+    .cn-virtual-list-item:nth-child(2) {
+        transform: translateY(0.5rem) scale(0.95) !important;
+        z-index: 9998;
+        opacity: 1;
+    }
+    .cn-virtual-list-item:nth-child(3) {
+        transform: translateY(1rem) scale(0.9) !important;
+        z-index: 9997;
+        opacity: 1;
+    }
+    /* 最后一个元素设置为最终消失态 */
+    .cn-virtual-list-item:nth-child(4) {
+        transform: translateY(1.25rem) scale(0.8) !important;
+        z-index: 9996;
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        translate: -120px;
+    }
+    to {
+        opacity: 1;
+        translate: 0;
+    }
+}

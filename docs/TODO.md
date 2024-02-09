@@ -80,6 +80,7 @@
 -   [ ] Result
 -   [ ] Skeleton
 -   [x] Spin
+-   [x] Loading
 -   [ ] Watermark
 
 -   [ ] Affix
