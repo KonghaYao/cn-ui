@@ -1,7 +1,7 @@
 import { For } from 'solid-js/web'
 import { createVirtualizer } from '../table/virtual/createVirtualizer'
 import { Atom, JSXSlot, NullAtom, atom, classNames, ensureFunctionResult, toCSSPx } from '@cn-ui/reactive'
-import { Accessor, JSXElement, createEffect } from 'solid-js'
+import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
 
 interface VirtualListProps<T> {
@@ -61,9 +61,10 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                         const itemClass = atom('')
                         const itemRef = NullAtom<HTMLDivElement>(null)
                         const context = { itemClass, itemRef }
+
                         return (
                             <div
-                                class={classNames('absolute w-full duration-300 transition-colors', itemClass())}
+                                class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
                                 data-index={virtualRow.index} //needed for dynamic row height measurement
                                 ref={(node) => {
                                     itemRef(node)
@@ -73,7 +74,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                                     transform: `translateY(${virtualRow.start}px)`
                                 }}
                             >
-                                {props.children(props.each[virtualRow.index], () => virtualRow.index, context)}
+                                <Show when={props.each[virtualRow.index]}>{props.children(props.each[virtualRow.index], () => virtualRow.index, context)}</Show>
                             </div>
                         )
                     }}
