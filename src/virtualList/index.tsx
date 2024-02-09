@@ -1,15 +1,16 @@
-import { For } from 'solid-js/web'
 import { createVirtualizer } from '../table/virtual/createVirtualizer'
 import { Atom, JSXSlot, NullAtom, atom, classNames, ensureFunctionResult, toCSSPx } from '@cn-ui/reactive'
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
-
+import { Key } from '@solid-primitives/keyed'
 interface VirtualListProps<T> {
     each: T[]
     fallback?: JSXSlot
     estimateSize?: number
     containerHeight?: number
     horizontal?: boolean
+    /** 标识其 Key 值的属性，为了保证渲染的高效 */
+    getItemKey?: (index: number) => number | string
     children: (
         item: T,
         index: Accessor<number>,
@@ -26,6 +27,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         get count() {
             return props.each.length
         },
+        getItemKey: props.getItemKey,
         estimateSize(index) {
             return props.estimateSize ?? 24
         }, //average column width in pixels
@@ -56,29 +58,30 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                     position: 'relative' //needed for absolute positioning of rows
                 }}
             >
-                <For each={virtualizer.getVirtualItems()} fallback={ensureFunctionResult(props.fallback)}>
+                <Key by="key" each={virtualizer.getVirtualItems()} fallback={ensureFunctionResult(props.fallback)}>
                     {(virtualRow) => {
                         const itemClass = atom('')
                         const itemRef = NullAtom<HTMLDivElement>(null)
                         const context = { itemClass, itemRef }
-
                         return (
                             <div
                                 class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
-                                data-index={virtualRow.index} //needed for dynamic row height measurement
+                                data-index={virtualRow().index} //needed for dynamic row height measurement
                                 ref={(node) => {
                                     itemRef(node)
                                     queueMicrotask(() => virtualizer.measureElement(node))
                                 }}
                                 style={{
-                                    transform: `translateY(${virtualRow.start}px)`
+                                    transform: `translateY(${virtualRow().start}px)`
                                 }}
                             >
-                                <Show when={props.each[virtualRow.index]}>{props.children(props.each[virtualRow.index], () => virtualRow.index, context)}</Show>
+                                <Show when={props.each[virtualRow().index]}>
+                                    {props.children(props.each[virtualRow().index], () => virtualRow().index, context)}
+                                </Show>
                             </div>
                         )
                     }}
-                </For>
+                </Key>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
-import { For, createEffect } from 'solid-js'
+import { For } from 'solid-js'
 import { BodyRow } from './slot/BodyRow'
 
 export function MagicTableBody<T>() {
