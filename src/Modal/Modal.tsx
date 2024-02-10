@@ -28,7 +28,12 @@ export const Modal = OriginComponent(function <T>(props: OriginComponentInputTyp
                     '--modal-show-position': modalShowPosition()
                 }}
             >
-                <VirtualList each={props.each} getItemKey={(index) => props.by(props.each[index])} estimateSize={props.estimateSize ?? 64}>
+                <VirtualList
+                    each={props.each}
+                    reverse={['bottom-right', 'bottom-left'].includes(props.position!)}
+                    getItemKey={(index) => props.by(props.each[index])}
+                    estimateSize={props.estimateSize ?? 64}
+                >
                     {(item, index, { itemClass }) => {
                         itemClass('pl-6 py-2')
                         return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-md bg-white')}>{props.children(item, index)}</div>

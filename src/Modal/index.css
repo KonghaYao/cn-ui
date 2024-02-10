@@ -2,7 +2,7 @@
     /* top-left */
     --modal-show-position: -120px;
     .cn-virtual-list-item {
-        transition: transform 0.3s, opacity linear 0.1s;
+        transition: top 0.3s, bottom 0.3s, transform 0.3s, opacity linear 0.1s;
         animation: cn-modal-show 0.3s;
     }
 }
@@ -20,32 +20,75 @@
     .cn-virtual-list-container {
         height: 100px !important;
     }
-    /* 其他元素的最终状态 */
-    .cn-virtual-list-item {
-        transform: translateY(1.25rem) scale(0.8) !important;
-        opacity: 0;
+    .cn-virtual-list-normal {
+        /* 其他元素的最终状态 */
+        .cn-virtual-list-item {
+            top: 1.25rem !important;
+            transform: scale(0.8) !important;
+            opacity: 0;
+        }
+        .cn-virtual-list-item:nth-child(1) {
+            top: 0 !important;
+            transform: scale(1) !important;
+            z-index: 9999;
+            opacity: 1;
+        }
+        /* 下面是起到装饰用途的倒数几个元素的样式 */
+        .cn-virtual-list-item:nth-child(2) {
+            top: 0.5rem !important;
+            transform: scale(0.95) !important;
+            z-index: 9998;
+            opacity: 1;
+        }
+        .cn-virtual-list-item:nth-child(3) {
+            top: 1rem !important;
+            transform: scale(0.9) !important;
+            z-index: 9997;
+            opacity: 1;
+        }
+        /* 最后一个元素设置为最终消失态 */
+        .cn-virtual-list-item:nth-child(4) {
+            top: 1.25rem !important;
+            transform: scale(0.8) !important;
+            z-index: 9996;
+            opacity: 0;
+        }
     }
-    .cn-virtual-list-item:nth-child(1) {
-        transform: translateY(0) !important;
-        z-index: 9999;
-        opacity: 1;
-    }
-    /* 下面是起到装饰用途的倒数几个元素的样式 */
-    .cn-virtual-list-item:nth-child(2) {
-        transform: translateY(0.5rem) scale(0.95) !important;
-        z-index: 9998;
-        opacity: 1;
-    }
-    .cn-virtual-list-item:nth-child(3) {
-        transform: translateY(1rem) scale(0.9) !important;
-        z-index: 9997;
-        opacity: 1;
-    }
-    /* 最后一个元素设置为最终消失态 */
-    .cn-virtual-list-item:nth-child(4) {
-        transform: translateY(1.25rem) scale(0.8) !important;
-        z-index: 9996;
-        opacity: 0;
+
+    /* 倒序状态 */
+    .cn-virtual-list-reverse {
+        /* 其他元素的最终状态 */
+        .cn-virtual-list-item {
+            bottom: 1.25rem !important;
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        .cn-virtual-list-item:nth-child(1) {
+            bottom: 0 !important;
+            transform: scale(1);
+            z-index: 9999;
+            opacity: 1;
+        }
+        /* 下面是起到装饰用途的倒数几个元素的样式 */
+        .cn-virtual-list-item:nth-child(2) {
+            bottom: 0.5rem !important;
+            transform: scale(0.95);
+            z-index: 9998;
+            opacity: 0.8;
+        }
+        .cn-virtual-list-item:nth-child(3) {
+            bottom: 1rem !important;
+            transform: scale(0.9);
+            z-index: 9997;
+            opacity: 0.5;
+        }
+        /* 最后一个元素设置为最终消失态 */
+        .cn-virtual-list-item:nth-child(4) {
+            bottom: 1.25rem !important;
+            transform: scale(0.8);
+            z-index: 9996;
+            opacity: 0;
+        }
     }
 }
 

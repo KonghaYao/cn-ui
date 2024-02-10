@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
     render() {
-        const data = atom<{ name: string }[]>([], { equals: false })
+        const data = atom<{ name: string; id: string }[]>([], { equals: false })
         createEffect(() => {
             console.log(data())
         })
@@ -27,7 +27,7 @@ export const Primary: Story = {
                     <button
                         onclick={() =>
                             data((i) => {
-                                i.unshift({ name: Mock.mock('@id') })
+                                i.unshift(Mock.mock({ id: '@id', name: i.length }))
                                 return i
                             })
                         }
@@ -35,7 +35,7 @@ export const Primary: Story = {
                         修复
                     </button>
                 </Flex>
-                <Modal v-model={atom(true)} each={data()} by={(i) => i.name} position="bottom-right">
+                <Modal v-model={atom(true)} each={data()} by={(i) => i.id} position="bottom-left">
                     {(item, index) => {
                         return <div>{item.name}</div>
                     }}
