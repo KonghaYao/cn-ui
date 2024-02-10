@@ -1,10 +1,11 @@
 import { createVirtualizer } from '../table/virtual/createVirtualizer'
-import { Atom, JSXSlot, NullAtom, atom, classNames, ensureFunctionResult, toCSSPx } from '@cn-ui/reactive'
+import { Atom, JSXSlot, NullAtom, atom, classNames, computed, ensureFunctionResult, toCSSPx } from '@cn-ui/reactive'
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
 import { Key } from '@solid-primitives/keyed'
 interface VirtualListProps<T> {
     each: T[]
+    reverse?: boolean
     fallback?: JSXSlot
     estimateSize?: number
     containerHeight?: number
@@ -35,14 +36,14 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         get horizontal() {
             return !!props.horizontal
         },
-        overscan: 12,
+        overscan: 3,
         gridSize: () => props.each.length
     })
     const { height } = useAutoResize(() => tableContainerRef()?.parentElement!)
     return (
         <div
             ref={tableContainerRef}
-            class="cn-virtual-list"
+            class={classNames('cn-virtual-list', props.reverse ? 'cn-virtual-list-reverse flex flex-col-reverse' : 'cn-virtual-list-normal')}
             style={{
                 width: '100%',
                 'overflow-x': 'hidden', //our scrollable table container
@@ -52,7 +53,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
             }}
         >
             <div
-                class="cn-virtual-list-container"
+                class="cn-virtual-list-container flex-none"
                 style={{
                     height: `${virtualizer.getTotalSize()}px`, //tells scrollbar how big the table is
                     position: 'relative' //needed for absolute positioning of rows
@@ -63,6 +64,10 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                         const itemClass = atom('')
                         const itemRef = NullAtom<HTMLDivElement>(null)
                         const context = { itemClass, itemRef }
+                        const offset = computed(() => {
+                            if (props.reverse) return virtualRow().end
+                            return virtualRow().start
+                        })
                         return (
                             <div
                                 class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
@@ -72,7 +77,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                                     queueMicrotask(() => virtualizer.measureElement(node))
                                 }}
                                 style={{
-                                    transform: `translateY(${virtualRow().start}px)`
+                                    [props.reverse ? 'bottom' : 'top']: `${offset()}px`
                                 }}
                             >
                                 <Show when={props.each[virtualRow().index]}>

@@ -10,9 +10,9 @@ import {
     Virtualizer,
     VirtualizerOptions,
     windowScroll
-} from '@tanstack/virtual-core'
+} from './core/index'
 import { throttle } from './debounce'
-export * from '@tanstack/virtual-core'
+export * from './core/index'
 
 import { createSignal, onMount, onCleanup, createComputed, mergeProps } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
