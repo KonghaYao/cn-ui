@@ -1,10 +1,12 @@
 .cn-modal {
+    /* top-left */
+    --modal-show-position: -120px;
     .cn-virtual-list-item {
         transition: transform 0.3s, opacity linear 0.1s;
-        animation: show 0.3s;
+        animation: cn-modal-show 0.3s;
     }
 }
-.cn-modal-stack {
+.cn-modal {
     .cn-virtual-list::-webkit-scrollbar {
         width: 0;
         height: 0;
@@ -47,10 +49,10 @@
     }
 }
 
-@keyframes show {
+@keyframes cn-modal-show {
     from {
         opacity: 0;
-        translate: -120px;
+        translate: var(--modal-show-position);
     }
     to {
         opacity: 1;

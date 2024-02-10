@@ -82,7 +82,6 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                 )}
                 placement="bottom-start"
             >
-                {/* TODO full text search */}
                 <BaseInput
                     v-model={inputText}
                     ref={input}
