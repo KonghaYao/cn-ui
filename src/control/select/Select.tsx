@@ -9,7 +9,7 @@ import { AiOutlineCheck, AiOutlineCloudDownload, AiOutlineDown, AiOutlineSearch 
 import { ClearControl } from '../input/utils'
 import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
-import { TagGroup } from '../../tag/Tag'
+import { TagGroup } from '../../tag/TagGroup'
 import { Flex } from '../../container'
 import { createAutoAnimate } from '@formkit/auto-animate/solid'
 

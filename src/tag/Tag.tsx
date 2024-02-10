@@ -1,7 +1,7 @@
-import { ArrayAtom, JSXSlot, OriginComponent, OriginDiv, atom, classNames, computed, ensureFunctionResult, useSelect } from '@cn-ui/reactive'
+import { JSXSlot, OriginComponent, OriginDiv, classNames, ensureFunctionResult } from '@cn-ui/reactive'
 import { Icon } from '../icon/Icon'
 import { AiOutlineClose } from 'solid-icons/ai'
-import { For, Show, createMemo } from 'solid-js'
+import { Show } from 'solid-js'
 
 export const Tag = OriginComponent<{
     color?: string
@@ -31,51 +31,5 @@ export const Tag = OriginComponent<{
                 </Icon>
             </Show>
         </OriginDiv>
-    )
-})
-
-interface TagGroupOptions {
-    text: JSXSlot
-    icon?: JSXSlot
-    color?: string
-}
-
-interface TagGroupProps {
-    maxSize?: number
-    onClose?: (item: TagGroupOptions) => void
-}
-
-export const TagGroup = OriginComponent<TagGroupProps, HTMLDivElement, TagGroupOptions[]>((props) => {
-    const group = ArrayAtom<TagGroupOptions[]>(props.model)
-    const isHideSomeItems = createMemo(() => {
-        if (!props.maxSize) return false
-        return group().length > props.maxSize
-    })
-    const visibleItems = createMemo(() => {
-        return isHideSomeItems() ? group().slice(0, props.maxSize) : group()
-    })
-    return (
-        <>
-            <For each={visibleItems()}>
-                {(item) => {
-                    return (
-                        <Tag
-                            icon={ensureFunctionResult(item.icon)}
-                            color={item.color}
-                            onClose={() => {
-                                group.remove(item)
-                                props.onClose?.(item)
-                            }}
-                            closeable
-                        >
-                            {ensureFunctionResult(item.text)}
-                        </Tag>
-                    )
-                }}
-            </For>
-            <Show when={isHideSomeItems()}>
-                <Tag>{group().length - props.maxSize!}+</Tag>
-            </Show>
-        </>
     )
 })

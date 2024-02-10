@@ -1,1 +1,2 @@
-export { Tag } from './Tag'
+export * from './Tag'
+export * from './TagGroup'
