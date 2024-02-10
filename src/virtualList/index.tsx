@@ -3,7 +3,7 @@ import { Atom, JSXSlot, NullAtom, atom, classNames, computed, ensureFunctionResu
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
 import { Key } from '@solid-primitives/keyed'
-interface VirtualListProps<T> {
+export interface VirtualListProps<T> {
     each: T[]
     reverse?: boolean
     fallback?: JSXSlot
@@ -64,10 +64,6 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                         const itemClass = atom('')
                         const itemRef = NullAtom<HTMLDivElement>(null)
                         const context = { itemClass, itemRef }
-                        const offset = computed(() => {
-                            if (props.reverse) return virtualRow().end
-                            return virtualRow().start
-                        })
                         return (
                             <div
                                 class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
@@ -77,7 +73,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                                     queueMicrotask(() => virtualizer.measureElement(node))
                                 }}
                                 style={{
-                                    [props.reverse ? 'bottom' : 'top']: `${offset()}px`
+                                    [props.reverse ? 'bottom' : 'top']: `${virtualRow().start}px`
                                 }}
                             >
                                 <Show when={props.each[virtualRow().index]}>
