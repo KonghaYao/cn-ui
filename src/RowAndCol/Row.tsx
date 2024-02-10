@@ -11,6 +11,7 @@ export type RowProps = {
     gutter?: number | string | [number | string, number | string]
     justify?: (typeof RowJustify)[number]
     align?: (typeof RowAlign)[number]
+    bottomSpace?: number | string
 }
 export const RowCtx = createCtx<{
     gutterX: string
@@ -35,7 +36,7 @@ export const Row = OriginComponent<RowProps>((props) => {
                     // gap: toCSSPx(props.gutter, '8px'),
                     'justify-content': props.justify ?? 'start',
                     'align-items': props.align,
-                    'margin-bottom': toCSSPx(20)
+                    'margin-bottom': toCSSPx(props.bottomSpace, '20px')
                 }}
             >
                 {props.children}

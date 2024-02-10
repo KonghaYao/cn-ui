@@ -48,6 +48,7 @@
 -   [x] 1 Image
     -   [ ] Image Preview
 -   [x] 1 Tag
+-   [ ] 1 Time Label
 
 ### 内容组件
 
