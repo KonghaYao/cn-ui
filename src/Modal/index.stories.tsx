@@ -25,6 +25,7 @@ export const Primary: Story = {
             <>
                 <Flex>
                     <button
+                        class="flex-1"
                         onclick={() =>
                             data((i) => {
                                 i.unshift(Mock.mock({ id: '@id', name: i.length }))
@@ -35,7 +36,7 @@ export const Primary: Story = {
                         修复
                     </button>
                 </Flex>
-                <Modal v-model={atom(true)} each={data()} by={(i) => i.id} position="bottom-left">
+                <Modal v-model={atom(true)} each={data()} by={(i) => i.id} position="bottom">
                     {(item, index) => {
                         return <div>{item.name}</div>
                     }}
