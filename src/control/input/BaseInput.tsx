@@ -1,10 +1,12 @@
 import { Atom, NullAtom, OriginComponent, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
-import { mergeProps, onMount } from 'solid-js'
+import { Show, createMemo, mergeProps, onMount } from 'solid-js'
 import { JSXElement } from 'solid-js'
 import { CountProps, useTextCount } from './useTextCount'
 import { ensureFunctionResult } from '@cn-ui/reactive'
 import { triggerFocus, FocusOptions } from './triggerFocus'
 import { ControlCenter } from '../register'
+import { Dynamic } from 'solid-js/web'
+import './index.css'
 // Character count config
 export interface CountConfig {
     max?: number // Max character count. Different from the native `maxLength`, it will be marked warning but not truncated
@@ -49,40 +51,48 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
     })
     /** 域内前缀 */
     const Prefix = computed(() => {
-        return <span class="mr-1 flex-none">{ensureFunctionResult(props.prefixIcon, [expose])}</span>
+        const child = ensureFunctionResult(props.prefixIcon, [expose])
+        return <Show when={child}>{<span class="mr-1 flex-none">{child}</span>}</Show>
     })
     const { TextCount, textLengthControl } = useTextCount(props)
     textLengthControl()
     /** 域内后缀 */
     const Suffix = computed(() => {
+        const child = ensureFunctionResult(props.suffixIcon, [expose])
         return (
-            <span class="ml-1 flex-none">
-                {ensureFunctionResult(props.suffixIcon, [expose])}
-                {TextCount}
-            </span>
+            <Show when={child || TextCount}>
+                <span class="ml-1 flex-none">
+                    {child}
+                    {TextCount}
+                </span>
+            </Show>
         )
     })
-
+    const isTextarea = createMemo(() => props.type === 'textarea')
     return (
         <span
             class={props.class(
                 'cn-base-input transition inline-flex border py-1 px-3',
+                isTextarea() && 'cn-textarea-wrapper',
                 props.rounded && 'rounded',
                 props.disabled && 'bg-gray-100 text-gray-400',
                 !props.disabled && 'hover:border-blue-400'
             )}
+            data-replicated-value={isTextarea() && props.model()}
             style={props.style()}
         >
             {Prefix()}
-            <input
-                ref={(el) => (inputEl(el), props.ref?.(el))}
+            <Dynamic
+                component={isTextarea() ? 'textarea' : 'input'}
+                ref={(el: HTMLInputElement) => (inputEl(el), props.ref?.(el))}
                 id={props.id}
                 type={inputType()}
                 disabled={props.disabled}
                 class={classNames('bg-transparent appearance-none outline-none w-full ', props.disabled && ' cursor-not-allowed')}
                 {...props.$input()}
                 {...extendsEvent(props)}
-            ></input>
+            ></Dynamic>
+
             {Suffix()}
         </span>
     )

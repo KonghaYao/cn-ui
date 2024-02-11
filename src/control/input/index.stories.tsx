@@ -53,7 +53,7 @@ import { ClearControl, PasswordControl } from './utils'
 
 /** 右侧计数 */
 export const Count: Story = {
-    name: 'count 计数',
+    name: 'Count 计数',
     render() {
         const data = atom('🔥🔥🔥')
         return (
@@ -150,6 +150,16 @@ export const Expose: Story = {
                 <BaseInput v-model={data} expose={inputExpose}></BaseInput>
             </div>
         )
+    },
+    args: {}
+}
+
+export const Textarea: Story = {
+    name: 'Textarea 文本框',
+    render() {
+        const data = atom('123232')
+        const inputExpose = NullAtom<InputExpose>(null)
+        return <BaseInput v-model={data} type="textarea" expose={inputExpose}></BaseInput>
     },
     args: {}
 }
