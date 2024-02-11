@@ -1,3 +1,7 @@
+## 解决方案
+
+1. 触屏统一：https://www.npmjs.com/package/@vant/touch-emulator
+
 ## 组件分级
 
 1. 一阶基础组件

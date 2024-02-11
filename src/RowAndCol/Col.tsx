@@ -25,6 +25,7 @@ export type ColProps = {
     xl?: ColSize
     xxl?: ColSize
 }
+
 export const Col = OriginComponent<ColProps>((props) => {
     const responsiveSpan = useBreakPointMapper(props as unknown as ColProps)
     const spanWidth = createMemo(() => {
