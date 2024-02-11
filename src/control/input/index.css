@@ -1,10 +1,10 @@
 /* textarea */
 
-.cn-textarea-wrapper {
+.cn-textarea-auto-size {
     /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
     display: inline-grid !important;
 }
-.cn-textarea-wrapper::after {
+.cn-textarea-auto-size::after {
     /* Note the weird space! Needed to preventy jumpy behavior */
     content: attr(data-replicated-value) ' ';
 
@@ -14,15 +14,15 @@
     /* Hidden from view, clicks, and screen readers */
     visibility: hidden;
 }
-.cn-textarea-wrapper > textarea {
+.cn-textarea-auto-size > textarea {
     /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     resize: none;
 
     /* Firefox shows scrollbar on growth, you can hide like this. */
     overflow: hidden;
 }
-.cn-textarea-wrapper > textarea,
-.cn-textarea-wrapper::after {
+.cn-textarea-auto-size > textarea,
+.cn-textarea-auto-size::after {
     /* Identical styling required!! */
     font: inherit;
     /* Place on top of each other */

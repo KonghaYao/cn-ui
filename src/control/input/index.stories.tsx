@@ -159,7 +159,7 @@ export const Textarea: Story = {
     render() {
         const data = atom('123232')
         const inputExpose = NullAtom<InputExpose>(null)
-        return <BaseInput v-model={data} type="textarea" expose={inputExpose}></BaseInput>
+        return <BaseInput auto-size v-model={data} type="textarea" expose={inputExpose}></BaseInput>
     },
     args: {}
 }

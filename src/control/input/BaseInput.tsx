@@ -29,6 +29,8 @@ interface BaseInputProps extends Omit<CountProps, 'model'> {
     rounded?: boolean // Whether to round the corners of the input box
     type?: 'text' | 'textarea' | 'password' | string // The type of input, see: MDN (use Input.TextArea instead of type="textarea")
     expose?: (expose: InputExpose) => void
+    autoSize?: boolean
+    resize?: boolean
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
@@ -73,12 +75,12 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         <span
             class={props.class(
                 'cn-base-input transition inline-flex border py-1 px-3',
-                isTextarea() && 'cn-textarea-wrapper',
+                isTextarea() && props.autoSize && 'cn-textarea-auto-size',
                 props.rounded && 'rounded',
                 props.disabled && 'bg-gray-100 text-gray-400',
                 !props.disabled && 'hover:border-blue-400'
             )}
-            data-replicated-value={isTextarea() && props.model()}
+            data-replicated-value={isTextarea() && props.autoSize && props.model()}
             style={props.style()}
         >
             {Prefix()}
@@ -88,7 +90,11 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
                 id={props.id}
                 type={inputType()}
                 disabled={props.disabled}
-                class={classNames('bg-transparent appearance-none outline-none w-full ', props.disabled && ' cursor-not-allowed')}
+                class={classNames(
+                    'bg-transparent appearance-none outline-none w-full ',
+                    props.disabled && ' cursor-not-allowed',
+                    props.resize === false && 'resize-none'
+                )}
                 {...props.$input()}
                 {...extendsEvent(props)}
             ></Dynamic>
