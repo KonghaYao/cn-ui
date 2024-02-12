@@ -13,7 +13,7 @@ export const Tag = OriginComponent<{
     return (
         <OriginDiv
             prop={props}
-            class={classNames(props.inline === false ? 'flex' : 'inline-flex', ' flex-row items-center px-2 rounded-md select-none border text-sm text-light')}
+            class={classNames(props.inline === false ? 'flex' : 'inline-flex', ' flex-row items-center px-2 rounded-md select-none border text-sm font-light')}
             style={{
                 'background-color': props.color ?? '#eee'
             }}

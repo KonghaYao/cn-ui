@@ -102,6 +102,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                         return (
                             <Flex class=" flex-nowrap gap-2" justify="start" ref={parent}>
                                 <TagGroup
+                                    color="#a8a8a8"
                                     v-model={multipleTags}
                                     maxSize={2}
                                     onClose={(item) => {
