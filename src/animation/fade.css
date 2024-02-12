@@ -1,0 +1,12 @@
+.cn-fade-enter-active,
+.cn-fade-exit-active {
+    transition: opacity 0.3s, transform 0.3s;
+}
+.cn-fade-enter,
+.cn-fade-exit-to {
+    transform: translateX(10px);
+    opacity: 0;
+}
+.fn-fade-enter {
+    transform: translateX(-10px);
+}

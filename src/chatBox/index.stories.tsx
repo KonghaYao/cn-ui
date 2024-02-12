@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { ChatBox } from './index'
-import { atom, ArrayFolder, resource } from '@cn-ui/reactive'
+import { ChatBox, ChatBoxMessage } from './index'
+import { resource } from '@cn-ui/reactive'
 import Mock from 'mockjs-ts'
 const meta = {
     title: 'Data 数据展示/ChatBox 聊天窗口',
@@ -12,11 +12,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 interface DataType {
-    data: {
-        id: string
-        title: string
-        message: string
-    }[]
+    data: ChatBoxMessage[]
 }
 /**  */
 export const Primary: Story = {
@@ -37,7 +33,18 @@ export const Primary: Story = {
         )
         return (
             <div class="h-screen flex flex-col">
-                <ChatBox each={items()} estimateSize={48}></ChatBox>
+                <ChatBox
+                    each={items()}
+                    estimateSize={80}
+                    onSendMessage={async (text) => {
+                        const newMessage: ChatBoxMessage = {
+                            id: Date.now().toString(),
+                            message: text,
+                            position: 'right'
+                        }
+                        items((i) => [newMessage, ...i])
+                    }}
+                ></ChatBox>
             </div>
         )
     },

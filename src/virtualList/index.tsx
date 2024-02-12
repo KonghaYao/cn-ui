@@ -3,6 +3,8 @@ import { Atom, JSXSlot, NullAtom, atom, classNames, computed, ensureFunctionResu
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
 import { Key } from '@solid-primitives/keyed'
+import { watch } from 'solidjs-use'
+import { Transition, TransitionGroup } from 'solid-transition-group'
 export interface VirtualListProps<T> {
     each: T[]
     reverse?: boolean
@@ -20,6 +22,7 @@ export interface VirtualListProps<T> {
             itemRef: Atom<HTMLDivElement | null>
         }
     ) => JSXElement
+    transitionName?: string
 }
 
 export function VirtualList<T>(props: VirtualListProps<T>) {
@@ -39,6 +42,12 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         overscan: 3,
         gridSize: () => props.each.length
     })
+    watch(
+        () => props.each,
+        () => {
+            virtualizer.updateView(virtualizer, false)
+        }
+    )
     const { height } = useAutoResize(() => tableContainerRef()?.parentElement!)
     return (
         <div
@@ -59,30 +68,32 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                     position: 'relative' //needed for absolute positioning of rows
                 }}
             >
-                <Key by="key" each={virtualizer.getVirtualItems()} fallback={ensureFunctionResult(props.fallback)}>
-                    {(virtualRow) => {
-                        const itemClass = atom('')
-                        const itemRef = NullAtom<HTMLDivElement>(null)
-                        const context = { itemClass, itemRef }
-                        return (
-                            <div
-                                class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
-                                data-index={virtualRow().index} //needed for dynamic row height measurement
-                                ref={(node) => {
-                                    itemRef(node)
-                                    queueMicrotask(() => virtualizer.measureElement(node))
-                                }}
-                                style={{
-                                    [props.reverse ? 'bottom' : 'top']: `${virtualRow().start}px`
-                                }}
-                            >
-                                <Show when={props.each[virtualRow().index]}>
-                                    {props.children(props.each[virtualRow().index], () => virtualRow().index, context)}
-                                </Show>
-                            </div>
-                        )
-                    }}
-                </Key>
+                <TransitionGroup name={props.transitionName}>
+                    <Key by="key" each={virtualizer.getVirtualItems()} fallback={ensureFunctionResult(props.fallback)}>
+                        {(virtualRow) => {
+                            const itemClass = atom('')
+                            const itemRef = NullAtom<HTMLDivElement>(null)
+                            const context = { itemClass, itemRef }
+                            return (
+                                <div
+                                    class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
+                                    data-index={virtualRow().index} //needed for dynamic row height measurement
+                                    ref={(node) => {
+                                        itemRef(node)
+                                        queueMicrotask(() => virtualizer.measureElement(node))
+                                    }}
+                                    style={{
+                                        [props.reverse ? 'bottom' : 'top']: `${virtualRow().start}px`
+                                    }}
+                                >
+                                    <Show when={props.each[virtualRow().index]}>
+                                        {props.children(props.each[virtualRow().index], () => virtualRow().index, context)}
+                                    </Show>
+                                </div>
+                            )
+                        }}
+                    </Key>
+                </TransitionGroup>
             </div>
         </div>
     )
