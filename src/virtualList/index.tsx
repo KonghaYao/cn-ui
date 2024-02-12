@@ -3,8 +3,7 @@ import { Atom, JSXSlot, NullAtom, atom, classNames, computed, ensureFunctionResu
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { useAutoResize } from '../table/hook/useAutoResize'
 import { Key } from '@solid-primitives/keyed'
-import { watch } from 'solidjs-use'
-import { Transition, TransitionGroup } from 'solid-transition-group'
+import { TransitionGroup } from 'solid-transition-group'
 export interface VirtualListProps<T> {
     each: T[]
     reverse?: boolean

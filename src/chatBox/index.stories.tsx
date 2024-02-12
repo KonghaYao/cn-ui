@@ -16,7 +16,7 @@ interface DataType {
 }
 /**  */
 export const Primary: Story = {
-    name: 'ListRender 列表渲染',
+    name: 'Normal 正常渲染',
     render() {
         const items = resource(
             async () =>

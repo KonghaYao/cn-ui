@@ -63,6 +63,9 @@ importers:
         specifier: ^1.1.1
         version: 1.1.1
     devDependencies:
+      '@ant-design/colors':
+        specifier: ^7.0.2
+        version: 7.0.2
       '@solidjs/testing-library':
         specifier: ^0.8.4
         version: 0.8.4(@solidjs/router@0.8.3)(solid-js@1.8.1)
@@ -93,9 +96,6 @@ importers:
       '@unocss/reset':
         specifier: ^0.58.5
         version: 0.58.5
-      animated-unocss:
-        specifier: ^0.0.6
-        version: 0.0.6(animate.css@4.1.1)(unocss@0.58.5)
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
@@ -141,6 +141,9 @@ importers:
       unocss:
         specifier: ^0.58.5
         version: 0.58.5(postcss@8.4.33)(vite@4.5.2)
+      unocss-preset-antd:
+        specifier: ^0.0.1
+        version: 0.0.1(@unocss/core@0.58.5)(unocss@0.58.5)
       vite:
         specifier: ^4.0.0
         version: 4.5.2
@@ -190,6 +193,12 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.19
+    dev: true
+
+  /@ant-design/colors@7.0.2:
+    resolution: {integrity: sha512-7KJkhTiPiLHSu+LmMJnehfJ6242OCxSlR3xHVBecYxnMW8MS/878NXct1GqYARyL59fyeFdKRxXTfvR9SnDgJg==}
+    dependencies:
+      '@ctrl/tinycolor': 3.6.1
     dev: true
 
   /@antfu/install-pkg@0.1.1:
@@ -2002,6 +2011,11 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@ctrl/tinycolor@3.6.1:
+    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
+    engines: {node: '>=10'}
+    dev: true
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -4650,12 +4664,6 @@ packages:
       - rollup
     dev: true
 
-  /@unocss/autocomplete@0.51.13:
-    resolution: {integrity: sha512-SyI1SAFZ7Zaw4NqEdRUHPjCmTc/rSTRv1aasZlOC3x7mVG8j/R6+afyqFs4w3HUINJRc3d0tT/Uwfr7lD2GRSw==}
-    dependencies:
-      lru-cache: 9.1.2
-    dev: true
-
   /@unocss/cli@0.58.5:
     resolution: {integrity: sha512-FzVVXO9ghsGtJpu9uR4o7JeM9gUfWNbVZZ/IfH+0WbDJuyx4rO/jwN55z0yA5QDkhvOz9DvzwPCBzLpTJ5q+Lw==}
     engines: {node: '>=14'}
@@ -4686,18 +4694,18 @@ packages:
       unconfig: 0.3.11
     dev: true
 
-  /@unocss/core@0.51.8:
-    resolution: {integrity: sha512-myHRKBphEN3h0OnsUhg2JaFKjFGfqF/jmmzZCCMNU5UmxbheZomXANNLYXVgEP6LHvd4xAF0DEzrOBcDPLf0HQ==}
+  /@unocss/core@0.55.7:
+    resolution: {integrity: sha512-c+bWe844Xjlwc1EPwHj0+n3LpntJG7ELPbEOOxNIG+CQdcEX0l1G0rkM8+nKstJ9WJmgpf1HdJQLVMF62HXvhw==}
     dev: true
 
   /@unocss/core@0.58.5:
     resolution: {integrity: sha512-qbPqL+46hf1/UelQOwUwpAuvm6buoss43DPYHOPdfNJ+NTWkSpATQMF0JKT04QE0QRQbHNSHdMe9ariG+IIlCw==}
     dev: true
 
-  /@unocss/extractor-arbitrary-variants@0.51.8:
-    resolution: {integrity: sha512-cCsdRLqmt3adcaRtoIP2pC8mYgH3ed8DEES3E7VOWghqLjwLULUMyBS+vy7n9CvnV75kuTKb1bZ+k9eu/rfh2w==}
+  /@unocss/extractor-arbitrary-variants@0.55.7:
+    resolution: {integrity: sha512-imK2g/frlo5Ag0uVB+C/Psyo5+9AnqhoRAgYa6gyrQ/TJnrnwf+M3jFngU9evIMHw92vig1DGfPa2ZId901DwQ==}
     dependencies:
-      '@unocss/core': 0.51.8
+      '@unocss/core': 0.55.7
     dev: true
 
   /@unocss/extractor-arbitrary-variants@0.58.5:
@@ -4746,11 +4754,11 @@ packages:
       - supports-color
     dev: true
 
-  /@unocss/preset-mini@0.51.8:
-    resolution: {integrity: sha512-eDm70Kuw3gscq2bjjmM7i11ox2siAbzsI9dIIpJtXntuWdzwlhqNk40YH/YnM02OfWVi8QLdWuye4wOA3//Fjw==}
+  /@unocss/preset-mini@0.55.7:
+    resolution: {integrity: sha512-ZCskE2uprjGkpQezEPM6KPMf84rIZEUNc1p2DxWVHaFUPRV24/JSNsO4PsKrQgNIb2dLQxzPNlMzQJI7ssdBXQ==}
     dependencies:
-      '@unocss/core': 0.51.8
-      '@unocss/extractor-arbitrary-variants': 0.51.8
+      '@unocss/core': 0.55.7
+      '@unocss/extractor-arbitrary-variants': 0.55.7
     dev: true
 
   /@unocss/preset-mini@0.58.5:
@@ -5556,22 +5564,6 @@ packages:
     dependencies:
       clean-stack: 2.2.0
       indent-string: 4.0.0
-    dev: true
-
-  /animate.css@4.1.1:
-    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
-    dev: true
-
-  /animated-unocss@0.0.6(animate.css@4.1.1)(unocss@0.58.5):
-    resolution: {integrity: sha512-JC7dCCulGZedisB1t/xB6pXuIWTr0Sci7UrLitelSy7dSU6z/S2UHOlThmb/bvGtNiARyGb0lidLB4xGZ9xMxg==}
-    peerDependencies:
-      animate.css: '>=4.1.1'
-      unocss: '>=0.50.4'
-    dependencies:
-      '@unocss/autocomplete': 0.51.13
-      '@unocss/preset-mini': 0.51.8
-      animate.css: 4.1.1
-      unocss: 0.58.5(postcss@8.4.33)(vite@4.5.2)
     dev: true
 
   /ansi-align@3.0.1:
@@ -8802,11 +8794,6 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /lru-cache@9.1.2:
-    resolution: {integrity: sha512-ERJq3FOzJTxBbFjZ7iDs+NiK4VI9Wz+RdrrAB8dio1oV+YvdPzUEE4QNiT2VD51DkIbCYRUUzCRkssXCHqSnKQ==}
-    engines: {node: 14 || >=16.14}
-    dev: true
-
   /lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
     hasBin: true
@@ -11549,6 +11536,27 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
+  /unocss-preset-antd@0.0.1(@unocss/core@0.58.5)(unocss@0.58.5):
+    resolution: {integrity: sha512-Ge8OAG5v6yZrOKPy0tE6NqIoa2nDEWE9uVl1V0pdl3ZfjsGTvkESjYxHJKuMtIngxUFAU0hcHKAC21S72a065Q==}
+    peerDependencies:
+      unocss: '>=0.52'
+    dependencies:
+      '@ant-design/colors': 7.0.2
+      unocss: 0.58.5(postcss@8.4.33)(vite@4.5.2)
+      unocss-preset-theme: 0.9.3(@unocss/core@0.58.5)
+    transitivePeerDependencies:
+      - '@unocss/core'
+    dev: true
+
+  /unocss-preset-theme@0.9.3(@unocss/core@0.58.5):
+    resolution: {integrity: sha512-pNu3YmSd47avFH+9lOKN4xHvrxHBQ+5dcC0XKNa2AHpOu/HtCCAGk8v1sdrkcENcPKciSyf6zULEG8N3c2Ilhw==}
+    peerDependencies:
+      '@unocss/core': '>= 0.52.0'
+    dependencies:
+      '@unocss/core': 0.58.5
+      '@unocss/preset-mini': 0.55.7
+    dev: true
+
   /unocss@0.58.5(postcss@8.4.33)(vite@4.5.2):
     resolution: {integrity: sha512-0g4P6jLgRRNnhscxw7nQ9RHGrKJ1UPPiHPet+YT3TXUcmy4mTiYgo9+kGQf5bjyrzsELJ10cT6Qz2y6g9Tls4g==}
     engines: {node: '>=14'}
@@ -11596,7 +11604,7 @@ packages:
   /unplugin@1.5.0:
     resolution: {integrity: sha512-9ZdRwbh/4gcm1JTOkp9lAkIDrtOyOxgHmY7cjuwI8L/2RTikMcVG25GsZwNAgRuap3iDw2jeq7eoqtAsz5rW3A==}
     dependencies:
-      acorn: 8.10.0
+      acorn: 8.11.3
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.5.0
