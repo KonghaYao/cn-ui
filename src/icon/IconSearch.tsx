@@ -73,7 +73,7 @@ export const IconSearch = () => {
 }
 import copy from 'copy-to-clipboard'
 import { VirtualList } from '../virtualList'
-const IconGallery = (props: { comps: Record<string, Component>; result: { label: string }[]; size: string | number }) => {
+const IconGallery = (props: { comps: Record<string, Component<{ size: number }>>; result: { label: string }[]; size: string | number }) => {
     return (
         <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))} estimateSize={64}>
             {(row) => {
@@ -86,7 +86,7 @@ const IconGallery = (props: { comps: Record<string, Component>; result: { label:
                                     class=" transition p-4 rounded-lg flex aspect-square justify-center items-center"
                                     ondblclick={() => copy(i.label)}
                                 >
-                                    <Dynamic component={i.comp} size={parseInt(props.size)}></Dynamic>
+                                    <Dynamic component={i.comp} size={parseInt(props.size as string)}></Dynamic>
                                 </div>
                             )
                         })}

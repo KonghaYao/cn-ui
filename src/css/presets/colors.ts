@@ -52,6 +52,7 @@ Object.values(colors).forEach((color) => {
         color.DEFAULT = color.DEFAULT || (color[400] as string)
         Object.keys(color).forEach((key) => {
             const short = +key / 100
+            /** @ts-ignore */
             if (short === Math.round(short)) color[short] = color[key]
         })
     }
