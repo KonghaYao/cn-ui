@@ -42,12 +42,6 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         overscan: 3,
         gridSize: () => props.each.length
     })
-    watch(
-        () => props.each,
-        () => {
-            virtualizer.updateView(virtualizer, false)
-        }
-    )
     const { height } = useAutoResize(() => tableContainerRef()?.parentElement!)
     return (
         <div
@@ -76,7 +70,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
                             const context = { itemClass, itemRef }
                             return (
                                 <div
-                                    class={classNames('cn-virtual-list-item absolute w-full duration-300 transition-colors', itemClass())}
+                                    class={classNames('cn-virtual-list-item absolute w-full', itemClass())}
                                     data-index={virtualRow().index} //needed for dynamic row height measurement
                                     ref={(node) => {
                                         itemRef(node)

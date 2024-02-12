@@ -35,7 +35,7 @@ export const Primary: Story = {
             <div class="h-screen flex flex-col">
                 <ChatBox
                     each={items()}
-                    estimateSize={80}
+                    estimateSize={100}
                     onSendMessage={async (text) => {
                         const newMessage: ChatBoxMessage = {
                             id: Date.now().toString(),

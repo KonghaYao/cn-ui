@@ -23,7 +23,8 @@ export const ChatBox = OriginComponent(function <T extends ChatBoxMessage>(props
         <OriginDiv prop={props} class="flex flex-col h-full ">
             <header class="h-16 bg-gray-100"></header>
             <VirtualList transitionName="cn-fade" reverse each={props.each} estimateSize={props.estimateSize} getItemKey={(i) => props.each[i].id}>
-                {(item) => {
+                {(item, _, { itemClass }) => {
+                    itemClass('transition-all')
                     return (
                         <Row bottomSpace={10}>
                             <Col span={4}>{item.position !== 'right' && <Avatar src={item.avatar} fallback={<div>A</div>}></Avatar>}</Col>
