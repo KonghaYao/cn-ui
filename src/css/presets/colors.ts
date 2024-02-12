@@ -17,6 +17,7 @@ const neutral = {
     title: '#000000E0',
     h1: '#000000E0',
     h2: '#000000A6',
+    hover: '#0000000f',
     disabled: '#00000040',
     border: '#D9D9D9FF',
     divide: '#0505050F',

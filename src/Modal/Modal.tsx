@@ -35,8 +35,8 @@ export const Modal = OriginComponent(function <T>(props: OriginComponentInputTyp
                     estimateSize={props.estimateSize ?? 64}
                 >
                     {(item, index, { itemClass }) => {
-                        itemClass('pl-6 py-2')
-                        return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-md bg-white')}>{props.children(item, index)}</div>
+                        itemClass('px-3 py-2')
+                        return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-1 bg-white')}>{props.children(item, index)}</div>
                     }}
                 </VirtualList>
             </div>

@@ -75,7 +75,7 @@ import copy from 'copy-to-clipboard'
 import { VirtualList } from '../virtualList'
 const IconGallery = (props: { comps: Record<string, Component>; result: { label: string }[]; size: string | number }) => {
     return (
-        <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))} estimateSize={48}>
+        <VirtualList each={ArrayFolder(props.result.map((i) => ({ ...i, comp: props.comps[i.label] })).filter((i) => i.comp))} estimateSize={64}>
             {(row) => {
                 return (
                     <div class="grid grid-cols-10 h-12">
@@ -83,7 +83,7 @@ const IconGallery = (props: { comps: Record<string, Component>; result: { label:
                             return (
                                 <div
                                     title={i.label}
-                                    class="shadow-xs hover:shadow-lg transition p-4 rounded-lg flex aspect-square justify-center items-center"
+                                    class=" transition p-4 rounded-lg flex aspect-square justify-center items-center"
                                     ondblclick={() => copy(i.label)}
                                 >
                                     <Dynamic component={i.comp} size={parseInt(props.size)}></Dynamic>

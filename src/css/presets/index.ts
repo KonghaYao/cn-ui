@@ -1,11 +1,10 @@
 // my-preset.ts
 import { definePreset } from 'unocss'
 import { colors } from './colors'
-
-const theme = { colors }
+import { boxShadow } from './boxShadow'
 export default definePreset(() => {
     return {
         name: 'uno-preset-cn',
-        theme
+        theme: { colors, boxShadow }
     }
 })

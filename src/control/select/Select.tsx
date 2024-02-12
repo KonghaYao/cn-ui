@@ -142,8 +142,8 @@ export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: bool
     const VoidSlot = () => <span>无数据</span>
     const parentClass = 'cn-select-option grid grid-cols-12 items-center transition-colors select-none px-2 rounded-md'
 
-    const normalClass = 'hover:bg-gray-100'
-    const selectedClass = 'cn-selected bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'
+    const normalClass = 'hover:bg-neutral-hover'
+    const selectedClass = 'cn-selected bg-primary-500 text-white hover:bg-primary-600 cursor-pointer'
     const disabledClass = 'text-gray-400 cursor-not-allowed'
     const createClass = (item: SelectItemsType) => {
         const isSelected = selectSystem.isSelected(item.value.toString())

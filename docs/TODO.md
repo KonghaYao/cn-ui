@@ -33,8 +33,8 @@
 -   [ ] 1 Infinite Scroll
 -   [x] 1 Modal
 
--   [ ] 2 ChatBox
 -   [x] 2 Tabs
+-   [x] 3 ChatBox
 -   [ ] 3 Gallery
 -   [ ] 3 AppShell https://mantine.dev/app-shell/?e=Headroom
 -   [x] 3 WaterFall
@@ -47,7 +47,7 @@
 -   [ ] 1 Link
 -   [ ] 1 Icon
 -   [ ] 1 Divider
--   [ ] 1 Avatar
+-   [x] 1 Avatar
 -   [ ] 1 Badge
 -   [x] 1 Image
     -   [ ] Image Preview
