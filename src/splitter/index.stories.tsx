@@ -15,8 +15,12 @@ type Story = StoryObj<typeof meta>
 const Sample = () => {
     return (
         <Splitter>
-            <div style="background: pink;height: 300px">1</div>
-            <div style="background: green;height: 300px">2</div>
+            <div class="bg-blue-600" style="height: 300px">
+                1
+            </div>
+            <div class="bg-green-600" style="height: 300px">
+                2
+            </div>
         </Splitter>
     )
 }

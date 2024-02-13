@@ -19,6 +19,7 @@ export const Primary: Story = {
         return (
             <div class="flex gap-4">
                 <Select
+                    filterable
                     options={[
                         {
                             value: 'jack',
@@ -87,7 +88,7 @@ export const Search: Story = {
 
         return (
             <div class="flex flex-col gap-4">
-                <Select filterable={false} options={res()} onInput={res.refetch}></Select>
+                <Select options={res()} onInput={res.refetch}></Select>
             </div>
         )
     },
@@ -105,7 +106,7 @@ export const Virtual: Story = {
         })
         return (
             <div class="flex gap-4">
-                <Select multiple options={options}></Select>
+                <Select filterable multiple options={options}></Select>
             </div>
         )
     },

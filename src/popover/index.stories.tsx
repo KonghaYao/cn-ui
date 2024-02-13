@@ -7,6 +7,7 @@ import { Row } from '../RowAndCol/Row'
 import { Col } from '../RowAndCol'
 import { Flex } from '../container/Flex'
 import { CheckboxGroup } from '../control/checkbox'
+import { Button } from '../button'
 
 const meta = {
     title: 'Data 数据展示/Popover 弹出层',
@@ -55,7 +56,7 @@ export const Primary: Story = {
                                         placement={position}
                                         trigger={trigger()[0] as PopoverProps['trigger']}
                                     >
-                                        <button>{position}</button>
+                                        <Button>{position}</Button>
                                     </Popover>
                                 </Flex>
                             </Col>

@@ -9,7 +9,7 @@ export interface PaginationProps {
     onPageChange?: (details: { page: number; pageSize: number }) => void
 }
 export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, number>((props) => {
-    const baseBtn = 'h-8 w-8 bg-design-ground text-center hover:bg-design-hover rounded-md  cursor-pointer transition-colors'
+    const baseBtn = 'h-8 w-8 bg-design-card text-center hover:bg-design-hover rounded-md  cursor-pointer transition-colors'
     return (
         <P.Root
             class="flex"

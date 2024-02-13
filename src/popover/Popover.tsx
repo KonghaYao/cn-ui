@@ -54,7 +54,7 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
             <PopoverTrigger as={child}></PopoverTrigger>
             <Portal>
                 <Popover.Positioner>
-                    <Popover.Content class="popover__content outline-none bg-design-ground rounded-md flex flex-col z-50 p-2">
+                    <Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2">
                         <Popover.Arrow class="popover__arrow">
                             <Popover.ArrowTip class="popover__arrowTip" />
                         </Popover.Arrow>

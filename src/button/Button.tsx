@@ -21,7 +21,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) =>
         <button
             type={props.htmlType}
             class={props.class(
-                'cn-button transition-colors',
+                'cn-button transition-colors ',
                 props.loading && 'pointer-events-none opacity-50',
                 props.circle ? 'rounded-full px-2 py-1' : 'rounded-md  px-4 py-1 ',
                 props.disabled ? disabledClass() : typeClass()
@@ -50,7 +50,7 @@ function createTypeClass(props: OriginComponentInputType<ButtonProps, HTMLButton
     return useMapper(() => props.type ?? 'default', {
         primary: () => {
             const danger = props.danger ? 'bg-error-500 hover:bg-error-400' : 'bg-primary-500 hover:bg-primary-400'
-            return `${danger} text-design-ground`
+            return `${danger} text-design-text `
         },
         dashed() {
             return this.default() + ' border-dashed'
@@ -66,10 +66,10 @@ function createTypeClass(props: OriginComponentInputType<ButtonProps, HTMLButton
     })
 }
 function createDisabledClass(props: OriginComponentInputType<ButtonProps, HTMLButtonElement, string>) {
-    const common = 'opacity-50 cursor-not-allowed'
+    const common = 'opacity-50 cursor-not-allowed border-design-disabled'
     return useMapper(() => props.type ?? 'default', {
         primary() {
-            return ` border-design-disabled ` + common
+            return common + ' bg-design-disabled'
         },
         dashed() {
             return this.default() + ' border-dashed'
@@ -79,7 +79,7 @@ function createDisabledClass(props: OriginComponentInputType<ButtonProps, HTMLBu
             return this.default() + ` border-none ${danger}`
         },
         default: () => {
-            return `border-design-disabled bg-transparent ` + common
+            return ` bg-transparent ` + common
         }
     })
 }

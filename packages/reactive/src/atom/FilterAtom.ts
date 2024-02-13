@@ -1,7 +1,7 @@
 import { debounce, throttle } from 'lodash-es'
 import { atom } from './atom'
 import { useEffectWithoutFirst } from './useEffect'
-import { Accessor } from 'solid-js'
+import { Accessor, createEffect, createMemo } from 'solid-js'
 
 export function DebounceAtom<T>(a: Accessor<T>, debounceTime: number = 150) {
     let lastVal = a()

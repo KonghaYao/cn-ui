@@ -45,11 +45,11 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         props.model(() => selectSystem.activeIdsArray())
     })
     const input = NullAtom<HTMLDivElement>(null)
-    const inputText = atom('')
+    const inputText = atom(props.multiple ? '' : props.model()[0])
 
     const filteredOptions = computed(
         () => {
-            if (!inputText() || props.filterable === false) return props.options
+            if (!inputText() || !props.filterable) return props.options
             return props.options.filter((i) => getLabelFromOptions(i).includes(inputText()))
         },
         { step: true, deps: [() => props.filterable, () => props.options] }

@@ -5,7 +5,7 @@ import { CountConfig } from './BaseInput'
 
 const FractionDeps = (props: { max?: number; count: number }) => {
     return (
-        <span class={classNames('text-sm text-nowrap ', props.max && (props.max ?? Infinity) < props.count ? 'text-rose-500' : 'text-gray-500')}>
+        <span class={classNames('text-sm text-nowrap ', props.max && (props.max ?? Infinity) < props.count ? 'text-rose-500' : 'text-design-text')}>
             {props.count} {props.max ? ' / ' + props.max : null}
         </span>
     )

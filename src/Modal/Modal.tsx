@@ -36,7 +36,7 @@ export const Modal = OriginComponent(function <T>(props: OriginComponentInputTyp
                 >
                     {(item, index, { itemClass }) => {
                         itemClass('px-3 py-2')
-                        return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-1 bg-design-ground')}>{props.children(item, index)}</div>
+                        return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-1 bg-design-card')}>{props.children(item, index)}</div>
                     }}
                 </VirtualList>
             </div>

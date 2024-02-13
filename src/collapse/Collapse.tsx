@@ -36,17 +36,20 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((p
                             {(api) => {
                                 return (
                                     <>
-                                        <Accordion.ItemTrigger class="flex justify-between w-full items-center">
+                                        <Accordion.ItemTrigger class="flex justify-between w-full items-center bg-design-card">
                                             <span class="text-xl py-4">{ensureFunctionResult(item.label)}</span>
                                             <Accordion.ItemIndicator>
                                                 <AiFillCaretDown
                                                     size={20}
-                                                    class={classNames(' text-gray-500 transition-transform duration-300', api().isOpen ? 'rotate-180' : '')}
+                                                    class={classNames(' text-design-text transition-transform duration-300', api().isOpen ? 'rotate-180' : '')}
                                                 ></AiFillCaretDown>
                                             </Accordion.ItemIndicator>
                                         </Accordion.ItemTrigger>
                                         <div
-                                            class={classNames('cn-collapse-container duration-300 transition-all grid  text-gray-500', api().isOpen && 'pb-4')}
+                                            class={classNames(
+                                                'cn-collapse-container duration-300 transition-all grid  text-design-text',
+                                                api().isOpen && 'pb-4'
+                                            )}
                                             style={
                                                 api().isOpen
                                                     ? {

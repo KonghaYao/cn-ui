@@ -13,9 +13,12 @@ export const Tag = OriginComponent<{
     return (
         <OriginDiv
             prop={props}
-            class={classNames(props.inline === false ? 'flex' : 'inline-flex', ' flex-row items-center px-2 rounded-md select-none border text-sm font-light')}
+            class={classNames(
+                props.inline === false ? 'flex' : 'inline-flex',
+                ' flex-row items-center px-2 rounded-md select-none border border-design-border text-sm font-light bg-design-card'
+            )}
             style={{
-                'background-color': props.color ?? '#eee'
+                'background-color': props.color ?? ''
             }}
         >
             {ensureFunctionResult(props.icon)}

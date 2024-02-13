@@ -3,7 +3,8 @@ import { Show } from 'solid-js'
 import { useBooleanState } from './useBooleanState'
 import { GlobalDialog } from './useGlobalDialog'
 import { onClickOutside } from 'solidjs-use'
-
+import { Transition } from 'solid-transition-group'
+import '../animation/fade.css'
 export const DialogCtx = createCtx<DialogExpose>()
 export interface DialogExpose extends ReturnType<typeof useBooleanState> {}
 export const Dialog = OriginComponent<{ id?: string }, HTMLDivElement, boolean>((props) => {
@@ -17,13 +18,15 @@ export const Dialog = OriginComponent<{ id?: string }, HTMLDivElement, boolean>(
     })
     return (
         <DialogCtx.Provider value={expose}>
-            <Show when={props.model()}>
-                <div id={props.id} class="fixed top-0 pointer-events-none left-0 h-full w-full flex justify-center items-center">
-                    <OriginDiv prop={props} class=" pointer-events-auto rounded-lg" ref={dialog}>
-                        {props.children}
-                    </OriginDiv>
-                </div>
-            </Show>
+            <Transition name="cn-fade">
+                <Show when={props.model()}>
+                    <div id={props.id} class="fixed top-0 pointer-events-none left-0 h-full w-full flex justify-center items-center">
+                        <OriginDiv prop={props} class=" pointer-events-auto rounded-lg" ref={dialog}>
+                            {props.children}
+                        </OriginDiv>
+                    </div>
+                </Show>
+            </Transition>
         </DialogCtx.Provider>
     )
 })

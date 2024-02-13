@@ -2,10 +2,24 @@
 import { definePreset } from 'unocss'
 import { colors, darkColors } from './colors'
 import { boxShadow } from './boxShadow'
+import { DarkDesignCSSVar, DesignCSSVar, designRules } from './design'
 export default definePreset((props: {}) => {
     return {
         name: 'uno-preset-cn',
-        theme: { colors, boxShadow }
+        theme: { colors, boxShadow },
+        rules: [...designRules],
+        preflights: [
+            {
+                getCSS: () => `
+                :root {
+                   ${DesignCSSVar}
+                }
+                .dark{
+                    ${DarkDesignCSSVar}
+                }
+              `
+            }
+        ]
     }
 })
 export const lightColors = colors

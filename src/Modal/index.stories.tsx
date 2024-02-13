@@ -5,6 +5,7 @@ import { atom } from '@cn-ui/reactive'
 import { Flex } from '../container'
 import Mock from 'mockjs-ts'
 import { createEffect } from 'solid-js'
+import { Button } from '../button'
 
 const meta = {
     title: 'Feedback 反馈组件/Modal 模态框',
@@ -24,7 +25,7 @@ export const Primary: Story = {
         return (
             <>
                 <Flex>
-                    <button
+                    <Button
                         class="flex-1"
                         onclick={() =>
                             data((i) => {
@@ -33,8 +34,8 @@ export const Primary: Story = {
                             })
                         }
                     >
-                        修复
-                    </button>
+                        弹出
+                    </Button>
                 </Flex>
                 <Modal v-model={atom(true)} each={data()} by={(i) => i.id} position="bottom">
                     {(item, index) => {

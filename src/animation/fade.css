@@ -4,9 +4,9 @@
 }
 .cn-fade-enter,
 .cn-fade-exit-to {
-    transform: translateX(10px);
+    transform: scale(0.7);
     opacity: 0;
 }
 .fn-fade-enter {
-    transform: translateX(-10px);
+    transform: scale(1.3);
 }

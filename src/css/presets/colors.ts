@@ -11,21 +11,6 @@ const antColorToObj = (arr: string[]) => {
         )
     }
 }
-const gray = ['#fafafa', '#f5f5f5', '#f0f0f0', '#d9d9d9', '#bfbfbf', '#8c8c8c', '#595959', '#434343', '#262626', '#1f1f1f', '#141414']
-
-/** https://ant-design.antgroup.com/docs/spec/colors-cn#%E4%B8%AD%E6%80%A7%E8%89%B2 */
-const design = {
-    title: '#000000E0',
-    text: '#000000E0',
-    h2: '#000000A6',
-    hover: '#0000000f',
-    disabled: '#00000040',
-    border: '#D9D9D9FF',
-    divide: '#0505050F',
-    ground: '#F5F5F5FF',
-    DEFAULT: '#F5F5F5FF'
-}
-
 const createShortcutForColors = <T>(colors: T): T => {
     /** @ts-ignore */
     Object.values(colors).forEach((color) => {
@@ -42,15 +27,14 @@ const createShortcutForColors = <T>(colors: T): T => {
     })
     return colors
 }
-
+const gray = ['#fafafa', '#f5f5f5', '#f0f0f0', '#d9d9d9', '#bfbfbf', '#8c8c8c', '#595959', '#434343', '#262626', '#1f1f1f', '#141414']
 export const colors = createShortcutForColors({
     primary: antColorToObj(blue),
     success: antColorToObj(green),
     warning: antColorToObj(gold),
     error: antColorToObj(red),
-    design,
 
-    gray: antColorToObj(grey),
+    gray: antColorToObj(gray),
     red: antColorToObj(red),
     volcano: antColorToObj(volcano),
     orange: antColorToObj(orange),
@@ -64,23 +48,12 @@ export const colors = createShortcutForColors({
     purple: antColorToObj(purple),
     magenta: antColorToObj(magenta)
 })
-const darkdesign = {
-    title: '#ffffffd9',
-    text: '#ffffffd9',
-    h2: '#ffffffA6',
-    disabled: '#ffffff40',
-    border: '#424242FF',
-    divide: '#FDFDFD1F',
-    ground: '#000000FF',
-    hover: '#ffffff0f',
-    DEFAULT: '#000000FF'
-}
+
 export const darkColors = createShortcutForColors({
     primary: antColorToObj(presetDarkPalettes.blue),
     success: antColorToObj(presetDarkPalettes.green),
     warning: antColorToObj(presetDarkPalettes.gold),
     error: antColorToObj(presetDarkPalettes.red),
-    design: darkdesign,
 
     gray: antColorToObj(presetDarkPalettes.grey),
     red: antColorToObj(presetDarkPalettes.red),

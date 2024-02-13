@@ -8,6 +8,7 @@ import { createEffect } from 'solid-js'
 import { GlobalDialog } from './useGlobalDialog'
 import { AiOutlineClose } from 'solid-icons/ai'
 import { Icon } from '../icon/Icon'
+import { Button } from '../button'
 
 const meta = {
     title: 'Feedback 反馈组件/Dialog 模态框',
@@ -27,11 +28,11 @@ export const Primary: Story = {
         return (
             <>
                 <Flex>
-                    <button class="flex-1" onclick={() => GlobalDialog().toggle('info-dialog')}>
+                    <Button class="flex-1" onclick={() => GlobalDialog().toggle('info-dialog')}>
                         触发
-                    </button>
+                    </Button>
                 </Flex>
-                <Dialog id="info-dialog" class="w-80 h-80 bg-design-ground shadow-2xl" v-model={atom(true)}>
+                <Dialog id="info-dialog" class="w-80 h-80 bg-design-card shadow-2xl" v-model={atom(true)}>
                     <Container class="h-full">
                         <Header class="h-12 font-bold flex items-center justify-between border-b border-gray-300">
                             <span>Dialog</span>
