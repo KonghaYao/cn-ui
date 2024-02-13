@@ -24,6 +24,7 @@ import 'wc-spinners/src/index'
 import { Col, Row } from '../RowAndCol'
 import { For } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
+import { Button } from '../button'
 const list = [
     'atom-spinner',
     'breeding-rhombus-spinner',
@@ -122,7 +123,7 @@ export const Floating: Story = {
         const res = resource(() => sleep(1000, Math.random()), { initValue: Math.random() })
         return (
             <div class="h-screen">
-                <button onclick={() => res.refetch()}>refetch</button>
+                <Button onclick={() => res.refetch()}>refetch</Button>
                 {/*  keepLastState must render success */}
                 <AC
                     resource={res}

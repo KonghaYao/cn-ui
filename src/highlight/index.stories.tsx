@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Code } from './index'
+import { Code, useCodeStyle } from './index'
 
 const meta = {
     title: 'Article/Code',
@@ -15,7 +15,13 @@ type Story = StoryObj<typeof meta>
 import SampleCode from './Code?raw'
 export const Primary: Story = {
     render() {
-        return <Code code={SampleCode} lang="tsx"></Code>
+        const { link } = useCodeStyle('a11y-dark')
+        return (
+            <>
+                <Code code={SampleCode} lang="tsx"></Code>
+                {link}
+            </>
+        )
     },
     args: {}
 }

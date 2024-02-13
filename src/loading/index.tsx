@@ -1,5 +1,6 @@
 import { classNames, toCSSPx } from '@cn-ui/reactive'
 import { Flex } from '../container/Flex'
+import './index.css'
 import 'wc-spinners/src/components/react-spinners/bounce-spinner'
 import { Accessor, JSXElement, ResolvedJSXElement } from 'solid-js'
 import { useElementBounding } from 'solidjs-use'

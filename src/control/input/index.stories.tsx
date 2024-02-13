@@ -50,6 +50,7 @@ export const Password: Story = {
 }
 import { runes } from 'runes2'
 import { ClearControl, PasswordControl } from './utils'
+import { Button } from '../../button'
 
 /** 右侧计数 */
 export const Count: Story = {
@@ -103,7 +104,7 @@ export const Expose: Story = {
         const inputExpose = NullAtom<InputExpose>(null)
         return (
             <div class="flex gap-4">
-                <button
+                <Button
                     onClick={() => {
                         inputExpose()!.focus({
                             cursor: 'start'
@@ -111,8 +112,8 @@ export const Expose: Story = {
                     }}
                 >
                     Focus at first
-                </button>
-                <button
+                </Button>
+                <Button
                     onClick={() => {
                         inputExpose()!.focus({
                             cursor: 'end'
@@ -120,8 +121,8 @@ export const Expose: Story = {
                     }}
                 >
                     Focus at last
-                </button>
-                <button
+                </Button>
+                <Button
                     onClick={() => {
                         inputExpose()!.focus({
                             cursor: 'all'
@@ -129,8 +130,8 @@ export const Expose: Story = {
                     }}
                 >
                     Focus to select all
-                </button>
-                <button
+                </Button>
+                <Button
                     onClick={() => {
                         inputExpose()!.focus({
                             preventScroll: true
@@ -138,7 +139,7 @@ export const Expose: Story = {
                     }}
                 >
                     Focus prevent scroll
-                </button>
+                </Button>
                 {/* <Switch
                     checked={input}
                     checkedChildren="Input"
