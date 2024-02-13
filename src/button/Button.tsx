@@ -37,7 +37,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) =>
                     </>
                 }
             >
-                <Match when={props.icon}>
+                <Match when={props.loading}>
                     {ButtonStore.loadingIcon()}
                     {'加载中'}
                 </Match>
