@@ -16,7 +16,7 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
     const inputType = computed(() => (group?.multi?.() === false ? 'radio' : 'checkbox'))
     const isChecked = computed(() => group?.isSelected?.(props.value) ?? props.model())
     const inputClass = useMapper(inputType, {
-        radio: ['rounded-full border-4 border-neutral-border', 'rounded-full border-4 border-primary-500'],
+        radio: ['rounded-full border-4 border-design-border', 'rounded-full border-4 border-primary-500'],
         checkbox: ['rounded-md border-2', 'rounded-md border-2 bg-primary-500 border-primary-200']
     })
     return (

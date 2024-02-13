@@ -27,7 +27,7 @@ export function BodyRow<T, D>(props: {
             }} //measure dynamic row height
             class={classNames(
                 'flex absolute w-full duration-300 transition-colors ',
-                row().getIsSelected() ? 'bg-primary-100 hover:bg-primary-200' : 'hover:bg-neutral-hover'
+                row().getIsSelected() ? 'bg-primary-100 hover:bg-primary-200' : 'hover:bg-design-hover'
             )}
             style={{
                 transform: `translateY(${props.virtualRow.start}px)`

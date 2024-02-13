@@ -144,6 +144,9 @@ importers:
       unocss-preset-antd:
         specifier: ^0.0.1
         version: 0.0.1(@unocss/core@0.58.5)(unocss@0.58.5)
+      unocss-preset-theme:
+        specifier: ^0.12.0
+        version: 0.12.0(@unocss/core@0.58.5)
       vite:
         specifier: ^4.0.0
         version: 4.5.2
@@ -11546,6 +11549,15 @@ packages:
       unocss-preset-theme: 0.9.3(@unocss/core@0.58.5)
     transitivePeerDependencies:
       - '@unocss/core'
+    dev: true
+
+  /unocss-preset-theme@0.12.0(@unocss/core@0.58.5):
+    resolution: {integrity: sha512-zdK66OO7UoGts5ZP5mXH55D3Lu82EBL94+s+DH+NQemzhTyZaGIxrovFupsSlfTC4gdKCm89w6OeNac6FLIDUw==}
+    peerDependencies:
+      '@unocss/core': '>= 0.52.0'
+    dependencies:
+      '@unocss/core': 0.58.5
+      '@unocss/rule-utils': 0.58.5
     dev: true
 
   /unocss-preset-theme@0.9.3(@unocss/core@0.58.5):

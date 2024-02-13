@@ -23,7 +23,7 @@ export const Primary: Story = {
                 <Row>
                     <Entries of={colors}>
                         {(colorName, value) => {
-                            const isImportant = ['primary', 'success', 'warning', 'error', 'neutral'].includes(colorName)
+                            const isImportant = ['primary', 'success', 'warning', 'error', 'design'].includes(colorName)
                             return (
                                 <Col span={6}>
                                     <Flex

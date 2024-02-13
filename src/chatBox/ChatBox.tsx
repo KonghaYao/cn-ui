@@ -39,7 +39,7 @@ export const ChatBox = OriginComponent(function <T extends ChatBoxMessage>(props
             <Row class="h-24 bg-gray-100" gutter={[4, 12]}>
                 <Col span={2}></Col>
                 <Col span={20}>
-                    <BaseInput resize={false} class="bg-white h-full w-full" type="textarea" v-model={userMessage}></BaseInput>
+                    <BaseInput resize={false} class="bg-design-ground h-full w-full" type="textarea" v-model={userMessage}></BaseInput>
                 </Col>
                 <Col span={2}>
                     <button

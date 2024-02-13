@@ -31,7 +31,7 @@ export const Primary: Story = {
                         触发
                     </button>
                 </Flex>
-                <Dialog id="info-dialog" class="w-80 h-80 bg-white shadow-2xl" v-model={atom(true)}>
+                <Dialog id="info-dialog" class="w-80 h-80 bg-design-ground shadow-2xl" v-model={atom(true)}>
                     <Container class="h-full">
                         <Header class="h-12 font-bold flex items-center justify-between border-b border-gray-300">
                             <span>Dialog</span>

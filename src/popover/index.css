@@ -1,6 +1,6 @@
 .popover__arrow {
     --arrow-size: 0.75rem;
-    --arrow-background: white;
+    --arrow-background: rgb(var(--un-cn-colors-design-ground));
 }
 
 .popover__arrowTip {

@@ -1,6 +1,6 @@
 // my-preset.ts
 import { definePreset } from 'unocss'
-import { colors } from './colors'
+import { colors, darkColors } from './colors'
 import { boxShadow } from './boxShadow'
 export default definePreset((props: {}) => {
     return {
@@ -8,3 +8,5 @@ export default definePreset((props: {}) => {
         theme: { colors, boxShadow }
     }
 })
+export const lightColors = colors
+export { darkColors, boxShadow }
