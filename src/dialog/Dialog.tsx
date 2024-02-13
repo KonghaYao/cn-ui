@@ -7,9 +7,14 @@ import { Transition } from 'solid-transition-group'
 import '../animation/fade.css'
 export const DialogCtx = createCtx<DialogExpose>()
 export interface DialogExpose extends ReturnType<typeof useBooleanState> {}
-export const Dialog = OriginComponent<{ id?: string }, HTMLDivElement, boolean>((props) => {
+export interface DialogProps {
+    id?: string
+    beforeClose?: () => Promise<void> | void
+}
+
+export const Dialog = OriginComponent<DialogProps, HTMLDivElement, boolean>((props) => {
     const expose: DialogExpose = {
-        ...useBooleanState(props.model)
+        ...useBooleanState(props.model, { beforeHide: props.beforeClose })
     }
     if (props.id) GlobalDialog().register(props.id, expose)
     const dialog = NullAtom<HTMLDivElement>(null)
