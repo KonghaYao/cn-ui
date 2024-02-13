@@ -42,7 +42,7 @@
 ### 流组件
 
 -   [x] 1 Code
--   [ ] 1 Button
+-   [x] 1 Button
 -   [ ] 1 Float Button
 -   [ ] 1 Link
 -   [ ] 1 Icon

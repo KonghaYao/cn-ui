@@ -4,6 +4,7 @@ import { Button } from './index'
 import { Flex } from '../container/Flex'
 import { AiOutlineSearch } from 'solid-icons/ai'
 import { Icon } from '../icon/Icon'
+import { toggleTheme } from '../utils/toggleTheme'
 const meta = {
     title: 'Common 通用/Button 按钮',
     component: Button
@@ -19,10 +20,16 @@ export const Primary: Story = {
         return (
             <Flex vertical gap="4px">
                 <Flex gap="4px">
-                    <Button type="primary">按钮</Button>
-                    <Button>按钮</Button>
-                    <Button type="dashed">按钮</Button>
-                    <Button type="link">按钮</Button>
+                    <Button type="primary" onclick={toggleTheme}>
+                        按钮
+                    </Button>
+                    <Button onclick={toggleTheme}>按钮</Button>
+                    <Button type="dashed" onclick={toggleTheme}>
+                        按钮
+                    </Button>
+                    <Button type="link" onclick={toggleTheme}>
+                        按钮
+                    </Button>
                 </Flex>
                 <Flex gap="4px">
                     <Button type="primary" danger>

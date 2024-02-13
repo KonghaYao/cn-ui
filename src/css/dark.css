@@ -1,4 +1,30 @@
-.dark {
-    color: #ffffffa6;
-    background-color: #000000ff;
+:root body {
+    color: #000000;
+    background-color: #ffffff;
+}
+.dark body {
+    color: #ffffff;
+    background-color: #000000;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 2147483646;
+}
+
+.dark::view-transition-old(root) {
+    z-index: 2147483646;
+}
+
+.dark::view-transition-new(root) {
+    z-index: 1;
 }

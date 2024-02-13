@@ -11,6 +11,7 @@ export const createDesignRules = (design: Record<string, string>) => {
 export const designToken = {
     title: '#000000E0',
     text: '#000000E0',
+    'text-light': '#ffffff',
     h2: '#000000A6',
     card: '#fafafa',
     hover: '#0000000f',
@@ -22,6 +23,7 @@ export const designToken = {
 const darkDesignToken = {
     title: '#ffffffd9',
     text: '#ffffffd9',
+    'text-light': '#ffffffd9',
     h2: '#ffffffA6',
     card: '#1f1f1f',
     disabled: '#ffffff40',

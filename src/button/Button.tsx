@@ -50,7 +50,7 @@ function createTypeClass(props: OriginComponentInputType<ButtonProps, HTMLButton
     return useMapper(() => props.type ?? 'default', {
         primary: () => {
             const danger = props.danger ? 'bg-error-500 hover:bg-error-400' : 'bg-primary-500 hover:bg-primary-400'
-            return `${danger} text-design-text `
+            return `${danger} text-design-text-light `
         },
         dashed() {
             return this.default() + ' border-dashed'
