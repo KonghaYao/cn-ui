@@ -3,8 +3,8 @@
     background-color: #ffffff;
 }
 .dark body {
-    color: #ffffff;
-    background-color: #000000;
+    color: #e5eaf3;
+    background-color: #141414;
 }
 
 ::view-transition-old(root),

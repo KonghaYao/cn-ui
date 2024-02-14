@@ -48,7 +48,7 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((p
                                         <div
                                             class={classNames(
                                                 'cn-collapse-container duration-300 transition-all grid  text-design-text',
-                                                api().isOpen && 'pb-4'
+                                                api().isOpen ? 'pb-4' : 'pointer-events-none'
                                             )}
                                             style={
                                                 api().isOpen

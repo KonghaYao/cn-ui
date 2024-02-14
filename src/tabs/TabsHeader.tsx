@@ -17,7 +17,7 @@ export const TabsHeader = OriginComponent<TabsHeaderProps, HTMLDivElement>((prop
                     ? props.children
                     : (name) => {
                           const color = useMapper(() => isSelected(name).toString() as 'true' | 'false', {
-                              true: 'text-blue-400',
+                              true: 'text-primary-600',
                               false: ''
                           })
                           return (

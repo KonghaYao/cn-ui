@@ -29,7 +29,7 @@ const darkDesignToken = {
     disabled: '#ffffff40',
     border: '#424242FF',
     divide: '#FDFDFD1F',
-    ground: '#000000FF',
+    ground: '#141414FF',
     hover: '#ffffff0f'
 }
 
