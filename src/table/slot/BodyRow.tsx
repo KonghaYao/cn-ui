@@ -4,7 +4,6 @@ import { BodyCell } from './BodyCell'
 import { classNames } from '@cn-ui/reactive'
 import { Cell } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
-import { Key } from '@solid-primitives/keyed'
 
 export function BodyRow<T, D>(props: {
     index?: string | number
@@ -31,7 +30,7 @@ export function BodyRow<T, D>(props: {
                 row().getIsSelected() ? 'bg-primary-100 hover:bg-primary-200' : 'hover:bg-design-hover'
             )}
             style={{
-                transform: `translateY(${props.virtualRow.start}px)`
+                top: `${props.virtualRow.start}px`
             }}
             onClick={() => {
                 selection() && row().toggleSelected()
@@ -39,16 +38,16 @@ export function BodyRow<T, D>(props: {
         >
             {props.padding && virtualPadding().left ? (
                 //fake empty column to the left for virtualization scroll padding
-                <td style={{ display: 'flex', width: virtualPadding().left + 'px' }} />
+                <td style={{ display: 'block', width: virtualPadding().left + 'px' }} />
             ) : null}
-            <Key by="id" each={(props.columns || virtualColumnsIndex()).map((i) => visibleRows()[i])}>
+            <For each={(props.columns || virtualColumnsIndex()).map((i) => visibleRows()[i])}>
                 {(cell) => {
-                    return <BodyCell cell={cell()}></BodyCell>
+                    return <BodyCell cell={cell}></BodyCell>
                 }}
-            </Key>
+            </For>
             {props.padding && virtualPadding().right ? (
                 //fake empty column to the right for virtualization scroll padding
-                <td style={{ display: 'flex', width: virtualPadding().right + 'px' }} />
+                <td style={{ display: 'block', width: virtualPadding().right + 'px' }} />
             ) : null}
         </tr>
     )

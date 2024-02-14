@@ -13,11 +13,11 @@ export function MagicTableBody<T>() {
                 position: 'relative' //needed for absolute positioning of rows
             }}
         >
-            <Key by="key" each={virtualRows()}>
+            <For each={virtualRows()}>
                 {(virtualRow) => {
-                    return <BodyRow padding virtualRow={virtualRow()}></BodyRow>
+                    return <BodyRow padding virtualRow={virtualRow}></BodyRow>
                 }}
-            </Key>
+            </For>
         </tbody>
     )
 }

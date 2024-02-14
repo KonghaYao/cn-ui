@@ -16,7 +16,7 @@
         "@cn-ui/reactive": "workspace:",
         "@formkit/auto-animate": "^0.8.1",
         "@solid-primitives/keyed": "^1.2.1",
-        "@tanstack/solid-table": "^8.11.7",
+        "@tanstack/solid-table": "^8.12.0",
         "@tanstack/solid-virtual": "^3.0.2",
         "@tanstack/virtual-core": "^3.0.4",
         "copy-to-clipboard": "^3.3.3",

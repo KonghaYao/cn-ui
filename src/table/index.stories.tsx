@@ -19,7 +19,7 @@ const makeColumns = (num: number) =>
             accessorKey: i.toString(),
             header: 'Col ' + i.toString(),
             size: random(10, 100),
-            minSize: 200, //enforced during column resizing
+            minSize: 100, //enforced during column resizing
             maxSize: 500 //enforced during column resizing
         }
     })
