@@ -1,16 +1,19 @@
 import { createContext, useContext } from 'solid-js'
-
+export interface BlackBoardOption {
+    allowSameRegister?: boolean
+}
 /**
  * @zh Blackboard 是用于大型软件中的 api 互通系统，用于解决 Context 不能兄弟互通数据的问题。可以全局注册，也可局部注册
  *
  */
-export const createBlackBoard = <T extends Record<string, any>>() => {
+export const createBlackBoard = <T extends Record<string, any>>(baseOpts: BlackBoardOption = {}) => {
     const store = new Map()
+
     return {
         /** 应该在组件声明时进行注册 App，保证在 onMount 时能够获取到数据 */
-        register<D extends keyof T>(name: D, api: T[D], opts: { allowSameRegister?: boolean } = {}) {
+        register<D extends keyof T>(name: D, api: T[D], opts: BlackBoardOption = {}) {
             if (store.has(name)) {
-                if (opts.allowSameRegister) return store
+                if (opts.allowSameRegister ?? baseOpts.allowSameRegister) return store
                 throw new Error('Blackboard has a same app named ' + name.toString())
             }
             return store.set(name, api)

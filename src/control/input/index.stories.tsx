@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { BaseInput, InputExpose } from './index'
-import { NullAtom, atom, useMapper } from '@cn-ui/reactive'
+import { NullAtom, atom } from '@cn-ui/reactive'
 
 const meta = {
     title: 'Controls/BaseInput',

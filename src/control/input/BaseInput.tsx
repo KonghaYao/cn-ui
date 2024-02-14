@@ -21,7 +21,7 @@ export interface InputExpose {
     focus: (opts: FocusOptions) => void
 }
 
-interface BaseInputProps extends Omit<CountProps, 'model'> {
+export interface BaseInputProps extends Omit<CountProps, 'model'> {
     id?: string // The ID for input
     disabled?: boolean // Whether the input is disabled
     prefixIcon?: JSXElement | ((expose: InputExpose) => JSXElement) // The prefix icon for the Input
