@@ -1,11 +1,11 @@
-import { NullAtom, OriginComponent, SignalToAtom, atom, classNames, computed, createCtx, useSelect } from '@cn-ui/reactive'
+import { NullAtom, OriginComponent, ThrottleAtom, atom, classNames, computed, createCtx, useSelect } from '@cn-ui/reactive'
 import { BaseInput } from '../input/BaseInput'
 import { Popover } from '../../popover'
-import { nextTick, useEventListener, useFocus } from 'solidjs-use'
-import { Accessor, For, Signal, createEffect } from 'solid-js'
+import { useEventListener } from 'solidjs-use'
+import { For, createEffect } from 'solid-js'
 import { VirtualList } from '../../virtualList'
 import { Icon } from '../../icon/Icon'
-import { AiOutlineCheck, AiOutlineCloudDownload, AiOutlineDown, AiOutlineSearch } from 'solid-icons/ai'
+import { AiOutlineCheck, AiOutlineDown, AiOutlineSearch } from 'solid-icons/ai'
 import { ClearControl } from '../input/utils'
 import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
@@ -25,6 +25,9 @@ export interface SelectProps {
 }
 
 export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((props) => {
+    /** value 值转为 原始对象的数据 */
+    const valueToOptionCache = new Map<string | number, SelectItemsType>()
+
     const selectSystem = useSelect({
         activeIds: computed(() => props.model() ?? []),
         multi: !!props.multiple
@@ -33,10 +36,12 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         selectSystem.disabledSet(() => new Set(props.disabledOptions))
     })
     createEffect(() => {
+        valueToOptionCache.clear()
         selectSystem.allRegistered((i) => {
             const set = new Set<string>()
             props.options.forEach((item) => {
                 set.add(item.value.toString())
+                valueToOptionCache.set(item.value, item)
             })
             return set
         })
@@ -56,10 +61,15 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
     )
     let keepState = inputText()
     const PopoverOpen = atom(false)
-    const multipleTags = computed(() =>
-        selectSystem.activeIdsArray().map((i) => ({
-            text: i
-        }))
+    const multipleTags = ThrottleAtom(
+        computed(() =>
+            selectSystem.activeIdsArray().map((i) => {
+                return {
+                    text: valueToOptionCache.get(i)?.label ?? i
+                }
+            })
+        ),
+        500
     )
     return (
         <SelectCtx.Provider value={selectSystem}>
@@ -98,7 +108,10 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                     }}
                     prefixIcon={(expose) => {
                         if (!props.multiple) return
-                        const [parent] = createAutoAnimate()
+
+                        const [parent] = createAutoAnimate({
+                            duration: 95
+                        })
                         return (
                             <Flex class=" flex-nowrap gap-2" justify="start" ref={parent}>
                                 <TagGroup

@@ -2,6 +2,7 @@
 import { defineConfig, presetUno } from 'unocss'
 import presetCN, { darkColors, lightColors } from './src/css/presets/index'
 import presetTheme from 'unocss-preset-theme'
+import presetChinese from 'unocss-preset-chinese'
 export default defineConfig({
     presets: [
         presetUno(),
@@ -12,6 +13,9 @@ export default defineConfig({
                 light: { colors: lightColors }
             }
         }),
-        presetCN
+        presetCN,
+        presetChinese({
+            chineseType: 'simplified' // 指定文本为简体中文
+        })
     ]
 })

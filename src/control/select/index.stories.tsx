@@ -44,26 +44,21 @@ export const Primary: Story = {
 export const Multi: Story = {
     name: 'Multiple 多选',
     render() {
+        const res = resource(
+            async () =>
+                Mock.mock<{ data: SelectItemsType[] }>({
+                    'data|10': [
+                        {
+                            value: '@name',
+                            label: '@cname'
+                        }
+                    ]
+                }).data,
+            { initValue: [] }
+        )
         return (
             <div class="flex gap-4">
-                <Select
-                    disabledOptions={['jack']}
-                    multiple
-                    options={[
-                        {
-                            value: 'jack',
-                            label: 'Jack'
-                        },
-                        {
-                            value: 'lucy',
-                            label: 'Lucy'
-                        },
-                        {
-                            value: 'tom',
-                            label: 'Tom'
-                        }
-                    ]}
-                ></Select>
+                <Select disabledOptions={['jack']} multiple options={[{ label: 'Jack', value: 'jack' }, ...res()]}></Select>
             </div>
         )
     },
