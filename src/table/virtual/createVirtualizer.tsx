@@ -14,7 +14,7 @@ import {
 import { throttle } from './debounce'
 export * from './core/index'
 
-import { createSignal, onMount, onCleanup, createComputed, mergeProps } from 'solid-js'
+import { createSignal, onMount, onCleanup, createComputed, mergeProps, startTransition } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
 import { nextTick } from 'solidjs-use'
 
@@ -55,20 +55,23 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
     })
     const updateView = (instance: Virtualizer<TScrollElement, TItemElement>, sync: boolean) => {
         instance._willUpdate()
-        setVirtualItems(
-            reconcile(instance.getVirtualItems(), {
-                key: 'index'
-            })
-        )
+        startTransition(() => {
+            setVirtualItems(
+                reconcile(instance.getVirtualItems(), {
+                    key: 'index'
+                })
+            )
+        })
         setTotalSize(instance.getTotalSize())
         options.onChange?.(instance, sync)
     }
     createComputed(() => {
         virtualizer.setOptions(
             mergeProps(resolvedOptions, options, {
-                onChange: throttle(updateView, () => Math.min(Math.ceil(options.gridSize() / 7000), 500), {
-                    trailing: true
-                })
+                // onChange: throttle(updateView, () => Math.min(Math.ceil(options.gridSize() / 7000), 500), {
+                //     trailing: true
+                // }),
+                onChange: updateView
             })
         )
         // 防止与 sorting 冲突导致无限循环

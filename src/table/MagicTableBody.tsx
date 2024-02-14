@@ -1,7 +1,7 @@
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { For } from 'solid-js'
 import { BodyRow } from './slot/BodyRow'
-
+import { Key } from '@solid-primitives/keyed'
 export function MagicTableBody<T>() {
     const { rowVirtualizer, virtualRows } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
@@ -13,11 +13,11 @@ export function MagicTableBody<T>() {
                 position: 'relative' //needed for absolute positioning of rows
             }}
         >
-            <For each={virtualRows()}>
+            <Key by="key" each={virtualRows()}>
                 {(virtualRow) => {
-                    return <BodyRow padding virtualRow={virtualRow}></BodyRow>
+                    return <BodyRow padding virtualRow={virtualRow()}></BodyRow>
                 }}
-            </For>
+            </Key>
         </tbody>
     )
 }

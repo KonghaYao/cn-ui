@@ -1,9 +1,10 @@
 import { For, createMemo } from 'solid-js'
 import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
 import { BodyCell } from './BodyCell'
-import { classNames, computed } from '@cn-ui/reactive'
-import { Cell, Row, Table } from '@tanstack/solid-table'
+import { classNames } from '@cn-ui/reactive'
+import { Cell } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
+import { Key } from '@solid-primitives/keyed'
 
 export function BodyRow<T, D>(props: {
     index?: string | number
@@ -40,11 +41,11 @@ export function BodyRow<T, D>(props: {
                 //fake empty column to the left for virtualization scroll padding
                 <td style={{ display: 'flex', width: virtualPadding().left + 'px' }} />
             ) : null}
-            <For each={(props.columns || virtualColumnsIndex()).map((i) => visibleRows()[i])}>
+            <Key by="id" each={(props.columns || virtualColumnsIndex()).map((i) => visibleRows()[i])}>
                 {(cell) => {
-                    return <BodyCell cell={cell}></BodyCell>
+                    return <BodyCell cell={cell()}></BodyCell>
                 }}
-            </For>
+            </Key>
             {props.padding && virtualPadding().right ? (
                 //fake empty column to the right for virtualization scroll padding
                 <td style={{ display: 'flex', width: virtualPadding().right + 'px' }} />
