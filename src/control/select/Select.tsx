@@ -45,7 +45,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         props.model(() => selectSystem.activeIdsArray())
     })
     const input = NullAtom<HTMLDivElement>(null)
-    const inputText = atom(props.multiple ? '' : props.model()[0])
+    const inputText = atom(!!props.multiple ? '' : props.model()?.[0] ?? '')
 
     const filteredOptions = computed(
         () => {

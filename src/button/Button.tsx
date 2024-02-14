@@ -2,15 +2,45 @@ import { JSXSlot, OriginComponent, OriginComponentInputType, OriginDiv, ensureFu
 import { Match, Switch } from 'solid-js'
 import { ButtonStore } from './ButtonStore'
 export interface ButtonProps {
+    /**
+     * 按钮类型
+     */
     type?: 'primary' | 'dashed' | 'link' | 'default'
+    /**
+     * 按钮的HTML类型
+     */
     htmlType?: HTMLButtonElement['type']
+    /**
+     * 按钮的图标
+     */
     icon?: JSXSlot
+    /**
+     * 按钮的形状
+     */
     shape?: 'default' | 'circle' | 'round'
+    /**
+     * 按钮是否禁用
+     */
     disabled?: boolean
-    loading?: boolean | { delay?: number }
+    /**
+     * 按钮是否加载中
+     */
+    loading?: boolean
+    /**
+     * 按钮是否为透明按钮
+     */
     ghost?: boolean
+    /**
+     * 按钮是否为危险按钮
+     */
     danger?: boolean
+    /**
+     * 按钮是否为块级按钮
+     */
     block?: boolean
+    /**
+     * 按钮是否为圆形按钮
+     */
     circle?: boolean
 }
 export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) => {

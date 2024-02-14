@@ -1,13 +1,16 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Button } from './index'
+import { Button, ButtonProps } from './index'
 import { Flex } from '../container/Flex'
 import { AiOutlineSearch } from 'solid-icons/ai'
 import { Icon } from '../icon/Icon'
 import { toggleTheme } from '../utils/toggleTheme'
+import { Component } from 'solid-js'
 const meta = {
     title: 'Common 通用/Button 按钮',
-    component: Button
+    component: Button,
+    tags: ['autodocs'],
+    argTypes: {}
 } satisfies Meta<typeof Button>
 
 export default meta
