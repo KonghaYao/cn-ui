@@ -4,7 +4,6 @@ import { Col, Row } from '../RowAndCol'
 import { BaseInput } from '../control/input'
 import { Avatar } from '../avatar'
 import '../animation/fade.css'
-import { Transition } from 'solid-transition-group'
 
 export interface ChatBoxMessage {
     id: string
