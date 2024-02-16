@@ -2,10 +2,10 @@
  *  @example onclick={toggleTheme}
  */
 export const toggleTheme = (event: { clientX?: number; clientY?: number }, toDark?: boolean) => {
-    // const isDark = window?.matchMedia('(prefers-color-scheme: dark)').matches
+    const isDark = window?.matchMedia('(prefers-color-scheme: dark)').matches
     toDark = toDark ?? !document.documentElement.classList.contains('dark')
     const toggleDark = () => {
-        document.documentElement.classList.toggle('dark')
+        document.documentElement.classList[toDark ? 'add' : 'remove']('dark')
     }
     const x = event.clientX ?? innerWidth / 2
     const y = event.clientY ?? innerHeight / 2
@@ -13,7 +13,7 @@ export const toggleTheme = (event: { clientX?: number; clientY?: number }, toDar
 
     // 兼容性处理
     /** @ts-ignore */
-    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches || isDark === toDark) {
         toggleDark()
         return
     }
