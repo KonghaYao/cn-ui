@@ -1,7 +1,7 @@
 import { Cell, CellContext, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
 import { Atom, atom, classNames, createCtx, toCSSPx } from '@cn-ui/reactive'
-import { onMount } from 'solid-js'
+import { createMemo, onMount } from 'solid-js'
 import { checkEllipsis } from '../hook/useCheckEllipsis'
 import { VirtualItem } from '@tanstack/solid-virtual'
 export const MagicTableCellCtx = createCtx<{
@@ -10,9 +10,9 @@ export const MagicTableCellCtx = createCtx<{
 
 export function BodyCell<T, D>(props: { absolute?: boolean; cell: Cell<T, D>; item: VirtualItem }) {
     const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
-    const ctx = props.cell.getContext()
-    const defaultCell = ctx.table._getDefaultColumnDef().cell
-    const cell = props.cell.column.columnDef.cell
+    const ctx = createMemo(() => props.cell.getContext())
+    const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)
+    const cell = createMemo(() => props.cell.column.columnDef.cell)
     const contain = atom<HTMLElement | null>(null)
     return (
         <MagicTableCellCtx.Provider value={{ contain }}>
@@ -29,7 +29,7 @@ export function BodyCell<T, D>(props: { absolute?: boolean; cell: Cell<T, D>; it
                     left: toCSSPx(props.item.start)
                 }}
             >
-                {flexRender(cell === defaultCell ? defaultBodyCell : cell, ctx)}
+                {flexRender(cell() === defaultCell() ? defaultBodyCell : cell(), ctx())}
             </td>
         </MagicTableCellCtx.Provider>
     )

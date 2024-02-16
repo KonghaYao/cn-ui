@@ -1,7 +1,7 @@
 import { Table } from '@tanstack/solid-table'
 import { Atom } from '@cn-ui/reactive'
 import { createVirtualizer } from './virtual/createVirtualizer'
-import { Accessor } from 'solid-js'
+import { Accessor, createMemo } from 'solid-js'
 import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
 
@@ -18,7 +18,8 @@ export function useVirtual<T>(
         },
         estimateSize(index) {
             return data.composedColumns()[index].size ?? 100
-        }, //average column width in pixels
+        },
+        // average column width in pixels
         getScrollElement: () => tableContainerRef(),
         rangeExtractor: sticky.rangeExtractor,
         horizontal: true,
@@ -36,7 +37,7 @@ export function useVirtual<T>(
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
         overscan: 12
     })
-    const rows = table.getSortedRowModel().rows
+    const rows = createMemo(() => table.getSortedRowModel().rows)
     return {
         rowVirtualizer,
         columnVirtualizer,

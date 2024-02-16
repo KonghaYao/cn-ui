@@ -8,7 +8,7 @@ export function MagicTableHeader<T>() {
         <thead class="sticky top-0 z-10 block">
             <For each={table.getHeaderGroups()}>
                 {(headerGroup) => {
-                    return <HeaderRow padding headers={headerGroup.headers}></HeaderRow>
+                    return <HeaderRow headers={headerGroup.headers}></HeaderRow>
                 }}
             </For>
         </thead>

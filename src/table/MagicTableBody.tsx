@@ -13,9 +13,9 @@ export function MagicTableBody<T>() {
                 position: 'relative' //needed for absolute positioning of rows
             }}
         >
-            <Key by="index" each={rowVirtualizer.getVirtualItems()}>
+            <Key by="key" each={rowVirtualizer.getVirtualItems()}>
                 {(virtualRow) => {
-                    return <BodyRow padding virtualRow={virtualRow()}></BodyRow>
+                    return <BodyRow virtualRow={virtualRow()}></BodyRow>
                 }}
             </Key>
         </tbody>

@@ -22,7 +22,7 @@ function getScrollBarWidth() {
 
 export function StickyViewBody<T>() {
     const scrollbarHeight = getScrollBarWidth()
-    const { stickingItems, columnVirtualizer, rowVirtualizer, tableScroll, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { stickingItems, rowVirtualizer, tableScroll, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const receiverTable = atom<HTMLElement | null>(null)
     // 同步滚动条
     const whenShow = computed(() => !!stickingItems().length)
