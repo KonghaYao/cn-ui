@@ -3,6 +3,7 @@ import { MagicTable, MagicTableExpose } from './index'
 import { random } from 'lodash-es'
 import { NullAtom, atom } from '@cn-ui/reactive'
 import { onMount } from 'solid-js'
+import { ColumnGroups } from './example/ColumnGroups'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -30,14 +31,10 @@ const makeData = (num: number, columns: { accessorKey: string }[]): Record<strin
     }))
 export const Primary: Story = {
     name: '1000x1000',
-    render() {
-        console.time('createData')
-        const cols = makeColumns(1000)
-        const data = makeData(1000, cols)
-        console.timeEnd('createData')
-        return (
+    decorators: [
+        (Story) => (
             <>
-                <MagicTable columns={cols} data={data}></MagicTable>
+                <Story />
                 <style>
                     {`html,body,#storybook-root {
                 height:100%
@@ -45,28 +42,32 @@ export const Primary: Story = {
                 </style>
             </>
         )
+    ],
+    render() {
+        console.time('createData')
+        const cols = makeColumns(1000)
+        const data = makeData(1000, cols)
+        console.timeEnd('createData')
+        return <MagicTable columns={cols} data={data}></MagicTable>
     },
     args: {}
 }
 export const Selection: Story = {
     name: 'Selection and Index',
+    decorators: Primary.decorators,
     render() {
         console.time('createData')
         const cols = makeColumns(100)
         const data = makeData(100, cols)
         console.timeEnd('createData')
         const expose = NullAtom<MagicTableExpose<Record<string, string>>>(null)
-        onMount(() => {})
-        return (
-            <>
-                <MagicTable selection index columns={cols} data={data} expose={expose}></MagicTable>
-                <style>
-                    {`html,body,#storybook-root {
-                height:100%
-            }`}
-                </style>
-            </>
-        )
+        return <MagicTable selection index columns={cols} data={data} expose={expose}></MagicTable>
     },
+    args: {}
+}
+export const ColumnGroup: Story = {
+    name: 'ColumnGroup and Index',
+    decorators: Primary.decorators,
+    render: ColumnGroups,
     args: {}
 }
