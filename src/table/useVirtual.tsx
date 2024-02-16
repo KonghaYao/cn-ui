@@ -1,7 +1,7 @@
-import { Atom, ThrottleAtom } from '@cn-ui/reactive'
 import { Table } from '@tanstack/solid-table'
+import { Atom } from '@cn-ui/reactive'
 import { createVirtualizer } from './virtual/createVirtualizer'
-import { createMemo, Accessor } from 'solid-js'
+import { Accessor } from 'solid-js'
 import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
 
@@ -12,9 +12,6 @@ export function useVirtual<T>(
 ) {
     // 构建固定列
     const sticky = useSticky(data.composedColumns)
-    const getGridSize = () => {
-        return data.composedColumns().length * table.getRowModel().rows.length
-    }
     const columnVirtualizer = createVirtualizer({
         get count() {
             return data.composedColumns().length
@@ -25,8 +22,7 @@ export function useVirtual<T>(
         getScrollElement: () => tableContainerRef(),
         rangeExtractor: sticky.rangeExtractor,
         horizontal: true,
-        overscan: 12,
-        gridSize: getGridSize
+        overscan: 12
     })
     //dynamic row height virtualization - alternatively you could use a simpler fixed row height strategy without the need for `measureElement`
     const rowVirtualizer = createVirtualizer({
@@ -38,30 +34,13 @@ export function useVirtual<T>(
         //measure dynamic row height, except in firefox because it measures table border height incorrectly
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
-        overscan: 12,
-        gridSize: getGridSize
+        overscan: 12
     })
-    const virtualColumns = columnVirtualizer.getVirtualItems()
-    const virtualPadding = createMemo(() => {
-        //different virtualization strategy for columns - instead of absolute and translateY, we add empty columns to the left and right
-        let virtualPaddingLeft: number | undefined
-        let virtualPaddingRight: number | undefined
-
-        if (columnVirtualizer && virtualColumns?.length) {
-            virtualPaddingLeft = virtualColumns[0]?.start ?? 0
-            virtualPaddingRight = columnVirtualizer.getTotalSize() - (virtualColumns[virtualColumns.length - 1]?.end ?? 0)
-        }
-        return { left: virtualPaddingLeft ?? 0, right: virtualPaddingRight ?? 0 }
-    })
-    const virtualColumnsIndex = createMemo(() => {
-        return columnVirtualizer.getVirtualItems().map((column) => column.index)
-    })
+    const rows = table.getSortedRowModel().rows
     return {
-        virtualPadding,
         rowVirtualizer,
-        virtualColumns: () => virtualColumns,
-        virtualRows: () => rowVirtualizer.getVirtualItems(),
-        virtualColumnsIndex,
+        columnVirtualizer,
+        rows,
         ...sticky
     }
 }

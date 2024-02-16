@@ -103,19 +103,18 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             }}
         >
             <div class="relative h-full w-full" ref={tableBox}>
-                <div
+                <table
                     style={{
+                        display: 'block',
                         overflow: 'auto', //our scrollable table container
                         position: 'relative', //needed for sticky header
                         height: toCSSPx(props.height ?? height(), '400px') //should be a fixed height
                     }}
                     ref={tableContainerRef}
                 >
-                    <table style={{ display: 'grid', 'table-layout': 'fixed' }}>
-                        <MagicTableHeader></MagicTableHeader>
-                        <MagicTableBody></MagicTableBody>
-                    </table>
-                </div>
+                    <MagicTableHeader></MagicTableHeader>
+                    <MagicTableBody></MagicTableBody>
+                </table>
                 <StickyViewBody></StickyViewBody>
             </div>
         </MagicTableCtx.Provider>

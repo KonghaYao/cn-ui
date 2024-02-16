@@ -37,7 +37,7 @@ export const useSticky = <T>(columns: Accessor<MagicColumnConfig<T>[]>) => {
             } else {
                 stickingItems([])
             }
-            return defaultRangeExtractor(range)
+            return [...stickingItems(), ...defaultRangeExtractor(range)]
         }
     }
 }

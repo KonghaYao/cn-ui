@@ -1,5 +1,6 @@
 // from @tanstack/solid-table
 // add throttle for performance
+import { throttle } from 'lodash-es'
 import {
     elementScroll,
     observeElementOffset,
@@ -11,7 +12,6 @@ import {
     VirtualizerOptions,
     windowScroll
 } from './core/index'
-import { throttle } from './debounce'
 export * from './core/index'
 
 import { createSignal, onMount, onCleanup, createComputed, mergeProps, startTransition, batch } from 'solid-js'
@@ -23,7 +23,7 @@ export interface CNVirtualizer<TScrollElement extends Element | Window, TItemEle
 }
 
 function createVirtualizerBase<TScrollElement extends Element | Window, TItemElement extends Element>(
-    options: VirtualizerOptions<TScrollElement, TItemElement> & { gridSize: () => number }
+    options: VirtualizerOptions<TScrollElement, TItemElement>
 ): CNVirtualizer<TScrollElement, TItemElement> {
     const resolvedOptions: VirtualizerOptions<TScrollElement, TItemElement> = mergeProps(options)
 
@@ -70,7 +70,7 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
     createComputed(() => {
         virtualizer.setOptions(
             mergeProps(resolvedOptions, options, {
-                onChange: throttle(updateView, () => 100, {
+                onChange: throttle(updateView, 10, {
                     trailing: true
                 })
                 // onChange: updateView
@@ -86,17 +86,14 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
 }
 
 export function createVirtualizer<TScrollElement extends Element, TItemElement extends Element>(
-    options: PartialKeys<VirtualizerOptions<TScrollElement, TItemElement>, 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'> & {
-        gridSize: () => number
-    }
+    options: PartialKeys<VirtualizerOptions<TScrollElement, TItemElement>, 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'>
 ): CNVirtualizer<TScrollElement, TItemElement> {
     return createVirtualizerBase<TScrollElement, TItemElement>(
         mergeProps(
             {
                 observeElementRect: observeElementRect,
                 observeElementOffset: observeElementOffset,
-                scrollToFn: elementScroll,
-                gridSize: options.gridSize
+                scrollToFn: elementScroll
             },
             options
         )
@@ -104,9 +101,7 @@ export function createVirtualizer<TScrollElement extends Element, TItemElement e
 }
 
 export function createWindowVirtualizer<TItemElement extends Element>(
-    options: PartialKeys<VirtualizerOptions<Window, TItemElement>, 'getScrollElement' | 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'> & {
-        gridSize: () => number
-    }
+    options: PartialKeys<VirtualizerOptions<Window, TItemElement>, 'getScrollElement' | 'observeElementRect' | 'observeElementOffset' | 'scrollToFn'>
 ): CNVirtualizer<Window, TItemElement> {
     return createVirtualizerBase<Window, TItemElement>(
         mergeProps(
@@ -115,8 +110,7 @@ export function createWindowVirtualizer<TItemElement extends Element>(
                 observeElementRect: observeWindowRect,
                 observeElementOffset: observeWindowOffset,
                 scrollToFn: windowScroll,
-                initialOffset: typeof document !== 'undefined' ? window.scrollY : undefined,
-                gridSize: options.gridSize
+                initialOffset: typeof document !== 'undefined' ? window.scrollY : undefined
             },
             options
         )

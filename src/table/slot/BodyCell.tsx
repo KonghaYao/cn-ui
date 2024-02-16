@@ -1,26 +1,32 @@
 import { Cell, CellContext, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
-import { Atom, atom, createCtx, toCSSPx } from '@cn-ui/reactive'
+import { Atom, atom, classNames, createCtx, toCSSPx } from '@cn-ui/reactive'
 import { onMount } from 'solid-js'
 import { checkEllipsis } from '../hook/useCheckEllipsis'
+import { VirtualItem } from '@tanstack/solid-virtual'
 export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: { cell: Cell<T, D> }) {
+export function BodyCell<T, D>(props: { absolute?: boolean; cell: Cell<T, D>; item: VirtualItem }) {
+    const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
     const ctx = props.cell.getContext()
     const defaultCell = ctx.table._getDefaultColumnDef().cell
     const cell = props.cell.column.columnDef.cell
-    const { estimateHeight } = MagicTableCtx.use()
     const contain = atom<HTMLElement | null>(null)
     return (
         <MagicTableCellCtx.Provider value={{ contain }}>
             <td
-                class="flex"
-                ref={contain}
+                class={classNames(props.absolute !== false && 'absolute', 'block')}
+                data-index={props.item.index}
+                ref={(el) => {
+                    contain(el)
+                    queueMicrotask(() => columnVirtualizer.measureElement(el))
+                }}
                 style={{
                     width: toCSSPx(props.cell.column.getSize()),
-                    height: toCSSPx(estimateHeight(), '48px')
+                    height: toCSSPx(estimateHeight(), '48px'),
+                    left: toCSSPx(props.item.start)
                 }}
             >
                 {flexRender(cell === defaultCell ? defaultBodyCell : cell, ctx)}

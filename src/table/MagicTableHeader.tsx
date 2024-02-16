@@ -5,7 +5,7 @@ import { HeaderRow } from './slot/HeaderRow'
 export function MagicTableHeader<T>() {
     const { table } = MagicTableCtx.use<MagicTableCtxType<T>>()
     return (
-        <thead class="grid sticky top-0 z-10">
+        <thead class="sticky top-0 z-10 block">
             <For each={table.getHeaderGroups()}>
                 {(headerGroup) => {
                     return <HeaderRow padding headers={headerGroup.headers}></HeaderRow>

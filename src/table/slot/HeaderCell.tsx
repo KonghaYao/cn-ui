@@ -2,18 +2,20 @@ import { classNames, toCSSPx } from '@cn-ui/reactive'
 import { Header, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
 import { AiOutlineCaretUp } from 'solid-icons/ai'
+import { VirtualItem } from '@tanstack/solid-virtual'
 
-export function HeaderCell<T, D>(props: { header: Header<T, D> }) {
+export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem }) {
     const { estimateHeight } = MagicTableCtx.use()
     const header = props.header
     return (
         <th
-            class="bg-gray-100 py-2 text-sm relative"
+            class={classNames(props.absolute !== false && 'absolute', ' block bg-gray-100 py-2 text-sm')}
             style={{
                 width: header.getSize() + 'px',
-                height: toCSSPx(estimateHeight(), '48px')
+                height: toCSSPx(estimateHeight(), '48px'),
+                left: toCSSPx(props.item.start),
+                top: 0
             }}
-            colSpan={header.colSpan}
         >
             <div class={header.column.getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={header.column.getToggleSortingHandler()}>
                 {flexRender(header.column.columnDef.header, header.getContext())}

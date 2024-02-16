@@ -1,9 +1,8 @@
-import { Row, Table } from '@tanstack/solid-table'
+import { Row } from '@tanstack/solid-table'
+import { For, createEffect, createMemo } from 'solid-js'
 import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
-import { For } from 'solid-js'
 import { atom, classNames, computed, useEffect } from '@cn-ui/reactive'
 import { useScroll } from 'solidjs-use'
-import { HeaderCell } from '../slot/HeaderCell'
 import { BodyRow } from '../slot/BodyRow'
 import { HeaderRow } from '../slot/HeaderRow'
 
@@ -23,7 +22,7 @@ function getScrollBarWidth() {
 
 export function StickyViewBody<T>() {
     const scrollbarHeight = getScrollBarWidth()
-    const { stickingItems, virtualRows, rowVirtualizer, tableScroll, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { stickingItems, columnVirtualizer, rowVirtualizer, tableScroll, table } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const receiverTable = atom<HTMLElement | null>(null)
     // 同步滚动条
     const whenShow = computed(() => !!stickingItems().length)
@@ -46,21 +45,37 @@ export function StickyViewBody<T>() {
             ref={receiverTable}
         >
             <table class="grid table-fixed">
-                <thead class="grid sticky top-0 z-10">
+                <thead class="block sticky top-0 z-10 w-fit">
                     {table.getHeaderGroups().map((headerGroup) => {
-                        return <HeaderRow padding={false} columns={stickingItems()} headers={headerGroup.headers}></HeaderRow>
+                        return (
+                            <HeaderRow
+                                hideWhenEmpty
+                                absolute={false}
+                                columnsFilter={(items) => stickingItems().map((i) => items[i])}
+                                headers={headerGroup.headers}
+                            ></HeaderRow>
+                        )
                     })}
                 </thead>
                 <tbody
-                    class="grid relative"
+                    class="block relative w-fit"
                     style={{
                         height: `${rowVirtualizer.getTotalSize()}px` //tells scrollbar how big the table is
                     }}
                 >
-                    <For each={virtualRows()}>
+                    <For each={rowVirtualizer.getVirtualItems()}>
                         {(virtualRow) => {
                             const visibleCells = getRow(virtualRow.index).getVisibleCells()
-                            return <BodyRow padding={false} cells={visibleCells} bindScroll={false} columns={stickingItems()} virtualRow={virtualRow}></BodyRow>
+                            return (
+                                <BodyRow
+                                    hideWhenEmpty
+                                    cells={visibleCells}
+                                    bindScroll={false}
+                                    columnsFilter={(items) => stickingItems().map((i) => items[i])}
+                                    virtualRow={virtualRow}
+                                    absolute={false}
+                                ></BodyRow>
+                            )
                         }}
                     </For>
                 </tbody>

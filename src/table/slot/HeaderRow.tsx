@@ -1,27 +1,42 @@
 import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
-import { For } from 'solid-js'
+import { For, Show, createMemo } from 'solid-js'
 import { HeaderCell } from './HeaderCell'
 import { Header } from '@tanstack/solid-table'
+import { VirtualItem } from '@tanstack/solid-virtual'
+import { toCSSPx } from '@cn-ui/reactive'
 
-export function HeaderRow<T>(props: { padding: boolean; columns?: number[]; headers: Header<T, unknown>[] }) {
-    const { virtualPadding, virtualColumnsIndex } = MagicTableCtx.use<MagicTableCtxType<T>>()
+export function HeaderRow<T>(props: {
+    hideWhenEmpty?: boolean
+    absolute?: boolean
+    columnsFilter?: (items: VirtualItem[]) => VirtualItem[]
+    headers: Header<T, unknown>[]
+}) {
+    const { columnVirtualizer } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { estimateHeight } = MagicTableCtx.use()
+    const columns = createMemo(() => {
+        if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
+        return columnVirtualizer.getVirtualItems()
+    })
     return (
-        <tr class="flex w-full">
-            {props.padding && virtualPadding().left ? (
-                //fake empty column to the left for virtualization scroll padding
-                <th style={{ display: 'flex', width: virtualPadding().left + 'px' }} />
-            ) : null}
-            <For each={props.columns ?? virtualColumnsIndex()}>
-                {(index) => {
-                    const header = props.headers[index]
-                    return <HeaderCell header={header}></HeaderCell>
-                }}
-            </For>
-
-            {props.padding && virtualPadding().right ? (
-                //fake empty column to the right for virtualization scroll padding
-                <th style={{ display: 'flex', width: virtualPadding().right + 'px' }} />
-            ) : null}
-        </tr>
+        <Show when={!props.hideWhenEmpty || columns().length}>
+            <tr
+                class="relative flex"
+                style={
+                    props.absolute
+                        ? {
+                              width: toCSSPx(columnVirtualizer.getTotalSize()),
+                              height: toCSSPx(estimateHeight(), '48px')
+                          }
+                        : {}
+                }
+            >
+                <For each={columns()}>
+                    {(item) => {
+                        const header = props.headers[item.index]
+                        return <HeaderCell absolute={props.absolute} header={header} item={item}></HeaderCell>
+                    }}
+                </For>
+            </tr>
+        </Show>
     )
 }
