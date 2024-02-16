@@ -23,6 +23,7 @@ export interface VirtualListProps<T> {
         }
     ) => JSXElement
     transitionName?: string
+    overscan?: number
 }
 
 export function VirtualList<T>(props: VirtualListProps<T>) {
@@ -39,7 +40,9 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         get horizontal() {
             return !!props.horizontal
         },
-        overscan: 3,
+        get overscan() {
+            return props.overscan ?? Math.min(20, Math.floor(Math.sqrt(props.each.length)))
+        },
         gridSize: () => props.each.length
     })
     const { height } = useAutoResize(() => tableContainerRef()?.parentElement!)

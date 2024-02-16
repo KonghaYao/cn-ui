@@ -23,6 +23,7 @@ export interface VirtualGridProps<T> {
         }
     ) => JSXElement
     transitionName?: string
+    overscan?: number
 }
 
 export function VirtualGrid<T>(props: VirtualGridProps<T>) {
@@ -38,7 +39,7 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
         getScrollElement: () => tableContainerRef(),
-        overscan: 3,
+        overscan: props.overscan ?? 3,
         gridSize: () => props.each.length
     })
     const colVirtualizer = createVirtualizer({
@@ -51,7 +52,9 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
         },
         getScrollElement: () => tableContainerRef(),
         horizontal: true,
-        overscan: 3,
+        get overscan() {
+            return props.overscan ?? Math.min(20, Math.floor(Math.sqrt(props.each.length)))
+        },
         gridSize: () => props.each.length
     })
     const { height, width } = useAutoResize(() => tableContainerRef()?.parentElement!)
