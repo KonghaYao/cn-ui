@@ -14,10 +14,12 @@ export function useVirtual<T>(
     const sticky = useSticky(data.composedColumns)
     const columnVirtualizer = createVirtualizer({
         get count() {
-            return data.composedColumns().length
+            const count = table.getAllLeafColumns().length
+            return count
         },
         estimateSize(index) {
-            return data.composedColumns()[index].size ?? 100
+            // TODO
+            return 100
         },
         // average column width in pixels
         getScrollElement: () => tableContainerRef(),
@@ -38,6 +40,7 @@ export function useVirtual<T>(
         overscan: 12
     })
     const rows = createMemo(() => table.getSortedRowModel().rows)
+
     return {
         rowVirtualizer,
         columnVirtualizer,

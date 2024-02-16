@@ -3,24 +3,27 @@ import { Header, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
 import { AiOutlineCaretUp } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
+import { Show, createMemo } from 'solid-js'
 
-export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem }) {
+export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem; level?: number }) {
     const { estimateHeight } = MagicTableCtx.use()
-    const header = props.header
+    const header = createMemo(() => props.header)
+    const column = createMemo(() => header().column)
     return (
         <th
             class={classNames(props.absolute !== false && 'absolute', ' block bg-gray-100 py-2 text-sm')}
             style={{
-                width: header.getSize() + 'px',
+                width: header().getSize() + 'px',
                 height: toCSSPx(estimateHeight(), '48px'),
-                left: toCSSPx(props.item.start),
-                top: 0
+                left: toCSSPx(props.item.start)
             }}
         >
-            <div class={header.column.getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={header.column.getToggleSortingHandler()}>
-                {flexRender(header.column.columnDef.header, header.getContext())}
+            <div class={column().getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={column().getToggleSortingHandler()}>
+                <Show when={!header().isPlaceholder}>{flexRender(column().columnDef.header, header().getContext())}</Show>
             </div>
-            {header.column.getCanSort() && <SortingStateIcon state={header.column.getIsSorted()}></SortingStateIcon>}
+            <Show when={!header().isPlaceholder && column().getCanSort()}>
+                <SortingStateIcon state={column().getIsSorted()}></SortingStateIcon>
+            </Show>
         </th>
     )
 }

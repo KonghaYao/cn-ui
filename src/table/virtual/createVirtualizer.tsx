@@ -70,10 +70,10 @@ function createVirtualizerBase<TScrollElement extends Element | Window, TItemEle
     createComputed(() => {
         virtualizer.setOptions(
             mergeProps(resolvedOptions, options, {
-                onChange: throttle(updateView, 10, {
-                    trailing: true
-                })
-                // onChange: updateView
+                // onChange: throttle(updateView, 10, {
+                //     trailing: true
+                // })
+                onChange: updateView
             })
         )
         // 防止与 sorting 冲突导致无限循环
