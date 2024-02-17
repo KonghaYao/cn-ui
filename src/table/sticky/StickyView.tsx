@@ -46,16 +46,19 @@ export function StickyViewBody<T>() {
         >
             <table class="grid table-fixed">
                 <thead class="block sticky top-0 z-10 w-fit">
-                    {table.getHeaderGroups().map((headerGroup) => {
-                        return (
-                            <HeaderRow
-                                hideWhenEmpty
-                                absolute={false}
-                                columnsFilter={(items) => stickingItems().map((i) => items[i])}
-                                headers={headerGroup.headers}
-                            ></HeaderRow>
-                        )
-                    })}
+                    <For each={table.getHeaderGroups()}>
+                        {(headerGroup, index) => {
+                            return (
+                                <HeaderRow
+                                    hideWhenEmpty
+                                    absolute={false}
+                                    columnsFilter={(items) => stickingItems().map((i) => items[i])}
+                                    headers={headerGroup.headers}
+                                    isLastRow={table.getHeaderGroups().length - 1 === index()}
+                                ></HeaderRow>
+                            )
+                        }}
+                    </For>
                 </thead>
                 <tbody
                     class="block relative w-fit"

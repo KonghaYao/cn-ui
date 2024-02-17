@@ -12,6 +12,7 @@ export function HeaderRow<T>(props: {
     columnsFilter?: (items: VirtualItem[]) => VirtualItem[]
     headers: Header<T, unknown>[]
     level?: number
+    isLastRow?: boolean
 }) {
     const { columnVirtualizer } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const { estimateHeight } = MagicTableCtx.use()
@@ -19,7 +20,9 @@ export function HeaderRow<T>(props: {
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
     })
-
+    createEffect(() => {
+        console.log(props.isLastRow)
+    })
     return (
         <Show when={!props.hideWhenEmpty || columns().length}>
             <tr
@@ -37,7 +40,7 @@ export function HeaderRow<T>(props: {
                         const header = createMemo(() => props.headers[item().index])
                         return (
                             <Show when={header()}>
-                                <HeaderCell absolute={props.absolute} header={header()} item={item()}></HeaderCell>
+                                <HeaderCell absolute={props.absolute} header={header()} item={item()} useHeaderStart={!props.isLastRow}></HeaderCell>
                             </Show>
                         )
                     }}

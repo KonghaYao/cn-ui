@@ -47,7 +47,12 @@ export function BodyRow<T, D>(props: {
             >
                 <Key by="key" each={columns()}>
                     {(item) => {
-                        return <BodyCell absolute={props.absolute} cell={visibleCells()[item().index]} item={item()}></BodyCell>
+                        const cell = createMemo(() => visibleCells()[item().index])
+                        return (
+                            <Show when={cell()}>
+                                <BodyCell absolute={props.absolute} cell={cell()} item={item()}></BodyCell>
+                            </Show>
+                        )
                     }}
                 </Key>
             </tr>

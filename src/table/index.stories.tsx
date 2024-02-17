@@ -4,6 +4,7 @@ import { random } from 'lodash-es'
 import { NullAtom, atom } from '@cn-ui/reactive'
 import { onMount } from 'solid-js'
 import { ColumnGroups } from './example/ColumnGroups'
+import { ColumnOrdering } from './example/ColumnOrdering'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -66,8 +67,14 @@ export const Selection: Story = {
     args: {}
 }
 export const ColumnGroup: Story = {
-    name: 'ColumnGroup and Index',
+    name: 'ColumnGroup 多级表头',
     decorators: Primary.decorators,
     render: ColumnGroups,
+    args: {}
+}
+export const _ColumnOrdering: Story = {
+    name: 'ColumnOrdering 列排序',
+    decorators: Primary.decorators,
+    render: ColumnOrdering,
     args: {}
 }

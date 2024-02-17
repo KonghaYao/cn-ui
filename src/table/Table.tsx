@@ -1,12 +1,12 @@
 import { atom, toCSSPx } from '@cn-ui/reactive'
-import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState } from '@tanstack/solid-table'
+import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState, ColumnOrderState } from '@tanstack/solid-table'
 import { Table } from '@tanstack/solid-table'
-import { MagicTableCtx } from './MagicTableCtx'
+import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
 import { indexConfig, selectionConfig } from './defaultConfig'
-import { nextTick, useScroll } from 'solidjs-use'
+import { useScroll } from 'solidjs-use'
 import { createMemo, createSignal } from 'solid-js'
 import { MagicColumnConfig } from '.'
 import { StickyViewBody } from './sticky/StickyView'
@@ -21,7 +21,7 @@ export interface MagicTableProps<T> {
     expose?: (expose: MagicTableExpose<T>) => void
 }
 
-export interface MagicTableExpose<T> {
+export interface MagicTableExpose<T> extends MagicTableCtxType<T> {
     clearSelection: () => void
     getSelectionRows: () => T[]
     toggleRowSelection: (index: number | string, selected?: boolean) => void
@@ -38,6 +38,8 @@ export interface MagicTableExpose<T> {
 export function MagicTable<T>(props: MagicTableProps<T>) {
     const rowSelection = atom<RowSelectionState>({})
     const [sorting, setSorting] = createSignal<SortingState>([])
+    const [columnVisibility, setColumnVisibility] = createSignal({})
+    const [columnOrder, setColumnOrder] = createSignal<ColumnOrderState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
         [props.selection && selectionConfig, props.index && indexConfig, ...props.columns].filter((i) => i)
@@ -55,10 +57,18 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             },
             get sorting() {
                 return sorting()
+            },
+            get columnVisibility() {
+                return columnVisibility()
+            },
+            get columnOrder() {
+                return columnOrder()
             }
         },
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
+        onColumnVisibilityChange: setColumnVisibility,
+        onColumnOrderChange: setColumnOrder,
         enableRowSelection: true,
         onRowSelectionChange: (updateOrValue) => {
             rowSelection((selection) => (typeof updateOrValue === 'function' ? updateOrValue(selection) : updateOrValue))
@@ -73,7 +83,16 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const { height } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
 
+    const context: MagicTableCtxType<T> = {
+        rowSelection,
+        table: table,
+        ...virtualSettings,
+        tableScroll,
+        selection: () => props.selection,
+        estimateHeight: () => props.estimateHeight
+    }
     const expose: MagicTableExpose<T> = {
+        ...context,
         clearSelection() {
             table.resetRowSelection()
         },
@@ -92,16 +111,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     }
     props.expose?.(expose)
     return (
-        <MagicTableCtx.Provider
-            value={{
-                rowSelection,
-                table: table as Table<unknown>,
-                ...virtualSettings,
-                tableScroll,
-                selection: () => props.selection,
-                estimateHeight: () => props.estimateHeight
-            }}
-        >
+        <MagicTableCtx.Provider value={context as unknown as MagicTableCtxType}>
             <div class="relative h-full w-full" ref={tableBox}>
                 <table
                     style={{

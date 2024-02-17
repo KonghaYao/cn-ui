@@ -14,7 +14,14 @@ export function MagicTableHeader<T>() {
         >
             <Key by="id" each={table.getHeaderGroups()}>
                 {(headerGroup, index) => {
-                    return <HeaderRow absolute headers={headerGroup().headers} level={index()}></HeaderRow>
+                    return (
+                        <HeaderRow
+                            absolute
+                            headers={headerGroup().headers}
+                            level={index()}
+                            isLastRow={table.getHeaderGroups().length - 1 === index()}
+                        ></HeaderRow>
+                    )
                 }}
             </Key>
         </thead>

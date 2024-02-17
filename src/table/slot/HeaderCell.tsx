@@ -5,7 +5,7 @@ import { AiOutlineCaretUp } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
 import { Show, createMemo } from 'solid-js'
 
-export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem; level?: number }) {
+export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem; level?: number; useHeaderStart?: boolean }) {
     const { estimateHeight } = MagicTableCtx.use()
     const header = createMemo(() => props.header)
     const column = createMemo(() => header().column)
@@ -13,9 +13,9 @@ export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, 
         <th
             class={classNames(props.absolute !== false && 'absolute', ' block bg-gray-100 py-2 text-sm')}
             style={{
-                width: header().getSize() + 'px',
+                width: toCSSPx(header().getSize()),
                 height: toCSSPx(estimateHeight(), '48px'),
-                left: toCSSPx(props.item.start)
+                left: props.useHeaderStart ? toCSSPx(header().getStart()) : toCSSPx(props.item.start)
             }}
         >
             <div class={column().getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={column().getToggleSortingHandler()}>
