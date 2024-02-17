@@ -8,20 +8,22 @@ import { Key } from '@solid-primitives/keyed'
 
 export function HeaderRow<T>(props: {
     hideWhenEmpty?: boolean
-    absolute?: boolean
+    absolute: boolean
     columnsFilter?: (items: VirtualItem[]) => VirtualItem[]
     headers: Header<T, unknown>[]
     level?: number
     isLastRow?: boolean
+    position: 'center' | 'left' | 'right'
 }) {
     const { columnVirtualizer } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const { estimateHeight } = MagicTableCtx.use()
     const columns = createMemo(() => {
+        if (['left', 'right'].includes(props.position))
+            return props.headers.map((i, index) => {
+                return { index } as VirtualItem
+            })
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
-    })
-    createEffect(() => {
-        console.log(props.isLastRow)
     })
     return (
         <Show when={!props.hideWhenEmpty || columns().length}>
@@ -38,6 +40,7 @@ export function HeaderRow<T>(props: {
                 <Key by="key" each={columns()}>
                     {(item, index) => {
                         const header = createMemo(() => props.headers[item().index])
+
                         return (
                             <Show when={header()}>
                                 <HeaderCell absolute={props.absolute} header={header()} item={item()} useHeaderStart={!props.isLastRow}></HeaderCell>

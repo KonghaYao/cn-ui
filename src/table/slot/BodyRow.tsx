@@ -14,13 +14,30 @@ export function BodyRow<T, D>(props: {
     children?: (item: VirtualItem) => JSXElement
     virtualRow: VirtualItem
     hideWhenEmpty?: boolean
-    absolute?: boolean
+    absolute: boolean
+    position: 'center' | 'left' | 'right'
 }) {
-    const { columnVirtualizer, rows, selection, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { columnVirtualizer, rows, selection, rowVirtualizer, estimateHeight, rowVirtualPadding } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
     const row = createMemo(() => rows()[props.virtualRow.index])
-    const visibleCells = createMemo(() => props.cells ?? row().getVisibleCells())
+    const rowVisibleCells = createMemo(() => {
+        switch (props.position) {
+            case 'center':
+                return row().getCenterVisibleCells()
+            case 'left':
+                return row().getLeftVisibleCells()
+            case 'right':
+                return row().getRightVisibleCells()
+            default:
+                return row().getVisibleCells()
+        }
+    })
+    const visibleCells = createMemo(() => props.cells ?? rowVisibleCells())
     const columns = createMemo(() => {
+        if (['left', 'right'].includes(props.position))
+            return rowVisibleCells().map((i, index) => {
+                return { index } as VirtualItem
+            })
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
     })
@@ -30,10 +47,10 @@ export function BodyRow<T, D>(props: {
             <tr
                 data-index={props.virtualRow.index} //needed for dynamic row height measurement
                 ref={(node) => {
-                    if (props.bindScroll !== false) queueMicrotask(() => rowVirtualizer.measureElement(node))
+                    if (props.bindScroll !== false && props.absolute) queueMicrotask(() => rowVirtualizer.measureElement(node))
                 }} //measure dynamic row height
                 class={classNames(
-                    props.absolute !== false && 'absolute',
+                    props.absolute && 'absolute',
                     'flex w-full duration-300 transition-colors border-b',
                     row().getIsSelected() ? 'bg-primary-100 hover:bg-primary-200' : 'hover:bg-design-hover'
                 )}

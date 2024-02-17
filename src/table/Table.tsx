@@ -1,6 +1,5 @@
-import { atom, toCSSPx } from '@cn-ui/reactive'
+import { atom, toCSSPx, useEffect } from '@cn-ui/reactive'
 import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState, ColumnOrderState } from '@tanstack/solid-table'
-import { Table } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
@@ -9,8 +8,8 @@ import { indexConfig, selectionConfig } from './defaultConfig'
 import { useScroll } from 'solidjs-use'
 import { createMemo, createSignal } from 'solid-js'
 import { MagicColumnConfig } from '.'
-import { StickyViewBody } from './sticky/StickyView'
 import { useAutoResize } from './hook/useAutoResize'
+import { StickyView } from './sticky/StickyView'
 export interface MagicTableProps<T> {
     data: T[]
     columns: MagicColumnConfig<T, unknown>[]
@@ -18,6 +17,7 @@ export interface MagicTableProps<T> {
     selection?: boolean | 'single' | 'multi'
     index?: boolean
     estimateHeight?: number
+
     expose?: (expose: MagicTableExpose<T>) => void
 }
 
@@ -85,7 +85,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
 
     const context: MagicTableCtxType<T> = {
         rowSelection,
-        table: table,
+        table,
         ...virtualSettings,
         tableScroll,
         selection: () => props.selection,
@@ -109,23 +109,26 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             })
         }
     }
+
     props.expose?.(expose)
     return (
         <MagicTableCtx.Provider value={context as unknown as MagicTableCtxType}>
-            <div class="relative h-full w-full" ref={tableBox}>
+            <div class="relative flex h-full w-full" ref={tableBox}>
+                {StickyView<T>(props, height)}
                 <table
                     style={{
                         display: 'block',
-                        overflow: 'auto', //our scrollable table container
-                        position: 'relative', //needed for sticky header
-                        height: toCSSPx(props.height ?? height(), '400px') //should be a fixed height
+                        overflow: 'auto',
+                        position: 'relative',
+                        height: toCSSPx(props.height ?? height(), '400px')
                     }}
                     ref={tableContainerRef}
                 >
-                    <MagicTableHeader></MagicTableHeader>
-                    <MagicTableBody></MagicTableBody>
+                    <MagicTableHeader rowAbsolute position="center"></MagicTableHeader>
+                    <MagicTableBody rowAbsolute position="center"></MagicTableBody>
                 </table>
-                <StickyViewBody></StickyViewBody>
+
+                {/* <StickyViewBody></StickyViewBody> */}
             </div>
         </MagicTableCtx.Provider>
     )

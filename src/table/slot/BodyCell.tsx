@@ -4,11 +4,12 @@ import { Atom, atom, classNames, createCtx, toCSSPx } from '@cn-ui/reactive'
 import { createMemo, onMount } from 'solid-js'
 import { checkEllipsis } from '../hook/useCheckEllipsis'
 import { VirtualItem } from '@tanstack/solid-virtual'
+import { getCommonPinningStyles } from './getCommonPinningStyles'
 export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: { absolute?: boolean; cell: Cell<T, D>; item: VirtualItem }) {
+export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; item: VirtualItem }) {
     const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
     const ctx = createMemo(() => props.cell.getContext())
     const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)
@@ -21,12 +22,13 @@ export function BodyCell<T, D>(props: { absolute?: boolean; cell: Cell<T, D>; it
                 data-index={props.item.index}
                 ref={(el) => {
                     contain(el)
-                    queueMicrotask(() => columnVirtualizer.measureElement(el))
+                    if (props.absolute) queueMicrotask(() => columnVirtualizer.measureElement(el))
                 }}
                 style={{
                     width: toCSSPx(props.cell.column.getSize()),
                     height: toCSSPx(estimateHeight(), '48px'),
-                    left: toCSSPx(props.item.start)
+                    left: toCSSPx(props.item.start),
+                    ...getCommonPinningStyles(props.cell.column)
                 }}
             >
                 {flexRender(cell() === defaultCell() ? defaultBodyCell : cell(), ctx())}

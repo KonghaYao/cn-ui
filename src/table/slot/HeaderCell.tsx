@@ -4,18 +4,20 @@ import { MagicTableCtx } from '../MagicTableCtx'
 import { AiOutlineCaretUp } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
 import { Show, createMemo } from 'solid-js'
+import { getCommonPinningStyles } from './getCommonPinningStyles'
 
-export function HeaderCell<T, D>(props: { absolute?: boolean; header: Header<T, D>; item: VirtualItem; level?: number; useHeaderStart?: boolean }) {
+export function HeaderCell<T, D>(props: { absolute: boolean; header: Header<T, D>; item: VirtualItem; level?: number; useHeaderStart?: boolean }) {
     const { estimateHeight } = MagicTableCtx.use()
     const header = createMemo(() => props.header)
     const column = createMemo(() => header().column)
     return (
         <th
-            class={classNames(props.absolute !== false && 'absolute', ' block bg-gray-100 py-2 text-sm')}
+            class={classNames(props.absolute && 'absolute', ' block bg-gray-100 py-2 text-sm')}
             style={{
                 width: toCSSPx(header().getSize()),
                 height: toCSSPx(estimateHeight(), '48px'),
-                left: props.useHeaderStart ? toCSSPx(header().getStart()) : toCSSPx(props.item.start)
+                left: props.useHeaderStart ? toCSSPx(header().getStart()) : toCSSPx(props.item.start),
+                ...getCommonPinningStyles(column())
             }}
         >
             <div class={column().getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={column().getToggleSortingHandler()}>
