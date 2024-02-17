@@ -62,8 +62,8 @@
         "unocss": "^0.58.5",
         "unocss-preset-chinese": "^0.3.2",
         "unocss-preset-theme": "^0.12.0",
-        "vite": "^4.0.0",
-        "vite-plugin-solid": "^2.7.0",
+        "vite": "^5.0.0",
+        "vite-plugin-solid": "^2.10.1",
         "vite-plugin-top-level-await": "^1.4.1",
         "vite-plugin-wasm": "^3.3.0",
         "vitest": "^1.2.0"
