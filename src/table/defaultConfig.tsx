@@ -27,7 +27,7 @@ export const selectionConfig = {
             </div>
         )
     },
-    sticky: true
+    sticky: 'right'
 } as MagicColumnConfig
 
 export const indexConfig = {
@@ -37,7 +37,7 @@ export const indexConfig = {
     cell(ctx) {
         return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
-    sticky: true,
+    sticky: 'right',
     forceSorting: true,
     accessorFn(_, index) {
         return index

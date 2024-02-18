@@ -15,33 +15,22 @@ export function BodyRow<T, D>(props: {
     virtualRow: VirtualItem
     hideWhenEmpty?: boolean
     absolute: boolean
-    position: 'center' | 'left' | 'right'
 }) {
-    const { columnVirtualizer, rows, selection, rowVirtualizer, estimateHeight, rowVirtualPadding } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { columnVirtualizer, paddingLeft, rows, width, paddingRight, selection, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
     const row = createMemo(() => rows()[props.virtualRow.index])
     const rowVisibleCells = createMemo(() => {
-        switch (props.position) {
-            case 'center':
-                return row().getCenterVisibleCells()
-            case 'left':
-                return row().getLeftVisibleCells()
-            case 'right':
-                return row().getRightVisibleCells()
-            default:
-                return row().getVisibleCells()
-        }
+        return row().getCenterVisibleCells()
     })
+
     const visibleCells = createMemo(() => props.cells ?? rowVisibleCells())
     const columns = createMemo(() => {
-        if (['left', 'right'].includes(props.position))
-            return rowVisibleCells().map((i, index) => {
-                return { index } as VirtualItem
-            })
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
     })
-
+    const rightSideLeft = createMemo(() => {
+        return width() - paddingRight()
+    })
     return (
         <Show when={!props.hideWhenEmpty || columns().length}>
             <tr
@@ -52,7 +41,7 @@ export function BodyRow<T, D>(props: {
                 class={classNames(
                     props.absolute && 'absolute',
                     'flex w-full duration-300 transition-colors border-b',
-                    row().getIsSelected() ? 'bg-primary-100 hover:bg-primary-200' : 'hover:bg-design-hover'
+                    row().getIsSelected() ? 'bg-primary-50 hover:bg-primary-100' : 'hover:bg-design-hover'
                 )}
                 style={{
                     top: toCSSPx(props.virtualRow.start),
@@ -62,12 +51,35 @@ export function BodyRow<T, D>(props: {
                     selection() && row().toggleSelected()
                 }}
             >
+                <Key by="id" each={row().getLeftVisibleCells()}>
+                    {(cell, index) => {
+                        return (
+                            <Show when={cell()}>
+                                <BodyCell absolute={props.absolute} cell={cell()} item={{ index: index(), start: cell().column.getStart() } as any}></BodyCell>
+                            </Show>
+                        )
+                    }}
+                </Key>
                 <Key by="key" each={columns()}>
                     {(item) => {
                         const cell = createMemo(() => visibleCells()[item().index])
                         return (
                             <Show when={cell()}>
                                 <BodyCell absolute={props.absolute} cell={cell()} item={item()}></BodyCell>
+                            </Show>
+                        )
+                    }}
+                </Key>
+                <Key by="id" each={row().getRightVisibleCells()}>
+                    {(cell, index) => {
+                        return (
+                            <Show when={cell()}>
+                                <BodyCell
+                                    paddingLeft={rightSideLeft()}
+                                    absolute={props.absolute}
+                                    cell={cell()}
+                                    item={{ index: index(), start: cell().column.getStart() } as any}
+                                ></BodyCell>
                             </Show>
                         )
                     }}

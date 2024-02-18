@@ -2,42 +2,61 @@ import { toCSSPx, useMapper } from '@cn-ui/reactive'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { HeaderRow } from './slot/HeaderRow'
 import { Key } from '@solid-primitives/keyed'
-import { createMemo } from 'solid-js'
+import { Show, createMemo } from 'solid-js'
 
-export function MagicTableHeader<T>(props: { rowAbsolute: boolean; position: 'center' | 'left' | 'right' }) {
-    const { table, columnVirtualizer } = MagicTableCtx.use<MagicTableCtxType<T>>()
-    const headerGroups = createMemo(() => {
-        switch (props.position) {
-            case 'center':
-                return table.getCenterHeaderGroups()
-            case 'left':
-                return table.getLeftHeaderGroups()
-            case 'right':
-                return table.getRightHeaderGroups()
-            default:
-                return table.getHeaderGroups()
-        }
-    })
+export function MagicTableHeader<T>(props: { rowAbsolute: boolean }) {
+    const { table, tableWidth, width, paddingRight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+
     return (
         <thead
             class="sticky top-0 z-10 block"
             style={{
-                width: toCSSPx(props.rowAbsolute ? columnVirtualizer.getTotalSize() : 'fit-content')
+                width: toCSSPx(props.rowAbsolute ? tableWidth() : 'fit-content')
             }}
         >
-            <Key by="id" each={headerGroups()}>
+            <Show when={table.getLeftLeafColumns().length}>
+                <Key by="id" each={table.getLeftHeaderGroups()}>
+                    {(group, index) => {
+                        return (
+                            <HeaderRow
+                                position={'left'}
+                                absolute={true}
+                                headers={group().headers}
+                                level={index()}
+                                isLastRow={table.getLeftHeaderGroups().length - 1 === index()}
+                            ></HeaderRow>
+                        )
+                    }}
+                </Key>
+            </Show>
+            <Key by="id" each={table.getCenterHeaderGroups()}>
                 {(group, index) => {
                     return (
                         <HeaderRow
-                            position={props.position}
+                            position={'center'}
                             absolute={props.rowAbsolute}
                             headers={group().headers}
                             level={index()}
-                            isLastRow={headerGroups().length - 1 === index()}
+                            isLastRow={table.getCenterHeaderGroups().length - 1 === index()}
                         ></HeaderRow>
                     )
                 }}
             </Key>
+            <Show when={table.getRightLeafColumns().length}>
+                <Key by="id" each={table.getRightHeaderGroups()}>
+                    {(group, index) => {
+                        return (
+                            <HeaderRow
+                                position={'right'}
+                                absolute
+                                headers={group().headers}
+                                level={index()}
+                                isLastRow={table.getRightHeaderGroups().length - 1 === index()}
+                            ></HeaderRow>
+                        )
+                    }}
+                </Key>
+            </Show>
         </thead>
     )
 }

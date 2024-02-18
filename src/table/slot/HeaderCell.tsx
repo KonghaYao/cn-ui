@@ -6,7 +6,14 @@ import { VirtualItem } from '@tanstack/solid-virtual'
 import { Show, createMemo } from 'solid-js'
 import { getCommonPinningStyles } from './getCommonPinningStyles'
 
-export function HeaderCell<T, D>(props: { absolute: boolean; header: Header<T, D>; item: VirtualItem; level?: number; useHeaderStart?: boolean }) {
+export function HeaderCell<T, D>(props: {
+    paddingLeft: number
+    absolute: boolean
+    header: Header<T, D>
+    item: VirtualItem
+    level?: number
+    useHeaderStart?: boolean
+}) {
     const { estimateHeight } = MagicTableCtx.use()
     const header = createMemo(() => props.header)
     const column = createMemo(() => header().column)
@@ -16,8 +23,8 @@ export function HeaderCell<T, D>(props: { absolute: boolean; header: Header<T, D
             style={{
                 width: toCSSPx(header().getSize()),
                 height: toCSSPx(estimateHeight(), '48px'),
-                left: props.useHeaderStart ? toCSSPx(header().getStart()) : toCSSPx(props.item.start),
-                ...getCommonPinningStyles(column())
+                left: props.useHeaderStart ? toCSSPx(props.paddingLeft + header().getStart()) : toCSSPx(props.paddingLeft + props.item.start),
+                ...getCommonPinningStyles(column(), props.paddingLeft)
             }}
         >
             <div class={column().getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={column().getToggleSortingHandler()}>

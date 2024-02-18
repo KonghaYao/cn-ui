@@ -2,17 +2,23 @@ import { Table } from '@tanstack/solid-table'
 import { Atom } from '@cn-ui/reactive'
 import { createVirtualizer } from './virtual/createVirtualizer'
 import { Accessor, createMemo } from 'solid-js'
-import { useSticky } from './sticky/useSticky'
 import { MagicColumnConfig } from '.'
-import { Virtualizer } from '@tanstack/solid-virtual'
 
 export function useVirtual<T>(
     table: Table<T>,
     tableContainerRef: Atom<HTMLDivElement | null>,
     data: { composedColumns: Accessor<MagicColumnConfig<T>[]>; estimateHeight: Accessor<number | undefined> }
 ) {
-    // 构建固定列
-    const sticky = useSticky(table)
+    const paddingLeft = createMemo(() => {
+        const last = table.getLeftLeafColumns().at(-1)
+        if (!last) return 0
+        return last.getSize() + last.getStart('left')
+    })
+    const paddingRight = createMemo(() => {
+        const last = table.getRightLeafColumns().at(-1)
+        if (!last) return 0
+        return last.getSize() + last.getStart('right')
+    })
     const columnVirtualizer = createVirtualizer({
         get count() {
             const count = table.getCenterLeafColumns().length
@@ -25,15 +31,21 @@ export function useVirtual<T>(
         },
         // average column width in pixels
         getScrollElement: () => tableContainerRef(),
-        rangeExtractor: sticky.rangeExtractor,
         horizontal: true,
-        overscan: 12
+        overscan: 12,
+        get paddingStart() {
+            return paddingLeft()
+        },
+        get paddingEnd() {
+            return paddingRight()
+        }
     })
 
     // 添加初始化 sticky 特性
     table.getLeafHeaders().forEach((i) => {
         /** @ts-ignore */
-        i.column.columnDef.sticky && i.column.pin('left')
+        const position = i.column.columnDef.sticky
+        i.column.pin(position)
     })
     //dynamic row height virtualization - alternatively you could use a simpler fixed row height strategy without the need for `measureElement`
     const rowVirtualizer = createVirtualizer({
@@ -48,28 +60,15 @@ export function useVirtual<T>(
         overscan: 12
     })
     const rows = createMemo(() => table.getSortedRowModel().rows)
-    const colVirtualPadding = createMemo(createPadding(columnVirtualizer as any))
-    const rowVirtualPadding = createMemo(createPadding(rowVirtualizer as any))
+
     return {
         rowVirtualizer,
         columnVirtualizer,
-        colVirtualPadding,
-        rowVirtualPadding,
+        tableWidth() {
+            return columnVirtualizer.getTotalSize()
+        },
+        paddingLeft,
+        paddingRight,
         rows
-    }
-}
-
-const createPadding = (virtualizer: Virtualizer<HTMLDivElement, Element>) => {
-    return () => {
-        const items = virtualizer.getVirtualItems()
-        //different virtualization strategy for columns - instead of absolute and translateY, we add empty columns to the left and right
-        let virtualPaddingLeft: number | undefined
-        let virtualPaddingRight: number | undefined
-
-        if (virtualizer && items?.length) {
-            virtualPaddingLeft = items[0]?.start ?? 0
-            virtualPaddingRight = virtualizer.getTotalSize() - (items[items.length - 1]?.end ?? 0)
-        }
-        return { start: virtualPaddingLeft ?? 0, end: virtualPaddingRight ?? 0 }
     }
 }

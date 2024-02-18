@@ -3,7 +3,7 @@ import { For, Show, createEffect, createMemo } from 'solid-js'
 import { HeaderCell } from './HeaderCell'
 import { Header } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
-import { toCSSPx } from '@cn-ui/reactive'
+import { classNames, toCSSPx } from '@cn-ui/reactive'
 import { Key } from '@solid-primitives/keyed'
 
 export function HeaderRow<T>(props: {
@@ -11,12 +11,11 @@ export function HeaderRow<T>(props: {
     absolute: boolean
     columnsFilter?: (items: VirtualItem[]) => VirtualItem[]
     headers: Header<T, unknown>[]
-    level?: number
+    level: number
     isLastRow?: boolean
     position: 'center' | 'left' | 'right'
 }) {
-    const { columnVirtualizer } = MagicTableCtx.use<MagicTableCtxType<T>>()
-    const { estimateHeight } = MagicTableCtx.use()
+    const { columnVirtualizer, paddingLeft, estimateHeight, width, paddingRight } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const columns = createMemo(() => {
         if (['left', 'right'].includes(props.position))
             return props.headers.map((i, index) => {
@@ -25,14 +24,19 @@ export function HeaderRow<T>(props: {
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
     })
+    const rightSideLeft = createMemo(() => {
+        return width() - paddingRight()
+    })
     return (
         <Show when={!props.hideWhenEmpty || columns().length}>
             <tr
-                class="relative flex border-b w-full"
+                data-level={props.level}
+                class={classNames(props.position !== 'center' ? 'absolute' : 'relative', ' flex border-b w-full')}
                 style={
                     props.absolute
                         ? {
-                              height: toCSSPx(estimateHeight(), '48px')
+                              height: toCSSPx(estimateHeight(), '48px'),
+                              top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
                           }
                         : {}
                 }
@@ -43,7 +47,13 @@ export function HeaderRow<T>(props: {
 
                         return (
                             <Show when={header()}>
-                                <HeaderCell absolute={props.absolute} header={header()} item={item()} useHeaderStart={!props.isLastRow}></HeaderCell>
+                                <HeaderCell
+                                    paddingLeft={props.position === 'right' ? rightSideLeft() : 0}
+                                    absolute={props.absolute}
+                                    header={header()}
+                                    item={item()}
+                                    useHeaderStart={!props.isLastRow}
+                                ></HeaderCell>
                             </Show>
                         )
                     }}

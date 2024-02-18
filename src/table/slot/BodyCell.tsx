@@ -9,7 +9,7 @@ export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; item: VirtualItem }) {
+export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number }) {
     const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
     const ctx = createMemo(() => props.cell.getContext())
     const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)
@@ -18,7 +18,7 @@ export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; ite
     return (
         <MagicTableCellCtx.Provider value={{ contain }}>
             <td
-                class={classNames(props.absolute !== false && 'absolute', 'block')}
+                class={classNames(props.absolute !== false && 'absolute', 'block', props.cell.column.getIsPinned() && 'bg-design-pure')}
                 data-index={props.item.index}
                 ref={(el) => {
                     contain(el)
@@ -27,8 +27,8 @@ export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; ite
                 style={{
                     width: toCSSPx(props.cell.column.getSize()),
                     height: toCSSPx(estimateHeight(), '48px'),
-                    left: toCSSPx(props.item.start),
-                    ...getCommonPinningStyles(props.cell.column)
+                    left: toCSSPx(props.item.start + (props.paddingLeft ?? 0)),
+                    ...getCommonPinningStyles(props.cell.column, props.paddingLeft ?? 0)
                 }}
             >
                 {flexRender(cell() === defaultCell() ? defaultBodyCell : cell(), ctx())}

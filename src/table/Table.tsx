@@ -9,7 +9,6 @@ import { useScroll } from 'solidjs-use'
 import { createMemo, createSignal } from 'solid-js'
 import { MagicColumnConfig } from '.'
 import { useAutoResize } from './hook/useAutoResize'
-import { StickyView } from './sticky/StickyView'
 export interface MagicTableProps<T> {
     data: T[]
     columns: MagicColumnConfig<T, unknown>[]
@@ -80,12 +79,13 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const tableContainerRef = atom<HTMLDivElement | null>(null)
     const virtualSettings = useVirtual<T>(table, tableContainerRef, { composedColumns, estimateHeight: () => props.estimateHeight })
     const tableBox = atom<HTMLDivElement | null>(null)
-    const { height } = useAutoResize(tableBox)
+    const { height, width } = useAutoResize(tableBox)
     const tableScroll = useScroll(tableContainerRef)
 
     const context: MagicTableCtxType<T> = {
         rowSelection,
         table,
+        width,
         ...virtualSettings,
         tableScroll,
         selection: () => props.selection,
@@ -114,21 +114,19 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     return (
         <MagicTableCtx.Provider value={context as unknown as MagicTableCtxType}>
             <div class="relative flex h-full w-full" ref={tableBox}>
-                {StickyView<T>(props, height)}
                 <table
                     style={{
                         display: 'block',
                         overflow: 'auto',
                         position: 'relative',
+                        width: toCSSPx(width(), '400px'),
                         height: toCSSPx(props.height ?? height(), '400px')
                     }}
                     ref={tableContainerRef}
                 >
-                    <MagicTableHeader rowAbsolute position="center"></MagicTableHeader>
-                    <MagicTableBody rowAbsolute position="center"></MagicTableBody>
+                    <MagicTableHeader rowAbsolute></MagicTableHeader>
+                    <MagicTableBody rowAbsolute></MagicTableBody>
                 </table>
-
-                {/* <StickyViewBody></StickyViewBody> */}
             </div>
         </MagicTableCtx.Provider>
     )

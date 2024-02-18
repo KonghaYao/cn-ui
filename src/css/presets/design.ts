@@ -18,7 +18,8 @@ export const designToken = {
     disabled: '#00000040',
     border: '#D9D9D9FF',
     divide: '#0505050F',
-    ground: '#F5F5F5FF'
+    ground: '#F5F5F5FF',
+    pure: '#ffffff'
 }
 const darkDesignToken = {
     title: '#ffffffd9',
@@ -30,7 +31,8 @@ const darkDesignToken = {
     border: '#424242FF',
     divide: '#FDFDFD1F',
     ground: '#141414FF',
-    hover: '#ffffff0f'
+    hover: '#ffffff0f',
+    pure: '#000000'
 }
 
 export const designRules = createDesignRules(designToken)
