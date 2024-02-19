@@ -7,5 +7,9 @@
 }
 
 .cn-table-body-row:hover .cn-table-body-cell {
-    --at-apply: "bg-design-hover";
+    --at-apply: "bg-design-card";
+}
+
+.cn-table-body-row .cn-table-body-cell {
+    --at-apply: "bg-design-pure";
 }
