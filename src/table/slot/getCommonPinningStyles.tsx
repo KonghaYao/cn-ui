@@ -8,7 +8,7 @@ export function getCommonPinningStyles<T, D>(column: Column<T, D>, paddingLeft: 
     const isLastLeftPinnedColumn = isPinned === 'left' && column.getIsLastColumn('left')
     const isFirstRightPinnedColumn = isPinned === 'right' && column.getIsFirstColumn('right')
     return {
-        'box-shadow': isLastLeftPinnedColumn ? '#00000010 4px 0px 3px 0px ' : isFirstRightPinnedColumn ? '#00000010 -4px 0px 3px 0px ' : undefined,
+        'box-shadow': isLastLeftPinnedColumn ? '#00000033 4px 0px 4px 0px ' : isFirstRightPinnedColumn ? '#00000033 -4px 0px 4px 0px ' : undefined,
         left: isPinned ? toCSSPx((isPinned === 'left' ? 0 : paddingLeft) + column.getStart(isPinned)) : undefined,
         'z-index': isPinned ? 1 : 0,
         position: 'sticky'

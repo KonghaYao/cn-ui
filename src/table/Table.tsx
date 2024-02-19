@@ -1,5 +1,15 @@
 import { atom, toCSSPx, useEffect } from '@cn-ui/reactive'
-import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState, ColumnOrderState, OnChangeFn } from '@tanstack/solid-table'
+import {
+    getSortedRowModel,
+    getCoreRowModel,
+    createSolidTable,
+    RowSelectionState,
+    SortingState,
+    ColumnOrderState,
+    OnChangeFn,
+    ColumnSizingState,
+    VisibilityState
+} from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
@@ -35,16 +45,18 @@ export interface MagicTableExpose<T> extends MagicTableCtxType<T> {
 }
 function createStateLinker<T>(init: T) {
     const state = atom(init)
-    return [state,
-        function (updateOrValue: T | OnChangeFn<T>) {
-            state((selection) => (typeof updateOrValue === 'function' ? updateOrValue(selection) : updateOrValue))
-        }] as const
+    return [
+        state,
+        function (updateOrValue) {
+            state((selection) => (typeof updateOrValue === 'function' ? (updateOrValue as (a: T) => T)(selection) : updateOrValue))
+        } as OnChangeFn<T>
+    ] as const
 }
 export function MagicTable<T>(props: MagicTableProps<T>) {
     const [rowSelection, onRowSelectionChange] = createStateLinker<RowSelectionState>({})
     const [sorting, onSortingChange] = createStateLinker<SortingState>([])
-    const [columnVisibility, onColumnVisibilityChange] = createStateLinker({})
-    const [columnSizing, onColumnSizingChange] = createStateLinker({})
+    const [columnVisibility, onColumnVisibilityChange] = createStateLinker<VisibilityState>({})
+    const [columnSizing, onColumnSizingChange] = createStateLinker<ColumnSizingState>({})
     const [columnOrder, onColumnOrderChange] = createStateLinker<ColumnOrderState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
@@ -76,8 +88,8 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             }
         },
         onColumnSizingChange,
-        columnResizeMode: "onEnd",
-        columnResizeDirection: "ltr",
+        columnResizeMode: 'onEnd',
+        columnResizeDirection: 'ltr',
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         onColumnVisibilityChange,

@@ -53,7 +53,7 @@ export function HeaderCell<T, D>(props: {
     )
 }
 
-export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false; onClick: JSX.EventHandlerUnion<HTMLDivElement, MouseEvent> }) => {
+export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false; onClick?: (event: unknown) => void }) => {
     return (
         <div class="absolute justify-center right-1 top-0 h-full w-4 flex flex-col cursor-pointer" onClick={props.onClick}>
             <AiOutlineCaretUp class={props.state === 'asc' ? 'fill-blue-600' : 'fill-blue-600/20'} size={12}></AiOutlineCaretUp>

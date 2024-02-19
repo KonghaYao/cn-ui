@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
-import { MagicTable, MagicTableExpose } from './index'
+import { MagicColumnConfig, MagicTable, MagicTableExpose } from './index'
 import { random } from 'lodash-es'
-import { NullAtom, atom } from '@cn-ui/reactive'
-import { onMount } from 'solid-js'
+import { NullAtom } from '@cn-ui/reactive'
 import { ColumnGroups } from './example/ColumnGroups'
 import { ColumnOrdering } from './example/ColumnOrdering'
 
@@ -24,9 +23,9 @@ const makeColumns = (num: number) =>
             minSize: 200, //enforced during column resizing
             maxSize: 500 //enforced during column resizing
         }
-    })
+    }) as MagicColumnConfig<Record<string, string>>[]
 
-const makeData = (num: number, columns: { accessorKey: string }[]): Record<string, string>[] =>
+const makeData = (num: number, columns: any[]): Record<string, string>[] =>
     [...Array(num).keys()].map((y) => ({
         ...Object.fromEntries(columns.map((col, x) => [col.accessorKey, [x, y].join('-')]))
     }))
@@ -63,6 +62,23 @@ export const Selection: Story = {
         console.timeEnd('createData')
         const expose = NullAtom<MagicTableExpose<Record<string, string>>>(null)
         return <MagicTable selection index columns={cols} data={data} expose={expose}></MagicTable>
+    },
+    args: {}
+}
+export const ColumnPinned: Story = {
+    name: 'ColumnPinned 固定列',
+    decorators: Primary.decorators,
+    render() {
+        console.time('createData')
+        const cols = makeColumns(100)
+        const data = makeData(100, cols)
+        cols.slice(0, 5).forEach((i, index) => {
+            i.sticky = index % 2 ? 'left' : 'right'
+        })
+        console.log(data)
+        console.timeEnd('createData')
+        const expose = NullAtom<MagicTableExpose<Record<string, string>>>(null)
+        return <MagicTable columns={cols} data={data} expose={expose}></MagicTable>
     },
     args: {}
 }
