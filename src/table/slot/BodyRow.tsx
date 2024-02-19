@@ -5,7 +5,7 @@ import { classNames, toCSSPx } from '@cn-ui/reactive'
 import { Cell } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
 import { Key } from '@solid-primitives/keyed'
-
+import './bodyRow.css'
 export function BodyRow<T, D>(props: {
     index?: string | number
     bindScroll?: boolean
@@ -40,8 +40,8 @@ export function BodyRow<T, D>(props: {
                 }} //measure dynamic row height
                 class={classNames(
                     props.absolute && 'absolute',
-                    'flex w-full duration-300 transition-colors border-b',
-                    row().getIsSelected() ? 'bg-primary-50 hover:bg-primary-100' : 'hover:bg-design-hover'
+                    'cn-table-body-row  flex w-full duration-300 transition-colors border-b',
+                    row().getIsSelected() && 'cn-selected'
                 )}
                 style={{
                     top: toCSSPx(props.virtualRow.start),

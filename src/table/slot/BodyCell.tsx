@@ -18,7 +18,7 @@ export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; ite
     return (
         <MagicTableCellCtx.Provider value={{ contain }}>
             <td
-                class={classNames(props.absolute !== false && 'absolute', 'block', props.cell.column.getIsPinned() && 'bg-design-pure')}
+                class={classNames(props.absolute !== false && 'absolute', 'cn-table-body-cell block transition-colors ')}
                 data-index={props.item.index}
                 ref={(el) => {
                     contain(el)
