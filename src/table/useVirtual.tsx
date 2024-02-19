@@ -4,8 +4,7 @@ import { createVirtualizer } from './virtual/createVirtualizer'
 import { Accessor, createMemo } from 'solid-js'
 import { MagicColumnConfig } from '.'
 
-
-function useVirtualSticky<T>(table: Table<T>,) {
+function useVirtualSticky<T>(table: Table<T>) {
     const paddingLeft = createMemo(() => {
         const last = table.getLeftLeafColumns().at(-1)
         if (!last) return 0
@@ -23,7 +22,8 @@ function useVirtualSticky<T>(table: Table<T>,) {
         i.column.pin(position)
     })
     return {
-        paddingLeft, paddingRight
+        paddingLeft,
+        paddingRight
     }
 }
 
@@ -52,7 +52,6 @@ export function useVirtual<T>(
         }
     })
 
-
     const rowVirtualizer = createVirtualizer({
         get count() {
             return table.getCenterRows().length
@@ -63,7 +62,7 @@ export function useVirtual<T>(
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
         overscan: 12
     })
-    const rows = createMemo(() => table.getSortedRowModel().rows)
+    const rows = createMemo(() => table.getRowModel().rows)
 
     return {
         rowVirtualizer,

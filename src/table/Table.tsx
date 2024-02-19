@@ -8,7 +8,9 @@ import {
     ColumnOrderState,
     OnChangeFn,
     ColumnSizingState,
-    VisibilityState
+    VisibilityState,
+    getExpandedRowModel,
+    ExpandedState
 } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
@@ -57,6 +59,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const [sorting, onSortingChange] = createStateLinker<SortingState>([])
     const [columnVisibility, onColumnVisibilityChange] = createStateLinker<VisibilityState>({})
     const [columnSizing, onColumnSizingChange] = createStateLinker<ColumnSizingState>({})
+    const [expanded, onExpandedChange] = createStateLinker<ExpandedState>({})
     const [columnOrder, onColumnOrderChange] = createStateLinker<ColumnOrderState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
@@ -85,16 +88,24 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             },
             get columnOrder() {
                 return columnOrder()
+            },
+            get expanded() {
+                return expanded()
             }
         },
+        getCoreRowModel: getCoreRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getExpandedRowModel: getExpandedRowModel(),
+
         onColumnSizingChange,
         columnResizeMode: 'onEnd',
         columnResizeDirection: 'ltr',
-        getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
+
+        onExpandedChange,
+        getSubRows: (row) => row.subRows,
         onColumnVisibilityChange,
         onColumnOrderChange,
-        enableRowSelection: true,
+        enableRowSelection: !!props.selection,
         onRowSelectionChange,
         onSortingChange,
         debugTable: true

@@ -16,14 +16,15 @@ export function BodyRow<T, D>(props: {
     hideWhenEmpty?: boolean
     absolute: boolean
 }) {
-    const { columnVirtualizer, paddingLeft, rows, width, paddingRight, selection, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { columnVirtualizer, rows, width, paddingRight, selection, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
     const row = createMemo(() => rows()[props.virtualRow.index])
     const rowVisibleCells = createMemo(() => {
-        return row().getCenterVisibleCells()
+        return row()?.getCenterVisibleCells() ?? []
     })
 
     const visibleCells = createMemo(() => props.cells ?? rowVisibleCells())
+
     const columns = createMemo(() => {
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
         return columnVirtualizer.getVirtualItems()
@@ -32,7 +33,7 @@ export function BodyRow<T, D>(props: {
         return width() - paddingRight()
     })
     return (
-        <Show when={!props.hideWhenEmpty || columns().length}>
+        <Show when={(!props.hideWhenEmpty || columns().length) && row()}>
             <tr
                 data-index={props.virtualRow.index} //needed for dynamic row height measurement
                 ref={(node) => {
@@ -56,10 +57,11 @@ export function BodyRow<T, D>(props: {
                         return (
                             <Show when={cell()}>
                                 <BodyCell
-                                    position='left'
+                                    position="left"
                                     absolute={props.absolute}
                                     cell={cell()}
-                                    item={{ index: index(), start: cell().column.getStart() } as any}></BodyCell>
+                                    item={{ index: index(), start: cell().column.getStart() } as any}
+                                ></BodyCell>
                             </Show>
                         )
                     }}
@@ -79,7 +81,7 @@ export function BodyRow<T, D>(props: {
                         return (
                             <Show when={cell()}>
                                 <BodyCell
-                                    position='right'
+                                    position="right"
                                     paddingLeft={rightSideLeft()}
                                     absolute={props.absolute}
                                     cell={cell()}

@@ -4,6 +4,7 @@ import { random } from 'lodash-es'
 import { NullAtom } from '@cn-ui/reactive'
 import { ColumnGroups } from './example/ColumnGroups'
 import { ColumnOrdering } from './example/ColumnOrdering'
+import { Expanded } from './example/Expanded'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -65,6 +66,12 @@ export const Selection: Story = {
     },
     args: {}
 }
+export const Expanding: Story = {
+    name: 'Expanding 展开行',
+    decorators: Primary.decorators,
+    render: Expanded,
+    args: {}
+}
 export const ColumnPinned: Story = {
     name: 'ColumnPinned 固定列',
     decorators: Primary.decorators,
@@ -82,6 +89,7 @@ export const ColumnPinned: Story = {
     },
     args: {}
 }
+
 export const ColumnGroup: Story = {
     name: 'ColumnGroup 多级表头',
     decorators: Primary.decorators,
