@@ -19,7 +19,7 @@ export function HeaderCell<T, D>(props: {
     const column = createMemo(() => header().column)
     return (
         <th
-            class={classNames(props.absolute && 'absolute', ' block bg-gray-100 py-2 text-sm')}
+            class={classNames(props.absolute && 'absolute', 'pointer-events-auto block bg-gray-100 py-2 text-sm')}
             style={{
                 width: toCSSPx(header().getSize()),
                 height: toCSSPx(estimateHeight(), '48px'),

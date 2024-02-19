@@ -31,13 +31,13 @@ export function HeaderRow<T>(props: {
         <Show when={!props.hideWhenEmpty || columns().length}>
             <tr
                 data-level={props.level}
-                class={classNames(props.position !== 'center' ? 'absolute' : 'relative', ' flex border-b w-full')}
+                class={classNames(props.position !== 'center' ? 'absolute pointer-events-none' : 'relative', ' flex border-b w-full')}
                 style={
                     props.absolute
                         ? {
-                              height: toCSSPx(estimateHeight(), '48px'),
-                              top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
-                          }
+                            height: toCSSPx(estimateHeight(), '48px'),
+                            top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
+                        }
                         : {}
                 }
             >
