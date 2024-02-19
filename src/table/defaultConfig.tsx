@@ -27,7 +27,7 @@ export const selectionConfig = {
             </div>
         )
     },
-    sticky: 'right'
+    sticky: 'left'
 } as MagicColumnConfig
 
 export const indexConfig = {

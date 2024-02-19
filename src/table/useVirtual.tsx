@@ -14,7 +14,6 @@ function useVirtualSticky<T>(table: Table<T>,) {
     const paddingRight = createMemo(() => {
         const last = table.getRightLeafColumns().at(-1)
         if (!last) return 0
-        console.log(last.getSize(), last.getStart("right"))
         return last.getSize() + last.getStart('right')
     })
     // 添加初始化 sticky 特性
