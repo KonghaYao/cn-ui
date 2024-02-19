@@ -55,7 +55,11 @@ export function BodyRow<T, D>(props: {
                     {(cell, index) => {
                         return (
                             <Show when={cell()}>
-                                <BodyCell absolute={props.absolute} cell={cell()} item={{ index: index(), start: cell().column.getStart() } as any}></BodyCell>
+                                <BodyCell
+                                    position='left'
+                                    absolute={props.absolute}
+                                    cell={cell()}
+                                    item={{ index: index(), start: cell().column.getStart() } as any}></BodyCell>
                             </Show>
                         )
                     }}
@@ -75,6 +79,7 @@ export function BodyRow<T, D>(props: {
                         return (
                             <Show when={cell()}>
                                 <BodyCell
+                                    position='right'
                                     paddingLeft={rightSideLeft()}
                                     absolute={props.absolute}
                                     cell={cell()}

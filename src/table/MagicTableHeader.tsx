@@ -5,7 +5,7 @@ import { Key } from '@solid-primitives/keyed'
 import { Show, createMemo } from 'solid-js'
 
 export function MagicTableHeader<T>(props: { rowAbsolute: boolean }) {
-    const { table, tableWidth, width, paddingRight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { table, tableWidth } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
     return (
         <thead

@@ -9,7 +9,10 @@ export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number }) {
+export function BodyCell<T, D>(props: {
+    position?: "left" | "right"
+    absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number
+}) {
     const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
     const ctx = createMemo(() => props.cell.getContext())
     const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)
@@ -22,7 +25,7 @@ export function BodyCell<T, D>(props: { absolute: boolean; cell: Cell<T, D>; ite
                 data-index={props.item.index}
                 ref={(el) => {
                     contain(el)
-                    if (props.absolute) queueMicrotask(() => columnVirtualizer.measureElement(el))
+                    if (props.absolute && !props.position) queueMicrotask(() => columnVirtualizer.measureElement(el))
                 }}
                 style={{
                     width: toCSSPx(props.cell.column.getSize()),

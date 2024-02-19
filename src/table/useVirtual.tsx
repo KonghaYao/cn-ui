@@ -4,11 +4,8 @@ import { createVirtualizer } from './virtual/createVirtualizer'
 import { Accessor, createMemo } from 'solid-js'
 import { MagicColumnConfig } from '.'
 
-export function useVirtual<T>(
-    table: Table<T>,
-    tableContainerRef: Atom<HTMLDivElement | null>,
-    data: { composedColumns: Accessor<MagicColumnConfig<T>[]>; estimateHeight: Accessor<number | undefined> }
-) {
+
+function useVirtualSticky<T>(table: Table<T>,) {
     const paddingLeft = createMemo(() => {
         const last = table.getLeftLeafColumns().at(-1)
         if (!last) return 0
@@ -17,18 +14,34 @@ export function useVirtual<T>(
     const paddingRight = createMemo(() => {
         const last = table.getRightLeafColumns().at(-1)
         if (!last) return 0
+        console.log(last.getSize(), last.getStart("right"))
         return last.getSize() + last.getStart('right')
     })
+    // 添加初始化 sticky 特性
+    table.getLeafHeaders().forEach((i) => {
+        /** @ts-ignore */
+        const position = i.column.columnDef.sticky
+        i.column.pin(position)
+    })
+    return {
+        paddingLeft, paddingRight
+    }
+}
+
+export function useVirtual<T>(
+    table: Table<T>,
+    tableContainerRef: Atom<HTMLDivElement | null>,
+    data: { composedColumns: Accessor<MagicColumnConfig<T>[]>; estimateHeight: Accessor<number | undefined> }
+) {
+    const { paddingLeft, paddingRight } = useVirtualSticky(table)
     const columnVirtualizer = createVirtualizer({
         get count() {
             const count = table.getCenterLeafColumns().length
             return count
         },
         estimateSize(index) {
-            // TODO
-            return 200
+            return table.getCenterLeafColumns()[index].columnDef.size ?? 100
         },
-        // average column width in pixels
         getScrollElement: () => tableContainerRef(),
         horizontal: true,
         overscan: 12,
@@ -40,20 +53,13 @@ export function useVirtual<T>(
         }
     })
 
-    // 添加初始化 sticky 特性
-    table.getLeafHeaders().forEach((i) => {
-        /** @ts-ignore */
-        const position = i.column.columnDef.sticky
-        i.column.pin(position)
-    })
-    //dynamic row height virtualization - alternatively you could use a simpler fixed row height strategy without the need for `measureElement`
+
     const rowVirtualizer = createVirtualizer({
         get count() {
             return table.getCenterRows().length
         },
-        estimateSize: () => data.estimateHeight() ?? 48, //estimate row height for accurate scrollbar dragging
+        estimateSize: () => data.estimateHeight() ?? 48,
         getScrollElement: () => tableContainerRef(),
-        //measure dynamic row height, except in firefox because it measures table border height incorrectly
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
         overscan: 12
