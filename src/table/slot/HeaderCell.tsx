@@ -3,7 +3,7 @@ import { Header, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
 import { AiOutlineCaretUp } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
-import { Show, createMemo } from 'solid-js'
+import { Show, createMemo, JSX } from 'solid-js'
 import { getCommonPinningStyles } from './getCommonPinningStyles'
 
 export function HeaderCell<T, D>(props: {
@@ -14,7 +14,7 @@ export function HeaderCell<T, D>(props: {
     level?: number
     useHeaderStart?: boolean
 }) {
-    const { estimateHeight } = MagicTableCtx.use()
+    const { estimateHeight, table } = MagicTableCtx.use()
     const header = createMemo(() => props.header)
     const column = createMemo(() => header().column)
     return (
@@ -27,19 +27,35 @@ export function HeaderCell<T, D>(props: {
                 ...getCommonPinningStyles(column(), props.paddingLeft)
             }}
         >
-            <div class={column().getCanSort() ? 'cursor-pointer select-none' : ' '} onClick={column().getToggleSortingHandler()}>
+            <div class={column().getCanSort() ? ' select-none' : ' '}>
                 <Show when={!header().isPlaceholder}>{flexRender(column().columnDef.header, header().getContext())}</Show>
             </div>
+            <Show when={column().getCanResize()}>
+                <div
+                    ondblclick={() => header().column.resetSize()}
+                    onMouseDown={header().getResizeHandler()}
+                    onTouchStart={header().getResizeHandler()}
+                    class={classNames(
+                        'absolute top-0 right-0 h-full w-px hover:w-1 hover:bg-primary-600 select-none touch-none cursor-col-resize',
+                        header().column.getIsResizing() ? 'cn-table-header-is-resizing bg-primary-600 z-10' : ' bg-design-border'
+                    )}
+                    style={{
+                        transform: header().column.getIsResizing()
+                            ? `translateX(${(table.options.columnResizeDirection === 'rtl' ? -1 : 1) * (table.getState().columnSizingInfo.deltaOffset ?? 0)}px)`
+                            : ''
+                    }}
+                ></div>
+            </Show>
             <Show when={!header().isPlaceholder && column().getCanSort()}>
-                <SortingStateIcon state={column().getIsSorted()}></SortingStateIcon>
+                <SortingStateIcon state={column().getIsSorted()} onClick={column().getToggleSortingHandler()}></SortingStateIcon>
             </Show>
         </th>
     )
 }
 
-export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false }) => {
+export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false; onClick: JSX.EventHandlerUnion<HTMLDivElement, MouseEvent> }) => {
     return (
-        <div class="absolute justify-center right-0 top-0 h-full w-4 flex flex-col">
+        <div class="absolute justify-center right-1 top-0 h-full w-4 flex flex-col cursor-pointer" onClick={props.onClick}>
             <AiOutlineCaretUp class={props.state === 'asc' ? 'fill-blue-600' : 'fill-blue-600/20'} size={12}></AiOutlineCaretUp>
             <AiOutlineCaretUp class={classNames('rotate-180', props.state === 'desc' ? 'fill-blue-600' : 'fill-blue-600/20')} size={12}></AiOutlineCaretUp>
         </div>

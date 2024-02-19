@@ -1,5 +1,5 @@
 import { atom, toCSSPx, useEffect } from '@cn-ui/reactive'
-import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState, ColumnOrderState } from '@tanstack/solid-table'
+import { getSortedRowModel, getCoreRowModel, createSolidTable, RowSelectionState, SortingState, ColumnOrderState, OnChangeFn } from '@tanstack/solid-table'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
@@ -33,16 +33,24 @@ export interface MagicTableExpose<T> extends MagicTableCtxType<T> {
     // setScrollTop: (top: number) => void
     // setScrollLeft: (left: number) => void
 }
-
+function createStateLinker<T>(init: T) {
+    const state = atom(init)
+    return [state,
+        function (updateOrValue: T | OnChangeFn<T>) {
+            state((selection) => (typeof updateOrValue === 'function' ? updateOrValue(selection) : updateOrValue))
+        }] as const
+}
 export function MagicTable<T>(props: MagicTableProps<T>) {
-    const rowSelection = atom<RowSelectionState>({})
-    const [sorting, setSorting] = createSignal<SortingState>([])
-    const [columnVisibility, setColumnVisibility] = createSignal({})
-    const [columnOrder, setColumnOrder] = createSignal<ColumnOrderState>([])
+    const [rowSelection, onRowSelectionChange] = createStateLinker<RowSelectionState>({})
+    const [sorting, onSortingChange] = createStateLinker<SortingState>([])
+    const [columnVisibility, onColumnVisibilityChange] = createStateLinker({})
+    const [columnSizing, onColumnSizingChange] = createStateLinker({})
+    const [columnOrder, onColumnOrderChange] = createStateLinker<ColumnOrderState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
         [props.selection && selectionConfig, props.index && indexConfig, ...props.columns].filter((i) => i)
     )
+
     const table = createSolidTable<T>({
         get data() {
             return props.data
@@ -51,6 +59,9 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
             return composedColumns()
         },
         state: {
+            get columnSizing() {
+                return columnSizing()
+            },
             get rowSelection() {
                 return rowSelection()
             },
@@ -64,15 +75,16 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                 return columnOrder()
             }
         },
+        onColumnSizingChange,
+        columnResizeMode: "onEnd",
+        columnResizeDirection: "ltr",
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
-        onColumnVisibilityChange: setColumnVisibility,
-        onColumnOrderChange: setColumnOrder,
+        onColumnVisibilityChange,
+        onColumnOrderChange,
         enableRowSelection: true,
-        onRowSelectionChange: (updateOrValue) => {
-            rowSelection((selection) => (typeof updateOrValue === 'function' ? updateOrValue(selection) : updateOrValue))
-        },
-        onSortingChange: setSorting,
+        onRowSelectionChange,
+        onSortingChange,
         debugTable: true
     })
 
