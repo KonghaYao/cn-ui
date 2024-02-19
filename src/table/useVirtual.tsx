@@ -22,7 +22,6 @@ export function useVirtual<T>(
     const columnVirtualizer = createVirtualizer({
         get count() {
             const count = table.getCenterLeafColumns().length
-            console.log(count)
             return count
         },
         estimateSize(index) {
