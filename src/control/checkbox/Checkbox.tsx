@@ -16,8 +16,18 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
     const inputType = computed(() => (group?.multi?.() === false ? 'radio' : 'checkbox'))
     const isChecked = computed(() => group?.isSelected?.(props.value) ?? props.model())
     const inputClass = useMapper(inputType, {
-        radio: ['rounded-full border-4 border-design-border', 'rounded-full border-4 border-primary-500'],
-        checkbox: ['rounded-md border-2 border-design-border', 'rounded-md border-2 bg-primary-500 border-primary-200']
+        radio() {
+            const [base] = this.base()
+            return ['border-design-border', 'border-primary-500'].map(i => base + i)
+        },
+        checkbox() {
+            const base = this.base()[1]
+            if (props.indeterminate) return ['border-primary-600', 'bg-primary-500 border-primary-600'].map(i => base + i)
+            return ['border-design-border', 'bg-primary-500 border-primary-200'].map(i => base + i)
+        },
+        base() {
+            return ["rounded-full border-4 ", "rounded-md border-2 "]
+        }
     })
     return (
         <label class="select-none cursor-pointer">
@@ -25,7 +35,6 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
                 class={props.class(
                     inputClass()[isChecked() ? 1 : 0],
                     'appearance-none transition w-5 h-5 mr-2 translate-y-[3px]',
-                    props.indeterminate && 'border-blue-600'
                 )}
                 // @ts-ignore
                 indeterminate={props.indeterminate}
