@@ -155,7 +155,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                         display: 'block',
                         overflow: 'auto',
                         position: 'relative',
-                        width: toCSSPx(width(), '400px'),
+                        width: toCSSPx(Math.min(width(), virtualSettings.tableWidth()), '400px'),
                         height: toCSSPx(props.height ?? height(), '400px')
                     }}
                     ref={tableContainerRef}
