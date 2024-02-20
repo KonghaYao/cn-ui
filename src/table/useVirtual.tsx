@@ -35,11 +35,11 @@ export function useVirtual<T>(
     const { paddingLeft, paddingRight } = useVirtualSticky(table)
     const columnVirtualizer = createVirtualizer({
         get count() {
-            const count = table.getCenterLeafColumns().length
+            const count = table.getCenterVisibleLeafColumns().length
             return count
         },
         estimateSize(index) {
-            return table.getCenterLeafColumns()[index].columnDef.size ?? 100
+            return table.getCenterVisibleLeafColumns()[index].columnDef.size ?? 100
         },
         getScrollElement: () => tableContainerRef(),
         horizontal: true,
