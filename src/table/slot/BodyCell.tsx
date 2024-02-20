@@ -21,7 +21,7 @@ export function BodyCell<T, D>(props: {
     return (
         <MagicTableCellCtx.Provider value={{ contain }}>
             <td
-                class={classNames(props.absolute !== false && 'absolute', 'cn-table-body-cell block transition-colors ')}
+                class={classNames(props.absolute !== false && 'absolute', 'cn-table-body-cell block transition-colors border-b')}
                 data-index={props.item.index}
                 ref={(el) => {
                     contain(el)

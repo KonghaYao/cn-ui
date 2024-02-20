@@ -55,7 +55,7 @@ export const expandingConfig = {
             <Icon onClick={ctx.row.getToggleExpandedHandler()}>
                 {
                     ctx.row.getCanExpand() ? (
-                        ctx.row.getIsExpanded() ? <AiOutlineCaretDown></AiOutlineCaretDown> : <AiOutlineCaretRight></AiOutlineCaretRight>
+                        ctx.row.getIsExpanded() ? <AiOutlineCaretDown class='fill-primary-600'></AiOutlineCaretDown> : <AiOutlineCaretRight class='fill-primary-600'></AiOutlineCaretRight>
                     ) : (
                         ' '
                     )

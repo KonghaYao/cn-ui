@@ -1,7 +1,7 @@
 import { classNames, toCSSPx } from '@cn-ui/reactive'
 import { Header, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
-import { AiOutlineCaretUp } from 'solid-icons/ai'
+import { AiOutlineSwapRight } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
 import { Show, createMemo, JSX } from 'solid-js'
 import { getCommonPinningStyles } from './getCommonPinningStyles'
@@ -14,7 +14,7 @@ export function HeaderCell<T, D>(props: {
     level?: number
     useHeaderStart?: boolean
 }) {
-    const { estimateHeight, table } = MagicTableCtx.use()
+    const { estimateHeight, table, paddingLeft } = MagicTableCtx.use()
     const header = createMemo(() => props.header)
     const column = createMemo(() => header().column)
     return (
@@ -23,13 +23,14 @@ export function HeaderCell<T, D>(props: {
             style={{
                 width: toCSSPx(header().getSize()),
                 height: toCSSPx(estimateHeight(), '48px'),
-                left: props.useHeaderStart ? toCSSPx(props.paddingLeft + header().getStart()) : toCSSPx(props.paddingLeft + props.item.start),
+                left: props.useHeaderStart ? toCSSPx(props.paddingLeft + header().getStart() + paddingLeft()) : toCSSPx(props.paddingLeft + props.item.start),
                 ...getCommonPinningStyles(column(), props.paddingLeft)
             }}
         >
             <div class={column().getCanSort() ? ' select-none' : ' '}>
                 <Show when={!header().isPlaceholder}>{flexRender(column().columnDef.header, header().getContext())}</Show>
             </div>
+            {/* 拖动设置宽度 */}
             <Show when={column().getCanResize()}>
                 <div
                     ondblclick={() => header().column.resetSize()}
@@ -46,6 +47,7 @@ export function HeaderCell<T, D>(props: {
                     }}
                 ></div>
             </Show>
+            {/*  排序 */}
             <Show when={!header().isPlaceholder && column().getCanSort()}>
                 <SortingStateIcon state={column().getIsSorted()} onClick={column().getToggleSortingHandler()}></SortingStateIcon>
             </Show>
@@ -55,9 +57,15 @@ export function HeaderCell<T, D>(props: {
 
 export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false; onClick?: (event: unknown) => void }) => {
     return (
-        <div class="absolute justify-center right-1 top-0 h-full w-4 flex flex-col cursor-pointer" onClick={props.onClick}>
-            <AiOutlineCaretUp class={props.state === 'asc' ? 'fill-blue-600' : 'fill-blue-600/20'} size={12}></AiOutlineCaretUp>
-            <AiOutlineCaretUp class={classNames('rotate-180', props.state === 'desc' ? 'fill-blue-600' : 'fill-blue-600/20')} size={12}></AiOutlineCaretUp>
+        <div class="absolute justify-center right-1 top-0 h-full w-4 flex flex-col cursor-pointer w-4 h-4" onClick={props.onClick}>
+            {/* TODO Fallback 情况 */}
+            <Show when={props.state}>
+                <AiOutlineSwapRight class={classNames('fill-primary-600', props.state === 'asc' ? 'rotate-90' : '-rotate-90')}
+                    style={{
+                        scale: props.state === 'asc' ? "" : "-1 1"
+                    }}
+                    size={16}></AiOutlineSwapRight>
+            </Show>
         </div>
     )
 }

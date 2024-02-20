@@ -83,9 +83,6 @@ export const Expanded = () => {
                 {
                     accessorFn: (row) => row.lastName,
                     id: 'lastName',
-                    cell: (info) => info.getValue(),
-                    header: () => <span>Last Name</span>,
-                    footer: (props) => props.column.id
                 }
             ]
         },
