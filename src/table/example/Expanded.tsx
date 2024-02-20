@@ -149,10 +149,10 @@ export const Expanded = () => {
             ]
         }
     ] satisfies MagicColumnConfig<Person>[]
-
+    const data = makeData(100, 5, 3)
     return (
         <>
-            <MagicTable data={makeData(10, 5, 3)} columns={columns}></MagicTable>
+            <MagicTable data={data} columns={columns}></MagicTable>
         </>
     )
 }
