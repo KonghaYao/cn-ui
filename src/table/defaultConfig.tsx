@@ -2,6 +2,8 @@ import { ColumnDef } from '@tanstack/solid-table'
 import { MagicColumnConfig } from '.'
 import { Checkbox } from '../control/checkbox'
 import { computed } from '@cn-ui/reactive'
+import { Icon } from '../icon/Icon'
+import { AiOutlineCaretDown, AiOutlineCaretRight } from 'solid-icons/ai'
 
 export const selectionConfig = {
     id: '$select',
@@ -33,12 +35,36 @@ export const selectionConfig = {
 export const indexConfig = {
     id: '$index',
     size: 60,
-    header: '#',
+    header: ' ',
     cell(ctx) {
         return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
-    sticky: 'right',
+    sticky: 'left',
     forceSorting: true,
+    accessorFn(_, index) {
+        return index
+    }
+} as ColumnDef<any>
+
+export const expandingConfig = {
+    id: '$expanding',
+    size: 60,
+    header: ' ',
+    cell(ctx) {
+        return <div class="p-2 w-full text-center">{
+            <Icon onClick={ctx.row.getToggleExpandedHandler()}>
+                {
+                    ctx.row.getCanExpand() ? (
+                        ctx.row.getIsExpanded() ? <AiOutlineCaretDown></AiOutlineCaretDown> : <AiOutlineCaretRight></AiOutlineCaretRight>
+                    ) : (
+                        ' '
+                    )
+                }
+            </Icon>
+
+        }</div>
+    },
+    forceSorting: false,
     accessorFn(_, index) {
         return index
     }

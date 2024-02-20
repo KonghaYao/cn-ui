@@ -48,9 +48,10 @@ export function BodyRow<T, D>(props: {
                     top: toCSSPx(props.virtualRow.start),
                     height: toCSSPx(estimateHeight(), '48px')
                 }}
-                onClick={() => {
-                    selection() && row().toggleSelected()
-                }}
+            // rowClick Selection
+            // onClick={() => {
+            //     selection() && row().toggleSelected()
+            // }}
             >
                 <Key by="id" each={row().getLeftVisibleCells()}>
                     {(cell, index) => {

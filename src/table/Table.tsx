@@ -16,7 +16,7 @@ import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { useVirtual } from './useVirtual'
 import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
-import { indexConfig, selectionConfig } from './defaultConfig'
+import { expandingConfig, indexConfig, selectionConfig } from './defaultConfig'
 import { useScroll } from 'solidjs-use'
 import { createMemo, createSignal } from 'solid-js'
 import { MagicColumnConfig } from '.'
@@ -28,7 +28,7 @@ export interface MagicTableProps<T> {
     selection?: boolean | 'single' | 'multi'
     index?: boolean
     estimateHeight?: number
-
+    expandable?: boolean
     expose?: (expose: MagicTableExpose<T>) => void
 }
 
@@ -63,7 +63,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
     const [columnOrder, onColumnOrderChange] = createStateLinker<ColumnOrderState>([])
     const composedColumns = createMemo<MagicColumnConfig<T>[]>(() =>
         /** @ts-ignore */
-        [props.selection && selectionConfig, props.index && indexConfig, ...props.columns].filter((i) => i)
+        [props.selection && selectionConfig, props.index && indexConfig, props.expandable && expandingConfig, ...props.columns].filter((i) => i)
     )
 
     const table = createSolidTable<T>({
@@ -105,6 +105,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
         getSubRows: (row) => row.subRows,
         onColumnVisibilityChange,
         onColumnOrderChange,
+        enableExpanding: !!props.expandable,
         enableRowSelection: !!props.selection,
         onRowSelectionChange,
         onSortingChange,

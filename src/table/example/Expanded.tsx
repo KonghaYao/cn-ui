@@ -55,14 +55,6 @@ export const Expanded = () => {
                     accessorKey: 'firstName',
                     header: ({ table }) => (
                         <>
-                            <input
-                                type="checkbox"
-                                {...{
-                                    checked: table.getIsAllRowsSelected(),
-                                    indeterminate: table.getIsSomeRowsSelected(),
-                                    onChange: table.getToggleAllRowsSelectedHandler()
-                                }}
-                            />
                             <button
                                 {...{
                                     onClick: table.getToggleAllRowsExpandedHandler()
@@ -83,26 +75,6 @@ export const Expanded = () => {
                                 'padding-left': `${row.depth * 2}rem`
                             }}
                         >
-                            <input
-                                type="checkbox"
-                                {...{
-                                    checked: row.getIsSelected(),
-                                    indeterminate: row.getIsSomeSelected(),
-                                    onChange: row.getToggleSelectedHandler()
-                                }}
-                            />
-                            {row.getCanExpand() ? (
-                                <button
-                                    {...{
-                                        onClick: row.getToggleExpandedHandler(),
-                                        style: { cursor: 'pointer' }
-                                    }}
-                                >
-                                    {row.getIsExpanded() ? '👇' : '👉'}
-                                </button>
-                            ) : (
-                                '🔵'
-                            )}
                             {getValue()}
                         </div>
                     ),
@@ -152,7 +124,7 @@ export const Expanded = () => {
     const data = makeData(100, 5, 3)
     return (
         <>
-            <MagicTable data={data} columns={columns}></MagicTable>
+            <MagicTable data={data} columns={columns} expandable selection></MagicTable>
         </>
     )
 }
