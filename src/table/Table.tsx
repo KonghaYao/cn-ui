@@ -18,7 +18,7 @@ import { MagicTableHeader } from './MagicTableHeader'
 import { MagicTableBody } from './MagicTableBody'
 import { expandingConfig, indexConfig, selectionConfig } from './defaultConfig'
 import { useScroll } from 'solidjs-use'
-import { createMemo, createSignal } from 'solid-js'
+import { createMemo } from 'solid-js'
 import { MagicColumnConfig } from '.'
 import { useAutoResize } from './hook/useAutoResize'
 export interface MagicTableProps<T> {
@@ -155,7 +155,7 @@ export function MagicTable<T>(props: MagicTableProps<T>) {
                         display: 'block',
                         overflow: 'auto',
                         position: 'relative',
-                        width: toCSSPx(Math.min(width(), virtualSettings.tableWidth()), '400px'),
+                        width: toCSSPx(Math.min(width(), virtualSettings.tableWidth() + 5), '400px'),
                         height: toCSSPx(props.height ?? height(), '400px')
                     }}
                     ref={tableContainerRef}

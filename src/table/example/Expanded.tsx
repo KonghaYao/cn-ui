@@ -20,7 +20,7 @@ const range = (len: number) => {
     return arr
 }
 
-const newPerson = (): Person => {
+export const newPerson = (): Person => {
     return Mock.mock({
         firstName: '@first',
         lastName: '@last',
@@ -82,7 +82,7 @@ export const Expanded = () => {
                 },
                 {
                     accessorFn: (row) => row.lastName,
-                    id: 'lastName',
+                    id: 'lastName'
                 }
             ]
         },

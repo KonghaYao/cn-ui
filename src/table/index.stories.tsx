@@ -5,6 +5,7 @@ import { NullAtom } from '@cn-ui/reactive'
 import { ColumnGroups } from './example/ColumnGroups'
 import { ColumnOrdering } from './example/ColumnOrdering'
 import { Expanded } from './example/Expanded'
+import { PaginationExample } from './example/Pagination'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -100,5 +101,11 @@ export const _ColumnOrdering: Story = {
     name: 'ColumnOrdering 列排序',
     decorators: Primary.decorators,
     render: ColumnOrdering,
+    args: {}
+}
+export const _Pagination: Story = {
+    name: 'Pagination 分页',
+    decorators: Primary.decorators,
+    render: PaginationExample,
     args: {}
 }

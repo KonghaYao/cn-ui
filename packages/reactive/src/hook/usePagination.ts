@@ -31,6 +31,7 @@ export const usePagination = <T>(getData: (pageIndex: number, maxPage: Atom<numb
     }
     const currentPageModel = currentIndex.reflux(currentIndex() + 1, (self) => self - 1)
     return {
+        /** 总数 */
         count,
         /** index 数值，从 0 开始 */
         currentIndex,
