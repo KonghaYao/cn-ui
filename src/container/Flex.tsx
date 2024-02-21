@@ -2,7 +2,9 @@ import { OriginComponent, OriginDiv, classNames, useMapper } from '@cn-ui/reacti
 import { JSX, JSXElement } from 'solid-js'
 export interface FlexProps {
     vertical?: boolean
+    reverse?: boolean
     fill?: boolean
+
     full?: boolean
     wrap?: JSX.CSSProperties['flex-wrap']
     justify?: JSX.CSSProperties['justify-content']
@@ -49,7 +51,14 @@ export const Flex = OriginComponent<FlexProps>((props) => {
     return (
         <OriginDiv
             prop={props}
-            class={classNames('flex', Wrap(), Justify(), Align(), (props.fill || props.full) && 'w-full h-full', props.vertical ? 'flex-col' : 'flex-row')}
+            class={classNames(
+                'flex',
+                Wrap(),
+                Justify(),
+                Align(),
+                (props.fill || props.full) && 'w-full h-full',
+                props.reverse ? (props.vertical ? 'flex-col-reverse' : 'flex-row-reverse') : props.vertical ? 'flex-col' : 'flex-row'
+            )}
             style={{ gap: props.gap }}
         >
             {props.children}

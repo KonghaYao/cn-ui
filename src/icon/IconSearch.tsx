@@ -81,11 +81,7 @@ const IconGallery = (props: { comps: Record<string, Component<{ size: number }>>
                     <div class="grid grid-cols-10 h-12">
                         {row.map((i) => {
                             return (
-                                <div
-                                    title={i.label}
-                                    class=" transition p-4 rounded-lg flex aspect-square justify-center items-center"
-                                    ondblclick={() => copy(i.label)}
-                                >
+                                <div title={i.label} class=" transition p-4 rounded-lg flex justify-center items-center" ondblclick={() => copy(i.label)}>
                                     <Dynamic component={i.comp} size={parseInt(props.size as string)}></Dynamic>
                                 </div>
                             )
