@@ -5,7 +5,7 @@ export interface ButtonProps {
     /**
      * 按钮类型
      */
-    type?: 'primary' | 'dashed' | 'link' | 'default'
+    type?: 'primary' | 'dashed' | 'link' | 'default' | 'text'
     /**
      * 按钮的HTML类型
      */
@@ -89,6 +89,9 @@ function createTypeClass(props: OriginComponentInputType<ButtonProps, HTMLButton
             const danger = props.danger ? 'text-error-500' : 'text-primary-500'
             return this.default() + ` border-none ${danger}`
         },
+        text() {
+            return 'hover:bg-design-ground'
+        },
         default: () => {
             const danger = props.danger ? 'hover:border-error-400 hover:text-error-400' : 'hover:border-primary-400 hover:text-primary-400'
             return `border-design-border border ${danger} bg-transparent`
@@ -107,6 +110,9 @@ function createDisabledClass(props: OriginComponentInputType<ButtonProps, HTMLBu
         link() {
             const danger = props.danger ? 'text-error-500' : 'text-primary-500'
             return this.default() + ` border-none ${danger}`
+        },
+        text() {
+            return this.link()
         },
         default: () => {
             return ` bg-transparent ` + common
