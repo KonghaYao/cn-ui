@@ -37,7 +37,8 @@ export type OriginComponentType = typeof OriginComponent
 
 /** 封装在组件外层，对内部提供 class style 等属性支持的装饰器 */
 export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
-    comp: Component<OriginComponentInputType<T, RefType, ModelType>>
+    comp: Component<OriginComponentInputType<T, RefType, ModelType>>,
+    options: { modelValue?: ModelType } = {}
 ): Component<OriginComponentOutputType<T, RefType, ModelType>> => {
     return (props) => {
         // 将 style 统一转化为对象结构
@@ -59,7 +60,7 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
             })()
         }
         // @ts-ignore
-        const inputModel: Atom<ModelType> = props['v-model'] ?? atom<ModelType>(null as unknown as ModelType)
+        const inputModel: Atom<ModelType> = props['v-model'] ?? atom<ModelType>(options?.modelValue ?? (null as unknown as ModelType))
         const $input = () => ({
             value: inputModel(),
             'on:input'(e: { target: { value: ModelType } }) {

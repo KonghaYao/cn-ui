@@ -52,13 +52,13 @@ export const createBlackBoard = <T extends Record<string, any>>(baseOpts: BlackB
  * const info = ctx.use()
  *
  *  */
-export const createCtx = <T>(data?: T) => {
+export const createCtx = <T>(data?: T, allowEmpty = false) => {
     const ctx = createContext(data)
     return {
         ...ctx,
         use<D = T>() {
             const context = useContext(ctx)
-            if (context === undefined) {
+            if (!allowEmpty && context === undefined) {
                 throw new Error('context is empty: place check parent jsx element!')
             }
             return context as D
