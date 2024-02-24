@@ -1,5 +1,5 @@
 import { JSXSlot, OriginComponent, ensureFunctionResult } from '@cn-ui/reactive'
-import { Popover, PopoverRootProps as $PopoverProps, usePopoverContext } from '@ark-ui/solid'
+import { Popover as _Popover, PopoverRootProps as $PopoverProps, usePopoverContext } from '@ark-ui/solid'
 import { Portal } from 'solid-js/web'
 export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> {
     content: JSXSlot
@@ -10,7 +10,8 @@ import './index.css'
 import { children, createMemo } from 'solid-js'
 import { pick } from 'lodash-es'
 import { spread } from './spread'
-const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
+
+export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
     const positioning = createMemo(() =>
         pick(props, [
             'placement',
@@ -40,7 +41,7 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
     })
     return (
         <>
-            <Popover.Root
+            <_Popover.Root
                 initialFocusEl={props.initialFocusEl}
                 autoFocus={false}
                 closeOnInteractOutside={true}
@@ -52,22 +53,21 @@ const _Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) 
             >
                 <PopoverTrigger as={child}></PopoverTrigger>
                 <Portal>
-                    <Popover.Positioner>
-                        <Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2">
-                            <Popover.Arrow class="popover__arrow">
-                                <Popover.ArrowTip class="popover__arrowTip" />
-                            </Popover.Arrow>
+                    <_Popover.Positioner>
+                        <_Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2 select-none">
+                            <_Popover.Arrow class="popover__arrow">
+                                <_Popover.ArrowTip class="popover__arrowTip" />
+                            </_Popover.Arrow>
                             <div>{ensureFunctionResult(props.content)}</div>
-                        </Popover.Content>
-                    </Popover.Positioner>
+                        </_Popover.Content>
+                    </_Popover.Positioner>
                 </Portal>
-            </Popover.Root>
+            </_Popover.Root>
             {/* 只渲染第一个子元素为 触发器，其余渲染为额外元素 */}
             {c.toArray().slice(1)}
         </>
     )
 })
-export { _Popover as Popover }
 export const PopoverTrigger = (props: { as: () => HTMLElement }) => {
     const api = usePopoverContext()
     if (!props.as()) return null

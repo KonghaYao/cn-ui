@@ -2,7 +2,7 @@
  *  @example onclick={toggleTheme}
  */
 export const toggleTheme = (event: { clientX?: number; clientY?: number }, toDark?: boolean) => {
-    const isDark = window?.matchMedia('(prefers-color-scheme: dark)').matches
+    const isDark = document.documentElement.classList.contains('dark') ?? window?.matchMedia('(prefers-color-scheme: dark)').matches
     toDark = toDark ?? !document.documentElement.classList.contains('dark')
     const toggleDark = () => {
         document.documentElement.classList[toDark ? 'add' : 'remove']('dark')
