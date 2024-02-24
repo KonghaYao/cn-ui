@@ -3,6 +3,8 @@ import { For, Show, createMemo } from 'solid-js'
 import { Tag } from './Tag'
 import { Key } from '@solid-primitives/keyed'
 export interface TagGroupOptions {
+    id?: string
+
     text: JSXSlot
     icon?: JSXSlot
     color?: string
@@ -20,32 +22,36 @@ export const TagGroup = OriginComponent<TagGroupProps, HTMLDivElement, TagGroupO
         return group().length > props.maxSize
     })
     const visibleItems = createMemo(() => {
-        return group()
+        const showing = group()
             .slice(-(props.maxSize ?? 2))
             .reverse()
+        if (isHideSomeItems())
+            return [
+                ...showing,
+                {
+                    id: '$index',
+                    text: group().length - props.maxSize! + '+'
+                }
+            ]
+        return showing
     })
     return (
-        <>
-            <Key by="text" each={visibleItems()}>
-                {(item) => {
-                    return (
-                        <Tag
-                            icon={ensureFunctionResult(item().icon)}
-                            color={item().color}
-                            onClose={() => {
-                                group.remove(item())
-                                props.onClose?.(item())
-                            }}
-                            closeable
-                        >
-                            {ensureFunctionResult(item().text)}
-                        </Tag>
-                    )
-                }}
-            </Key>
-            <Show when={isHideSomeItems()}>
-                <Tag>{group().length - props.maxSize!}+</Tag>
-            </Show>
-        </>
+        <Key by={(i) => i.id ?? i.text} each={visibleItems()}>
+            {(item) => {
+                return (
+                    <Tag
+                        icon={ensureFunctionResult(item().icon)}
+                        color={item().color}
+                        onClose={() => {
+                            group.remove(item())
+                            props.onClose?.(item())
+                        }}
+                        closeable
+                    >
+                        {ensureFunctionResult(item().text)}
+                    </Tag>
+                )
+            }}
+        </Key>
     )
 })

@@ -1,0 +1,14 @@
+.cn-list-move,
+.cn-list-enter-active,
+.cn-list-exit-active {
+    transition: all 0.3s ease;
+}
+
+.cn-list-enter-from,
+.cn-list-exit-to {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.cn-list-exit-active {
+    position: absolute;
+}

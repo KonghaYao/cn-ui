@@ -11,7 +11,8 @@ import { getLabelFromOptions } from './getLabelFromOptions'
 import './index.css'
 import { TagGroup } from '../../tag/TagGroup'
 import { Flex } from '../../container'
-import { createAutoAnimate } from '@formkit/auto-animate/solid'
+import '../../animation/cn-list.css'
+import { TransitionGroup } from 'solid-transition-group'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
 export interface SelectProps {
@@ -109,19 +110,18 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                     prefixIcon={(expose) => {
                         if (!props.multiple) return
 
-                        const [parent] = createAutoAnimate({
-                            duration: 95
-                        })
                         return (
-                            <Flex class=" flex-nowrap gap-2" justify="start" ref={parent}>
-                                <TagGroup
-                                    color="#a8a8a8"
-                                    v-model={multipleTags}
-                                    maxSize={2}
-                                    onClose={(item) => {
-                                        selectSystem.changeSelected(item.text as string, false)
-                                    }}
-                                ></TagGroup>
+                            <Flex class=" flex-nowrap gap-2" justify="start">
+                                <TransitionGroup name="cn-list">
+                                    <TagGroup
+                                        color="#a8a8a8"
+                                        v-model={multipleTags}
+                                        maxSize={2}
+                                        onClose={(item) => {
+                                            selectSystem.changeSelected(item.text as string, false)
+                                        }}
+                                    ></TagGroup>
+                                </TransitionGroup>
                             </Flex>
                         )
                     }}

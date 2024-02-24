@@ -42,7 +42,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
         },
         get overscan() {
             return props.overscan ?? Math.min(20, Math.floor(Math.sqrt(props.each.length)))
-        },
+        }
     })
     const { height } = useAutoResize(() => tableContainerRef()?.parentElement!)
     const CoreList = (

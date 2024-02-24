@@ -39,8 +39,7 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
         measureElement:
             typeof window !== 'undefined' && navigator.userAgent.indexOf('Firefox') === -1 ? (element) => element?.getBoundingClientRect().height : undefined,
         getScrollElement: () => tableContainerRef(),
-        overscan: props.overscan ?? 3,
-        gridSize: () => props.each.length
+        overscan: props.overscan ?? 3
     })
     const colVirtualizer = createVirtualizer({
         get count() {
@@ -54,8 +53,7 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
         horizontal: true,
         get overscan() {
             return props.overscan ?? Math.min(20, Math.floor(Math.sqrt(props.each.length)))
-        },
-        gridSize: () => props.each.length
+        }
     })
     const { height, width } = useAutoResize(() => tableContainerRef()?.parentElement!)
     const CoreList = (
