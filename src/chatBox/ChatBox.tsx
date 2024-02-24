@@ -4,6 +4,7 @@ import { Col, Row } from '../RowAndCol'
 import { BaseInput } from '../control/input'
 import { Avatar } from '../avatar'
 import '../animation/fade.css'
+import { Transition } from 'solid-transition-group'
 
 export interface ChatBoxMessage {
     id: string
@@ -21,17 +22,19 @@ export const ChatBox = OriginComponent(function <T extends ChatBoxMessage>(props
     return (
         <OriginDiv prop={props} class="flex flex-col h-full ">
             <header class="h-16 bg-gray-100"></header>
-            <VirtualList transitionName="cn-fade" reverse each={props.each} estimateSize={props.estimateSize} getItemKey={(i) => props.each[i].id}>
+            <VirtualList reverse each={props.each} estimateSize={props.estimateSize} getItemKey={(i) => props.each[i].id}>
                 {(item, _, { itemClass }) => {
                     itemClass('transition-all')
                     return (
-                        <Row bottomSpace={10}>
-                            <Col span={4}>{item.position !== 'right' && <Avatar src={item.avatar} fallback={<div>A</div>}></Avatar>}</Col>
-                            <Col span={16}>
-                                <div class="bg-gray-100 p-2 rounded-md">{ensureFunctionResult(item.message)}</div>
-                            </Col>
-                            <Col span={4}>{item.position === 'right' && <Avatar src={item.avatar} fallback={<div>A</div>}></Avatar>}</Col>
-                        </Row>
+                        <Transition name="cn-fade">
+                            <Row bottomSpace={10}>
+                                <Col span={4}>{item.position !== 'right' && <Avatar src={item.avatar} fallback={<div>A</div>}></Avatar>}</Col>
+                                <Col span={16}>
+                                    <p class="whitespace-pre-wrap bg-gray-100 p-2 rounded-md">{ensureFunctionResult(item.message)}</p>
+                                </Col>
+                                <Col span={4}>{item.position === 'right' && <Avatar src={item.avatar} fallback={<div>A</div>}></Avatar>}</Col>
+                            </Row>
+                        </Transition>
                     )
                 }}
             </VirtualList>
