@@ -1,9 +1,6 @@
 .popover__arrow {
     --arrow-size: 0.75rem;
-    --arrow-background: rgb(var(--cn-bg-design-card));
-}
-
-.popover__arrowTip {
+    --arrow-background: var(--cn-bg-design-card);
 }
 
 .popover__content {
