@@ -7,16 +7,13 @@ const config: StorybookConfig = {
         name: 'storybook-solidjs-vite',
         options: {}
     },
-    docs: {
-        autodocs: 'tag'
-    },
     typescript: {
         skipBabel: true,
         check: false
     },
     async viteFinal(config, { presets }) {
         // Add docgen plugin
-        const { reactDocgen: reactDocgenOption, reactDocgenTypescriptOptions } = await presets.apply<any>('typescript', {})
+        const { reactDocgenTypescriptOptions } = await presets.apply<any>('typescript', {})
         config.plugins?.push({
             enforce: 'pre',
             ...solidjsDocgen({
@@ -24,6 +21,7 @@ const config: StorybookConfig = {
                 savePropValueAsString: true
             })
         })
+        config.assetsInclude = ['/sb-preview/runtime.js']
         return config
     }
 }
