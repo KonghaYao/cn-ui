@@ -4,7 +4,7 @@ import { CommonGroupListConfig, GroupList } from './index'
 import { AiOutlineAccountBook } from 'solid-icons/ai'
 
 const meta = {
-    title: 'Controls/GroupList 分组列表',
+    title: 'Data 数据展示/GroupList 分组列表',
     component: GroupList,
     argTypes: {}
 } satisfies Meta<typeof GroupList>
