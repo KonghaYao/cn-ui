@@ -1,8 +1,8 @@
-import { NumberInput } from '@ark-ui/solid'
+import { NumberInput, useNumberInputContext } from '@ark-ui/solid'
 import { OriginComponent, computed, extendsEvent } from '@cn-ui/reactive'
 import { Icon } from '../../icon/Icon'
 import { AiOutlinePlus, AiOutlineMinus } from 'solid-icons/ai'
-import { Show } from 'solid-js'
+import { Show, children, JSXElement } from 'solid-js'
 export interface InputNumberProps {
     placeholder?: string
     min?: number
@@ -35,19 +35,20 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             return { minimumFractionDigits: props.min, maximumFractionDigits: props.max }
         }
     })
+
     return (
         <NumberInput.Root
             min={props.min}
-            allowMouseWheel={props.allowMouseWheel}
             max={props.max}
-            allowOverflow={false}
+            step={props.step}
+            formatOptions={formatOptions()}
+            allowMouseWheel={props.allowMouseWheel}
+            allowOverflow={true}
             value={value()}
             disabled={props.disabled}
-            step={props.step}
             locale={props.locale}
-            formatOptions={formatOptions()}
             class={props.class(
-                'rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border ',
+                'rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border flex',
                 props.disabled && 'opacity-50'
             )}
             style={props.style()}
@@ -56,20 +57,27 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             <NumberInput.Scrubber class="absolute w-1 h-full top-0 left-0" />
 
             <Show when={props.controls}>
-                <NumberInput.DecrementTrigger class="px-2 bg-design-divide transition-colors hover:bg-design-hover h-full">
-                    <Icon>
-                        <AiOutlineMinus></AiOutlineMinus>
-                    </Icon>
-                </NumberInput.DecrementTrigger>
+                <Controls disabled={props.disabled} mode="minus">
+                    <AiOutlineMinus></AiOutlineMinus>
+                </Controls>
             </Show>
             <NumberInput.Input placeholder={props.placeholder} class="apparent-none px-1 py-1 outline-none" {...extendsEvent(props)} />
             <Show when={props.controls}>
-                <NumberInput.IncrementTrigger class="px-2 bg-design-divide transition-colors hover:bg-design-hover h-full">
-                    <Icon>
-                        <AiOutlinePlus></AiOutlinePlus>
-                    </Icon>
-                </NumberInput.IncrementTrigger>
+                <Controls disabled={props.disabled} mode="add">
+                    <AiOutlinePlus></AiOutlinePlus>
+                </Controls>
             </Show>
         </NumberInput.Root>
     )
 })
+function Controls(props: { disabled?: boolean; mode: 'add' | 'minus'; children: JSXElement }) {
+    const ctx = useNumberInputContext()
+    return (
+        <Icon
+            {...ctx()[props.mode === 'add' ? 'incrementTriggerProps' : 'decrementTriggerProps']}
+            class="px-2 bg-design-divide transition-colors hover:bg-design-hover h-full flex items-center"
+        >
+            {props.children}
+        </Icon>
+    )
+}

@@ -21,7 +21,7 @@ export const Primary: Story = {
         return (
             <div class="flex gap-4">
                 <div>{data()}</div>
-                <InputNumber min={0} v-model={data} controls></InputNumber>
+                <InputNumber min={0} max={100} v-model={data} controls></InputNumber>
             </div>
         )
     },
