@@ -4,7 +4,7 @@ import { For, Show } from 'solid-js'
 import { Flex } from '../container'
 import { Icon } from '../icon/Icon'
 import { AiOutlineRight } from 'solid-icons/ai'
-import { Popover } from '../popover'
+import { Popover, PopoverProps } from '../popover'
 
 export type CommonGroupListConfig = {
     label?: string
@@ -30,6 +30,7 @@ export interface GroupListProps {
     open?: ((item: CommonGroupListConfig) => boolean) | boolean
     /** 从 0 开始的层级数 */
     level?: number
+    trigger?: PopoverProps['trigger']
 }
 const isGroupListConfigWithOptions = (item: CommonGroupListConfig) => {
     if ('options' in item) return true
@@ -85,9 +86,9 @@ export const GroupList = OriginComponent<GroupListProps>((props) => {
                         const open = computed(() => ensureFunctionResult(props.open, [item]))
                         return (
                             <Popover
-                                trigger="hover"
+                                trigger={props.trigger ?? 'click'}
                                 v-model={open}
-                                content={() => <GroupList level={props.level! + 1} options={item.options!} pure></GroupList>}
+                                content={() => <GroupList trigger={props.trigger} level={props.level! + 1} options={item.options!} pure></GroupList>}
                                 placement="right"
                             >
                                 {innerContent(item)}

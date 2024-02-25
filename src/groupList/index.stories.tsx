@@ -6,7 +6,6 @@ import { AiOutlineAccountBook } from 'solid-icons/ai'
 const meta = {
     title: 'Controls/GroupList 分组列表',
     component: GroupList,
-    tags: ['autodocs'],
     argTypes: {}
 } satisfies Meta<typeof GroupList>
 
@@ -68,6 +67,7 @@ export const Fold: Story = {
         return (
             <div class="flex gap-4">
                 <GroupList
+                    trigger="hover"
                     options={options}
                     open={(item) => {
                         return item.level! <= 2

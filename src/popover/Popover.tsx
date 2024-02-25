@@ -1,4 +1,4 @@
-import { JSXSlot, OriginComponent, ensureFunctionResult } from '@cn-ui/reactive'
+import { JSXSlot, NullAtom, OriginComponent, computed, ensureFunctionResult } from '@cn-ui/reactive'
 import { Popover as _Popover, PopoverRootProps as $PopoverProps, usePopoverContext } from '@ark-ui/solid'
 import { Portal } from 'solid-js/web'
 export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> {
@@ -7,9 +7,10 @@ export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> 
     initialFocusEl?: $PopoverProps['initialFocusEl']
 }
 import './index.css'
-import { children, createMemo } from 'solid-js'
+import { children, createEffect, createMemo, startTransition } from 'solid-js'
 import { pick } from 'lodash-es'
 import { spread } from './spread'
+import { MaybeAccessor, useElementHover } from 'solidjs-use'
 
 export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((props) => {
     const positioning = createMemo(() =>
@@ -39,12 +40,19 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
     const child = createMemo(() => {
         return c.toArray()[0] as HTMLElement
     })
+    const positioner = NullAtom<HTMLDivElement>(null)
+
+    const { hovering } = usePopoverHover([child, positioner])
+
+    createEffect(() => {
+        props.trigger === 'hover' && props.model(hovering())
+    })
     return (
         <>
             <_Popover.Root
                 initialFocusEl={props.initialFocusEl}
                 autoFocus={false}
-                closeOnInteractOutside={true}
+                closeOnInteractOutside={props.trigger === 'hover' ? false : true}
                 portalled
                 lazyMount={true}
                 open={props.model()}
@@ -52,22 +60,29 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
                 onOpenChange={(value) => props.model(value.open)}
             >
                 <PopoverTrigger as={child}></PopoverTrigger>
-                <Portal>
-                    <_Popover.Positioner>
-                        <_Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2 select-none">
-                            <_Popover.Arrow class="popover__arrow">
-                                <_Popover.ArrowTip class="popover__arrowTip" />
-                            </_Popover.Arrow>
-                            <div>{ensureFunctionResult(props.content)}</div>
-                        </_Popover.Content>
-                    </_Popover.Positioner>
-                </Portal>
+
+                <_Popover.Positioner ref={positioner}>
+                    <_Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2 select-none">
+                        <_Popover.Arrow class="popover__arrow">
+                            <_Popover.ArrowTip class="popover__arrowTip" />
+                        </_Popover.Arrow>
+                        <div>{ensureFunctionResult(props.content)}</div>
+                    </_Popover.Content>
+                </_Popover.Positioner>
             </_Popover.Root>
             {/* 只渲染第一个子元素为 触发器，其余渲染为额外元素 */}
             {c.toArray().slice(1)}
         </>
     )
 })
+export const usePopoverHover = (els: MaybeAccessor<EventTarget | null | undefined>[]) => {
+    const hoveringState = els.map((el) => useElementHover(el, { delayLeave: 300 }))
+    const hovering = computed(() => hoveringState.some((i) => i()))
+    return {
+        hovering
+    }
+}
+
 export const PopoverTrigger = (props: { as: () => HTMLElement }) => {
     const api = usePopoverContext()
     if (!props.as()) return null
