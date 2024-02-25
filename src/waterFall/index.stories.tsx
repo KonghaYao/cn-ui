@@ -6,7 +6,6 @@ import { photos } from './example/photos'
 const meta = {
     title: 'Layout 布局组件/WaterFall 瀑布流',
     component: WaterFall,
-    tags: ['autodocs'],
     argTypes: {}
 } satisfies Meta<typeof WaterFall>
 
@@ -16,18 +15,9 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
     render() {
         return (
-            <WaterFall items={photos}>
+            <WaterFall each={photos}>
                 {(item) => {
-                    return (
-                        <img
-                            class="object-cover"
-                            // 自动铺满需要这样设置
-                            style={{
-                                'aspect-ratio': `${item.height}/${item.width}`
-                            }}
-                            src={item.src}
-                        ></img>
-                    )
+                    return <img class="object-cover w-full" height={item.height} width={item.width} src={item.src}></img>
                 }}
             </WaterFall>
         )

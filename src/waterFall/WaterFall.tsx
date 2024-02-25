@@ -1,8 +1,11 @@
-import { Atom, atomization, OriginComponentInputType, extendsEvent, OriginComponent, reflect, classNames, OriginComponentOutputType } from '@cn-ui/reactive'
-import { createAutoAnimate } from '@formkit/auto-animate/solid'
+import { Atom, atomization, OriginComponentInputType, extendsEvent, OriginComponent, reflect, classNames } from '@cn-ui/reactive'
 import { Accessor, For, JSXElement, createMemo } from 'solid-js'
 export interface WaterFallProps<T> {
-    items: T[] | Atom<T[]>
+    /**
+     * an array to get data from
+     * @zh 数据源
+     */
+    each: T[] | Atom<T[]>
     column?: number | Atom<number>
     children: (data: T, index?: Accessor<number>) => JSXElement
     // 控制列的 class
@@ -11,10 +14,10 @@ export interface WaterFallProps<T> {
 }
 
 /**
- * 进行瀑布流式布局的组件库
+ * 瀑布流布局组件库
  */
 export const WaterFall = OriginComponent(function <T>(props: OriginComponentInputType<WaterFallProps<T>>) {
-    const items = atomization(props.items)
+    const items = atomization(props.each)
     const column = atomization(props.column ?? 3)
     const columnItems = reflect(() => {
         return items().reduce(
@@ -25,7 +28,7 @@ export const WaterFall = OriginComponent(function <T>(props: OriginComponentInpu
             [...Array(column()).keys()].map(() => [] as T[])
         )
     })
-  
+
     return (
         <section class={props.class('flex')} style={props.style()} {...extendsEvent(props)}>
             <For each={columnItems()} fallback={props.fallback && props.fallback()}>

@@ -2,7 +2,7 @@ import { NumberInput, useNumberInputContext } from '@ark-ui/solid'
 import { OriginComponent, computed, extendsEvent } from '@cn-ui/reactive'
 import { Icon } from '../../icon/Icon'
 import { AiOutlinePlus, AiOutlineMinus } from 'solid-icons/ai'
-import { Show, children, JSXElement } from 'solid-js'
+import { Show, JSXElement } from 'solid-js'
 export interface InputNumberProps {
     placeholder?: string
     min?: number
@@ -74,7 +74,7 @@ function Controls(props: { disabled?: boolean; mode: 'add' | 'minus'; children: 
     const ctx = useNumberInputContext()
     return (
         <Icon
-            {...ctx()[props.mode === 'add' ? 'incrementTriggerProps' : 'decrementTriggerProps']}
+            {...(ctx()[props.mode === 'add' ? 'incrementTriggerProps' : 'decrementTriggerProps'] as any)}
             class="px-2 bg-design-divide transition-colors hover:bg-design-hover h-full flex items-center"
         >
             {props.children}
