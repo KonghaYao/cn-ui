@@ -13,7 +13,7 @@ export function DayPanel() {
                 <DatePicker.TableHead>
                     <DatePicker.TableRow>
                         {api().weekDays.map((weekDay) => (
-                            <DatePicker.TableHeader class=" py-1">{weekDay.narrow}</DatePicker.TableHeader>
+                            <DatePicker.TableHeader class="font-normal py-1">{weekDay.narrow}</DatePicker.TableHeader>
                         ))}
                     </DatePicker.TableRow>
                 </DatePicker.TableHead>

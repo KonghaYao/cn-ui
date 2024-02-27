@@ -1,5 +1,5 @@
 import { Atom, NullAtom, OriginComponent, atomization, classNames, computed, extendsEvent } from '@cn-ui/reactive'
-import { Show, createMemo, mergeProps, onMount } from 'solid-js'
+import { Accessor, Show, createMemo, mergeProps, onMount } from 'solid-js'
 import { JSXElement } from 'solid-js'
 import { CountProps, useTextCount } from './useTextCount'
 import { ensureFunctionResult } from '@cn-ui/reactive'
@@ -7,6 +7,7 @@ import { triggerFocus, FocusOptions } from './triggerFocus'
 import { ControlCenter } from '../register'
 import { Dynamic } from 'solid-js/web'
 import './index.css'
+import { useElementHover } from 'solidjs-use'
 // Character count config
 export interface CountConfig {
     max?: number // Max character count. Different from the native `maxLength`, it will be marked warning but not truncated
@@ -17,6 +18,7 @@ export interface CountConfig {
 
 export interface InputExpose {
     inputType: Atom<string>
+    isHovering: Accessor<boolean>
     model: Atom<string>
     focus: (opts: FocusOptions) => void
 }
@@ -31,22 +33,30 @@ export interface BaseInputProps extends Omit<CountProps, 'model'> {
     expose?: (expose: InputExpose) => void
     autoSize?: boolean
     resize?: boolean
+    readonly?: boolean
+    placeholder?: string
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
     ControlCenter.register('text', BaseInput, { allowSameRegister: true }) // 把自己作为依赖注入控制组件族
-    props = mergeProps(props, {
-        placeholder: '请输入文本',
-        rounded: true
-    })
+    props = mergeProps(
+        {
+            placeholder: '请输入文本',
+            rounded: true
+        },
+        props
+    )
     const inputEl = NullAtom<HTMLInputElement>(null)
+    const inputWrapper = NullAtom<HTMLInputElement>(null)
     const inputType = atomization(props.type ?? 'text')
+    const isHovering = useElementHover(inputWrapper)
     const expose: InputExpose = {
         inputType,
         model: props.model,
         focus(opts) {
             triggerFocus(inputEl()!, opts)
-        }
+        },
+        isHovering
     }
     onMount(() => {
         props.expose?.(expose)
@@ -63,7 +73,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         const child = ensureFunctionResult(props.suffixIcon, [expose])
         return (
             <Show when={child || TextCount}>
-                <span class="ml-1 flex-none">
+                <span class="ml-1 text-design-h2 flex-none">
                     {child}
                     {TextCount}
                 </span>
@@ -73,6 +83,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
     const isTextarea = createMemo(() => props.type === 'textarea')
     return (
         <span
+            ref={inputWrapper}
             class={props.class(
                 'cn-base-input transition inline-flex border border-design-border py-1 px-3',
                 isTextarea() && props.autoSize && 'cn-textarea-auto-size',
@@ -85,9 +96,11 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         >
             {Prefix()}
             <Dynamic
+                placeholder={props.placeholder}
                 component={isTextarea() ? 'textarea' : 'input'}
                 ref={(el: HTMLInputElement) => (inputEl(el), props.ref?.(el))}
                 id={props.id}
+                readonly={props.readonly}
                 type={inputType()}
                 disabled={props.disabled}
                 class={classNames(
