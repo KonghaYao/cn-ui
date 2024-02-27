@@ -7,3 +7,4 @@ fs.writeFileSync(
         return [key, compress(val)]
     })))
 )
+fs.writeFileSync("./dist/area_upzip.json", JSON.stringify(areaList))
