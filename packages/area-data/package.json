@@ -1,0 +1,16 @@
+{
+  "name": "@cn-ui/area-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && node ./scripts/build.mjs"
+  },
+  "keywords": [],
+  "author": "Konghayao",
+  "license": "MIT",
+  "devDependencies": {
+    "@vant/area-data": "^1.5.1"
+  }
+}
