@@ -1,8 +1,0 @@
-.cn-date-panel {
-    & [aria-disabled='true'] {
-        @apply text-design-disabled;
-    }
-    & [aria-selected='true'] {
-        @apply bg-primary-400 text-design-pure;
-    }
-}

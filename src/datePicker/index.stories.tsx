@@ -14,11 +14,13 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
     render() {
-        const date = atom([])
+        const date = atom<Date[]>([])
         return (
             <>
-                {date().map((i) => i)}
                 <DatePanel v-model={date}></DatePanel>
+                <div>
+                    {date().map((i) => i.toString())}
+                </div>
             </>
         )
     },
