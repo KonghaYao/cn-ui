@@ -73,7 +73,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         const child = ensureFunctionResult(props.suffixIcon, [expose])
         return (
             <Show when={child || TextCount}>
-                <span class="ml-1 text-design-h2 flex-none">
+                <span class="ml-1 text-gray-400 flex-none">
                     {child}
                     {TextCount}
                 </span>

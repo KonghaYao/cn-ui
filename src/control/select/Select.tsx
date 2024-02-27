@@ -66,7 +66,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
         computed(() =>
             selectSystem.activeIdsArray().map((i) => {
                 return {
-                    text: valueToOptionCache.get(i)?.label ?? i
+                    label: valueToOptionCache.get(i)?.label ?? i
                 }
             })
         ),
@@ -117,8 +117,9 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
                                         color="#a8a8a8"
                                         v-model={multipleTags}
                                         maxSize={2}
+                                        closeable
                                         onClose={(item) => {
-                                            selectSystem.changeSelected(item.text as string, false)
+                                            selectSystem.changeSelected(item.label as string, false)
                                         }}
                                     ></TagGroup>
                                 </TransitionGroup>

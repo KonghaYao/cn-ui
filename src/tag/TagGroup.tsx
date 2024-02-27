@@ -5,13 +5,14 @@ import { Key } from '@solid-primitives/keyed'
 export interface TagGroupOptions {
     id?: string
 
-    text: JSXSlot
+    label: JSXSlot
     icon?: JSXSlot
     color?: string
 }
 
 export interface TagGroupProps {
     maxSize?: number
+    closeable?: boolean
     onClose?: (item: TagGroupOptions) => void
 }
 
@@ -30,13 +31,13 @@ export const TagGroup = OriginComponent<TagGroupProps, HTMLDivElement, TagGroupO
                 ...showing,
                 {
                     id: '$index',
-                    text: group().length - props.maxSize! + '+'
+                    label: group().length - props.maxSize! + '+'
                 }
             ]
         return showing
     })
     return (
-        <Key by={(i) => i.id ?? i.text} each={visibleItems()}>
+        <Key by={(i) => i.id ?? i.label} each={visibleItems()}>
             {(item) => {
                 return (
                     <Tag
@@ -46,9 +47,9 @@ export const TagGroup = OriginComponent<TagGroupProps, HTMLDivElement, TagGroupO
                             group.remove(item())
                             props.onClose?.(item())
                         }}
-                        closeable
+                        closeable={props.closeable && item().id !== '$index'}
                     >
-                        {ensureFunctionResult(item().text)}
+                        {ensureFunctionResult(item().label)}
                     </Tag>
                 )
             }}
