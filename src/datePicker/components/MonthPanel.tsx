@@ -1,9 +1,9 @@
-import { DatePicker as DatePicker, useDatePickerContext } from '@ark-ui/solid';
-import { ControlHeader } from './ControlHeader';
-import { tableCellClasss } from '../Panel/DatePanel';
+import { DatePicker as DatePicker, useDatePickerContext } from '@ark-ui/solid'
+import { ControlHeader } from './ControlHeader'
+import { tableCellClasss } from '../Panel/DatePanel'
 
 export function MonthPanel() {
-    const api = useDatePickerContext();
+    const api = useDatePickerContext()
     return (
         <DatePicker.View view="month">
             <ControlHeader></ControlHeader>
@@ -14,7 +14,7 @@ export function MonthPanel() {
                         .map((months) => (
                             <DatePicker.TableRow>
                                 {months.map((month) => (
-                                    <DatePicker.TableCell class='py-1 px-0' value={month.value}>
+                                    <DatePicker.TableCell class="py-1 px-0" value={month.value}>
                                         <DatePicker.TableCellTrigger class={'w-full ' + tableCellClasss}>{month.label}</DatePicker.TableCellTrigger>
                                     </DatePicker.TableCell>
                                 ))}
@@ -23,5 +23,5 @@ export function MonthPanel() {
                 </DatePicker.TableBody>
             </DatePicker.Table>
         </DatePicker.View>
-    );
+    )
 }

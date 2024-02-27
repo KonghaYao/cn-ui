@@ -4,11 +4,9 @@ type StyleObject = JSX.CSSProperties
 type StyleString = string
 type Style = StyleObject | StyleString
 
-export const mergeStyle = (a?: Style, b?: Style): StyleString =>
-    styleObjectToString({ ...getStyleObject(a), ...getStyleObject(b) })
+export const mergeStyle = (a?: Style, b?: Style): StyleString => styleObjectToString({ ...getStyleObject(a), ...getStyleObject(b) })
 
-const getStyleObject = (style?: Style): StyleObject =>
-    typeof style === 'object' ? style : stringStyleToObject(style)
+const getStyleObject = (style?: Style): StyleObject => (typeof style === 'object' ? style : stringStyleToObject(style))
 
 const stringStyleToObject = (style?: StyleString): StyleObject => {
     const object: Record<string, string> = {}

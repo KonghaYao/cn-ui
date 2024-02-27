@@ -9,10 +9,7 @@ export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: {
-    position?: "left" | "right"
-    absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number
-}) {
+export function BodyCell<T, D>(props: { position?: 'left' | 'right'; absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number }) {
     const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
     const ctx = createMemo(() => props.cell.getContext())
     const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)

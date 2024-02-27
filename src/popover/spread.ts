@@ -6,10 +6,7 @@ import { mergeStyle } from './merge-style'
 const getEventKey = (key: string) => `$$${key.toLowerCase().slice(2)}`
 const hasOwn = (obj: any, key: string) => Object.prototype.hasOwnProperty.call(obj, key)
 
-function mapProps(
-    props: Record<string, unknown>,
-    mapper: (key: string, value: unknown) => unknown,
-): Record<string, unknown> {
+function mapProps(props: Record<string, unknown>, mapper: (key: string, value: unknown) => unknown): Record<string, unknown> {
     return Object.fromEntries(Object.entries(props).map(([key, value]) => [key, mapper(key, value)]))
 }
 
@@ -18,7 +15,7 @@ export const spread = (node: HTMLElement | SVGElement, props: any) => {
         Object.keys(node)
             .filter((prop) => prop.startsWith('$$'))
             // @ts-expect-error - fix later
-            .map((prop) => [prop, node[prop]]),
+            .map((prop) => [prop, node[prop]])
     )
 
     const isSVG = node instanceof SVGElement
@@ -49,7 +46,7 @@ export const spread = (node: HTMLElement | SVGElement, props: any) => {
             if (node.hasAttribute(key)) return
 
             return value
-        }),
+        })
     )
 
     solidSpread(node, mergeProps(childProps), isSVG)

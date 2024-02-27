@@ -1,15 +1,15 @@
 .cn-selected.cn-table-body-row .cn-table-body-cell {
-    --at-apply: "bg-primary-50";
+    --at-apply: 'bg-primary-50';
 }
 
 .cn-selected.cn-table-body-row:hover .cn-table-body-cell {
-    --at-apply: "bg-primary-100";
+    --at-apply: 'bg-primary-100';
 }
 
 .cn-table-body-row:hover .cn-table-body-cell {
-    --at-apply: "bg-design-card";
+    --at-apply: 'bg-design-card';
 }
 
 .cn-table-body-row .cn-table-body-cell {
-    --at-apply: "bg-design-pure";
+    --at-apply: 'bg-design-pure';
 }

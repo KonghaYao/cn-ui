@@ -51,18 +51,23 @@ export const expandingConfig = {
     size: 60,
     header: ' ',
     cell(ctx) {
-        return <div class="p-2 w-full text-center">{
-            <Icon onClick={ctx.row.getToggleExpandedHandler()}>
+        return (
+            <div class="p-2 w-full text-center">
                 {
-                    ctx.row.getCanExpand() ? (
-                        ctx.row.getIsExpanded() ? <AiOutlineCaretDown class='fill-primary-600'></AiOutlineCaretDown> : <AiOutlineCaretRight class='fill-primary-600'></AiOutlineCaretRight>
-                    ) : (
-                        ' '
-                    )
+                    <Icon onClick={ctx.row.getToggleExpandedHandler()}>
+                        {ctx.row.getCanExpand() ? (
+                            ctx.row.getIsExpanded() ? (
+                                <AiOutlineCaretDown class="fill-primary-600"></AiOutlineCaretDown>
+                            ) : (
+                                <AiOutlineCaretRight class="fill-primary-600"></AiOutlineCaretRight>
+                            )
+                        ) : (
+                            ' '
+                        )}
+                    </Icon>
                 }
-            </Icon>
-
-        }</div>
+            </div>
+        )
     },
     forceSorting: false,
     accessorFn(_, index) {

@@ -60,11 +60,13 @@ export const SortingStateIcon = (props: { state: 'asc' | 'desc' | false; onClick
         <div class="absolute justify-center right-1 top-0 h-full w-4 flex flex-col cursor-pointer w-4 h-4" onClick={props.onClick}>
             {/* TODO Fallback 情况 */}
             <Show when={props.state}>
-                <AiOutlineSwapRight class={classNames('fill-primary-600', props.state === 'asc' ? 'rotate-90' : '-rotate-90')}
+                <AiOutlineSwapRight
+                    class={classNames('fill-primary-600', props.state === 'asc' ? 'rotate-90' : '-rotate-90')}
                     style={{
-                        scale: props.state === 'asc' ? "" : "-1 1"
+                        scale: props.state === 'asc' ? '' : '-1 1'
                     }}
-                    size={16}></AiOutlineSwapRight>
+                    size={16}
+                ></AiOutlineSwapRight>
             </Show>
         </div>
     )

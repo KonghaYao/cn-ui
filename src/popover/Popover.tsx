@@ -67,7 +67,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
                         <_Popover.Arrow class="popover__arrow">
                             <_Popover.ArrowTip class="popover__arrowTip" />
                         </_Popover.Arrow>
-                        <div class={props.wrapperClass} >{ensureFunctionResult(props.content)}</div>
+                        <div class={props.wrapperClass}>{ensureFunctionResult(props.content)}</div>
                     </_Popover.Content>
                 </_Popover.Positioner>
             </_Popover.Root>

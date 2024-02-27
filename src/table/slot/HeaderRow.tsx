@@ -35,9 +35,9 @@ export function HeaderRow<T>(props: {
                 style={
                     props.absolute
                         ? {
-                            height: toCSSPx(estimateHeight(), '48px'),
-                            top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
-                        }
+                              height: toCSSPx(estimateHeight(), '48px'),
+                              top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
+                          }
                         : {}
                 }
             >

@@ -9,7 +9,8 @@
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",
-        "build-storybook": "storybook build"
+        "build-storybook": "storybook build",
+        "prettier": "prettier --write src/**/*"
     },
     "dependencies": {
         "@ark-ui/solid": "~2.0.1",
