@@ -7,10 +7,6 @@
         @apply bg-primary-50 text-design-text rounded-none;
     }
 
-    [aria-selected='true']:hover button {
-        @apply bg-primary-200;
-    }
-
     button.cn-day-edge {
         @apply bg-primary-500 text-design-pure rounded;
     }

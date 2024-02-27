@@ -1,10 +1,11 @@
 import { JSXSlot, NullAtom, OriginComponent, computed, ensureFunctionResult } from '@cn-ui/reactive'
 import { Popover as _Popover, PopoverRootProps as $PopoverProps, usePopoverContext } from '@ark-ui/solid'
-import { Portal } from 'solid-js/web'
+
 export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> {
     content: JSXSlot
     trigger?: 'click' | 'hover' | 'focus' | 'none'
     initialFocusEl?: $PopoverProps['initialFocusEl']
+    wrapperClass?: string
 }
 import './index.css'
 import { children, createEffect, createMemo, startTransition } from 'solid-js'
@@ -66,7 +67,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
                         <_Popover.Arrow class="popover__arrow">
                             <_Popover.ArrowTip class="popover__arrowTip" />
                         </_Popover.Arrow>
-                        <div>{ensureFunctionResult(props.content)}</div>
+                        <div class={props.wrapperClass} >{ensureFunctionResult(props.content)}</div>
                     </_Popover.Content>
                 </_Popover.Positioner>
             </_Popover.Root>

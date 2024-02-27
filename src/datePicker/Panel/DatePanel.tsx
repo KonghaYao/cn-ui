@@ -1,19 +1,32 @@
 import { OriginComponent } from '@cn-ui/reactive'
-import { DatePicker as DatePicker } from '@ark-ui/solid'
-import './datePicker.css'
+import { DatePicker as DatePicker, DatePickerContext, useDatePickerContext, } from '@ark-ui/solid'
+import './datePanel.css'
 import { DayPanel } from '../components/DayPanel'
 import { MonthPanel } from '../components/MonthPanel'
 import { YearPanel } from '../components/YearPanel'
+import { onMount } from 'solid-js'
 
 export const tableCellClasss = "transition-colors duration-300 text-center hover:bg-design-hover rounded"
 
-export const DatePanel = OriginComponent<{}, HTMLDivElement, Date[]>((props) => {
+export interface DatePanelProps {
+    locale?: string
+    /**
+    * The selection mode of the calendar.
+    * - `single` - only one date can be selected
+    * - `multiple` - multiple dates can be selected
+    * - `range` - a range of dates can be selected
+    */
+    mode?: "single" | "multiple" | "range"
+    expose?: (api: ReturnType<DatePickerContext>) => void
+}
+
+export const DatePanel = OriginComponent<DatePanelProps, HTMLDivElement, Date[]>((props) => {
     return (
         <DatePicker.Root
-            locale="zh-CN"
+            locale={props.locale ?? "zh-CN"}
             open={true}
             class='min-w-72'
-            selectionMode="range"
+            selectionMode={props.mode ?? "single"}
             closeOnSelect={false}
             onValueChange={(val) => {
                 props.model(() =>
@@ -24,6 +37,7 @@ export const DatePanel = OriginComponent<{}, HTMLDivElement, Date[]>((props) => 
                 )
             }}
         >
+            {Expose(props)}
             <DayPanel></DayPanel>
             <MonthPanel></MonthPanel>
             <YearPanel></YearPanel>
@@ -32,3 +46,11 @@ export const DatePanel = OriginComponent<{}, HTMLDivElement, Date[]>((props) => 
 })
 
 
+
+const Expose = (props: DatePanelProps) => {
+    const api = useDatePickerContext()
+    onMount(() => {
+        props.expose?.(api())
+    })
+    return null
+}

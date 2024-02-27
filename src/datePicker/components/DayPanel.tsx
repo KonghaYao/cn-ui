@@ -2,6 +2,8 @@ import { classNames } from '@cn-ui/reactive';
 import { DatePicker as DatePicker, useDatePickerContext } from '@ark-ui/solid';
 import { tableCellClasss } from '../Panel/DatePanel';
 import { ControlHeader } from './ControlHeader';
+import { createMemo } from 'solid-js';
+import { className } from 'solid-js/web';
 
 export function DayPanel() {
     const api = useDatePickerContext();
@@ -20,9 +22,11 @@ export function DayPanel() {
                     {api().weeks.map((week) => (
                         <DatePicker.TableRow>
                             {week.map((day) => {
+                                const isEdge = createMemo(() => api().value.some(i => i.toString() === day.toString()))
                                 return (
-                                    <DatePicker.TableCell class='py-1 px-0' value={day}>
-                                        <DatePicker.TableCellTrigger class={classNames('w-full p-1', tableCellClasss, api().value.some(i => i.toString() === day.toString()) && "cn-day-edge")}>
+                                    <DatePicker.TableCell class={classNames(isEdge() ? 'px-0' : "px-0", 'w-12 h-12')} value={day}>
+                                        {/* 样式压不住，所以采用类名 */}
+                                        <DatePicker.TableCellTrigger class={classNames('p-1 w-full', tableCellClasss, isEdge() && "cn-day-edge")}>
                                             {day.day}
                                         </DatePicker.TableCellTrigger>
                                     </DatePicker.TableCell>

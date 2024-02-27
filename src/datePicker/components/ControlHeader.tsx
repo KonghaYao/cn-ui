@@ -19,7 +19,7 @@ export function ControlHeader() {
                     <AiOutlineLeft></AiOutlineLeft>
                 </Icon>
             </DatePicker.PrevTrigger>
-            <DatePicker.ViewTrigger class="flex-1">
+            <DatePicker.ViewTrigger class="flex-1 text-sm">
                 <DatePicker.RangeText />
             </DatePicker.ViewTrigger>
             <DatePicker.NextTrigger>
