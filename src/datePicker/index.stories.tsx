@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
     name: 'DatePanel 日历面板',
     render() {
-        const date = atom<Date[]>([])
+        const date = atom<Date[]>([new Date()])
         return (
             <>
                 <DatePanel v-model={date}></DatePanel>
