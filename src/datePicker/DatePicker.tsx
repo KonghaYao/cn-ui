@@ -59,7 +59,8 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
             )}
         >
             <Switch
-                fallback={<BaseInput placeholder="请输入日期" readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}
+                fallback={<BaseInput
+                    placeholder="请输入日期" readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}
             >
                 <Match when={props.mode === 'multiple'}>
                     <BaseInput
@@ -106,11 +107,11 @@ export const RangeInput = OriginComponent<
     const isHovering = useElementHover(wrapper)
     return (
         <OriginDiv prop={props} ref={wrapper} class="inline-flex p-1  items-center rounded border hover:border-primary-600">
-            <input type="text" placeholder="开始日期" class="outline-none w-28 px-2" readonly value={props.model()[0] ?? ''} />
+            <input type="text" placeholder="开始日期" class="text-sm outline-none w-28 px-2" readonly value={props.model()[0] ?? ''} />
             <Icon class="text-gray-400">
                 <AiOutlineSwapRight></AiOutlineSwapRight>
             </Icon>
-            <input type="text" placeholder="结束日期" class="outline-none w-28 px-2" readonly value={props.model()[1] ?? ''} />
+            <input type="text" placeholder="结束日期" class="text-sm outline-none w-28 px-2" readonly value={props.model()[1] ?? ''} />
             <Icon class="px-2 text-gray-400" onclick={props.onClear}>
                 <Show when={!isHovering()} fallback={<AiOutlineCloseCircle></AiOutlineCloseCircle>}>
                     <AiOutlineCalendar></AiOutlineCalendar>

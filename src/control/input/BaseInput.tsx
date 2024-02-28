@@ -85,7 +85,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         <span
             ref={inputWrapper}
             class={props.class(
-                'cn-base-input transition inline-flex border border-design-border py-1 px-3',
+                'cn-base-input transition inline-flex border border-design-border py-1 px-3 text-sm',
                 isTextarea() && props.autoSize && 'cn-textarea-auto-size',
                 props.rounded && 'rounded',
                 props.disabled && 'bg-gray-100 text-gray-400',

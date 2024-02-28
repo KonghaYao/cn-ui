@@ -15,7 +15,7 @@ export const Tag = OriginComponent<{
             prop={props}
             class={classNames(
                 props.inline === false ? 'flex' : 'inline-flex',
-                ' flex-row items-center px-2 rounded-md select-none border border-design-border text-sm font-light bg-design-card'
+                ' flex-row items-center px-2 rounded-md select-none border border-design-border text-sm font-light bg-design-card text-sm'
             )}
             style={{
                 'background-color': props.color ?? ''
