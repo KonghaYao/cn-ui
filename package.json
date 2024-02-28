@@ -47,6 +47,7 @@
         "@types/sortablejs": "^1.15.7",
         "@unocss/reset": "^0.58.5",
         "@unocss/transformer-directives": "^0.58.5",
+        "@vant/touch-emulator": "^1.4.0",
         "fuse.js": "^7.0.0",
         "hast-util-to-jsx-runtime": "^2.3.0",
         "jsdom": "^22.1.0",

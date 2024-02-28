@@ -101,6 +101,9 @@ importers:
       '@unocss/transformer-directives':
         specifier: ^0.58.5
         version: 0.58.5
+      '@vant/touch-emulator':
+        specifier: ^1.4.0
+        version: 1.4.0
       fuse.js:
         specifier: ^7.0.0
         version: 7.0.0
@@ -4740,6 +4743,10 @@ packages:
 
   /@vant/area-data@1.5.1:
     resolution: {integrity: sha512-gR5TPEzTbxN1cTK1aDhCoyikSCLX7DAacxyXoKyI4SAsYYTZrDl/nLgQFIm9vLsvWzlPIda8xV8/U3x7M9k6ww==}
+    dev: true
+
+  /@vant/touch-emulator@1.4.0:
+    resolution: {integrity: sha512-Zt+zISV0+wpOew2S1siOJ3G22y+hapHAKmXM+FhpvWzsRc4qahaYXatCAITuuXt0EcDp7WvEeTO4F7p9AtX/pw==}
     dev: true
 
   /@vitest/expect@1.2.0:
