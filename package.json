@@ -33,8 +33,8 @@
         "wc-spinners": "^1.1.1"
     },
     "devDependencies": {
-        "@ant-design/colors": "^7.0.2",
         "@cn-ui/area-data": "workspace:^",
+        "@ant-design/colors": "^7.0.2",
         "@joshwooding/vite-plugin-react-docgen-typescript": "^0.3.1",
         "@solidjs/testing-library": "^0.8.4",
         "@storybook/addon-essentials": "^7.6.17",

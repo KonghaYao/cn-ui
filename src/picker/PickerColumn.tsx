@@ -1,6 +1,11 @@
 /**
  * 模仿自 Vant 项目 Picker 进行了 Solidjs 适配
  */
+import { useEventListener, watch } from 'solidjs-use'
+import { useTouch } from './useTouch'
+import { NullAtom, OriginComponent, OriginDiv, atom, computed, toCSSPx } from '@cn-ui/reactive'
+import { For, createEffect, mergeProps } from 'solid-js'
+import { SelectItemsType } from '../control/select'
 
 /** clamps number within the inclusive lower and upper bounds */
 export const clamp = (num: number, min: number, max: number): number => Math.min(Math.max(num, min), max)
@@ -22,28 +27,28 @@ export function findIndexOfEnabledOption(options: PickerColumnProps['options'], 
     return 0
 }
 
-// Composables
-import { useEventListener } from 'solidjs-use'
-import { useTouch } from './useTouch'
-import { NullAtom, OriginComponent, OriginDiv, atom, computed } from '@cn-ui/reactive'
-import { For, createEffect } from 'solid-js'
-
 const DEFAULT_DURATION = 200
-
-// 惯性滑动思路:
-// 在手指离开屏幕时，如果和上一次 move 时的间隔小于 `MOMENTUM_TIME` 且 move
-// 距离大于 `MOMENTUM_DISTANCE` 时，执行惯性滑动
 const MOMENTUM_TIME = 300
 const MOMENTUM_DISTANCE = 15
 
-interface PickerColumnProps {
-    options: { label?: string; value: string; disabled?: boolean }[]
+export interface PickerColumnProps {
+    options: SelectItemsType[]
     readonly?: boolean
-    optionHeight: number
-    swipeDuration: number
-    visibleOptionNum: number
+    /** 单个选项高度 */
+    optionHeight?: number
+    /** 可视范围内的选项数 */
+    visibleOptionNum?: number
+    swipeDuration?: number
 }
-export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, PickerColumnProps['options'][number]>((props) => {
+export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, PickerColumnProps['options'][number] | null>((_props) => {
+    const props = mergeProps(
+        {
+            optionHeight: 44,
+            swipeDuration: 1000,
+            visibleOptionNum: 6
+        },
+        _props
+    )
     let moving: boolean
     let startOffset: number
     let touchStartTime: number
@@ -70,8 +75,7 @@ export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, P
             }
 
             const value = props.options[enabledIndex]
-            if (value !== props.model()) {
-                console.log(value)
+            if (value.value !== props.model()?.value) {
                 props.model(value)
                 // emit('change', value);
             }
@@ -194,12 +198,12 @@ export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, P
             moving = false
         }, 0)
     }
-    const getLabelFromOptions = (option: { label?: string; value: string }) => {
+    const getLabelFromOptions = (option: SelectItemsType) => {
         return option.label ?? option.value
     }
 
     createEffect(() => {
-        const index = moving ? Math.floor(-currentOffset() / props.optionHeight) : props.options.findIndex((option) => option === props.model())
+        const index = moving ? Math.floor(-currentOffset() / props.optionHeight) : props.options.findIndex((option) => option.value === props.model()?.value)
         const enabledIndex = findIndexOfEnabledOption(props.options, index)
         const offset = -enabledIndex * props.optionHeight
         if (moving && enabledIndex < index) stopMomentum()
@@ -214,7 +218,7 @@ export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, P
             prop={props}
             class="relative select-none cursor-grab overflow-hidden"
             style={{
-                height: '264px'
+                height: toCSSPx(props.visibleOptionNum * props.optionHeight)
             }}
             ref={root}
             ontouchstart={onTouchStart}
@@ -222,24 +226,18 @@ export const PickerColumn = OriginComponent<PickerColumnProps, HTMLDivElement, P
             ontouchcancel={onTouchEnd}
         >
             <div
+                class="absolute top-0 left-0 z-1 w-full h-full pointer-events-none"
                 style={{
-                    position: 'absolute',
-                    top: '0',
-                    left: '0',
-                    'z-index': '1',
-                    width: '100%',
-                    height: '100%',
                     'background-image':
                         'linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4)),linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4))',
                     'background-repeat': 'no-repeat',
                     'background-position': 'top, bottom',
                     transform: 'translatez(0)',
-                    'pointer-events': 'none',
                     'background-size': `100% ${(props.optionHeight * +props.visibleOptionNum - props.optionHeight) / 2}px`
                 }}
             ></div>
             <div
-                class="absolute top-[50%] left-0 z-2 pointer-events-none border-t -translate-y-1/2 border-b w-full border-degsign-border"
+                class="absolute top-[50%] left-0 z-2 pointer-events-none border-t -translate-y-1/2 border-b w-full border-design-border"
                 style={{ height: `${props.optionHeight}px` }}
             ></div>
             <ul

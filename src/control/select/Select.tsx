@@ -143,6 +143,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>((pr
 export interface SelectItemsType {
     label?: string | number
     value: string | number
+    disabled?: boolean
 }
 
 export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: boolean; onSelect?: (item: SelectItemsType, state: boolean) => void }) => {
