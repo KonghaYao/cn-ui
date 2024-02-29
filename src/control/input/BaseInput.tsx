@@ -4,7 +4,6 @@ import { JSXElement } from 'solid-js'
 import { CountProps, useTextCount } from './useTextCount'
 import { ensureFunctionResult } from '@cn-ui/reactive'
 import { triggerFocus, FocusOptions } from './triggerFocus'
-import { ControlCenter } from '../register'
 import { Dynamic } from 'solid-js/web'
 import './index.css'
 import { useElementHover } from 'solidjs-use'
@@ -38,7 +37,6 @@ export interface BaseInputProps extends Omit<CountProps, 'model'> {
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
-    ControlCenter.register('text', BaseInput, { allowSameRegister: true }) // 把自己作为依赖注入控制组件族
     props = mergeProps(
         {
             placeholder: '请输入文本',
