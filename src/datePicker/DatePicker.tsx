@@ -59,8 +59,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
             )}
         >
             <Switch
-                fallback={<BaseInput
-                    placeholder="请输入日期" readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}
+                fallback={<BaseInput placeholder="请输入日期" readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}
             >
                 <Match when={props.mode === 'multiple'}>
                     <BaseInput

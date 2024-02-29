@@ -43,9 +43,9 @@
 
 -   [x] 1 Code
 -   [x] 1 Button
--   [ ] 1 Float Button
+-   [x] 1 Float Button
 -   [ ] 1 Link
--   [ ] 1 Icon
+-   [x] 1 Icon
 -   [ ] 1 Divider
 -   [x] 1 Avatar
 -   [ ] 1 Badge
@@ -61,7 +61,9 @@
 -   [ ] 1 Carousel
 -   [ ] 1 QRCode
 -   [ ] 1 Statistic
+-   [ ] 1 GroupList
 -   [ ] 2 Watermark
+
 -   [x] 2 Collapse
 -   [ ] 3 Timeline
 -   [ ] 4 Tree
@@ -82,16 +84,17 @@
 -   [ ] 1 Segmented
 -   [ ] 1 Toggle Group
 -   [x] 1 Checkbox
--   [ ] 1 AutoComplete
-
--   [ ] 1 ColorPicker
--   [ ] 1 DatePicker
+    -   [x] 1 Radio
+-   [x] 1 DatePicker
 -   [x] 1 Input
--   [ ] 1 InputNumber
--   [ ] 1 Mentions
--   [ ] 1 Radio
--   [ ] 1 Rate
+-   [x] 1 InputNumber
+-   [x] 1 Picker
 -   [x] 1 Select
+
+-   [ ] 1 AutoComplete
+-   [ ] 1 ColorPicker
+-   [ ] 1 Mentions
+-   [ ] 1 Rate
 -   [ ] 1 Slider
 -   [ ] 1 Switch
 -   [ ] 1 TimePicker
