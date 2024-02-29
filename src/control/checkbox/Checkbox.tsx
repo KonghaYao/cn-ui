@@ -4,7 +4,7 @@ export type CheckboxGroupCtxType = ReturnType<typeof useSelect> & {}
 export const CheckboxGroupCtx = createCtx<CheckboxGroupCtxType>({} as any)
 
 export interface CheckboxProps {
-    label: string
+    label?: string
     value: string
     disabled?: boolean
     indeterminate?: boolean

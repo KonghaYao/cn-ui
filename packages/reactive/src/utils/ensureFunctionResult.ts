@@ -10,3 +10,7 @@ export const ensureFunctionResult = <T>(result: T, props?: ensureParameters<T>, 
     /** @ts-ignore */
     return result
 }
+
+export const ensureArrayReturn = <T>(i: T | T[]) => {
+    return Array.isArray(i) ? i : [i]
+}

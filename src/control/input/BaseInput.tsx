@@ -114,3 +114,4 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         </span>
     )
 })
+export const Input = BaseInput
