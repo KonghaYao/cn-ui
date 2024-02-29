@@ -68,3 +68,16 @@ export const Primary: Story = {
     },
     args: {}
 }
+
+export const Tooltips: Story = {
+    render() {
+        return (
+            <Flex class="h-full bg-gray-100">
+                <Popover content={'12321323'} trigger={'hover'}>
+                    <Button>按钮</Button>
+                </Popover>
+            </Flex>
+        )
+    },
+    args: {}
+}
