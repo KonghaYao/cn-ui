@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "emitDeclarationOnly": false,
+        "outDir": "dist",
+        "moduleResolution": "Bundler"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "src/**.test.**"
+    ]
+}
