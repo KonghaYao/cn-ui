@@ -50,7 +50,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
         })
         const input = NullAtom<HTMLDivElement>(null)
         const inputText = computed(() =>
-            !!props.multiple ? '' : getLabelFromOptions(valueToOptionCache.get(props.model()?.[0]) ?? { value: props.model()?.[0] }) ?? ''
+            !!props.multiple ? '' : getLabelFromOptions(valueToOptionCache.get(props.model()?.[0]) ?? { value: props.model()?.[0] ?? '' })
         )
         const readableInputText = inputText.toSignal()[0]
         const filteredOptions = computed(
@@ -94,6 +94,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
                     placement="bottom-start"
                 >
                     <BaseInput
+                        id={props.id}
                         v-model={readableInputText}
                         ref={input}
                         disabled={props.disabled}
