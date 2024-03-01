@@ -1,0 +1,11 @@
+html:not(.dark) json-viewer {
+    --string-color: #2a9d8f;
+    --number-color: #e76f51;
+    --boolean-color: #0077b6;
+    --null-color: #8338ec;
+    --property-color: #1d3557;
+}
+
+json-viewer {
+    --background-color: transparent;
+}
