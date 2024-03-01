@@ -34,6 +34,7 @@
         "wc-spinners": "^1.1.1"
     },
     "devDependencies": {
+        "@alenaksu/json-viewer": "^2.0.1",
         "@ant-design/colors": "^7.0.2",
         "@cn-ui/area-data": "workspace:^",
         "@joshwooding/vite-plugin-react-docgen-typescript": "^0.3.1",

@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { atom } from '@cn-ui/reactive'
+import { ObjectAtom, StoreToAtom, atom } from '@cn-ui/reactive'
 import { FormCore, FormCoreRegister } from './FromCore'
-import { Flex } from '../../container'
 import { For } from 'solid-js'
 import { FormInput } from '../input/FormInput'
 import { FormSelect } from '../select/FormSelect'
 import { Col, Row } from '../../RowAndCol'
+import { createStore } from 'solid-js/store'
+import { JSONViewer } from '../../dataViewer'
 
 const meta = {
     title: 'From/FormCore',
@@ -23,12 +24,11 @@ FormCoreRegister.register('select', FormSelect, { allowSameRegister: true })
 export const Primary: Story = {
     name: 'Checkbox 多选框',
     render() {
-        const data = atom(false)
         const configs = [
-            { label: 'info', value: '32433', type: 'text' },
+            { label: 'info', value: 'info', type: 'text' },
             {
                 label: 'select',
-                value: '32433',
+                value: 'select',
                 type: 'select',
                 options: [
                     {
@@ -46,17 +46,20 @@ export const Primary: Story = {
                 ]
             }
         ]
+        const [obj, setObj] = createStore({
+            select: 'tom'
+        })
         return (
             <Row>
                 <For each={configs}>
                     {(item) => {
-                        return (
-                            <Col span={6}>
-                                <FormCore config={item}></FormCore>
-                            </Col>
-                        )
+                        const model = StoreToAtom([obj, setObj], item.value)
+                        return <FormCore span={6} config={item} v-model={model}></FormCore>
                     }}
                 </For>
+                <Col>
+                    <JSONViewer data={obj}></JSONViewer>
+                </Col>
             </Row>
         )
     },
