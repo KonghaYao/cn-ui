@@ -10,6 +10,8 @@ import { createStore } from 'solid-js/store'
 import { JSONViewer } from '../../dataViewer'
 import { FormRadio } from '../checkbox/FormRadio'
 import { FormCheckBox } from '../checkbox/FormCheckBox'
+import { FormInputNumber } from '../inputNumber/FormInputNumber'
+import { FormDatePicker, FormDateRangePicker } from '../../datePicker/FormDatePicker'
 
 const meta = {
     title: 'From/FormCore',
@@ -22,6 +24,9 @@ type Story = StoryObj<typeof meta>
 
 FormCoreRegister.register('text', FormInput, { allowSameRegister: true })
 FormCoreRegister.register('select', FormSelect, { allowSameRegister: true })
+FormCoreRegister.register('number', FormInputNumber, { allowSameRegister: true })
+FormCoreRegister.register('date', FormDatePicker, { allowSameRegister: true })
+FormCoreRegister.register('date-range', FormDateRangePicker, { allowSameRegister: true })
 FormCoreRegister.register('radio', FormRadio, { allowSameRegister: true })
 FormCoreRegister.register('checkbox', FormCheckBox, { allowSameRegister: true })
 
@@ -30,6 +35,9 @@ export const Primary: Story = {
     render() {
         const configs = [
             { label: 'info', value: 'info', type: 'text' },
+            { label: 'number', value: 'number', type: 'number' },
+            { label: 'date', value: 'date', type: 'date' },
+            { label: 'date-range', value: 'date-range', type: 'date-range' },
             {
                 label: 'select',
                 value: 'select',
@@ -98,7 +106,7 @@ export const Primary: Story = {
                 <For each={configs}>
                     {(item) => {
                         const model = StoreToAtom([obj, setObj], item.value)
-                        return <FormCore span={item.span ?? 6} config={item} v-model={model}></FormCore>
+                        return <FormCore span={item.span} config={item} v-model={model}></FormCore>
                     }}
                 </For>
                 <Col>

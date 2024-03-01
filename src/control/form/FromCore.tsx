@@ -1,14 +1,14 @@
-import { Atom, toCSSPx, createBlackBoard } from '@cn-ui/reactive'
+import { Atom, toCSSPx, createBlackBoard, classNames } from '@cn-ui/reactive'
 import { Dynamic, Show } from 'solid-js/web'
 import { Col } from '../../RowAndCol'
-
+import './form-core.css'
 export const FormCoreRegister = createBlackBoard<Record<string, any>>()
 
-export const FormCore = (props: { config: any; span?: number; errorMessage?: string; 'v-model': Atom<any> }) => {
+export const FormCore = (props: { wrap?: boolean; config: any; span?: number; errorMessage?: string; 'v-model': Atom<any> }) => {
     const id = 'form-' + props.config.value
     return (
-        <Col span={props.span ?? 6} class="cn-form-core flex flex-wrap gap-4">
-            <label for={id} class="flex-none text-right" style={{ 'max-width': '25%' }}>
+        <Col span={props.span ?? 12} class={classNames(props.wrap && 'flex-wrap', 'cn-form-core flex  gap-4')}>
+            <label for={id} class="flex-none text-right w-full" style={{ 'max-width': '100px' }}>
                 <Show when={true}>
                     <sup class="text-red-400 pr-1">*</sup>
                 </Show>

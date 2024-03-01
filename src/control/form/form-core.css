@@ -1,0 +1,7 @@
+.cn-form-core {
+    .cn-base-input,
+    .cn-date-picker-range,
+    .cn-input-number {
+        width: 100%;
+    }
+}

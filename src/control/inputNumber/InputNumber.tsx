@@ -48,7 +48,7 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             disabled={props.disabled}
             locale={props.locale}
             class={props.class(
-                'rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border flex',
+                'cn-input-number rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border flex',
                 props.disabled && 'opacity-50'
             )}
             style={props.style()}
@@ -61,7 +61,12 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
                     <AiOutlineMinus></AiOutlineMinus>
                 </Controls>
             </Show>
-            <NumberInput.Input id={props.id} placeholder={props.placeholder} class="apparent-none px-1 py-1 outline-none" {...extendsEvent(props)} />
+            <NumberInput.Input
+                id={props.id}
+                placeholder={props.placeholder}
+                class="apparent-none text-center flex-1 px-1 py-1 outline-none"
+                {...extendsEvent(props)}
+            />
             <Show when={props.controls}>
                 <Controls disabled={props.disabled} mode="add">
                     <AiOutlinePlus></AiOutlinePlus>
@@ -75,7 +80,7 @@ function Controls(props: { disabled?: boolean; mode: 'add' | 'minus'; children: 
     return (
         <Icon
             {...(ctx()[props.mode === 'add' ? 'incrementTriggerProps' : 'decrementTriggerProps'] as any)}
-            class="px-2 bg-design-divide transition-colors hover:bg-design-hover h-full flex items-center"
+            class="px-2 bg-design-divide transition-colors cursor-pointer hover:bg-design-hover h-full flex items-center"
         >
             {props.children}
         </Icon>

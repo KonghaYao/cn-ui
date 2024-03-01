@@ -14,6 +14,7 @@ import { TagGroup } from '../tag/TagGroup'
 
 export interface DatePickerProps extends DatePanelProps {
     formatter?: (date: Date, locale?: string) => string
+    placeholder?: string
 }
 
 const DefaultDateFormatter = (date: Date, locale?: string) => {
@@ -43,7 +44,9 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
             </Show>
         </>
     )
-
+    const inputProps = computed(() => {
+        return { id: props.id, placeholder: props.placeholder }
+    })
     return (
         <Popover
             wrapperClass="p-2"
@@ -58,11 +61,10 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
                 ></DatePanel>
             )}
         >
-            <Switch
-                fallback={<BaseInput placeholder="请输入日期" readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}
-            >
+            <Switch fallback={<BaseInput {...inputProps()} readonly v-model={createMemo(() => stringDate()[0] ?? '')} suffixIcon={clearBtn}></BaseInput>}>
                 <Match when={props.mode === 'multiple'}>
                     <BaseInput
+                        {...inputProps()}
                         placeholder="请输入日期"
                         prefixIcon={() => {
                             const multipleTags = computed(() =>
@@ -84,6 +86,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
                 </Match>
                 <Match when={props.mode === 'range'}>
                     <RangeInput
+                        inputProps={inputProps()}
                         v-model={stringDate}
                         onClear={() => {
                             DatePickerExpose()?.clearValue()
@@ -98,6 +101,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
 export const RangeInput = OriginComponent<
     {
         onClear?: () => void
+        inputProps: any
     },
     HTMLDivElement,
     string[]
@@ -105,12 +109,26 @@ export const RangeInput = OriginComponent<
     const wrapper = NullAtom<HTMLDivElement>(null)
     const isHovering = useElementHover(wrapper)
     return (
-        <OriginDiv prop={props} ref={wrapper} class="inline-flex p-1  items-center rounded border hover:border-primary-600">
-            <input type="text" placeholder="开始日期" class="text-sm outline-none w-28 px-2" readonly value={props.model()[0] ?? ''} />
+        <OriginDiv prop={props} ref={wrapper} class="cn-date-picker-range inline-flex p-1  items-center rounded border hover:border-primary-600">
+            <input
+                {...props.inputProps}
+                type="text"
+                placeholder="开始日期"
+                class="flex-1 text-sm outline-none w-28 px-2"
+                readonly
+                value={props.model()[0] ?? ''}
+            />
             <Icon class="text-gray-400">
                 <AiOutlineSwapRight></AiOutlineSwapRight>
             </Icon>
-            <input type="text" placeholder="结束日期" class="text-sm outline-none w-28 px-2" readonly value={props.model()[1] ?? ''} />
+            <input
+                {...props.inputProps}
+                type="text"
+                placeholder="结束日期"
+                class="flex-1 text-sm outline-none w-28 px-2"
+                readonly
+                value={props.model()[1] ?? ''}
+            />
             <Icon class="px-2 text-gray-400" onclick={props.onClear}>
                 <Show when={!isHovering()} fallback={<AiOutlineCloseCircle></AiOutlineCloseCircle>}>
                     <AiOutlineCalendar></AiOutlineCalendar>

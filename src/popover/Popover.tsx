@@ -63,7 +63,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
                 <PopoverTrigger as={child}></PopoverTrigger>
 
                 <_Popover.Positioner ref={positioner}>
-                    <_Popover.Content class="popover__content outline-none bg-design-card rounded-md flex flex-col z-50 p-2 select-none">
+                    <_Popover.Content class="popover__content outline-none bg-design-pure rounded-md flex flex-col z-50 p-2 select-none">
                         <_Popover.Arrow class="popover__arrow">
                             <_Popover.ArrowTip class="popover__arrowTip" />
                         </_Popover.Arrow>

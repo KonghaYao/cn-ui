@@ -6,7 +6,7 @@ export const JSONViewer = (props: { data: any }) => {
         <Flex vertical align="start" class="border relative p-2 rounded-lg border-gray-400">
             <div class="absolute -top-3 right-4"> JSON Viewer</div>
             {/* @ts-ignore */}
-            <json-viewer data={{ ...props.data }}></json-viewer>
+            <json-viewer data={{ ...JSON.parse(JSON.stringify(props.data)) }}></json-viewer>
         </Flex>
     )
 }

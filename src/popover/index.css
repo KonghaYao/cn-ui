@@ -1,6 +1,6 @@
 .popover__arrow {
     --arrow-size: 0.75rem;
-    --arrow-background: var(--cn-bg-design-card);
+    --arrow-background: var(--cn-bg-design-pure);
 }
 
 .popover__content {

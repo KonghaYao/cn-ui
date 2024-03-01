@@ -1,14 +1,14 @@
 import { OriginComponent, ensureArrayReturn } from '@cn-ui/reactive'
 
-import { DatePicker } from './index'
+import { DatePicker, DatePickerProps } from './index'
 
-export const FormDatePicker = OriginComponent<{}, HTMLDivElement, Date | null>((props) => {
+export const FormDatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date | null>((props) => {
     const model = props.model.reflux(ensureArrayReturn(props.model() ?? []), (i) => i[0] ?? null)
 
-    return <DatePicker v-model={model}></DatePicker>
+    return <DatePicker {...(props as any)} v-model={model}></DatePicker>
 })
-export const FormDateRangePicker = OriginComponent<{}, HTMLDivElement, Date[] | null>((props) => {
+export const FormDateRangePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[] | null>((props) => {
     const model = props.model.reflux(props.model() ?? [], (i) => i)
 
-    return <DatePicker v-model={model}></DatePicker>
+    return <DatePicker {...(props as any)} mode="range" v-model={model}></DatePicker>
 })
