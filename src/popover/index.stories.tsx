@@ -12,7 +12,6 @@ import { Button } from '../button'
 const meta = {
     title: 'Data 数据展示/Popover 弹出层',
     component: Popover,
-    tags: ['autodocs'],
     argTypes: {}
 } satisfies Meta<typeof Popover>
 

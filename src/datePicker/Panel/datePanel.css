@@ -8,6 +8,6 @@
     }
 
     button.cn-day-edge {
-        @apply bg-primary-500 text-design-pure rounded;
+        @apply bg-primary-500 text-design-pure rounded h-full;
     }
 }
