@@ -37,6 +37,7 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
                 indeterminate={props.indeterminate}
                 disabled={props.disabled}
                 type={inputType()}
+                name={props.value}
                 checked={isChecked()}
                 {...extendsEvent(props)}
                 oninput={(e) => {

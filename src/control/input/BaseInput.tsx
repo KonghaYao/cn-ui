@@ -34,6 +34,7 @@ export interface BaseInputProps extends Omit<CountProps, 'model'> {
     resize?: boolean
     readonly?: boolean
     placeholder?: string
+    name?: string
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
@@ -106,6 +107,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
                     props.disabled && ' cursor-not-allowed',
                     !props.resize && 'resize-none'
                 )}
+                name={props.name}
                 {...props.$input()}
                 {...extendsEvent(props)}
             ></Dynamic>

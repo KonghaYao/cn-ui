@@ -1,8 +1,8 @@
 import { OriginComponent } from '@cn-ui/reactive'
 
-import { InputNumber } from './InputNumber'
+import { InputNumber, InputNumberProps } from './InputNumber'
 
-export const FormInputNumber = OriginComponent<{}, HTMLDivElement, number | null>((props) => {
+export const FormInputNumber = OriginComponent<InputNumberProps, HTMLDivElement, number | null>((props) => {
     const model = props.model.reflux(props.model() ?? 0, (i) => i)
-    return <InputNumber v-model={model} controls></InputNumber>
+    return <InputNumber {...(props as any)} v-model={model} controls></InputNumber>
 })

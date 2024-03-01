@@ -4,6 +4,7 @@ html:not(.dark) json-viewer {
     --boolean-color: #0077b6;
     --null-color: #8338ec;
     --property-color: #1d3557;
+    --preview-color: #e96d1b;
 }
 
 json-viewer {

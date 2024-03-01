@@ -61,7 +61,7 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
                     <AiOutlineMinus></AiOutlineMinus>
                 </Controls>
             </Show>
-            <NumberInput.Input placeholder={props.placeholder} class="apparent-none px-1 py-1 outline-none" {...extendsEvent(props)} />
+            <NumberInput.Input id={props.id} placeholder={props.placeholder} class="apparent-none px-1 py-1 outline-none" {...extendsEvent(props)} />
             <Show when={props.controls}>
                 <Controls disabled={props.disabled} mode="add">
                     <AiOutlinePlus></AiOutlinePlus>

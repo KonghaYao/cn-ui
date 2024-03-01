@@ -3,7 +3,7 @@ import { For } from 'solid-js'
 import { CheckboxProps, CheckboxGroupCtx, Checkbox } from './Checkbox'
 
 export interface CheckboxGroupExpose extends ReturnType<typeof useSelect> {}
-interface CheckboxGroupProps {
+export interface CheckboxGroupProps {
     options: (string | number | CheckboxProps)[]
     expose?: (expose: CheckboxGroupExpose) => void
     multiple?: boolean

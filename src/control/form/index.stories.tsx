@@ -8,6 +8,8 @@ import { FormSelect } from '../select/FormSelect'
 import { Col, Row } from '../../RowAndCol'
 import { createStore } from 'solid-js/store'
 import { JSONViewer } from '../../dataViewer'
+import { FormRadio } from '../checkbox/FormRadio'
+import { FormCheckBox } from '../checkbox/FormCheckBox'
 
 const meta = {
     title: 'From/FormCore',
@@ -20,6 +22,8 @@ type Story = StoryObj<typeof meta>
 
 FormCoreRegister.register('text', FormInput, { allowSameRegister: true })
 FormCoreRegister.register('select', FormSelect, { allowSameRegister: true })
+FormCoreRegister.register('radio', FormRadio, { allowSameRegister: true })
+FormCoreRegister.register('checkbox', FormCheckBox, { allowSameRegister: true })
 
 export const Primary: Story = {
     name: 'Checkbox 多选框',
@@ -44,6 +48,46 @@ export const Primary: Story = {
                         label: 'Tom'
                     }
                 ]
+            },
+            {
+                label: 'checkbox',
+                value: 'checkbox',
+                type: 'checkbox',
+                options: [
+                    {
+                        value: 'jack',
+                        label: 'Jack'
+                    },
+                    {
+                        value: 'lucy',
+                        label: 'Lucy'
+                    },
+                    {
+                        value: 'tom',
+                        label: 'Tom'
+                    }
+                ],
+                span: 24
+            },
+            {
+                label: 'radio',
+                value: 'radio',
+                type: 'radio',
+                options: [
+                    {
+                        value: 'jack',
+                        label: 'Jack'
+                    },
+                    {
+                        value: 'lucy',
+                        label: 'Lucy'
+                    },
+                    {
+                        value: 'tom',
+                        label: 'Tom'
+                    }
+                ],
+                span: 24
             }
         ]
         const [obj, setObj] = createStore({
@@ -54,7 +98,7 @@ export const Primary: Story = {
                 <For each={configs}>
                     {(item) => {
                         const model = StoreToAtom([obj, setObj], item.value)
-                        return <FormCore span={6} config={item} v-model={model}></FormCore>
+                        return <FormCore span={item.span ?? 6} config={item} v-model={model}></FormCore>
                     }}
                 </For>
                 <Col>

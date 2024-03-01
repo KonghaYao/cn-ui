@@ -6,6 +6,7 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
     // 对内的类型注解
     Omit<JSX.HTMLAttributes<RefType>, 'style' | 'class' | 'children'> &
         Omit<T, 'style' | 'class'> & {
+            id?: string
             ref?: (el: RefType) => void
             style: () => JSX.CSSProperties
             class: typeof classNames
