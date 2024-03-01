@@ -1,5 +1,6 @@
 import { createSignal, Accessor, Setter, Signal } from 'solid-js'
 import { useEffectWithoutFirst } from './useEffect'
+import { reflect } from './reflect'
 
 export const AtomTypeSymbol = Symbol('AtomTypeSymbol')
 /** 获取 Atom 的种类 */
@@ -68,6 +69,26 @@ export const SignalToAtom = <T>(signal: Signal<T>) => {
             }
         }
     ) as Atom<T>
+}
+import type { Store, SetStoreFunction } from 'solid-js/store'
+
+/** Signal 转为 Atom */
+export const StoreToAtom = <T, D extends keyof T>(store: [Store<T>, SetStoreFunction<T>], key: D) => {
+    const [state, setState] = store
+
+    return Object.assign(
+        (...args: [] | [T]) => {
+            if (args.length === 0) {
+                return state[key]
+            }
+            /** @ts-ignore */
+            return setState(key, ...args)
+        },
+        {
+            reflux,
+            [AtomTypeSymbol]: 'store-atom'
+        }
+    ) as Atom<T[D]>
 }
 
 type makeReflux<T> = <C>(

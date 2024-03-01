@@ -1,7 +1,7 @@
-import { Accessor, createEffect, createMemo, untrack } from 'solid-js'
+import { Accessor, SignalOptions, createEffect, createMemo, untrack } from 'solid-js'
 import { Atom, AtomTypeSymbol, atom } from './atom'
 
-export interface ReflectOptions<T> {
+export interface ReflectOptions<T> extends SignalOptions<T> {
     immediately?: boolean
     initValue?: T
     step?: boolean
@@ -45,13 +45,14 @@ export const reflect = <T>(
         initValue = null,
         /** 是否手动进行依赖触发 */
         step = false,
-        deps = []
+        deps = [],
+        equals
     }: ReflectOptions<T> = {}
 ) => {
-    const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue)
+    const a = atom<T>(immediately ? untrack(() => memoFunc(initValue)) : initValue, { equals })
     if (step) {
         createEffect(() => {
-            deps.forEach(i => i())
+            deps.forEach((i) => i())
             untrack(() => {
                 a((i) => memoFunc(i))
             })

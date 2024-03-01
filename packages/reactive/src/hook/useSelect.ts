@@ -12,7 +12,7 @@ export const useSelect = function (
         multi?: Atom<boolean> | boolean
     } = {}
 ) {
-    const activeIdsArray = ArrayAtom(atomization(props.activeIds ?? []))
+    const activeIdsArray = ArrayAtom(props.activeIds ?? atom<string[]>([]))
 
     const multi = atomization(props.multi ?? true)
     const activeIdsSet = SetAtom(activeIdsArray())
