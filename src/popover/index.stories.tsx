@@ -72,7 +72,7 @@ export const Tooltips: Story = {
     render() {
         return (
             <Flex class="h-full bg-gray-100">
-                <Popover content={'12321323'} trigger={'hover'}>
+                <Popover disabled content={'12321323'} trigger={'hover'}>
                     <Button>按钮</Button>
                 </Popover>
             </Flex>

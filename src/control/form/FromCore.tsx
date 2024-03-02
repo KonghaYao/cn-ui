@@ -1,10 +1,21 @@
-import { Atom, toCSSPx, createBlackBoard, classNames } from '@cn-ui/reactive'
+import { Atom, createBlackBoard, classNames } from '@cn-ui/reactive'
 import { Dynamic, Show } from 'solid-js/web'
 import { Col } from '../../RowAndCol'
 import './form-core.css'
 export const FormCoreRegister = createBlackBoard<Record<string, any>>()
 
-export const FormCore = (props: { wrap?: boolean; config: any; span?: number; errorMessage?: string; 'v-model': Atom<any>; label?: boolean }) => {
+export interface FormCoreProps {
+    'v-model': Atom<any>
+    config: any
+
+    disabled?: boolean
+    wrap?: boolean
+    span?: number
+    label?: boolean
+    errorMessage?: string
+}
+
+export const FormCore = (props: FormCoreProps) => {
     const id = 'form-' + props.config.accessorKey
     return (
         <Col span={props.span ?? 12} class={classNames(props.wrap && 'flex-wrap', 'cn-form-core flex  gap-4')}>
@@ -20,6 +31,7 @@ export const FormCore = (props: { wrap?: boolean; config: any; span?: number; er
                 id={id}
                 component={FormCoreRegister.getApp(props.config.type)}
                 {...props.config}
+                disabled={props.disabled}
                 name={props.config.accessorKey}
                 v-model={props['v-model']}
             ></Dynamic>

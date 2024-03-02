@@ -1,12 +1,12 @@
-import { OriginComponent, computed, createCtx, extendsEvent, useMapper, useSelect } from '@cn-ui/reactive'
+import { OriginComponent, classNames, computed, createCtx, extendsEvent, useMapper, useSelect } from '@cn-ui/reactive'
+import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'
 
 export type CheckboxGroupCtxType = ReturnType<typeof useSelect> & {}
 export const CheckboxGroupCtx = createCtx<CheckboxGroupCtxType>({} as any)
 
-export interface CheckboxProps {
+export interface CheckboxProps extends BaseFormItemType {
     label?: string
     value: string
-    disabled?: boolean
     indeterminate?: boolean
 }
 export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean>((props) => {
@@ -30,15 +30,14 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
         }
     })
     return (
-        <label class="select-none cursor-pointer">
+        <label class={classNames('select-none cursor-pointer', props.disabled && 'cursor-not-allowed opacity-50')}>
             <input
                 class={props.class(inputClass()[isChecked() ? 1 : 0], 'appearance-none transition w-5 h-5 mr-2 translate-y-[3px]')}
                 // @ts-ignore
                 indeterminate={props.indeterminate}
-                disabled={props.disabled}
                 type={inputType()}
-                name={props.value}
                 checked={isChecked()}
+                {...extendsBaseFormItemProp(props)}
                 {...extendsEvent(props)}
                 oninput={(e) => {
                     group?.changeSelected?.(props.value, e.target.checked)

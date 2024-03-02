@@ -6,9 +6,10 @@ export interface PopoverProps extends NonNullable<$PopoverProps['positioning']> 
     trigger?: 'click' | 'hover' | 'focus' | 'none'
     initialFocusEl?: $PopoverProps['initialFocusEl']
     wrapperClass?: string
+    disabled?: boolean
 }
 import './index.css'
-import { children, createEffect, createMemo, startTransition } from 'solid-js'
+import { children, createEffect, createMemo } from 'solid-js'
 import { pick } from 'lodash-es'
 import { spread } from './spread'
 import { MaybeAccessor, useElementHover } from 'solidjs-use'
@@ -60,7 +61,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLDivElement, boolean>((p
                 positioning={positioning()}
                 onOpenChange={(value) => props.model(value.open)}
             >
-                <PopoverTrigger as={child}></PopoverTrigger>
+                <PopoverTrigger disabled={props.disabled} as={child}></PopoverTrigger>
 
                 <_Popover.Positioner ref={positioner}>
                     <_Popover.Content class="popover__content outline-none bg-design-pure rounded-md flex flex-col z-50 p-2 select-none">
@@ -84,9 +85,18 @@ export const usePopoverHover = (els: MaybeAccessor<EventTarget | null | undefine
     }
 }
 
-export const PopoverTrigger = (props: { as: () => HTMLElement }) => {
+export const PopoverTrigger = (props: { disabled?: boolean; as: () => HTMLElement }) => {
     const api = usePopoverContext()
     if (!props.as()) return null
-    spread(props.as(), api().triggerProps)
+    const p = api().triggerProps
+    console.log(api().triggerProps)
+    const wrapperDisabled = (fn: any) => {
+        return function (this: any, ...args: any[]) {
+            if (props.disabled) return
+            return (fn as Function).apply(this, args)
+        }
+    }
+    p.onClick = wrapperDisabled(p.onClick)
+    spread(props.as(), p)
     return props.as()
 }

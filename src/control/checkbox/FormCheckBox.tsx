@@ -1,6 +1,5 @@
 import { NullAtom, OriginComponent } from '@cn-ui/reactive'
-import { CheckboxGroup, CheckboxGroupExpose, CheckboxGroupProps, useControlCheckbox } from './CheckboxGroup'
-import { Checkbox, CheckboxProps } from './Checkbox'
+import { CheckboxGroup, CheckboxGroupExpose, CheckboxGroupProps } from './CheckboxGroup'
 import { Flex } from '../../container'
 
 export const FormCheckBox = OriginComponent<CheckboxGroupProps, HTMLDivElement, string[] | null>((props) => {
@@ -9,7 +8,7 @@ export const FormCheckBox = OriginComponent<CheckboxGroupProps, HTMLDivElement, 
     // const { indeterminate, isAllChecked, onChange } = useControlCheckbox(checkBoxCtx)
     return (
         <Flex justify="start" class="gap-4">
-            <CheckboxGroup options={props.options} v-model={model} expose={checkBoxCtx}></CheckboxGroup>
+            <CheckboxGroup {...(props as any)} v-model={model} expose={checkBoxCtx}></CheckboxGroup>
         </Flex>
     )
 })

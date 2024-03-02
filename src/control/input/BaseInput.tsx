@@ -7,6 +7,7 @@ import { triggerFocus, FocusOptions } from './triggerFocus'
 import { Dynamic } from 'solid-js/web'
 import './index.css'
 import { useElementHover } from 'solidjs-use'
+import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'
 // Character count config
 export interface CountConfig {
     max?: number // Max character count. Different from the native `maxLength`, it will be marked warning but not truncated
@@ -22,9 +23,8 @@ export interface InputExpose {
     focus: (opts: FocusOptions) => void
 }
 
-export interface BaseInputProps extends Omit<CountProps, 'model'> {
+export interface BaseInputProps extends Omit<CountProps, 'model'>, BaseFormItemType {
     id?: string // The ID for input
-    disabled?: boolean // Whether the input is disabled
     prefixIcon?: JSXElement | ((expose: InputExpose) => JSXElement) // The prefix icon for the Input
     suffixIcon?: JSXElement | ((expose: InputExpose) => JSXElement) // The suffix icon for the Input
     rounded?: boolean // Whether to round the corners of the input box
@@ -32,9 +32,6 @@ export interface BaseInputProps extends Omit<CountProps, 'model'> {
     expose?: (expose: InputExpose) => void
     autoSize?: boolean
     resize?: boolean
-    readonly?: boolean
-    placeholder?: string
-    name?: string
 }
 
 export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, string>((props) => {
@@ -87,7 +84,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
                 'cn-base-input transition inline-flex border border-design-border py-1 px-3 text-sm',
                 isTextarea() && props.autoSize && 'cn-textarea-auto-size',
                 props.rounded && 'rounded',
-                props.disabled && 'bg-gray-100 text-gray-400',
+                props.disabled && 'bg-gray-100 text-gray-400 opacity-50',
                 !props.disabled && 'hover:border-blue-400'
             )}
             data-replicated-value={isTextarea() && props.autoSize && props.model()}
@@ -95,19 +92,16 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         >
             {Prefix()}
             <Dynamic
-                placeholder={props.placeholder}
                 component={isTextarea() ? 'textarea' : 'input'}
                 ref={(el: HTMLInputElement) => (inputEl(el), props.ref?.(el))}
                 id={props.id}
-                readonly={props.readonly}
                 type={inputType()}
-                disabled={props.disabled}
                 class={classNames(
                     'bg-transparent appearance-none outline-none w-full ',
                     props.disabled && ' cursor-not-allowed',
                     !props.resize && 'resize-none'
                 )}
-                name={props.name}
+                {...extendsBaseFormItemProp(props)}
                 {...props.$input()}
                 {...extendsEvent(props)}
             ></Dynamic>

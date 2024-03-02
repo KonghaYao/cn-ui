@@ -1,4 +1,4 @@
-import { NullAtom, OriginComponent, ThrottleAtom, atom, classNames, computed, createCtx, useSelect } from '@cn-ui/reactive'
+import { NullAtom, OriginComponent, ThrottleAtom, atom, classNames, computed, createCtx, extendsEvent, useSelect } from '@cn-ui/reactive'
 import { BaseInput } from '../input/BaseInput'
 import { Popover } from '../../popover'
 import { useEventListener } from 'solidjs-use'
@@ -13,10 +13,10 @@ import { TagGroup } from '../../tag/TagGroup'
 import { Flex } from '../../container'
 import '../../animation/cn-list.css'
 import { TransitionGroup } from 'solid-transition-group'
+import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
-export interface SelectProps {
-    name?: string
+export interface SelectProps extends BaseFormItemType {
     /** TODO 异步态监控 */
     options: SelectItemsType[]
     multiple?: boolean
@@ -76,6 +76,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
         return (
             <SelectCtx.Provider value={selectSystem}>
                 <Popover
+                    disabled={props.disabled}
                     v-model={PopoverOpen}
                     initialFocusEl={input}
                     sameWidth
@@ -95,11 +96,11 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
                     placement="bottom-start"
                 >
                     <BaseInput
-                        name={props.name}
                         id={props.id}
                         v-model={readableInputText}
                         ref={input}
-                        disabled={props.disabled}
+                        {...extendsBaseFormItemProp(props)}
+                        {...extendsEvent(props)}
                         oninput={() => {
                             filteredOptions.recomputed()
                             props.onInput?.(inputText())

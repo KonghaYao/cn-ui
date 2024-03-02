@@ -3,13 +3,10 @@ import { OriginComponent, computed, extendsEvent } from '@cn-ui/reactive'
 import { Icon } from '../../icon/Icon'
 import { AiOutlinePlus, AiOutlineMinus } from 'solid-icons/ai'
 import { Show, JSXElement } from 'solid-js'
-export interface InputNumberProps {
-    name?: string
-    placeholder?: string
+import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'
+export interface InputNumberProps extends BaseFormItemType {
     min?: number
     max?: number
-    disabled?: boolean
-    readonly?: boolean
     step?: number
     precision?: number | { min: number; max?: number } | { min?: number; max: number }
     controls?: boolean
@@ -49,10 +46,11 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             allowOverflow={true}
             value={value()}
             disabled={props.disabled}
+            readOnly={props.readonly}
             locale={props.locale}
             class={props.class(
                 'cn-input-number rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border flex',
-                props.disabled && 'opacity-50'
+                props.disabled && 'opacity-50 bg-gray-100 text-gray-400'
             )}
             style={props.style()}
             onValueChange={(e) => value(e.value)}
@@ -65,10 +63,9 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
                 </Controls>
             </Show>
             <NumberInput.Input
-                name={props.name}
                 id={props.id}
-                placeholder={props.placeholder}
                 class="w-full apparent-none text-center flex-1 px-1 py-1 outline-none"
+                {...extendsBaseFormItemProp(props)}
                 {...extendsEvent(props)}
             />
             <Show when={props.controls}>

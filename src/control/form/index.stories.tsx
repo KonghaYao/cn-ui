@@ -14,6 +14,7 @@ import { FormInputNumber } from '../inputNumber/FormInputNumber'
 import { FormDatePicker, FormDateRangePicker } from '../../datePicker/FormDatePicker'
 import { useInterval, watch } from 'solidjs-use'
 import { ColumnDef } from '@tanstack/solid-table'
+import { Button } from '../../button'
 
 const meta = {
     title: 'From/FormCore',
@@ -113,15 +114,25 @@ export const Primary: Story = {
             getFormData()
         }, 1000)
         onCleanup(() => clearInterval(time))
+        const disabled = atom(true)
         return (
             <form ref={form}>
                 <Row>
                     <For each={configs}>
                         {(item) => {
                             const model = StoreToAtom([obj, setObj], item.accessorKey)
-                            return <FormCore label span={item.span} config={item} v-model={model}></FormCore>
+                            return <FormCore disabled={disabled()} label span={item.span} config={item} v-model={model}></FormCore>
                         }}
                     </For>
+                    <Col span={24}>
+                        <div
+                            onclick={() => {
+                                disabled((i) => !i)
+                            }}
+                        >
+                            Disable Trigger
+                        </div>
+                    </Col>
                     <Col span={12}>
                         <JSONViewer data={obj}></JSONViewer>
                     </Col>

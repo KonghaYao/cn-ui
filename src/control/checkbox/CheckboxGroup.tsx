@@ -1,9 +1,10 @@
 import { Atom, OriginComponent, computed, useSelect } from '@cn-ui/reactive'
 import { For } from 'solid-js'
 import { CheckboxProps, CheckboxGroupCtx, Checkbox } from './Checkbox'
+import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'
 
 export interface CheckboxGroupExpose extends ReturnType<typeof useSelect> {}
-export interface CheckboxGroupProps {
+export interface CheckboxGroupProps extends BaseFormItemType {
     options: (string | number | CheckboxProps)[]
     expose?: (expose: CheckboxGroupExpose) => void
     multiple?: boolean
@@ -31,7 +32,7 @@ export const CheckboxGroup = OriginComponent<CheckboxGroupProps, HTMLElement, st
         >
             <For each={options()}>
                 {(config) => {
-                    return <Checkbox {...config}></Checkbox>
+                    return <Checkbox {...extendsBaseFormItemProp(props)} {...config}></Checkbox>
                 }}
             </For>
         </CheckboxGroupCtx.Provider>
