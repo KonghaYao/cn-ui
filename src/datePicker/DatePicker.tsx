@@ -13,6 +13,7 @@ import { TransitionGroup } from 'solid-transition-group'
 import { TagGroup } from '../tag/TagGroup'
 
 export interface DatePickerProps extends DatePanelProps {
+    name?: string
     formatter?: (date: Date, locale?: string) => string
     placeholder?: string
 }
@@ -45,7 +46,11 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
         </>
     )
     const inputProps = computed(() => {
-        return { id: props.id, placeholder: props.placeholder }
+        return {
+            name: props.name,
+            id: props.id,
+            placeholder: props.placeholder
+        }
     })
     return (
         <Popover
@@ -112,6 +117,7 @@ export const RangeInput = OriginComponent<
         <OriginDiv prop={props} ref={wrapper} class="cn-date-picker-range inline-flex p-1  items-center rounded border hover:border-primary-600">
             <input
                 {...props.inputProps}
+                name={props.inputProps?.name && props.inputProps.name + '_start'}
                 type="text"
                 placeholder="开始日期"
                 class="flex-1 text-sm outline-none w-28 px-2"
@@ -123,6 +129,7 @@ export const RangeInput = OriginComponent<
             </Icon>
             <input
                 {...props.inputProps}
+                name={props.inputProps?.name && props.inputProps.name + '_end'}
                 type="text"
                 placeholder="结束日期"
                 class="flex-1 text-sm outline-none w-28 px-2"

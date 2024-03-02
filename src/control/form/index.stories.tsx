@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { ObjectAtom, StoreToAtom, atom } from '@cn-ui/reactive'
+import { NullAtom, ObjectAtom, StoreToAtom, atom } from '@cn-ui/reactive'
 import { FormCore, FormCoreRegister } from './FromCore'
-import { For } from 'solid-js'
+import { For, createEffect, createMemo, onCleanup } from 'solid-js'
 import { FormInput } from '../input/FormInput'
 import { FormSelect } from '../select/FormSelect'
 import { Col, Row } from '../../RowAndCol'
@@ -12,6 +12,7 @@ import { FormRadio } from '../checkbox/FormRadio'
 import { FormCheckBox } from '../checkbox/FormCheckBox'
 import { FormInputNumber } from '../inputNumber/FormInputNumber'
 import { FormDatePicker, FormDateRangePicker } from '../../datePicker/FormDatePicker'
+import { useInterval, watch } from 'solidjs-use'
 
 const meta = {
     title: 'From/FormCore',
@@ -101,18 +102,33 @@ export const Primary: Story = {
         const [obj, setObj] = createStore({
             select: 'tom'
         })
+        const form = NullAtom<HTMLFormElement>(null)
+        const formData = atom({})
+        const getFormData = () => {
+            if (!form()) formData({})
+            formData(Object.fromEntries(new FormData(form()!).entries()))
+        }
+        const time = setInterval(() => {
+            getFormData()
+        }, 1000)
+        onCleanup(() => clearInterval(time))
         return (
-            <Row>
-                <For each={configs}>
-                    {(item) => {
-                        const model = StoreToAtom([obj, setObj], item.value)
-                        return <FormCore span={item.span} config={item} v-model={model}></FormCore>
-                    }}
-                </For>
-                <Col>
-                    <JSONViewer data={obj}></JSONViewer>
-                </Col>
-            </Row>
+            <form ref={form}>
+                <Row>
+                    <For each={configs}>
+                        {(item) => {
+                            const model = StoreToAtom([obj, setObj], item.value)
+                            return <FormCore label span={item.span} config={item} v-model={model}></FormCore>
+                        }}
+                    </For>
+                    <Col span={12}>
+                        <JSONViewer data={obj}></JSONViewer>
+                    </Col>
+                    <Col span={12}>
+                        <JSONViewer data={formData()}></JSONViewer>
+                    </Col>
+                </Row>
+            </form>
         )
     },
     args: {}

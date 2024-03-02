@@ -4,6 +4,7 @@ import { Icon } from '../../icon/Icon'
 import { AiOutlinePlus, AiOutlineMinus } from 'solid-icons/ai'
 import { Show, JSXElement } from 'solid-js'
 export interface InputNumberProps {
+    name?: string
     placeholder?: string
     min?: number
     max?: number
@@ -25,7 +26,9 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
         return props.parser ?? ((i: string) => parseFloat(i.replace(/,/g, '')))
     })
 
-    const value = props.model.reflux(new Intl.NumberFormat(props.locale ?? 'en-US', props.formatOptions).format(props.model() ?? 0), (str) => toNumber()(str))
+    const value = props.model.reflux(props.model() ? new Intl.NumberFormat(props.locale ?? 'en-US', props.formatOptions).format(props.model()) : '', (str) =>
+        toNumber()(str)
+    )
     const formatOptions = computed(() => {
         if (props.precision === undefined) {
             return undefined
@@ -62,6 +65,7 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
                 </Controls>
             </Show>
             <NumberInput.Input
+                name={props.name}
                 id={props.id}
                 placeholder={props.placeholder}
                 class="w-full apparent-none text-center flex-1 px-1 py-1 outline-none"

@@ -16,6 +16,7 @@ import { TransitionGroup } from 'solid-transition-group'
 
 export const SelectCtx = createCtx<ReturnType<typeof useSelect>>()
 export interface SelectProps {
+    name?: string
     /** TODO 异步态监控 */
     options: SelectItemsType[]
     multiple?: boolean
@@ -94,6 +95,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
                     placement="bottom-start"
                 >
                     <BaseInput
+                        name={props.name}
                         id={props.id}
                         v-model={readableInputText}
                         ref={input}
