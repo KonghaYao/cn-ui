@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
-import { MagicColumnConfig, MagicTable, MagicTableExpose } from './index'
+import { MagicTable, MagicTableExpose } from './index'
 import { random } from 'lodash-es'
 import { NullAtom } from '@cn-ui/reactive'
 import { ColumnGroups } from './example/ColumnGroups'
 import { ColumnOrdering } from './example/ColumnOrdering'
 import { Expanded } from './example/Expanded'
 import { PaginationExample } from './example/Pagination'
+import { FormTable } from './example/FormTable'
+import { ColumnDef } from '@tanstack/solid-table'
 
 const meta = {
     title: 'Data 数据展示/Table 表格组件',
@@ -25,7 +27,7 @@ const makeColumns = (num: number) =>
             minSize: 200, //enforced during column resizing
             maxSize: 500 //enforced during column resizing
         }
-    }) as MagicColumnConfig<Record<string, string>>[]
+    }) as ColumnDef<Record<string, string>>[]
 
 const makeData = (num: number, columns: any[]): Record<string, string>[] =>
     [...Array(num).keys()].map((y) => ({
@@ -81,7 +83,7 @@ export const ColumnPinned: Story = {
         const cols = makeColumns(100)
         const data = makeData(100, cols)
         cols.slice(0, 5).forEach((i, index) => {
-            i.sticky = index % 2 ? 'left' : 'right'
+            i.fixed = index % 2 ? 'left' : 'right'
         })
         console.log(data)
         console.timeEnd('createData')
@@ -107,5 +109,11 @@ export const _Pagination: Story = {
     name: 'Pagination 分页',
     decorators: Primary.decorators,
     render: PaginationExample,
+    args: {}
+}
+export const _Form: Story = {
+    name: 'Form 可编辑表格',
+    decorators: Primary.decorators,
+    render: FormTable,
     args: {}
 }

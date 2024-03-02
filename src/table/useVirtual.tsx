@@ -1,8 +1,7 @@
-import { Table } from '@tanstack/solid-table'
+import { ColumnDef, Table } from '@tanstack/solid-table'
 import { Atom } from '@cn-ui/reactive'
 import { createVirtualizer } from './virtual/createVirtualizer'
 import { Accessor, createMemo } from 'solid-js'
-import { MagicColumnConfig } from '.'
 
 function useVirtualSticky<T>(table: Table<T>) {
     const paddingLeft = createMemo(() => {
@@ -15,11 +14,10 @@ function useVirtualSticky<T>(table: Table<T>) {
         if (!last) return 0
         return last.getSize() + last.getStart('right')
     })
-    // 添加初始化 sticky 特性
+    // 添加初始化 fixed 特性
     table.getLeafHeaders().forEach((i) => {
-        /** @ts-ignore */
-        const position = i.column.columnDef.sticky
-        i.column.pin(position)
+        const position = i.column.columnDef.fixed
+        if (position) i.column.pin(position)
     })
     return {
         paddingLeft,
@@ -30,7 +28,7 @@ function useVirtualSticky<T>(table: Table<T>) {
 export function useVirtual<T>(
     table: Table<T>,
     tableContainerRef: Atom<HTMLDivElement | null>,
-    data: { composedColumns: Accessor<MagicColumnConfig<T>[]>; estimateHeight: Accessor<number | undefined> }
+    data: { composedColumns: Accessor<ColumnDef<T>[]>; estimateHeight: Accessor<number | undefined> }
 ) {
     const { paddingLeft, paddingRight } = useVirtualSticky(table)
     const columnVirtualizer = createVirtualizer({

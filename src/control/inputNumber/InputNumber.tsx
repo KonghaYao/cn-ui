@@ -64,7 +64,7 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             <NumberInput.Input
                 id={props.id}
                 placeholder={props.placeholder}
-                class="apparent-none text-center flex-1 px-1 py-1 outline-none"
+                class="w-full apparent-none text-center flex-1 px-1 py-1 outline-none"
                 {...extendsEvent(props)}
             />
             <Show when={props.controls}>

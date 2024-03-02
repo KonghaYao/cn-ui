@@ -9,10 +9,20 @@ export const MagicTableCellCtx = createCtx<{
     contain: Atom<HTMLElement | null>
 }>()
 
-export function BodyCell<T, D>(props: { position?: 'left' | 'right'; absolute: boolean; cell: Cell<T, D>; item: VirtualItem; paddingLeft?: number }) {
-    const { estimateHeight, columnVirtualizer } = MagicTableCtx.use()
+export interface BodyCellProps<T, D> {
+    position?: 'left' | 'right'
+    absolute: boolean
+    cell: Cell<T, D>
+    item: VirtualItem
+    paddingLeft?: number
+}
+export function BodyCell<T, D>(props: BodyCellProps<T, D>) {
+    const { estimateHeight, columnVirtualizer, defaultCell: defaultCellTemplate } = MagicTableCtx.use()
+
     const ctx = createMemo(() => props.cell.getContext())
+    /** 默认的 cell */
     const defaultCell = createMemo(() => ctx().table._getDefaultColumnDef().cell)
+    /** 用户自定义的 cell */
     const cell = createMemo(() => props.cell.column.columnDef.cell)
     const contain = atom<HTMLElement | null>(null)
     return (
@@ -31,13 +41,13 @@ export function BodyCell<T, D>(props: { position?: 'left' | 'right'; absolute: b
                     ...getCommonPinningStyles(props.cell.column, props.paddingLeft ?? 0)
                 }}
             >
-                {flexRender(cell() === defaultCell() ? defaultBodyCell : cell(), ctx())}
+                {flexRender(cell() === defaultCell() ? defaultCellTemplate ?? defaultBodyCell : cell(), ctx())}
             </td>
         </MagicTableCellCtx.Provider>
     )
 }
 
-function defaultBodyCell<T>(ctx: CellContext<T, string>) {
+export function defaultBodyCell<T>(ctx: CellContext<T, string>) {
     const cellCtx = MagicTableCellCtx.use()
     const cell = atom<HTMLElement | null>(null)
     const isEllipsis = atom(false)

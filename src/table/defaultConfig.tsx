@@ -1,5 +1,4 @@
 import { ColumnDef } from '@tanstack/solid-table'
-import { MagicColumnConfig } from '.'
 import { Checkbox } from '../control/checkbox'
 import { computed } from '@cn-ui/reactive'
 import { Icon } from '../icon/Icon'
@@ -29,8 +28,8 @@ export const selectionConfig = {
             </div>
         )
     },
-    sticky: 'left'
-} as MagicColumnConfig
+    fixed: 'left'
+} as ColumnDef<any>
 
 export const indexConfig = {
     id: '$index',
@@ -39,7 +38,7 @@ export const indexConfig = {
     cell(ctx) {
         return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
-    sticky: 'left',
+    fixed: 'left',
     forceSorting: true,
     accessorFn(_, index) {
         return index

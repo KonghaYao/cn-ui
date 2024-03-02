@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/solid-table'
 import { MagicTable, MagicTableExpose } from '../Table'
 import Mock from 'mockjs-ts'
-import { NullAtom, atom } from '@cn-ui/reactive'
+import { NullAtom } from '@cn-ui/reactive'
 import { Show } from 'solid-js'
 
 export type Person = {

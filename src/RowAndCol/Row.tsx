@@ -16,7 +16,7 @@ export type RowProps = {
 export const RowCtx = createCtx<{
     gutterX: string
     gutterY: string
-}>()
+}>(undefined, true)
 
 export const Row = OriginComponent<RowProps>((props) => {
     const gutterX = computed(() => (Array.isArray(props.gutter) ? props.gutter[0] : props.gutter))

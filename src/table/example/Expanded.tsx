@@ -1,6 +1,6 @@
 import Mock from 'mockjs-ts'
 import { MagicTable } from '../Table'
-import { MagicColumnConfig } from '..'
+import { ColumnDef } from '@tanstack/solid-table'
 
 export type Person = {
     firstName: string
@@ -117,7 +117,7 @@ export const Expanded = () => {
                 }
             ]
         }
-    ] satisfies MagicColumnConfig<Person>[]
+    ] satisfies ColumnDef<Person>[]
     const data = makeData(100, 5, 3)
     return (
         <>
