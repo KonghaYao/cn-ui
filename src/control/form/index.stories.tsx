@@ -13,6 +13,7 @@ import { FormCheckBox } from '../checkbox/FormCheckBox'
 import { FormInputNumber } from '../inputNumber/FormInputNumber'
 import { FormDatePicker, FormDateRangePicker } from '../../datePicker/FormDatePicker'
 import { useInterval, watch } from 'solidjs-use'
+import { ColumnDef } from '@tanstack/solid-table'
 
 const meta = {
     title: 'From/FormCore',
@@ -35,13 +36,13 @@ export const Primary: Story = {
     name: 'Checkbox 多选框',
     render() {
         const configs = [
-            { label: 'info', value: 'info', type: 'text' },
-            { label: 'number', value: 'number', type: 'number' },
-            { label: 'date', value: 'date', type: 'date' },
-            { label: 'date-range', value: 'date-range', type: 'date-range' },
+            { header: 'info', accessorKey: 'info', type: 'text' },
+            { header: 'number', accessorKey: 'number', type: 'number' },
+            { header: 'date', accessorKey: 'date', type: 'date' },
+            { header: 'date-range', accessorKey: 'date-range', type: 'date-range' },
             {
-                label: 'select',
-                value: 'select',
+                header: 'select',
+                accessorKey: 'select',
                 type: 'select',
                 options: [
                     {
@@ -59,8 +60,8 @@ export const Primary: Story = {
                 ]
             },
             {
-                label: 'checkbox',
-                value: 'checkbox',
+                header: 'checkbox',
+                accessorKey: 'checkbox',
                 type: 'checkbox',
                 options: [
                     {
@@ -79,8 +80,8 @@ export const Primary: Story = {
                 span: 24
             },
             {
-                label: 'radio',
-                value: 'radio',
+                header: 'radio',
+                accessorKey: 'radio',
                 type: 'radio',
                 options: [
                     {
@@ -98,7 +99,7 @@ export const Primary: Story = {
                 ],
                 span: 24
             }
-        ]
+        ] satisfies ColumnDef<unknown, unknown>[]
         const [obj, setObj] = createStore({
             select: 'tom'
         })
@@ -117,7 +118,7 @@ export const Primary: Story = {
                 <Row>
                     <For each={configs}>
                         {(item) => {
-                            const model = StoreToAtom([obj, setObj], item.value)
+                            const model = StoreToAtom([obj, setObj], item.accessorKey)
                             return <FormCore label span={item.span} config={item} v-model={model}></FormCore>
                         }}
                     </For>

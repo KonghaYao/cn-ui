@@ -23,14 +23,17 @@ import { useScroll } from 'solidjs-use'
 import { createMemo } from 'solid-js'
 import { useAutoResize } from './hook/useAutoResize'
 import { JSX } from 'solid-js'
+import { SelectItemsType } from '../control/select'
 declare module '@tanstack/solid-table' {
     interface TableMeta<TData extends unknown> {
         updateData?: (rowIndex: number, columnId: string, value: any) => void
     }
     interface ColumnDefBase<TData extends unknown, TValue = unknown> {
         /** 可编辑表格使用的类型 */
-        type?: 'text' | 'number'
+        type?: 'text' | 'number' | 'date' | 'date-range' | 'select' | 'checkbox' | 'switch' | 'radio'
         fixed?: 'left' | 'right'
+        options?: SelectItemsType[]
+        span?: number
     }
 }
 

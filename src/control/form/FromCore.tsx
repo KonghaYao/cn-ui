@@ -5,7 +5,7 @@ import './form-core.css'
 export const FormCoreRegister = createBlackBoard<Record<string, any>>()
 
 export const FormCore = (props: { wrap?: boolean; config: any; span?: number; errorMessage?: string; 'v-model': Atom<any>; label?: boolean }) => {
-    const id = 'form-' + props.config.value
+    const id = 'form-' + props.config.accessorKey
     return (
         <Col span={props.span ?? 12} class={classNames(props.wrap && 'flex-wrap', 'cn-form-core flex  gap-4')}>
             <Show when={props.label}>
@@ -13,14 +13,14 @@ export const FormCore = (props: { wrap?: boolean; config: any; span?: number; er
                     <Show when={true}>
                         <sup class="text-red-400 pr-1">*</sup>
                     </Show>
-                    {props.config.label ?? props.config.value}
+                    {props.config.header ?? props.config.accessorKey}
                 </label>
             </Show>
             <Dynamic
                 id={id}
                 component={FormCoreRegister.getApp(props.config.type)}
                 {...props.config}
-                name={props.config.value}
+                name={props.config.accessorKey}
                 v-model={props['v-model']}
             ></Dynamic>
             <Show when={props.errorMessage}>
