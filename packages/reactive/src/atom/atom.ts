@@ -71,18 +71,19 @@ export const SignalToAtom = <T>(signal: Signal<T>) => {
     ) as Atom<T>
 }
 import type { Store, SetStoreFunction } from 'solid-js/store'
+import { ensureFunctionResult } from '../utils'
 
 /** Signal 转为 Atom */
-export const StoreToAtom = <T, D extends keyof T>(store: [Store<T>, SetStoreFunction<T>], key: D) => {
+export const StoreToAtom = <T, D extends keyof T>(store: [Store<T>, SetStoreFunction<T>], key: D | (() => D)) => {
     const [state, setState] = store
 
     return Object.assign(
         (...args: [] | [T]) => {
             if (args.length === 0) {
-                return state[key]
+                return state[ensureFunctionResult(key)]
             }
             /** @ts-ignore */
-            return setState(key, ...args)
+            return setState(ensureFunctionResult(key), ...args)
         },
         {
             reflux,
