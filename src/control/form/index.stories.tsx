@@ -12,9 +12,8 @@ import { FormRadio } from '../checkbox/FormRadio'
 import { FormCheckBox } from '../checkbox/FormCheckBox'
 import { FormInputNumber } from '../inputNumber/FormInputNumber'
 import { FormDatePicker, FormDateRangePicker } from '../../datePicker/FormDatePicker'
-import { useInterval, watch } from 'solidjs-use'
 import { ColumnDef } from '@tanstack/solid-table'
-import { Button } from '../../button'
+import { MagicForm } from './MagicForm'
 
 const meta = {
     title: 'From/FormCore',
@@ -32,75 +31,75 @@ FormCoreRegister.register('date', FormDatePicker, { allowSameRegister: true })
 FormCoreRegister.register('date-range', FormDateRangePicker, { allowSameRegister: true })
 FormCoreRegister.register('radio', FormRadio, { allowSameRegister: true })
 FormCoreRegister.register('checkbox', FormCheckBox, { allowSameRegister: true })
+const configs = [
+    { header: 'info', accessorKey: 'info', type: 'text' },
+    { header: 'number', accessorKey: 'number', type: 'number' },
+    { header: 'date', accessorKey: 'date', type: 'date' },
+    { header: 'date-range', accessorKey: 'date-range', type: 'date-range' },
+    {
+        header: 'select',
+        accessorKey: 'select',
+        type: 'select',
+        options: [
+            {
+                value: 'jack',
+                label: 'Jack'
+            },
+            {
+                value: 'lucy',
+                label: 'Lucy'
+            },
+            {
+                value: 'tom',
+                label: 'Tom'
+            }
+        ]
+    },
+    {
+        header: 'checkbox',
+        accessorKey: 'checkbox',
+        type: 'checkbox',
+        options: [
+            {
+                value: 'jack',
+                label: 'Jack'
+            },
+            {
+                value: 'lucy',
+                label: 'Lucy'
+            },
+            {
+                value: 'tom',
+                label: 'Tom'
+            }
+        ],
+        span: 24
+    },
+    {
+        header: 'radio',
+        accessorKey: 'radio',
+        type: 'radio',
+        options: [
+            {
+                value: 'jack',
+                label: 'Jack'
+            },
+            {
+                value: 'lucy',
+                label: 'Lucy'
+            },
+            {
+                value: 'tom',
+                label: 'Tom'
+            }
+        ],
+        span: 24
+    }
+] satisfies ColumnDef<unknown, unknown>[]
 
 export const Primary: Story = {
-    name: 'Checkbox 多选框',
+    name: 'FormCore',
     render() {
-        const configs = [
-            { header: 'info', accessorKey: 'info', type: 'text' },
-            { header: 'number', accessorKey: 'number', type: 'number' },
-            { header: 'date', accessorKey: 'date', type: 'date' },
-            { header: 'date-range', accessorKey: 'date-range', type: 'date-range' },
-            {
-                header: 'select',
-                accessorKey: 'select',
-                type: 'select',
-                options: [
-                    {
-                        value: 'jack',
-                        label: 'Jack'
-                    },
-                    {
-                        value: 'lucy',
-                        label: 'Lucy'
-                    },
-                    {
-                        value: 'tom',
-                        label: 'Tom'
-                    }
-                ]
-            },
-            {
-                header: 'checkbox',
-                accessorKey: 'checkbox',
-                type: 'checkbox',
-                options: [
-                    {
-                        value: 'jack',
-                        label: 'Jack'
-                    },
-                    {
-                        value: 'lucy',
-                        label: 'Lucy'
-                    },
-                    {
-                        value: 'tom',
-                        label: 'Tom'
-                    }
-                ],
-                span: 24
-            },
-            {
-                header: 'radio',
-                accessorKey: 'radio',
-                type: 'radio',
-                options: [
-                    {
-                        value: 'jack',
-                        label: 'Jack'
-                    },
-                    {
-                        value: 'lucy',
-                        label: 'Lucy'
-                    },
-                    {
-                        value: 'tom',
-                        label: 'Tom'
-                    }
-                ],
-                span: 24
-            }
-        ] satisfies ColumnDef<unknown, unknown>[]
         const [obj, setObj] = createStore({
             select: 'tom'
         })
@@ -114,14 +113,14 @@ export const Primary: Story = {
             getFormData()
         }, 1000)
         onCleanup(() => clearInterval(time))
-        const disabled = atom(true)
+        const disabled = atom(false)
         return (
             <form ref={form}>
                 <Row>
                     <For each={configs}>
                         {(item) => {
-                            const model = StoreToAtom([obj, setObj], item.accessorKey)
-                            return <FormCore disabled={disabled()} label span={item.span} config={item} v-model={model}></FormCore>
+                            const model = StoreToAtom([obj, setObj], (item as any).accessorKey)
+                            return <FormCore disabled={disabled()} showLabel config={item} v-model={model}></FormCore>
                         }}
                     </For>
                     <Col span={24}>
@@ -141,6 +140,23 @@ export const Primary: Story = {
                     </Col>
                 </Row>
             </form>
+        )
+    },
+    args: {}
+}
+export const _MagicForm: Story = {
+    name: 'MagicForm',
+    render() {
+        const [obj, setObj] = createStore({
+            select: 'tom'
+        })
+        return (
+            <Row>
+                <MagicForm config={configs} originData={obj} setOriginData={setObj}></MagicForm>
+                <Col span={24}>
+                    <JSONViewer data={obj}></JSONViewer>
+                </Col>
+            </Row>
         )
     },
     args: {}

@@ -16,7 +16,7 @@ export function FormTableCell<T, D>(props: CellContext<T, D>) {
     }, [model])
     return (
         <Show when={config().type} fallback={defaultBodyCell<unknown>(ctx() as CellContext<unknown, string>)}>
-            <FormCore span={24} label={false} v-model={model} config={config()}></FormCore>
+            <FormCore span={24} showLabel={false} v-model={model} config={config() as any}></FormCore>
         </Show>
     )
 }
