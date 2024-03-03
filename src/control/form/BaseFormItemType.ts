@@ -23,6 +23,7 @@ export const extendsBaseFormItemProp = (props: BaseFormItemType) => {
         placeholder: props.placeholder,
         readonly: props.readonly,
         disabled: props.disabled,
-        required: props.required
+        required: props.required,
+        error: props.error
     }
 }

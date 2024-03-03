@@ -81,11 +81,12 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
         <span
             ref={inputWrapper}
             class={props.class(
-                'cn-base-input transition inline-flex border border-design-border py-1 px-3 text-sm',
+                'cn-base-input transition inline-flex border  py-1 px-3 text-sm',
                 isTextarea() && props.autoSize && 'cn-textarea-auto-size',
                 props.rounded && 'rounded',
-                props.disabled && 'bg-gray-100 text-gray-400 opacity-50',
-                !props.disabled && 'hover:border-blue-400'
+                props.disabled && 'border-design-border bg-gray-100 text-gray-400 opacity-50',
+                props.error && 'border-red-300',
+                !props.disabled && !props.error && 'border-design-border hover:border-blue-400'
             )}
             data-replicated-value={isTextarea() && props.autoSize && props.model()}
             style={props.style()}

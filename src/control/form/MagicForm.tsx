@@ -1,9 +1,9 @@
-import { Atom, OriginComponent, OriginComponentInputType, ResourceAtom, StoreToAtom, createCtx, extendsEvent, resource } from '@cn-ui/reactive'
+import { Atom, OriginComponent, OriginComponentInputType, ResourceAtom, StoreToAtom, autoResource, createCtx, extendsEvent } from '@cn-ui/reactive'
 import { Row } from '../../RowAndCol'
-import { Accessor, For, createEffect, createMemo } from 'solid-js'
+import { For, createEffect, createMemo } from 'solid-js'
 import { FormCore } from './FromCore'
 import { ColumnDef } from '@tanstack/solid-table'
-import { SetStoreFunction, createStore } from 'solid-js/store'
+import { SetStoreFunction } from 'solid-js/store'
 import { RootColumnDef, getKeyFromRootColumnDef } from './utils'
 import { useValidator } from './useValidator'
 import { RuleItem } from 'async-validator'
@@ -33,7 +33,7 @@ export const MagicForm = OriginComponent(function <T, D>(
 ) {
     const flattenColumns = createMemo(() => getFlattenColumnConfig(props.config))
     const { validator } = useValidator(props.config as RootColumnDef<T, D>[], props.originData, props.index ?? 0)
-    const validResult = resource(() =>
+    const validResult = autoResource(() =>
         validator()
             .validate(props.originData as any)
             .then(
@@ -46,7 +46,7 @@ export const MagicForm = OriginComponent(function <T, D>(
             )
     )
     createEffect(() => {
-        console.log(validResult()?.fields)
+        console.log(props.originData)
     })
     return (
         <MagicFormCtx.Provider

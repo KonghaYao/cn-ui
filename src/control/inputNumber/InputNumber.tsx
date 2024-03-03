@@ -49,8 +49,10 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
             readOnly={props.readonly}
             locale={props.locale}
             class={props.class(
-                'cn-input-number rounded relative transition-colors overflow-auto hover:border-primary-400 border-design-border border flex',
-                props.disabled && 'opacity-50 bg-gray-100 text-gray-400'
+                'cn-input-number rounded relative transition-colors overflow-auto  border flex',
+                props.disabled && 'opacity-50 bg-gray-100 text-gray-400',
+                props.error && 'border-red-300',
+                !props.error && !props.disabled && 'hover:border-primary-400 border-design-border'
             )}
             style={props.style()}
             onValueChange={(e) => value(e.value)}

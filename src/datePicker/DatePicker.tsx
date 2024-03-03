@@ -123,7 +123,9 @@ export const RangeInput = OriginComponent<
             ref={wrapper}
             class={classNames(
                 'cn-date-picker-range inline-flex p-1  items-center rounded border transition-colors ',
-                props.inputProps.disabled ? 'bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed' : 'hover:border-primary-400'
+                props.inputProps.disabled && 'bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed',
+                props.inputProps.error && 'border-red-300',
+                !props.inputProps.disabled && !props.inputProps.error && 'hover:border-primary-400'
             )}
         >
             <input

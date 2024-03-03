@@ -166,3 +166,18 @@ export const _MagicForm: Story = {
     },
     args: {}
 }
+export const _Error: Story = {
+    name: 'ErrorState 错误状态',
+    render() {
+        const [obj, setObj] = createStore({})
+        return (
+            <Row>
+                <MagicForm config={configs.map((i) => ((i.required = true), i))} originData={obj} setOriginData={setObj}></MagicForm>
+                <Col span={24}>
+                    <JSONViewer data={obj}></JSONViewer>
+                </Col>
+            </Row>
+        )
+    },
+    args: {}
+}

@@ -24,10 +24,10 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
     const accessorKey = createMemo(() => getKeyFromRootColumnDef(props.config, props.originData as T, props.index ?? 0))
     const id = createMemo(() => 'form-' + accessorKey())
     const isRequired = createMemo(() => props.config.required || ensureArrayReturn(props.config.rules).some((i) => i?.required))
-    const { validResult } = MagicFormCtx.use() || {}
+    const formCtx = MagicFormCtx.use()
     const errorMessage = createMemo(() => {
         if (props.errorMessage) return [props.errorMessage]
-        return validResult?.()?.fields[accessorKey()]?.map((i) => i.message as string)
+        return formCtx.validResult?.()?.fields[accessorKey()]?.map((i) => i.message as string)
     })
     return (
         <Col span={props.span ?? props.config.span ?? 12} class={classNames('cn-form-core relative flex', props.wrap ? 'flex-wrap flex-col gap-2' : 'gap-4')}>
@@ -44,6 +44,7 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
                     id={id()}
                     component={FormCoreRegister.getApp(props.config.type as string)}
                     {...props.config}
+                    error={errorMessage()}
                     disabled={props.disabled}
                     name={accessorKey()}
                     v-model={props['v-model']}
@@ -51,7 +52,7 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
 
                 <Show when={errorMessage()}>
                     <div
-                        class="cn-error-message text-xs text-red-400 absolute "
+                        class="cn-error-message text-xs text-red-300 absolute "
                         style={{
                             top: '90%'
                         }}
