@@ -1,4 +1,4 @@
-import { Accessor, batch, createMemo } from 'solid-js'
+import { Accessor, batch, createEffect, createMemo, untrack } from 'solid-js'
 import { Atom, AtomTypeSymbol, atom } from './atom'
 import { useEffectWithoutFirst } from './useEffect'
 export interface ResourceBase<T, Params> {
@@ -12,7 +12,7 @@ export interface ResourceBase<T, Params> {
     /** 正在进行的 Promise */
     promise: () => Promise<boolean>
 }
-export interface ResourceAtom<T, Params = unknown> extends ResourceBase<T, Params>, Atom<T> { }
+export interface ResourceAtom<T, Params = unknown> extends ResourceBase<T, Params>, Atom<T> {}
 
 export interface ResourceOptions<T> {
     initValue?: T
@@ -45,8 +45,8 @@ export const resource = <T, Params = unknown>(
         immediately = true,
         deps,
         refetch: defaultRefetch = {},
-        onSuccess = () => { },
-        onError = () => { }
+        onSuccess = () => {},
+        onError = () => {}
     }: ResourceOptions<T> = {}
 ): ResourceAtom<T, Params> => {
     /** 存储结果数据 */
@@ -105,6 +105,87 @@ export const resource = <T, Params = unknown>(
 
     // 延续依赖
     deps && deps.length && useEffectWithoutFirst(() => refetch(undefined, defaultRefetch), deps)
+
+    return Object.assign(data, {
+        error,
+        loading,
+        mutate(newData) {
+            data(() => newData)
+        },
+        isReady,
+        refetch,
+        promise: () => {
+            return p
+        },
+        [AtomTypeSymbol]: 'resource'
+    } as ResourceBase<T, Params>)
+}
+/** 自动收集依赖的 resource，但是注意，必须在同步作用域进行依赖处理，否则无效 */
+export const autoResource = <T, Params = unknown>(
+    // TODO 添加第二个参数用于取消
+    fetcher: (val?: Params) => Promise<T>,
+    {
+        /** @ts-ignore */
+        initValue = null,
+        refetch: defaultRefetch = {},
+        onSuccess = () => {},
+        onError = () => {}
+    }: ResourceOptions<T> = {}
+): ResourceAtom<T, Params> => {
+    /** 存储结果数据 */
+    const data = atom<T>(initValue)
+
+    /** 加载态 */
+    const loading = atom(false)
+
+    /** 存储错误信息 */
+    const error = atom<Error | false>(false)
+
+    /** 判断数据是否已加载完毕 */
+    const isReady = createMemo(() => !!(!loading() && !error()))
+
+    /** 初始化 Promise，并初始值为 false */
+    let p = Promise.resolve(false)
+
+    /** 重新使用异步函数 */
+    const refetch = async (val?: Params, { warn = true, cancelCallback } = defaultRefetch) => {
+        // 上一次请求尚未结束
+        if (!untrack(isReady)) {
+            if (cancelCallback) {
+                cancelCallback(p) // 调用取消函数立即取消上次使用
+            } else if (warn) {
+                console.warn('Resource Atom: some fetch has been covered; Recommend to add a cancelCallback to some Hook')
+            }
+        }
+
+        untrack(() => {
+            loading(true)
+        })
+        const tempP = fetcher(val)
+            .then((res) => {
+                batch(() => {
+                    data(() => res)
+                    loading(false)
+                    error(false)
+                })
+                // 当自己没有被 cancel 时，进行 tap 函数
+                if (tempP === p) onSuccess(res)
+                return true
+            })
+            .catch((err) => {
+                batch(() => {
+                    error(err)
+                    loading(false)
+                })
+                onError(err)
+                // 直接抛出异常
+                return err
+            })
+        p = tempP
+        return tempP
+    }
+
+    createEffect(() => refetch(undefined, defaultRefetch))
 
     return Object.assign(data, {
         error,
