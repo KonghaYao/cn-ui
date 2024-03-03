@@ -89,7 +89,6 @@ export const PopoverTrigger = (props: { disabled?: boolean; as: () => HTMLElemen
     const api = usePopoverContext()
     if (!props.as()) return null
     const p = api().triggerProps
-    console.log(api().triggerProps)
     const wrapperDisabled = (fn: any) => {
         return function (this: any, ...args: any[]) {
             if (props.disabled) return

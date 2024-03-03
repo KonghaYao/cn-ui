@@ -31,10 +31,14 @@ FormCoreRegister.register('date', FormDatePicker, { allowSameRegister: true })
 FormCoreRegister.register('date-range', FormDateRangePicker, { allowSameRegister: true })
 FormCoreRegister.register('radio', FormRadio, { allowSameRegister: true })
 FormCoreRegister.register('checkbox', FormCheckBox, { allowSameRegister: true })
+const mustFill = {
+    required: true,
+    message: '此项必填'
+}
 const configs = [
-    { header: 'info', accessorKey: 'info', type: 'text' },
+    { header: 'info', accessorKey: 'info', type: 'text', required: true },
     { header: 'number', accessorKey: 'number', type: 'number' },
-    { header: 'date', accessorKey: 'date', type: 'date' },
+    { header: 'date', accessorKey: 'date', type: 'date', rules: [mustFill] },
     { header: 'date-range', accessorKey: 'date-range', type: 'date-range' },
     {
         header: 'select',
@@ -93,12 +97,13 @@ const configs = [
                 label: 'Tom'
             }
         ],
+        rules: [mustFill],
         span: 24
     }
 ] satisfies ColumnDef<unknown, unknown>[]
 
 export const Primary: Story = {
-    name: 'FormCore',
+    name: 'FormCore 表单核心',
     render() {
         const [obj, setObj] = createStore({
             select: 'tom'
@@ -145,7 +150,7 @@ export const Primary: Story = {
     args: {}
 }
 export const _MagicForm: Story = {
-    name: 'MagicForm',
+    name: 'MagicForm 集成表单',
     render() {
         const [obj, setObj] = createStore({
             select: 'tom'

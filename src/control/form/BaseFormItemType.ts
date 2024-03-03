@@ -10,6 +10,10 @@ export interface BaseFormItemType {
     readonly?: boolean
     /** 强制必填 */
     required?: boolean
+
+    /** 数据错误状态 */
+    error?: boolean
+
     onChange?: (value: any) => void
 }
 

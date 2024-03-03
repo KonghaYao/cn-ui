@@ -1,4 +1,5 @@
 .cn-form-core {
+    margin-bottom: var(--cn-form-error-message-height, 12px);
     .cn-base-input,
     .cn-date-picker-range,
     .cn-input-number {
