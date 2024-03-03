@@ -2,7 +2,6 @@ import { TabsProps } from './interface'
 import { OriginComponent, OriginDiv, classNames, createCtx, useSelect } from '@cn-ui/reactive'
 import { atom, atomization, reflect } from '@cn-ui/reactive'
 import { TabsHeader } from './TabsHeader'
-import { createAutoAnimate } from '@formkit/auto-animate/solid'
 import { createEffect } from 'solid-js'
 export type TabsContextType = ReturnType<typeof useSelect> & {
     destroyOnHide: boolean
@@ -21,7 +20,6 @@ export const Tabs = OriginComponent<TabsProps>((props) => {
         props.$input()['on:input']({ target: { value } })
     })
 
-    const [animate] = createAutoAnimate()
     return (
         <TabsContext.Provider
             value={{
@@ -32,9 +30,7 @@ export const Tabs = OriginComponent<TabsProps>((props) => {
         >
             <OriginDiv prop={props} class={classNames(props.fill && 'h-full', 'flex flex-col cn-tabs')}>
                 {props.header ? props.header({}) : TabsHeader({})}
-                <div ref={animate} class={classNames(props.fill && 'h-full', props.wrapperClass)}>
-                    {props.children}
-                </div>
+                <div class={classNames(props.fill && 'h-full', props.wrapperClass)}>{props.children}</div>
             </OriginDiv>
         </TabsContext.Provider>
     )

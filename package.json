@@ -16,7 +16,6 @@
         "@ark-ui/solid": "~2.0.1",
         "@cn-ui/reactive": "workspace:",
         "@cn-ui/univer": "workspace:^",
-        "@formkit/auto-animate": "^0.8.1",
         "@solid-primitives/keyed": "^1.2.1",
         "@tanstack/solid-table": "^8.12.0",
         "@tanstack/solid-virtual": "^3.0.2",
