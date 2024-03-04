@@ -11,6 +11,6 @@ export function getCommonPinningStyles<T, D>(column: Column<T, D>, paddingLeft: 
         'box-shadow': isLastLeftPinnedColumn ? '#00000033 4px 0px 4px 0px ' : isFirstRightPinnedColumn ? '#00000033 -4px 0px 4px 0px ' : undefined,
         left: isPinned ? toCSSPx((isPinned === 'left' ? 0 : paddingLeft) + column.getStart(isPinned)) : undefined,
         'z-index': isPinned ? 1 : 0,
-        position: 'fixed'
+        position: 'sticky'
     }
 }

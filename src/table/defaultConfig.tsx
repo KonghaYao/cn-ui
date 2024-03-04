@@ -20,6 +20,7 @@ export const selectionConfig = {
             </div>
         )
     },
+    enableResizing: false,
     cell: (props) => {
         const checked = computed(() => props.row.getIsSelected())
         return (
@@ -39,6 +40,7 @@ export const indexConfig = {
         return <div class="p-2 w-full text-center">{ctx.row.index}</div>
     },
     fixed: 'left',
+    enableResizing: false,
     forceSorting: true,
     accessorFn(_, index) {
         return index
@@ -49,6 +51,7 @@ export const expandingConfig = {
     id: '$expanding',
     size: 60,
     header: ' ',
+    enableResizing: false,
     cell(ctx) {
         return (
             <div class="p-2 w-full text-center">

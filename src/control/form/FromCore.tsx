@@ -27,7 +27,7 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
     const formCtx = MagicFormCtx.use()
     const errorMessage = createMemo(() => {
         if (props.errorMessage) return [props.errorMessage]
-        return formCtx.validResult?.()?.fields[accessorKey()]?.map((i) => i.message as string)
+        return formCtx?.validResult?.()?.fields[accessorKey()]?.map((i) => i.message as string)
     })
     return (
         <Col span={props.span ?? props.config.span ?? 12} class={classNames('cn-form-core relative flex', props.wrap ? 'flex-wrap flex-col gap-2' : 'gap-4')}>
