@@ -1,6 +1,5 @@
 import { createSignal, Accessor, Setter, Signal } from 'solid-js'
 import { useEffectWithoutFirst } from './useEffect'
-import { reflect } from './reflect'
 
 export const AtomTypeSymbol = Symbol('AtomTypeSymbol')
 /** 获取 Atom 的种类 */

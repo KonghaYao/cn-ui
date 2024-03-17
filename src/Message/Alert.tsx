@@ -1,4 +1,4 @@
-import { JSXSlot, OriginComponent, classNames, ensureArrayReturn, ensureFunctionResult, useMapper } from '@cn-ui/reactive'
+import { JSXSlot, OriginComponent, classNames, ensureFunctionResult, useMapper } from '@cn-ui/reactive'
 import { Icon } from '../icon/Icon'
 import { AiFillCheckCircle, AiFillCloseCircle, AiFillInfoCircle, AiFillWarning, AiOutlineClose } from 'solid-icons/ai'
 import { Show } from 'solid-js'

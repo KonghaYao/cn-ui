@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
-import { Alert } from './index'
+import { Alert, Message } from './index'
 import { atom } from '@cn-ui/reactive'
-import { Flex } from '../container'
-import Mock from 'mockjs-ts'
 import { createEffect } from 'solid-js'
 import { Button } from '../button'
 
@@ -33,6 +31,19 @@ export const Primary: Story = {
                 })}
                 {(['success', 'error', 'warning', 'info'] as const).map((i) => {
                     return <Alert title="你好吗" type={i} closable icon round border description={Array(50).fill(i).join(',')}></Alert>
+                })}
+            </div>
+        )
+    },
+    args: {}
+}
+
+export const MessageLog: Story = {
+    render() {
+        return (
+            <div class="flex flex-col gap-4">
+                {(['success', 'error', 'warning', 'info'] as const).map((i) => {
+                    return <Button onclick={() => Message[i](i)}>{i}</Button>
                 })}
             </div>
         )

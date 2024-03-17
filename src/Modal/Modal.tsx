@@ -1,4 +1,4 @@
-import { OriginComponent, OriginComponentInputType, classNames, useMapper } from '@cn-ui/reactive'
+import { OriginComponent, OriginComponentInputType, classNames, toCSSPx, useMapper } from '@cn-ui/reactive'
 import { Accessor, JSXElement, Show } from 'solid-js'
 import { VirtualList } from '../virtualList'
 import './index.css'
@@ -7,11 +7,14 @@ export type ModalPosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-r
 export interface ModalProps<T> {
     maxStackItem?: number
     each: T[]
-    by: (item: T) => string | number
+    by: (item: T, index: number) => string | number
     children: (item: T, index: Accessor<number>) => JSXElement
-    estimateSize?: number
     stack?: boolean
     position?: ModalPosition
+    itemSize?: {
+        width: number
+        height: number
+    }
 }
 
 export const Modal = OriginComponent(function <T>(props: OriginComponentInputType<ModalProps<T>, HTMLDivElement, boolean>) {
@@ -25,18 +28,28 @@ export const Modal = OriginComponent(function <T>(props: OriginComponentInputTyp
                     position()
                 )}
                 style={{
-                    '--modal-show-position': modalShowPosition()
+                    '--modal-show-position': modalShowPosition(),
+                    width: toCSSPx(props.itemSize?.width, '24rem')
                 }}
             >
                 <VirtualList
                     each={props.each}
                     reverse={props.position?.startsWith('bottom')}
-                    getItemKey={(index) => props.by(props.each[index])}
-                    estimateSize={props.estimateSize ?? 64}
+                    getItemKey={(index) => props.by(props.each[index], index)}
+                    estimateSize={props.itemSize?.height ?? 64}
                 >
                     {(item, index, { itemClass }) => {
                         itemClass('px-3 py-2')
-                        return <div class={classNames('w-full h-12 rounded-xl flex-none shadow-1 bg-design-card')}>{props.children(item, index)}</div>
+                        return (
+                            <div
+                                style={{
+                                    height: toCSSPx(props.itemSize?.height, '48px')
+                                }}
+                                class={classNames('w-full rounded-xl flex-none shadow-1 bg-design-card')}
+                            >
+                                {props.children(item, index)}
+                            </div>
+                        )
                     }}
                 </VirtualList>
             </div>
