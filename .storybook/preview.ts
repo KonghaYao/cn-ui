@@ -1,6 +1,5 @@
 import { Preview } from 'storybook-solidjs'
 import { extractArgTypes } from 'storybook-solidjs-docgen/src/docs/extractArgTypes'
-import page from './autodoc.mdx'
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
 import '../src/css/scrollbar.css'

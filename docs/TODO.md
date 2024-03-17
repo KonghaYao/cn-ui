@@ -131,7 +131,7 @@
 
 ### 消息组件
 
--   [ ] 2 Message
+-   [x] 2 Message
 -   [ ] 2 Notification
 -   [x] 2 Alert
 -   [ ] 2 Toast

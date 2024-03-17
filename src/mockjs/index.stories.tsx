@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 import { JSON2Mockjs, JSON2TypeAlias } from '../../packages/mock-type/src/index'
 import { Container, Flex, Header, Main } from '../container'
-import { BaseInput } from '../control/input'
 import { atom, computed } from '@cn-ui/reactive'
 import { Col, Row } from '../RowAndCol'
 import { Tabs } from '../tabs/Tabs'
@@ -10,6 +9,7 @@ import Mock from 'mockjs-ts'
 import { AiOutlineCopy } from 'solid-icons/ai'
 import { Icon } from '../icon/Icon'
 import * as copy from 'copy-to-clipboard'
+
 const meta = {
     title: 'Utils 工具/Mockjs 转换工具',
     component() {},

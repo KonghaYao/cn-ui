@@ -12,6 +12,7 @@ const config: StorybookConfig = {
         check: false
     },
     async viteFinal(config, { presets }) {
+        config.build!.target = 'esnext'
         // Add docgen plugin
         const { reactDocgenTypescriptOptions } = await presets.apply<any>('typescript', {})
         config.plugins?.push({
