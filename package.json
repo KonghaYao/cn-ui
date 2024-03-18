@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "pnpm --filter \"*\" build && pnpm build-storybook",
+        "build:ui": "vite build -c vite.config.lib.ts && node ./script/build-entry.mjs",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",
@@ -52,6 +53,7 @@
         "@unocss/transformer-directives": "^0.58.6",
         "@vant/touch-emulator": "^1.4.0",
         "fuse.js": "^7.0.0",
+        "glob": "^10.3.10",
         "hast-util-to-jsx-runtime": "^2.3.0",
         "jsdom": "^22.1.0",
         "lowlight": "^3.1.0",
@@ -60,6 +62,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "release-it": "^17.1.1",
+        "rollup-plugin-multi-input": "^1.4.1",
         "runes2": "^1.1.4",
         "storybook": "^7.6.17",
         "storybook-solidjs": "1.0.0-beta.2",
