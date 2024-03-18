@@ -1,8 +1,12 @@
 {
-    "name": "vite-project",
-    "private": true,
-    "version": "0.0.0",
+    "name": "cn-ui",
+    "version": "0.0.1",
     "type": "module",
+    "main": "./dist/index.js",
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "dev": "vite",
         "build": "pnpm --filter \"*\" build && pnpm build-storybook",
