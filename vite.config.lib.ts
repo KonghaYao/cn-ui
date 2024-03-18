@@ -24,15 +24,18 @@ export default defineConfig({
                 }
             }
         },
-        UnoCSS(),
-        solid(),
-        wasm(),
         multi.default({
             relative: 'lib',
             transformOutputPath: (output, input) => {
                 return `lib/${path.basename(path.dirname(output))}/${path.basename(output)}`
             }
-        })
+        }),
+        // unocss 文件是额外进行构建的
+        // UnoCSS({
+        //     mode: 'global'
+        // }),
+        solid(),
+        wasm()
     ],
     assetsInclude: ['**/*.mdx'],
     build: {

@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "pnpm --filter \"*\" build && pnpm build-storybook",
-        "build:ui": "vite build -c vite.config.lib.ts && node ./script/build-entry.mjs",
+        "build:ui": "vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
+        "build:css": "unocss \"src/**/*.{ts,tsx}\" --out-file dist/cn-uno.css -m --preflights",
         "preview": "vite preview",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",
@@ -49,6 +50,7 @@
         "@testing-library/jest-dom": "^6.4.2",
         "@types/lodash-es": "^4.17.12",
         "@types/sortablejs": "^1.15.8",
+        "@unocss/cli": "^0.58.6",
         "@unocss/reset": "^0.58.6",
         "@unocss/transformer-directives": "^0.58.6",
         "@vant/touch-emulator": "^1.4.0",
