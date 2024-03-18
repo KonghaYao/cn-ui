@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { NullAtom, ObjectAtom, StoreToAtom, atom } from '@cn-ui/reactive'
-import { FormCore, FormCoreRegister } from './FromCore'
+import { FormCore, FormCoreRegister } from './FormCore'
 import { For, createEffect, createMemo, onCleanup } from 'solid-js'
 import { FormInput } from '../input/FormInput'
 import { FormSelect } from '../select/FormSelect'

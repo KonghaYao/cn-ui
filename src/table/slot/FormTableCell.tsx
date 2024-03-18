@@ -1,6 +1,6 @@
 import { computed, useEffectWithoutFirst } from '@cn-ui/reactive'
 import { Show, createMemo } from 'solid-js'
-import { FormCore } from '../../control/form/FromCore'
+import { FormCore } from '../../control/form/FormCore'
 import { defaultBodyCell } from './BodyCell'
 import { CellContext } from '@tanstack/solid-table'
 

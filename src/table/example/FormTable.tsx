@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/solid-table'
 import { MagicTable } from '../Table'
 import { FormTableCell } from '../slot/FormTableCell'
-import { FormCoreRegister } from '../../control/form/FromCore'
+import { FormCoreRegister } from '../../control/form/FormCore'
 import { FormInput } from '../../control/input/FormInput'
 import { FormSelect } from '../../control/select/FormSelect'
 import { FormInputNumber } from '../../control/inputNumber/FormInputNumber'
