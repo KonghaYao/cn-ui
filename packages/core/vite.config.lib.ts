@@ -42,16 +42,16 @@ export default defineConfig({
     assetsInclude: ['**/*.mdx'],
     build: {
         target: 'esnext',
-        outDir:"dist/esm",
+        outDir: "dist/esm",
         lib: {
             entry: './src/index.ts',
             formats: ['es'],
             fileName(format, entryName) {
-                return entryName + '.' + format + '.js'
+                return entryName  + '.js'
             }
         },
         rollupOptions: {
-            input: ['src/*/index.ts', 'src/control/*/index.ts'],
+            input: ['src/*/index.ts'],
         },
         sourcemap: true // 输出.map文件
     }

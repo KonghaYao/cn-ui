@@ -7,6 +7,31 @@
     "dist",
     "src"
   ],
+  "keywords": [
+    "cn-ui",
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "solid",
+    "solid-js",
+    "solid-component",
+    "solid-js-component",
+    "ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/KonghaYao/cn-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KonghaYao/cn-ui"
+  },
+  "homepage": "https://cn-ui.netlify.app",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "dev": "vite",
     "build": "pnpm --filter \"*\" build && pnpm storybook build",
@@ -22,7 +47,6 @@
   "dependencies": {
     "@ark-ui/solid": "~2.0.1",
     "@cn-ui/reactive": "workspace:^",
-    "@cn-ui/univer": "workspace:^",
     "@solid-primitives/keyed": "^1.2.2",
     "@storybook/test": "^8.0.4",
     "@tanstack/solid-table": "^8.15.0",
