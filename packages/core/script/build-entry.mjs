@@ -1,7 +1,7 @@
 import { glob } from 'glob'
 import path from 'path'
 import fs from 'fs'
-const entry = await glob(['dist/lib/*/index.es.js'])
+const entry = await glob(['./dist/esm/lib/*/index.es.js'])
 const file = entry
     .map((i) => {
         return `export * from './${path.relative('./dist/', i)}';`

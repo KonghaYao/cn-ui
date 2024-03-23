@@ -5,7 +5,7 @@ import UnoCSS from 'unocss/vite'
 import p from './package.json'
 import path from 'path'
 import multi from 'rollup-plugin-multi-input'
-
+import {bundleStats} from 'rollup-plugin-bundle-stats'
 const needBundle: string[] = []
 const AllDeps = [p.dependencies, p.devDependencies].flatMap((i) => Object.keys(i)).filter((i) => !needBundle.includes(i))
 export default defineConfig({
@@ -35,11 +35,13 @@ export default defineConfig({
         //     mode: 'global'
         // }),
         solid(),
-        wasm()
+        wasm(),
+        bundleStats()
     ],
     assetsInclude: ['**/*.mdx'],
     build: {
         target: 'esnext',
+        outDir:"dist/esm",
         lib: {
             entry: './src/index.ts',
             formats: ['es'],
@@ -48,7 +50,7 @@ export default defineConfig({
             }
         },
         rollupOptions: {
-            input: ['src/*/index.ts', 'src/control/*/index.ts']
+            input: ['src/*/index.ts', 'src/control/*/index.ts'],
         },
         sourcemap: true // 输出.map文件
     }

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from 'storybook-solidjs'
-import { JSON2Mockjs, JSON2TypeAlias } from '../../packages/mock-type/src/index'
+import { JSON2Mockjs, JSON2TypeAlias } from 'mock-type/src/index'
 import { Container, Flex, Header, Main } from '../container'
 import { atom, computed } from '@cn-ui/reactive'
 import { Col, Row } from '../RowAndCol'

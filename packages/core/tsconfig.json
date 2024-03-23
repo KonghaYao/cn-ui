@@ -24,5 +24,7 @@
         "paths": {
             "@cn-ui/reactive": ["./packages/reactive/src/index"]
         }
-    }
+    },
+    "include": ["src/**/*", "../highlight", "uno.config.js"],
+    "exclude": ["src/**/*.stories.tsx"]
 }
