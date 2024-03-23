@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
 import wasm from 'vite-plugin-wasm'
-import UnoCSS from 'unocss/vite'
+import dts from 'vite-plugin-dts'
 import p from './package.json'
 import path from 'path'
 import multi from 'rollup-plugin-multi-input'
@@ -27,7 +27,7 @@ export default defineConfig({
         multi.default({
             relative: 'lib',
             transformOutputPath: (output, input) => {
-                return `lib/${path.basename(path.dirname(output))}/${path.basename(output)}`
+                return `${path.basename(path.dirname(output))}/${path.basename(output)}`
             }
         }),
         // unocss 文件是额外进行构建的
@@ -36,7 +36,8 @@ export default defineConfig({
         // }),
         solid(),
         wasm(),
-        bundleStats()
+        bundleStats(),
+        dts()
     ],
     assetsInclude: ['**/*.mdx'],
     build: {

@@ -6,7 +6,7 @@ import { For } from 'solid-js/web'
 import { Row } from '../RowAndCol/Row'
 import { Col } from '../RowAndCol'
 import { Flex } from '../container/Flex'
-import { CheckboxGroup } from '../control/checkbox'
+import { CheckboxGroup } from '../checkbox'
 import { Button } from '../button'
 
 const meta = {

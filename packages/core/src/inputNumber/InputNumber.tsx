@@ -1,6 +1,6 @@
 import { NumberInput, useNumberInputContext } from '@ark-ui/solid'
 import { OriginComponent, computed, extendsEvent } from '@cn-ui/reactive'
-import { Icon } from '../../icon/Icon'
+import { Icon } from '../icon/Icon'
 import { AiOutlinePlus, AiOutlineMinus } from 'solid-icons/ai'
 import { Show, JSXElement } from 'solid-js'
 import { BaseFormItemType, extendsBaseFormItemProp } from '../form/BaseFormItemType'

@@ -2,7 +2,7 @@
     "compilerOptions": {
         "declaration": true,
         "emitDeclarationOnly": true,
-        "outDir": "dist",
+        "outDir": "dist/types",
         "target": "ES2020",
         "useDefineForClassFields": true,
         "module": "ESNext",
@@ -25,6 +25,6 @@
             "@cn-ui/reactive": ["./packages/reactive/src/index"]
         }
     },
-    "include": ["src/**/*", "../highlight", "uno.config.js"],
+    "include": ["src/**/*", "uno.config.js"],
     "exclude": ["src/**/*.stories.tsx"]
 }

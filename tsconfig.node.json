@@ -23,6 +23,6 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["vite.config.ts", "src"],
+    "include": ["vite.config.ts"],
     "exclude": ["/**/*.stories.tsx"]
 }

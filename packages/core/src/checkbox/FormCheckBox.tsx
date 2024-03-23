@@ -1,6 +1,6 @@
 import { NullAtom, OriginComponent } from '@cn-ui/reactive'
 import { CheckboxGroup, CheckboxGroupExpose, CheckboxGroupProps } from './CheckboxGroup'
-import { Flex } from '../../container'
+import { Flex } from '../container'
 
 export const FormCheckBox = OriginComponent<CheckboxGroupProps, HTMLDivElement, string[] | null>((props) => {
     const model = props.model.reflux(props.model() ?? [], (i) => (i.length ? i : null))

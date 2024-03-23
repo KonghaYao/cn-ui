@@ -1,6 +1,6 @@
 import { Atom, createBlackBoard, classNames, ensureArrayReturn } from '@cn-ui/reactive'
 import { Dynamic, Show } from 'solid-js/web'
-import { Col } from '../../RowAndCol'
+import { Col } from '../RowAndCol'
 import './form-core.css'
 import { RootColumnDef } from './utils'
 import { createMemo } from 'solid-js'

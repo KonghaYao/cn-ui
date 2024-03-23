@@ -8,3 +8,8 @@ const file = entry
     })
     .join('\n')
 fs.writeFileSync('./dist/index.js', file)
+fs.writeFileSync('./dist/index.d.ts', entry
+    .map((i) => {
+        return `export * from './${path.relative('./dist/', i).replace('esm', 'types')}';`
+    })
+    .join('\n'))

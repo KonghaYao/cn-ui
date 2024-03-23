@@ -1,7 +1,7 @@
 import { JSXSlot, OriginComponent, OriginComponentInputType, OriginDiv, atom, ensureFunctionResult } from '@cn-ui/reactive'
 import { VirtualList, VirtualListProps } from '../virtualList'
 import { Col, Row } from '../RowAndCol'
-import { BaseInput } from '../control/input'
+import { BaseInput } from '../input'
 import { Avatar } from '../avatar'
 import '../animation/fade.css'
 import { Transition } from 'solid-transition-group'

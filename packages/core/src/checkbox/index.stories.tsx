@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { Checkbox, CheckboxGroup, CheckboxGroupExpose, useControlCheckbox } from './index'
 import { Atom, NullAtom, atom, computed } from '@cn-ui/reactive'
-import { Flex } from '../../container/Flex'
+import { Flex } from '../container/Flex'
 import { watch } from 'solidjs-use'
 
 const meta = {

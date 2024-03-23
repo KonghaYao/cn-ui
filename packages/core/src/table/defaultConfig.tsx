@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/solid-table'
-import { Checkbox } from '../control/checkbox'
+import { Checkbox } from '../checkbox'
 import { computed } from '@cn-ui/reactive'
 import { Icon } from '../icon/Icon'
 import { AiOutlineCaretDown, AiOutlineCaretRight } from 'solid-icons/ai'

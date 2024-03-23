@@ -1,5 +1,5 @@
 import { Atom, OriginComponent, OriginComponentInputType, ResourceAtom, StoreToAtom, autoResource, createCtx, extendsEvent } from '@cn-ui/reactive'
-import { Row } from '../../RowAndCol'
+import { Row } from '../RowAndCol'
 import { For, createEffect, createMemo } from 'solid-js'
 import { FormCore } from './FormCore'
 import { ColumnDef } from '@tanstack/solid-table'

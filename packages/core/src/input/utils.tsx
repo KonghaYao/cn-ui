@@ -2,7 +2,7 @@ import { Component } from 'solid-js'
 import { InputExpose } from '.'
 import { Atom, useMapper } from '@cn-ui/reactive'
 import { AiFillEye, AiFillEyeInvisible, AiOutlineCloseCircle } from 'solid-icons/ai'
-import { Icon } from '../../icon/Icon'
+import { Icon } from '../icon/Icon'
 
 /** 密码 icon */
 export const PasswordControl: Component<InputExpose> = (expose) => {
