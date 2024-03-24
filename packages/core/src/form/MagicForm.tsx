@@ -84,13 +84,16 @@ export function isAccessorColumn<T, D>(column: ColumnDef<T, D>): column is RootC
 
 /** 扁平化列配置 */
 export function getFlattenColumnConfig<T, D>(columns: ColumnDef<T, D>[]) {
-    return columns.reduce((col, cur) => {
-        if ('columns' in cur && cur.columns) {
-            /** 忽略这个层叠头部配置 */
-            col.push(...getFlattenColumnConfig(cur.columns))
-        } else if (isAccessorColumn(cur)) {
-            col.push(cur)
-        }
-        return col
-    }, [] as RootColumnDef<T, D>[])
+    return columns.reduce(
+        (col, cur) => {
+            if ('columns' in cur && cur.columns) {
+                /** 忽略这个层叠头部配置 */
+                col.push(...getFlattenColumnConfig(cur.columns))
+            } else if (isAccessorColumn(cur)) {
+                col.push(cur)
+            }
+            return col
+        },
+        [] as RootColumnDef<T, D>[]
+    )
 }

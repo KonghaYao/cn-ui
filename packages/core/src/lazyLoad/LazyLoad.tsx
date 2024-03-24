@@ -1,4 +1,4 @@
-import {  atom, DefaultAC, OriginDiv, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive'
+import { atom, DefaultAC, OriginDiv, OriginComponent, OriginComponentInputType } from '@cn-ui/reactive'
 import { debounce } from 'lodash-es'
 import { children as getChildren, Component, createEffect, JSXElement, lazy, onMount, Suspense, Show, mergeProps } from 'solid-js'
 import { ensureFunctionResult } from '@cn-ui/reactive/src/utils/ensureFunctionResult'

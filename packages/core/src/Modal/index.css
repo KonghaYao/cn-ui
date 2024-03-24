@@ -6,7 +6,11 @@
         pointer-events: auto;
     }
     .cn-virtual-list-item {
-        transition: top 0.3s, bottom 0.3s, transform 0.3s, opacity linear 0.1s;
+        transition:
+            top 0.3s,
+            bottom 0.3s,
+            transform 0.3s,
+            opacity linear 0.1s;
         animation: cn-modal-show 0.3s;
     }
 }

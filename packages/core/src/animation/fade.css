@@ -1,6 +1,8 @@
 .cn-fade-enter-active,
 .cn-fade-exit-active {
-    transition: opacity 0.3s, transform 0.3s;
+    transition:
+        opacity 0.3s,
+        transform 0.3s;
 }
 .cn-fade-enter,
 .cn-fade-exit-to {

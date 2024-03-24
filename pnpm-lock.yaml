@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@cn-ui/area-data':
+        specifier: workspace:^
+        version: link:packages/area-data
       '@cn-ui/reactive':
         specifier: workspace:^
         version: link:packages/reactive
