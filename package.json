@@ -13,7 +13,7 @@
         "type-check": "tsc -p tsconfig.node.json",
         "build-storybook": "storybook build",
         "prettier": "prettier --write src/**/*",
-        "build": "pnpm --filter \"*\" build && pnpm storybook build"
+        "build": "pnpm --filter \"*\" build && pnpm build-storybook"
     },
     "dependencies": {
         "@cn-ui/reactive": "workspace:^",
