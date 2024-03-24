@@ -5,7 +5,7 @@ import dts from 'vite-plugin-dts'
 import p from './package.json'
 import path from 'path'
 import multi from 'rollup-plugin-multi-input'
-import {bundleStats} from 'rollup-plugin-bundle-stats'
+import { bundleStats } from 'rollup-plugin-bundle-stats'
 const needBundle: string[] = []
 const AllDeps = [p.dependencies, p.devDependencies].flatMap((i) => Object.keys(i)).filter((i) => !needBundle.includes(i))
 export default defineConfig({
@@ -42,16 +42,16 @@ export default defineConfig({
     assetsInclude: ['**/*.mdx'],
     build: {
         target: 'esnext',
-        outDir: "dist/esm",
+        outDir: 'dist/esm',
         lib: {
             entry: './src/index.ts',
             formats: ['es'],
             fileName(format, entryName) {
-                return entryName  + '.js'
+                return entryName + '.js'
             }
         },
         rollupOptions: {
-            input: ['src/*/index.ts'],
+            input: ['src/*/index.ts']
         },
         sourcemap: true // 输出.map文件
     }

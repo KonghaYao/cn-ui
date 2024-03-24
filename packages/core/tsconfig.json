@@ -1,4 +1,5 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
         "declaration": true,
         "emitDeclarationOnly": false,
@@ -6,11 +7,7 @@
         "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": [
-            "ES2020",
-            "DOM",
-            "DOM.Iterable",
-        ],
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "removeComments": false,
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
@@ -26,18 +23,10 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "paths": {
-            "@cn-ui/reactive": [
-                "./packages/reactive/src/index"
-            ]
+            "@cn-ui/reactive": ["./packages/reactive/src/index"]
         },
-        "types": [
-            "node"
-        ]
+        "types": ["node"]
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "src/**/*.stories.tsx"
-    ],
+    "include": ["src/**/*"],
+    "exclude": ["src/**/*.stories.tsx"]
 }

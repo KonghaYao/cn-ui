@@ -1,5 +1,5 @@
 import { OriginComponent, extendsEvent } from '@cn-ui/reactive'
-import { JSXElement } from 'solid-js'
+import type { JSXElement } from 'solid-js'
 
 export const Icon = OriginComponent<{
     spin?: boolean
@@ -8,7 +8,7 @@ export const Icon = OriginComponent<{
     return (
         <span
             role="img"
-            class={props.class(props.spin && 'animate-spin', 'inline-flex align-center text-center leading-[0]')}
+            class={props.class(props.spin && 'animate-spin', 'inline-flex items-center text-center leading-[0]')}
             style={{
                 ...props.style,
                 'vertical-align': '-0.125em'
