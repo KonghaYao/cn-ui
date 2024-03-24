@@ -6,23 +6,25 @@ import { Tabs, Tab } from '../tabs'
 import { Dynamic } from 'solid-js/web'
 import { Component, Show } from 'solid-js'
 import { watch } from 'solidjs-use'
+import * as AntdIcon from 'solid-icons/ai'
 const loader = {
-    Ai: () => import('solid-icons/ai'),
+    Ai: () => AntdIcon,
     Bs: () => import('solid-icons/bs'),
-    Bi: () => import('solid-icons/bi'),
     Fi: () => import('solid-icons/fi'),
-    Fa: () => import('solid-icons/fa'),
     Hi: () => import('solid-icons/hi'),
     Im: () => import('solid-icons/im'),
-    Io: () => import('solid-icons/io'),
-    Ri: () => import('solid-icons/ri'),
     Si: () => import('solid-icons/si'),
-    Ti: () => import('solid-icons/ti'),
     Vs: () => import('solid-icons/vs'),
-    Wi: () => import('solid-icons/wi'),
-    Cg: () => import('solid-icons/cg'),
-    Tb: () => import('solid-icons/tb'),
     Oc: () => import('solid-icons/oc')
+    // 下面的图标库打包报错
+    // Bi: () => import('solid-icons/bi'),
+    // Fa: () => import('solid-icons/fa')
+    // Io: () => import('solid-icons/io')
+    // Ri: () => import('solid-icons/ri'),
+    // Ti: () => import('solid-icons/ti'),
+    // Wi: () => import('solid-icons/wi'),
+    // Cg: () => import('solid-icons/cg'),
+    // Tb: () => import('solid-icons/tb'),
 } as unknown as Record<string, () => Promise<Record<string, Component>>>
 export const IconSearch = () => {
     const searchText = atom('')

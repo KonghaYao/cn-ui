@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     },
 
     typescript: {
+        skipCompiler: true,
         check: false
     },
 
