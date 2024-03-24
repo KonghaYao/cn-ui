@@ -5,7 +5,7 @@ import { useEventListener, watch } from 'solidjs-use'
 import { useTouch } from './useTouch'
 import { NullAtom, OriginComponent, OriginDiv, atom, computed, toCSSPx } from '@cn-ui/reactive'
 import { For, createEffect, mergeProps } from 'solid-js'
-import { SelectItemsType } from '../control/select'
+import { SelectItemsType } from '../select'
 
 /** clamps number within the inclusive lower and upper bounds */
 export const clamp = (num: number, min: number, max: number): number => Math.min(Math.max(num, min), max)

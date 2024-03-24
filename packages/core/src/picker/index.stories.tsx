@@ -13,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 import '@vant/touch-emulator'
 import { atom, computed, genArray } from '@cn-ui/reactive'
-import { SelectItemsType } from '../control/select'
+import { SelectItemsType } from '../select'
 import { Flex } from '../container'
 import { For } from 'solid-js'
 

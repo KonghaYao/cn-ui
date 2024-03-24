@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { InputNumber } from './index'
 import { atom } from '@cn-ui/reactive'
-import { Button } from '../../button'
+import { Button } from '../button'
 
 const meta = {
     title: 'Controls/InputNumber',

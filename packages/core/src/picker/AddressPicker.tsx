@@ -5,7 +5,7 @@ import compressedData from '@cn-ui/area-data/dist/area.json'
 import { decompress } from '@cn-ui/area-data'
 import { memoize } from 'lodash-es'
 import { OriginComponent, computed } from '@cn-ui/reactive'
-import { SelectItemsType } from '../control/select/Select'
+import { SelectItemsType } from '../select/Select'
 
 export const getChinaAddressOptions = memoize(() => {
     return [decompress(compressedData.province_list), decompress(compressedData.city_list), decompress(compressedData.county_list)].map((i) => {

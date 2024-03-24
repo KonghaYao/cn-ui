@@ -13,7 +13,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 import { AiOutlineUser } from 'solid-icons/ai'
-import { Icon } from '../../icon/Icon'
+import { Icon } from '../icon/Icon'
 export const Primary: Story = {
     render() {
         const data = atom('123232')
@@ -50,7 +50,7 @@ export const Password: Story = {
 }
 import { runes } from 'runes2'
 import { ClearControl, PasswordControl } from './utils'
-import { Button } from '../../button'
+import { Button } from '../button'
 
 /** 右侧计数 */
 export const Count: Story = {

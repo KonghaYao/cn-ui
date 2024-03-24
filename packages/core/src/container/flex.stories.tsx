@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from 'storybook-solidjs'
 
 import { Flex } from './index'
 import { atom } from '@cn-ui/reactive'
-import { Select } from '../control/select'
+import { Select } from '../select'
 const meta = {
     title: 'Layout 布局组件/Flex 弹性布局',
     component: Flex,

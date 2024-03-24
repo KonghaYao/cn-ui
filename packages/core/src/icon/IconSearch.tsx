@@ -1,5 +1,5 @@
 import { AC, ArrayFolder, DebounceAtom, atom, computed, resource } from '@cn-ui/reactive'
-import { BaseInput } from '../control/input'
+import { BaseInput } from '../input'
 import Fuse from 'fuse.js'
 
 import { Tabs, Tab } from '../tabs'

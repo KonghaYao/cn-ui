@@ -23,7 +23,7 @@ import { useScroll } from 'solidjs-use'
 import { createMemo } from 'solid-js'
 import { useAutoResize } from './hook/useAutoResize'
 import { JSX } from 'solid-js'
-import { SelectItemsType } from '../control/select'
+import { SelectItemsType } from '../select'
 import { RuleItem } from 'async-validator'
 declare module '@tanstack/solid-table' {
     interface TableMeta<TData extends unknown> {
