@@ -7,5 +7,5 @@ const posts = (await getCollection('blog')).sort((a, b) => a.data.pubDate.valueO
 ---
 
 <Layout title="CN UI 文档站" description="CN UI 是一个 SolidJS 组件库">
-    <IndexPage client:only />
+    <IndexPage client:load />
 </Layout>

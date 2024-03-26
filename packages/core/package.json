@@ -33,7 +33,7 @@
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "build": "vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
+        "build": "vite build -c vite.config.ssr.ts && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
         "build:css": "unocss \"src/**/*.{ts,tsx}\" --out-file dist/cn-uno.css -m --preflights",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",

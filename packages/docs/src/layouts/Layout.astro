@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro'
-
+import { Header } from '../components/Header'
 interface Props {
     title: string
     description: string
@@ -14,6 +14,7 @@ const { title, description } = Astro.props
     </head>
 
     <body>
+        <Header></Header>
         <slot />
     </body>
 </html>
