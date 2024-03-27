@@ -7,7 +7,7 @@ import { memoize } from 'lodash-es'
 import { OriginComponent, computed } from '@cn-ui/reactive'
 import { SelectItemsType } from '../select/Select'
 
-export const getChinaAddressOptions = memoize(() => {
+const _getChinaAddressOptions = () => {
     return [decompress(compressedData.province_list), decompress(compressedData.city_list), decompress(compressedData.county_list)].map((i) => {
         return Object.entries(i).map(([key, value]) => {
             return {
@@ -16,9 +16,10 @@ export const getChinaAddressOptions = memoize(() => {
             }
         })
     })
-})
+}
+export const getChinaAddressOptions = memoize(_getChinaAddressOptions) as typeof _getChinaAddressOptions
 
-export interface AddressPickerProps {}
+export interface AddressPickerProps { }
 
 export const AddressPicker = OriginComponent<AddressPickerProps, HTMLDivElement, SelectItemsType[]>((props) => {
     const options = getChinaAddressOptions()

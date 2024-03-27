@@ -1,12 +1,17 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "emitDeclarationOnly": true,
-        "outDir": "dist/types",
-        "target": "ES2020",
+        "emitDeclarationOnly": false,
+        "outDir": "dist/ssr",
+        "target": "ESNext",
         "useDefineForClassFields": true,
         "module": "ESNext",
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "lib": [
+            "ES2020",
+            "DOM",
+            "DOM.Iterable",
+        ],
+        "removeComments": false,
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,
         /* Bundler mode */
@@ -15,16 +20,24 @@
         "isolatedModules": true,
         "jsx": "preserve",
         "jsxImportSource": "solid-js",
-
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "paths": {
-            "@cn-ui/reactive": ["./packages/reactive/src/index"]
-        }
+            "@cn-ui/reactive": [
+                "./packages/reactive/src/index"
+            ]
+        },
+        "types": [
+            "node"
+        ]
     },
-    "include": ["src/**/*", "uno.config.js"],
-    "exclude": ["src/**/*.stories.tsx"]
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "src/**/*.stories.tsx"
+    ],
 }

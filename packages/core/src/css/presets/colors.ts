@@ -1,4 +1,4 @@
-import { red, volcano, orange, gold, yellow, lime, green, cyan, blue, geekblue, purple, magenta, grey, presetDarkPalettes } from '@ant-design/colors'
+import { red, volcano, orange, gold, yellow, lime, green, cyan, blue, geekblue, purple, magenta, presetDarkPalettes } from '@ant-design/colors'
 const antColorToObj = (arr: string[]) => {
     if (!arr) return {}
     const [head, ...other] = arr

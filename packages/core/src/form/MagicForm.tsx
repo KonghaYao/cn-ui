@@ -37,7 +37,7 @@ export const MagicForm = OriginComponent(function <T, D>(
         validator()
             .validate(props.originData as any)
             .then(
-                (data) => {
+                () => {
                     return null
                 },
                 (e: { errors: RuleItem[]; fields: Record<string, RuleItem[]> }) => {

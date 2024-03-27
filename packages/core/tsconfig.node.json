@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "skipLibCheck": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "allowSyntheticDefaultImports": true,
+        "jsx": "preserve",
+        "jsxImportSource": "solid-js",
+    },
+    "include": [
+        "vite.config.ssr.ts",
+        "./src/**/*.tsx",
+        "./src/**/*.ts",
+    ]
+}

@@ -1,7 +1,7 @@
 /**
  * 模仿自 Vant 项目 Picker 进行了 Solidjs 适配
  */
-import { useEventListener, watch } from 'solidjs-use'
+import { useEventListener } from 'solidjs-use'
 import { useTouch } from './useTouch'
 import { NullAtom, OriginComponent, OriginDiv, atom, computed, toCSSPx } from '@cn-ui/reactive'
 import { For, createEffect, mergeProps } from 'solid-js'

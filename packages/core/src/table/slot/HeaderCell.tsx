@@ -3,7 +3,7 @@ import { Header, flexRender } from '@tanstack/solid-table'
 import { MagicTableCtx } from '../MagicTableCtx'
 import { AiOutlineSwapRight } from 'solid-icons/ai'
 import { VirtualItem } from '@tanstack/solid-virtual'
-import { Show, createMemo, JSX } from 'solid-js'
+import { Show, createMemo } from 'solid-js'
 import { getCommonPinningStyles } from './getCommonPinningStyles'
 
 export function HeaderCell<T, D>(props: {

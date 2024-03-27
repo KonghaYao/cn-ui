@@ -1,6 +1,6 @@
 import { atom } from '@cn-ui/reactive'
 import { Accessor, onCleanup, onMount } from 'solid-js'
-import { useResizeObserver, watch } from 'solidjs-use'
+import { useResizeObserver } from 'solidjs-use'
 
 export const useAutoResize = (sizer: Accessor<HTMLElement | null>) => {
     const width$ = atom(0)

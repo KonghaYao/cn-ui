@@ -31,12 +31,12 @@ export class MessageControl {
         const show = atom(true)
         return (
             <Modal v-model={show} each={props.store} by={(i) => i.id!} position="top">
-                {(item, index) => {
+                {(item) => {
                     return (
                         <Alert
                             class="h-full rounded-md"
                             type={item.type}
-                            title={item.title}
+                            message={item.title}
                             description={item.description}
                             icon
                             closable={item.closable}

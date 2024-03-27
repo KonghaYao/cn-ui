@@ -1,4 +1,4 @@
-import { OriginComponent, OriginDiv, computed, createCtx, reflect } from '@cn-ui/reactive'
+import { OriginComponent, OriginDiv, computed, createCtx } from '@cn-ui/reactive'
 import { toCSSPx } from '@cn-ui/reactive'
 
 export const RowJustify = ['start', 'center', 'end', 'space-around', 'space-between', 'space-evenly'] as const

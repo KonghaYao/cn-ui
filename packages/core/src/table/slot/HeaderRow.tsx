@@ -1,5 +1,5 @@
 import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
-import { For, Show, createEffect, createMemo } from 'solid-js'
+import { Show, createMemo } from 'solid-js'
 import { HeaderCell } from './HeaderCell'
 import { Header } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
@@ -15,10 +15,10 @@ export function HeaderRow<T>(props: {
     isLastRow?: boolean
     position: 'center' | 'left' | 'right'
 }) {
-    const { columnVirtualizer, paddingLeft, estimateHeight, width, paddingRight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { columnVirtualizer, estimateHeight, width, paddingRight } = MagicTableCtx.use<MagicTableCtxType<T>>()
     const columns = createMemo(() => {
         if (['left', 'right'].includes(props.position))
-            return props.headers.map((i, index) => {
+            return props.headers.map((_, index) => {
                 return { index } as VirtualItem
             })
         if (props.columnsFilter) return props.columnsFilter(columnVirtualizer.getVirtualItems())
@@ -35,14 +35,14 @@ export function HeaderRow<T>(props: {
                 style={
                     props.absolute
                         ? {
-                              height: toCSSPx(estimateHeight(), '48px'),
-                              top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
-                          }
+                            height: toCSSPx(estimateHeight(), '48px'),
+                            top: props.position !== 'center' ? toCSSPx(props.level * 48) : undefined
+                        }
                         : {}
                 }
             >
                 <Key by="key" each={columns()}>
-                    {(item, index) => {
+                    {(item) => {
                         const header = createMemo(() => props.headers[item().index])
 
                         return (

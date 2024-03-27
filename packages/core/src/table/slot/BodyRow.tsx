@@ -1,4 +1,4 @@
-import { For, JSXElement, Show, createEffect, createMemo } from 'solid-js'
+import { JSXElement, Show, createMemo } from 'solid-js'
 import { MagicTableCtx, MagicTableCtxType } from '../MagicTableCtx'
 import { BodyCell } from './BodyCell'
 import { classNames, toCSSPx } from '@cn-ui/reactive'
@@ -6,7 +6,7 @@ import { Cell } from '@tanstack/solid-table'
 import { VirtualItem } from '@tanstack/solid-virtual'
 import { Key } from '@solid-primitives/keyed'
 import './bodyRow.css'
-export function BodyRow<T, D>(props: {
+export function BodyRow<T, _D>(props: {
     index?: string | number
     bindScroll?: boolean
     cells?: Cell<T, unknown>[]
@@ -16,7 +16,7 @@ export function BodyRow<T, D>(props: {
     hideWhenEmpty?: boolean
     absolute: boolean
 }) {
-    const { columnVirtualizer, rows, width, paddingRight, selection, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
+    const { columnVirtualizer, rows, width, paddingRight, rowVirtualizer, estimateHeight } = MagicTableCtx.use<MagicTableCtxType<T>>()
 
     const row = createMemo(() => rows()[props.virtualRow.index])
     const rowVisibleCells = createMemo(() => {
@@ -48,10 +48,10 @@ export function BodyRow<T, D>(props: {
                     top: toCSSPx(props.virtualRow.start),
                     height: toCSSPx(estimateHeight(), '48px')
                 }}
-                // rowClick Selection
-                // onClick={() => {
-                //     selection() && row().toggleSelected()
-                // }}
+            // rowClick Selection
+            // onClick={() => {
+            //     selection() && row().toggleSelected()
+            // }}
             >
                 <Key by="id" each={row().getLeftVisibleCells()}>
                     {(cell, index) => {

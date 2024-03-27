@@ -1,6 +1,6 @@
 import { Pagination as P } from '@ark-ui/solid'
 import { AiOutlineEllipsis, AiOutlineLeft, AiOutlineRight } from 'solid-icons/ai'
-import { For, onMount } from 'solid-js'
+import { For } from 'solid-js'
 import { Icon } from '../icon/Icon'
 import { OriginComponent, classNames } from '@cn-ui/reactive'
 export interface PaginationProps {

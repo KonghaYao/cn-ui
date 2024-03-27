@@ -14,7 +14,7 @@ import {
 } from './core/index'
 export * from './core/index'
 
-import { createSignal, onMount, onCleanup, createComputed, mergeProps, startTransition, batch } from 'solid-js'
+import { createSignal, onMount, onCleanup, createComputed, mergeProps, startTransition } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
 import { nextTick } from 'solidjs-use'
 

@@ -1,5 +1,5 @@
 export const createDesignRules = (design: Record<string, string>) => {
-    return Object.entries(design).flatMap(([key, val]) => {
+    return Object.entries(design).flatMap(([key]) => {
         return [
             ['bg-design-' + key, { 'background-color': `var(--cn-bg-design-${key})` }],
             ['text-design-' + key, { color: `var(--cn-text-design-${key})` }],

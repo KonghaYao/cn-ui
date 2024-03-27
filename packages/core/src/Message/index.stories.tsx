@@ -24,13 +24,13 @@ export const Primary: Story = {
         return (
             <div class="flex flex-col gap-4">
                 {(['success', 'error', 'warning', 'info'] as const).map((i) => {
-                    return <Alert title="你好吗" type={i} closable icon></Alert>
+                    return <Alert message="你好吗" type={i} closable icon></Alert>
                 })}
                 {(['success', 'error', 'warning', 'info'] as const).map((i) => {
-                    return <Alert title="你好吗" type={i} closable icon round border></Alert>
+                    return <Alert message="你好吗" type={i} closable icon round border></Alert>
                 })}
                 {(['success', 'error', 'warning', 'info'] as const).map((i) => {
-                    return <Alert title="你好吗" type={i} closable icon round border description={Array(50).fill(i).join(',')}></Alert>
+                    return <Alert message="你好吗" type={i} closable icon round border description={Array(50).fill(i).join(',')}></Alert>
                 })}
             </div>
         )

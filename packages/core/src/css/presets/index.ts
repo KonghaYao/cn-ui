@@ -3,7 +3,7 @@ import { definePreset } from 'unocss'
 import { colors, darkColors } from './colors'
 import { boxShadow } from './boxShadow'
 import { DarkDesignCSSVar, DesignCSSVar, designRules } from './design'
-export default definePreset((props: {}) => {
+export default definePreset(() => {
     return {
         name: 'uno-preset-cn',
         theme: { colors, boxShadow },

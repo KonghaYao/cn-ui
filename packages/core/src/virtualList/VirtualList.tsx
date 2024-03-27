@@ -33,7 +33,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
             return props.each.length
         },
         getItemKey: props.getItemKey,
-        estimateSize(index) {
+        estimateSize() {
             return props.estimateSize ?? 24
         },
         getScrollElement: () => tableContainerRef(),

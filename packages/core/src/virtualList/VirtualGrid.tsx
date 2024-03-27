@@ -33,7 +33,7 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
             return props.each.length
         },
         getItemKey: props.getItemKey,
-        estimateSize(index) {
+        estimateSize() {
             return props.estimateWidth ?? 24
         },
         measureElement:
@@ -46,7 +46,7 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
             return props.colSize ?? props.each[0].length
         },
         getItemKey: props.getItemKey,
-        estimateSize(index) {
+        estimateSize() {
             return props.estimateHeight ?? 24
         },
         getScrollElement: () => tableContainerRef(),

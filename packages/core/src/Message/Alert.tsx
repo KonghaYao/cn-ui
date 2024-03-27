@@ -6,7 +6,7 @@ import { Show } from 'solid-js'
 export interface AlertProps {
     closable?: boolean
     icon?: boolean | JSXSlot
-    title: JSXSlot
+    message: JSXSlot
     border?: boolean
     round?: boolean
     description?: JSXSlot
@@ -71,7 +71,7 @@ export const Alert = OriginComponent<AlertProps>((props) => {
         <div class={props.class(boxClass(), 'overflow-hidden')}>
             <h3 class="flex items-center">
                 {typeof props.icon === 'boolean' ? DynamicIcon() : ensureFunctionResult(props.icon)}
-                <span class="flex-1">{ensureFunctionResult(props.title)}</span>
+                <span class="flex-1">{ensureFunctionResult(props.message)}</span>
                 <Show when={props.closable}>
                     <Icon class="cursor-pointer text-design-border hover:text-design-title transition-color" onclick={props?.onClose}>
                         <AiOutlineClose></AiOutlineClose>

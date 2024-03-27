@@ -62,7 +62,7 @@ const columns = [
 export const PaginationExample = () => {
     const pageSize = atom(100)
     const a = usePagination<Person[]>(
-        async (num, max, count) => {
+        async (_, max, count) => {
             max(100)
             count(pageSize() * 100)
             return genArray(pageSize()).map(newPerson)

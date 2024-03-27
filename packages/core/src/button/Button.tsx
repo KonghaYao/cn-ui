@@ -1,4 +1,4 @@
-import { JSXSlot, OriginComponent, OriginComponentInputType, OriginDiv, ensureFunctionResult, extendsEvent, useMapper } from '@cn-ui/reactive'
+import { JSXSlot, OriginComponent, OriginComponentInputType, ensureFunctionResult, extendsEvent, useMapper } from '@cn-ui/reactive'
 import { Match, Switch } from 'solid-js'
 import { ButtonStore } from './ButtonStore'
 export interface ButtonProps {

@@ -40,7 +40,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
         })
         createEffect(() => {
             valueToOptionCache.clear()
-            selectSystem.allRegistered((i) => {
+            selectSystem.allRegistered(() => {
                 const set = new Set<string>()
                 props.options.forEach((item) => {
                     set.add(item.value.toString())
@@ -111,7 +111,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
                         onblur={() => {
                             inputText(() => keepState)
                         }}
-                        prefixIcon={(expose) => {
+                        prefixIcon={() => {
                             if (!props.multiple) return
 
                             return (
@@ -181,7 +181,7 @@ export const SelectPanel = (props: { options: SelectItemsType[]; multiple?: bool
         <>
             {props.options.length > 100 ? (
                 <VirtualList each={props.options} estimateSize={24} fallback={VoidSlot}>
-                    {(item, index, { itemClass, itemRef }) => {
+                    {(item, _, { itemClass, itemRef }) => {
                         createEffect(() => {
                             itemClass(createClass(item))
                             useEventListener(itemRef, 'click', () => {

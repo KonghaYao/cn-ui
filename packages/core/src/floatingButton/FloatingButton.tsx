@@ -58,7 +58,7 @@ export const FloatingButtonGroup = OriginComponent<{ options: FloatingButtonProp
                         </Show>
                     </Show>
                     <For each={props.options}>
-                        {(item, index) => {
+                        {(item) => {
                             return <Show when={props.model()}>{FloatingButton(item as any)}</Show>
                         }}
                     </For>

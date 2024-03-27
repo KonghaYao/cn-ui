@@ -1,8 +1,8 @@
-import { toCSSPx, useMapper } from '@cn-ui/reactive'
+import { toCSSPx } from '@cn-ui/reactive'
 import { MagicTableCtx, MagicTableCtxType } from './MagicTableCtx'
 import { HeaderRow } from './slot/HeaderRow'
 import { Key } from '@solid-primitives/keyed'
-import { Show, createMemo } from 'solid-js'
+import { Show } from 'solid-js'
 
 export function MagicTableHeader<T>(props: { rowAbsolute: boolean }) {
     const { table, tableWidth } = MagicTableCtx.use<MagicTableCtxType<T>>()
