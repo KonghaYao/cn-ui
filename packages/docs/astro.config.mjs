@@ -24,16 +24,6 @@ export default defineConfig({
             noExternal: ['solid-icons']
         },
         plugins: [
-            {
-                name: 'cn-ui-ssr',
-                enforce: 'pre',
-                resolveId(source) {
-                    if (source === '@cn-ui/core') {
-                        console.log('You are using @cn-ui/core SSR Mode')
-                        return { id: '@cn-ui/core/dist/ssr.js' }
-                    }
-                }
-            }
         ]
     }
 })

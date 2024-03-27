@@ -2,7 +2,7 @@
     "name": "@cn-ui/core",
     "version": "2.0.0",
     "type": "module",
-    "main": "./dist/index.js",
+    "main": "./dist/ssr.js",
     "files": [
         "dist"
     ],
@@ -32,9 +32,9 @@
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && pnpm  build:ssr && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
+        "build": "node ./script/clean-dist.mjs && pnpm build:ssr && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
         "build:css": "unocss \"src/**/*.{ts,tsx}\" --out-file dist/cn-uno.css -m --preflights",
-        "build:ssr": "tsc && node ./script/clean-css-import.mjs",
+        "build:ssr": "tsc && node ./script/clean-import.mjs",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",
         "prettier": "prettier --write src/**/*",
