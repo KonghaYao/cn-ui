@@ -10,18 +10,17 @@ export default defineConfig({
     integrations: [
         mdx(),
         sitemap(),
-        solidJs({
-            solid: {
-                generate: "ssr"
-            }
-        }),
+        solidJs(),
         UnoCSS({
             injectReset: true
-        })
+        }),
     ],
     vite: {
         ssr: {
-            noExternal: ['solid-icons']
+            noExternal: ['solid-icons'],
+            resolve: {
+                externalConditions: ['solid', 'module']
+            }
         },
         plugins: [
         ]
