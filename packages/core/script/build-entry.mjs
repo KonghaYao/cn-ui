@@ -25,14 +25,14 @@ const jsFile = e
 fs.writeFileSync('./src/index.ts', jsFile)
 
 // 生成 esm 包的 index.js
-let p = await getFiles('esm')
-fs.writeFileSync('./dist/index.js', p.cssFile + p.jsFile)
-fs.writeFileSync('./dist/preset.js', p.cssFile + "import './cn-uno.css'\nexport * from './index.js'")
+const esm = await getFiles('esm')
+fs.writeFileSync('./dist/index.js', esm.cssFile + esm.jsFile)
+fs.writeFileSync('./dist/preset.js', esm.cssFile + "import './cn-uno.css'\nexport * from './index.js'")
 
 // 生成 ssr 包的 index.js
-p = await getFiles('ssr')
-fs.writeFileSync('./dist/ssr.js', p.cssFile + p.jsFile)
-fs.writeFileSync('./dist/ssr.preset.js', p.cssFile + "import './cn-uno.css'\nexport * from './ssr.js'")
+const ssr = await getFiles('ssr')
+fs.writeFileSync('./dist/ssr.js', esm.cssFile + ssr.jsFile)
+fs.writeFileSync('./dist/ssr.preset.js', ssr.cssFile + "import './cn-uno.css'\nexport * from './ssr.js'")
 
 const entry = await glob([`./dist/esm/*/index.js`])
 fs.writeFileSync(

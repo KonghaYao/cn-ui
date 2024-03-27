@@ -10,12 +10,19 @@ export default defineConfig({
     integrations: [
         mdx(),
         sitemap(),
-        solidJs(),
+        solidJs({
+            solid: {
+                generate: "ssr"
+            }
+        }),
         UnoCSS({
             injectReset: true
         })
     ],
     vite: {
+        ssr: {
+            noExternal: ['solid-icons']
+        },
         plugins: [
             {
                 name: 'cn-ui-ssr',
