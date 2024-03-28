@@ -3,9 +3,7 @@ import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import UnoCSS from 'unocss/astro'
 import solidJs from '@astrojs/solid-js'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const solidjsDocgen = require('@joshwooding/vite-plugin-react-docgen-typescript')
+
 // https://astro.build/config
 export default defineConfig({
     site: 'https://example.com',
@@ -42,18 +40,6 @@ export default defineConfig({
             }
         },
         plugins: [
-            {
-                enforce: 'pre',
-                ...solidjsDocgen({
-                    shouldExtractLiteralValuesFromEnum: true,
-                    shouldRemoveUndefinedFromOptional: true,
-                    shouldIncludePropTagMap: true,
-                    shouldIncludeExpression: true,
-                    propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
-                    savePropValueAsString: true,
-                    include: ['**/*.tsx', '**/*.ts']
-                })
-            }
         ]
     }
 })

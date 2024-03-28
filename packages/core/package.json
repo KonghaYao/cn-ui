@@ -33,8 +33,9 @@
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && pnpm build:ssr && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css",
+        "build": "node ./script/clean-dist.mjs && pnpm build:ssr && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css && pnpm docgen",
         "build:css": "unocss \"src/**/*.{ts,tsx}\" --out-file dist/cn-uno.css -m --preflights",
+        "docgen": "node ./script/docgen.mjs",
         "build:ssr": "tsc && node ./script/clean-import.mjs",
         "storybook": "storybook dev -p 6006",
         "type-check": "tsc -p tsconfig.node.json",
@@ -50,6 +51,8 @@
         "@tanstack/solid-virtual": "^3.2.0",
         "@tanstack/table-core": "^8.14.0",
         "@tanstack/virtual-core": "^3.2.0",
+        "@types/lodash": "^4.17.0",
+        "@types/lodash-es": "^4.17.12",
         "async-validator": "^4.2.5",
         "copy-to-clipboard": "^3.3.3",
         "lodash-es": "^4.17.21",
@@ -61,8 +64,6 @@
         "split.js": "^1.6.5",
         "ts-toolbelt": "^9.6.0",
         "viewerjs": "^1.11.6",
-        "@types/lodash": "^4.17.0",
-        "@types/lodash-es": "^4.17.12",
         "wc-spinners": "^1.1.1"
     },
     "devDependencies": {
@@ -80,6 +81,7 @@
         "jsdom": "^22.1.0",
         "mock-type": "workspace:^",
         "mockjs-ts": "^2.3.0",
+        "react-docgen-typescript": "^2.2.2",
         "runes2": "^1.1.4",
         "unocss": "^0.58.6",
         "unocss-preset-chinese": "^0.3.2",

@@ -1,30 +1,40 @@
 import { type ColumnDef, Checkbox } from '@cn-ui/core'
 import { atom } from '@cn-ui/reactive'
-interface DocAPiInfo {
+interface DocAPIInfo {
     defaultValue: any
     description: string
     name: string
-    required: true
-    type: { name: string }
+    declarations: {
+        fileName: string
+        name: string
+    }[]
+    required: boolean
+    type: {
+        name: string
+    }
+    tags: {}
 }
 export interface DocInfo {
+    tags: {}
+    filePath: string
     description: string
     displayName: string
-    props: Record<string, DocAPiInfo>
+    methods: Array<any>
+    props: Record<string, DocAPIInfo>
 }
 
 const columns = [
     { accessorKey: 'name', header: () => '名称' },
     { accessorKey: 'required', header: () => '必填' },
     { accessorKey: 'description', header: () => '描述' }
-] satisfies ColumnDef<DocAPiInfo>
+] satisfies ColumnDef<DocAPIInfo>
 
-export const APIOfComponent = (props: { comp: { displayName: string; __docgenInfo: DocInfo } }) => {
-    if (!props?.comp?.__docgenInfo?.props) {
-        console.log(props.comp)
+export const APIOfComponent = (props: { comp?: { __docgenInfo: DocInfo }; doc?: DocInfo }) => {
+    const doc = props?.comp?.__docgenInfo?.props ?? props.doc
+    if (!doc) {
         return '未识别到组件'
     }
-    const info = Object.values(props.comp.__docgenInfo.props)
+    const info = Object.values(doc.props)
     return (
         <div class=" p-4 rounded-xl">
             <table class="w-full ">
