@@ -288,7 +288,7 @@ export class Virtualizer<TScrollElement extends Element | Window, TItemElement e
 
     setOptions = (opts: VirtualizerOptions<TScrollElement, TItemElement>) => {
         Object.entries(opts).forEach(([key, value]) => {
-            if (typeof value === 'undefined') delete (opts as any)[key]
+            if (typeof value === 'undefined') Reflect.deleteProperty(opts, key)
         })
         /** @ts-ignore */
         this.options = {
@@ -302,7 +302,7 @@ export class Virtualizer<TScrollElement extends Element | Window, TItemElement e
             horizontal: false,
             getItemKey: defaultKeyExtractor,
             rangeExtractor: defaultRangeExtractor,
-            onChange: () => { },
+            onChange: () => {},
             measureElement,
             initialRect: { width: 0, height: 0 },
             scrollMargin: 0,
@@ -447,12 +447,12 @@ export class Virtualizer<TScrollElement extends Element | Window, TItemElement e
 
         return furthestMeasurements.size === this.options.lanes
             ? Array.from(furthestMeasurements.values()).sort((a, b) => {
-                if (a.end === b.end) {
-                    return a.index - b.index
-                }
+                  if (a.end === b.end) {
+                      return a.index - b.index
+                  }
 
-                return a.end - b.end
-            })[0]
+                  return a.end - b.end
+              })[0]
             : undefined
     }
 
@@ -504,10 +504,10 @@ export class Virtualizer<TScrollElement extends Element | Window, TItemElement e
             return (this.range =
                 measurements.length > 0 && outerSize > 0
                     ? calculateRange({
-                        measurements,
-                        outerSize,
-                        scrollOffset
-                    })
+                          measurements,
+                          outerSize,
+                          scrollOffset
+                      })
                     : null)
         },
         {
@@ -522,10 +522,10 @@ export class Virtualizer<TScrollElement extends Element | Window, TItemElement e
             return range === null
                 ? []
                 : rangeExtractor({
-                    ...range,
-                    overscan,
-                    count
-                })
+                      ...range,
+                      overscan,
+                      count
+                  })
         },
         {
             key: process.env.NODE_ENV !== 'production' && 'getIndexes',
