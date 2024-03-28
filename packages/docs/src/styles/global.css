@@ -1,5 +1,4 @@
 @media (prefers-color-scheme: dark) {
-
     .astro-code,
     .astro-code span {
         color: var(--shiki-dark) !important;
@@ -11,6 +10,9 @@
     }
 }
 
+.astro-code {
+    background-color: var(--cn-bg-design-card) !important;
+}
 .dark .astro-code,
 .dark .astro-code span {
     color: var(--shiki-dark) !important;

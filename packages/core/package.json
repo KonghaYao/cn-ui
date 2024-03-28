@@ -34,7 +34,7 @@
     },
     "scripts": {
         "build": "node ./script/clean-dist.mjs && pnpm build:ssr && vite build -c vite.config.lib.ts && node ./script/build-entry.mjs && pnpm build:css && pnpm docgen",
-        "build:css": "unocss \"src/**/*.{ts,tsx}\" --out-file dist/cn-uno.css -m --preflights",
+        "build:css": "unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights",
         "docgen": "node ./script/docgen.mjs",
         "build:ssr": "tsc && node ./script/clean-import.mjs",
         "storybook": "storybook dev -p 6006",

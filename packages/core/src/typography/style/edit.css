@@ -1,0 +1,11 @@
+.edit-text-icon {
+    margin: 0 0.2em;
+    padding: 0 0.2em;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    @apply text-sky-500;
+}
+.edit-text-icon:hover {
+    backdrop-filter: brightness(0.95);
+}

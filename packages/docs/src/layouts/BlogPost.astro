@@ -2,11 +2,10 @@
 import type { CollectionEntry } from 'astro:content'
 import BaseHead from '../components/BaseHead.astro'
 import { Header } from '../components/Header'
-
+import { Typography } from '@cn-ui/core'
 type Props = CollectionEntry<'blog'>['data']
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props
-
 ---
 
 <html lang="en">
@@ -16,8 +15,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props
 
     <body>
         <Header client:load />
-        <article>
+        <Typography>
             <slot />
-        </article>
+        </Typography>
     </body>
 </html>

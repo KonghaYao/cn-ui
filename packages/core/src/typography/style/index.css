@@ -1,0 +1,169 @@
+.cn-typography ::-webkit-scrollbar {
+    --at-apply: h-2 w-2;
+}
+
+.cn-typography ::-webkit-scrollbar-thumb {
+    --at-apply: bg-design-border;
+}
+
+.cn-typography ::-webkit-scrollbar-track-piece {
+    --at-apply: bg-transparent;
+}
+
+.cn-typography {
+    font-family: var(--default-font);
+    --at-apply: box-border w-full px-8 pb-12 font-thin text-design-title;
+    /* 默认不显示下划线，保持页面简洁 */
+}
+.cn-typography ins,
+.cn-typography a {
+    --at-apply: underline underline-offset-2;
+}
+
+/* 专名号：虽然 u 已经重回 html5 Draft，但在所有浏览器中都是可以使用的，
+*/
+.cn-typography u {
+    --at-apply: underline underline-offset-2;
+}
+
+/* 标记，类似于手写的荧光笔的作用 */
+.cn-typography mark {
+    --at-apply: mx-4 bg-yellow-200 px-0.5;
+}
+
+/* 代码片断 */
+.cn-typography pre,
+.cn-typography pre tt {
+    font-family: Courier, 'Courier New', monospace;
+}
+
+.cn-typography pre {
+    --at-apply: overflow-auto rounded-2xl px-4;
+}
+/* 保证块/段落之间的空白隔行 */
+.cn-typography p,
+.cn-typography pre,
+.cn-typography ul,
+.cn-typography ol,
+.cn-typography dl,
+.cn-typography form,
+.cn-typography table,
+.cn-typography blockquote {
+    /* 因为文章上面可能有 header 所以不适合加上边框 */
+    --at-apply: mb-4;
+}
+
+/* 两边对齐会导致 部分文本间隔过大 */
+/* .cn-typography p {
+    --at-apply: text-justify;
+} */
+
+.cn-typography hr {
+    --at-apply: my-2;
+}
+.cn-typography blockquote {
+    --at-apply: relative my-2 border-l-4 border-solid border-design-border pl-2 font-normal text-design-h2;
+}
+.cn-typography :not(pre) code {
+    --at-apply: mx-1 my-2 rounded-md px-1;
+}
+
+/* 标题应该更贴紧内容，并与其他块区分，margin 值要相应做优化 */
+.cn-typography h1,
+.cn-typography h2,
+.cn-typography h3,
+.cn-typography h4,
+.cn-typography h5,
+.cn-typography h6 {
+    --at-apply: mb-[0.6em] mt-[1.2em] font-normal leading-snug;
+}
+
+.cn-typography h1 {
+    --at-apply: text-3xl;
+}
+.cn-typography h2 {
+    --at-apply: text-2xl;
+}
+
+.cn-typography h3 {
+    --at-apply: text-xl;
+}
+
+.cn-typography h4 {
+    --at-apply: text-lg;
+}
+
+.cn-typography h5 {
+    --at-apply: text-sm;
+}
+
+.cn-typography h6 {
+    --at-apply: text-xs;
+}
+.cn-typography ul {
+    /*  ul 和 ol 在默认表现下会有一定的左距离，所以需要 6 来保证序列标记在第一个字 */
+    --at-apply: ml-6 list-disc;
+}
+
+.cn-typography ol {
+    --at-apply: ml-6 list-decimal;
+}
+
+.cn-typography li ul,
+.cn-typography li ol {
+    --at-apply: ml-8 mb-3;
+}
+
+.cn-typography li ul {
+    list-style: circle;
+    --at-apply: list-[circle];
+}
+
+.cn-typography table {
+    --at-apply: block w-[max-content] max-w-[100%] overflow-auto;
+}
+
+/* 同 ul/ol，在文章中应用 table 基本格式 */
+.cn-typography table th,
+.cn-typography table td,
+.cn-typography table caption {
+    --at-apply: border border-solid border-design-border px-2 py-4 text-design-h2;
+}
+
+.cn-typography table caption {
+    --at-apply: border-b-0;
+}
+
+/* 去除 webkit 中 input 和 textarea 的默认样式  */
+.cn-typography input,
+.cn-typography textarea {
+    --at-apply: appearance-none rounded-none;
+}
+
+.cn-typography em,
+.cn-typography legend,
+.cn-typography caption {
+    font-weight: inherit;
+}
+
+/* 不使用着重号，*/
+.cn-typography em {
+    --at-apply: relative mx-1;
+}
+
+.cn-typography abbr {
+    --at-apply: underline-offset-4;
+}
+/* Responsive images */
+.cn-typography img {
+    max-width: 100%;
+}
+.cn-typography > p {
+    --at-apply: whitespace-pre-wrap indent-[2em] leading-7;
+}
+.cn-typography a {
+    --at-apply: text-primary-500 hover: text-primary-400;
+}
+.cn-typography strong {
+    --at-apply: mx-1;
+}

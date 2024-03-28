@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
 import wasm from 'vite-plugin-wasm'
 import dts from 'vite-plugin-dts'
+import UnoCSS from 'unocss/vite'
 import p from './package.json'
 import path from 'path'
 import multi from 'rollup-plugin-multi-input'
@@ -31,9 +32,16 @@ export default defineConfig({
             }
         }),
         // unocss 文件是额外进行构建的
-        // UnoCSS({
-        //     mode: 'global'
-        // }),
+        // 但是这里用于处理 css 内的 unocss 语法问题
+        UnoCSS({
+            mode: 'global',
+            content: {
+                pipeline: {
+                    include: ['**/*.css'],
+                    exclude: ['**/*.@(ts|tsx)']
+                }
+            }
+        }),
         solid(),
         wasm(),
         bundleStats(),

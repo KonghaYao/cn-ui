@@ -1,5 +1,6 @@
 export * from './waterFall/index';
 export * from './utils/index';
+export * from './typography/index';
 export * from './tag/index';
 export * from './tabs/index';
 export * from './table/index';
