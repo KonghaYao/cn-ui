@@ -3,6 +3,7 @@
     "version": "2.0.0",
     "type": "module",
     "main": "./dist/ssr.js",
+    "types": "./dist/index.d.ts",
     "files": [
         "dist"
     ],
@@ -41,8 +42,7 @@
         "prepublish": "pnpm build"
     },
     "dependencies": {
-        "@ark-ui/solid": "~2.0.1",
-        "@babel/preset-typescript": "^7.24.1",
+        "@ark-ui/solid": "^2.2.0",
         "@cn-ui/reactive": "workspace:^",
         "@solid-primitives/keyed": "^1.2.2",
         "@storybook/test": "^8.0.4",
