@@ -4,8 +4,8 @@ import { toggleTheme } from '@cn-ui/core'
 export const Header = () => {
     const menuList = [
         {
-            href: '/design',
-            name: '设计'
+            href: '/guide',
+            name: '指引'
         },
         {
             href: '/components',
