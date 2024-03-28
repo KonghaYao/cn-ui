@@ -1,3 +1,4 @@
+import { MagicTable } from '@cn-ui/core'
 import { type ColumnDef, Checkbox } from '@cn-ui/core'
 import { atom } from '@cn-ui/reactive'
 interface DocAPIInfo {
@@ -23,18 +24,15 @@ export interface DocInfo {
     props: Record<string, DocAPIInfo>
 }
 
-const columns = [
-    { accessorKey: 'name', header: () => '名称' },
-    { accessorKey: 'required', header: () => '必填' },
-    { accessorKey: 'description', header: () => '描述' }
-] satisfies ColumnDef<DocAPIInfo>
-
 export const APIOfComponent = (props: { comp?: { __docgenInfo: DocInfo }; doc?: DocInfo }) => {
     const doc = props?.comp?.__docgenInfo?.props ?? props.doc
     if (!doc) {
         return '未识别到组件'
     }
-    const info = Object.values(doc.props)
+    const info = Object.values(doc.props).sort((a, b) => {
+        /** required 为 true 优先 */
+        return a.required - b.required
+    })
     return (
         <div class=" p-4 rounded-xl">
             <table class="w-full ">
@@ -43,8 +41,8 @@ export const APIOfComponent = (props: { comp?: { __docgenInfo: DocInfo }; doc?: 
                         <th class="w-8"></th>
                         <th class="text-left">名称</th>
                         <th class="text-left">描述</th>
-                        <th class="text-left">类型</th>
                         <th class="text-left">默认</th>
+                        <th class="text-left">类型</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,8 +55,8 @@ export const APIOfComponent = (props: { comp?: { __docgenInfo: DocInfo }; doc?: 
                                 </td>
                                 <td>{i.name}</td>
                                 <td>{i.description}</td>
-                                <td>{i.type.name}</td>
                                 <td>{i.defaultValue}</td>
+                                <td>{i.type.name}</td>
                             </tr>
                         )
                     })}
