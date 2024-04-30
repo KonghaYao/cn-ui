@@ -76,6 +76,7 @@ export const InputNumber = OriginComponent<InputNumberProps, HTMLDivElement, num
                 </Controls>
             </Show>
             <NumberInput.Input
+                ref={props.ref}
                 id={props.id}
                 class="w-full apparent-none text-center flex-1 px-1 py-1 outline-none"
                 {...extendsBaseFormItemProp(props)}

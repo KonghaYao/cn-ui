@@ -1,37 +1,27 @@
-import { classNames, toCSSPx } from "@cn-ui/reactive";
+import { OriginComponent, PortalEasy, type PortalEasyProps, classHelper } from "@cn-ui/reactive";
+import { type FloatingCoverProps, useFloatingCover } from "@cn-ui/reactive";
 import { DotsMove3 } from "@cn-ui/svg-spinner";
-import type { Accessor, JSXElement, ResolvedJSXElement } from "solid-js";
-import { Portal } from "solid-js/web";
-import { useElementBounding } from "solidjs-use";
+import { omit } from "radash";
+import type { JSXElement } from "solid-js";
 import { Flex } from "../container/Flex";
-import "./index.css";
+import "./index.css"; // 引入 SVG 控制样式
 
-export const Loading = (props: {
-    el: Accessor<ResolvedJSXElement>;
+export interface LoadingProps extends FloatingCoverProps, Omit<PortalEasyProps, "children"> {
     children?: JSXElement;
-    portalled?: boolean;
-}) => {
-    const bounding = useElementBounding(props.el as Accessor<HTMLDivElement>);
-    const render = (
-        <Flex
-            class={classNames("overflow-hidden bg-gray-100/70")}
-            style={{
-                position: "fixed",
-                top: toCSSPx(bounding.top()),
-                width: toCSSPx(bounding.width()),
-                height: toCSSPx(bounding.height()),
-                left: toCSSPx(bounding.left()),
-                "z-index": 10000,
-            }}
-        >
-            {/* @ts-ignore */}
-            {props.children ?? (
-                <DotsMove3 height="64" width="64" class="fill-primary-400 stroke-primary-400" />
-            )}
-        </Flex>
+}
+
+export const Loading = OriginComponent<LoadingProps>((props) => {
+    const cover = useFloatingCover(props);
+    return (
+        <PortalEasy {...omit(props, ["children"])}>
+            <Flex
+                class={props.class(classHelper("cn-loading overflow-hidden bg-gray-100/70"))}
+                style={props.style(cover.coverStyle())}
+            >
+                {props.children ?? (
+                    <DotsMove3 height="64" width="64" class="fill-primary-400 stroke-primary-400" />
+                )}
+            </Flex>
+        </PortalEasy>
     );
-    if (props.portalled) {
-        return <Portal>{render}</Portal>;
-    }
-    return render;
-};
+});

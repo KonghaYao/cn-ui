@@ -17,7 +17,7 @@ const setupVisualTest = async (page, story) => {
         });
     };
 
-    if (needVirtual) ScreenshotCompare();
+    if (needVirtual) await ScreenshotCompare();
 };
 
 const config = {

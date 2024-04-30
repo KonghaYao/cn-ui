@@ -3,20 +3,28 @@ on: push
 jobs:
     test:
         timeout-minutes: 10
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
+        container:
+            image: mcr.microsoft.com/playwright:v1.43.0-jammy
         steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v4
+              with:
+                  submodules: true
+            - uses: pnpm/action-setup@v2
+              with:
+                version: 9.0.5
+            - uses: actions/setup-node@v4
+              with:
+                node-version: 18.13.0
+                cache: 'pnpm'
             - name: Install dependencies
-              run: git submodule update --init
-            - name: Install dependencies
-              run: npm i pnpm -g && sudo npm i concurrently http-server wait-on -g && pnpm i && npm install playwright -g
-            - name: Install Playwright
-              run: npx playwright install --with-deps
+              run:  pnpm i concurrently http-server wait-on playwright -g
+            - name: pnpm install
+              run: pnpm i --no-frozen-lockfile
             - name: Build Storybook
-              run: pnpm build-storybook --quiet
+              run: pnpm build:test --quiet
             - name: Serve Storybook and run tests
               run: |
-                  npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-                    "npx http-server storybook-static --port 6006 --silent" \
-                    "npx wait-on http://0.0.0.0:6006 && pnpm test"
+                  pnpx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+                    "pnpm preview" \
+                    "pnpx wait-on http://0.0.0.0:6006 && pnpm test"

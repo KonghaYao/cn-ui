@@ -11,7 +11,14 @@ import {
     toCSSPx,
 } from "@cn-ui/reactive";
 import { Key } from "@solid-primitives/keyed";
-import { type Accessor, type JSXElement, type Setter, Show, createMemo } from "solid-js";
+import {
+    type Accessor,
+    type JSXElement,
+    type Setter,
+    Show,
+    createEffect,
+    createMemo,
+} from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
 import { useAutoResize } from "../table/hook/useAutoResize";
 import { type CNVirtualizer, createVirtualizer } from "../table/virtual/createVirtualizer";
@@ -73,6 +80,10 @@ export interface VirtualListProps<T> {
      * @tested
      */
     expose?: Setter<VirtualListExpose>;
+    /**
+     * @dev
+     */
+    onVirtualScrollEnd?: () => void;
 }
 
 export const VirtualList = OriginComponent(function <T>(

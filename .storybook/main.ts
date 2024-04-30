@@ -11,7 +11,6 @@ const config: StorybookConfig = {
         "@storybook/addon-essentials",
         "@storybook/addon-interactions",
         "@storybook/addon-a11y",
-        "@chromatic-com/storybook",
     ],
 
     framework: {
@@ -23,7 +22,6 @@ const config: StorybookConfig = {
         skipCompiler: true,
         check: false,
     },
-
     async viteFinal(config, { presets }) {
         if (config.build) {
             config.build!.target = "esnext";

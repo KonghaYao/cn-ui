@@ -74,6 +74,7 @@ export const Button = OriginComponent<ButtonProps, HTMLButtonElement>((props) =>
     return (
         <button
             id={props.id}
+            ref={props.ref}
             type={props.htmlType ?? "button"}
             class={props.class(
                 "cn-button transition-colors outline-none select-none ",

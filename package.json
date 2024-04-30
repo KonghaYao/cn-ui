@@ -10,7 +10,9 @@
         "preview": "pnpx http-server storybook-static --port 6006 --silent",
         "type-check": "tsc -p tsconfig.node.json",
         "check": "biome check --apply ./ --diagnostic-level=error",
+        "build:test": "pnpm --filter=@cn-ui/area-data build && pnpm --filter=@cn-ui/svg-spinner build && storybook build --test",
         "build-storybook": "pnpm --filter=@cn-ui/area-data build && pnpm --filter=@cn-ui/svg-spinner build && storybook build",
+        "test:update": "node ./script/snapshotSync.mjs download",
         "test": "test-storybook --updateSnapshot --skipTags=\"skip-test\" --browsers chromium ",
         "prettier": "prettier --write packages/**/*.{json,less,md}",
         "build": "pnpm --filter \"*\" build && pnpm storybook build"
@@ -24,7 +26,6 @@
     "devDependencies": {
         "@ant-design/colors": "^7.0.2",
         "@biomejs/biome": "1.7.0",
-        "@chromatic-com/storybook": "^1.3.3",
         "@joshwooding/vite-plugin-react-docgen-typescript": "^0.3.1",
         "@solidjs/testing-library": "^0.8.7",
         "@storybook/addon-a11y": "^8.0.9",

@@ -17,12 +17,13 @@ defineExampleAC();
 DefineAC({
     loading: (state, rendering) => {
         const child = ensureOnlyChild(() => rendering);
-        return <Loading portalled el={child} />;
+        return <Loading portalled target={child} />;
     },
 });
 
 import * as Spinners from "@cn-ui/svg-spinner";
 import SpinnerNames from "@cn-ui/svg-spinner/dist/svg-spinner.exports.json";
+import { expect, userEvent, within } from "@storybook/test";
 import { For } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { Col, Row } from "../RowAndCol";
@@ -34,7 +35,7 @@ export const Primary: Story = {
         const res = resource(() => new Promise((resolve) => {}));
         return (
             <Row gutter="8px">
-                <For each={SpinnerNames}>
+                <For each={SpinnerNames as (keyof typeof Spinners)[]}>
                     {(item) => {
                         return (
                             <Col span={4}>
@@ -43,14 +44,16 @@ export const Primary: Story = {
                                     loading={(state, rendering) => {
                                         const child = ensureOnlyChild(() => rendering);
                                         return (
-                                            <Loading portalled el={child}>
-                                                <Dynamic
-                                                    component={Spinners[item]}
-                                                    height="64"
-                                                    width="64"
-                                                    class="fill-primary-400 stroke-primary-400"
-                                                />
-                                            </Loading>
+                                            <>
+                                                <Loading portalled target={child}>
+                                                    <Dynamic
+                                                        component={Spinners[item]}
+                                                        height="64"
+                                                        width="64"
+                                                        class="fill-primary-400 stroke-primary-400"
+                                                    />
+                                                </Loading>
+                                            </>
                                         );
                                     }}
                                     fallback={() => {
@@ -84,15 +87,30 @@ export const Floating: Story = {
                     keepLastState
                     loading={(state, rendering) => {
                         const child = ensureOnlyChild(() => rendering);
-                        return <Loading portalled el={child} />;
+                        return <Loading portalled target={child} />;
                     }}
                 >
                     {() => {
-                        return <div class="h-full">{res()}</div>;
+                        return (
+                            <div data-testid="loading-target" class="h-96 w-96">
+                                {res()}
+                            </div>
+                        );
                     }}
                 </AC>
             </div>
         );
     },
-    args: {},
+    play: async ({ canvasElement, step }) => {
+        const canvas = within(canvasElement);
+        // 判断 loading 和 h-full 大小一致
+        await step("判断 Loading 和 物体一致大小", async () => {
+            await userEvent.click(canvas.getByRole("button"));
+            const el = canvasElement.ownerDocument.querySelector(".cn-loading")!;
+            console.log(el);
+            const loading = getComputedStyle(el);
+            await expect(loading.height).toBe("384px");
+            await expect(loading.width).toBe("384px");
+        });
+    },
 };

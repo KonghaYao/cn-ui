@@ -7,3 +7,4 @@ export * from "./SelectableList";
 export * from "./PortalEasy";
 export * from "./ComponentSlots";
 export * from "./scrollHelper";
+export * from "./useFloatingCover";

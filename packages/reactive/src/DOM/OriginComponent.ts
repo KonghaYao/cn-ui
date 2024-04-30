@@ -9,7 +9,7 @@ export type OriginComponentInputType<T, RefType = HTMLElement, ModelType = strin
     Omit<T, "style" | "class"> & {
         id?: string;
         ref?: (el: RefType) => void;
-        style: () => JSX.CSSProperties;
+        style: (...args: JSX.CSSProperties[]) => JSX.CSSProperties;
         class: typeof classNames;
         model: Atom<ModelType>;
         /** 方便直接写入 v-model 的语法糖 */
@@ -45,14 +45,9 @@ export const OriginComponent = <T, RefType = HTMLElement, ModelType = string>(
 ): Component<OriginComponentOutputType<T, RefType, ModelType>> => {
     return (props) => {
         // 将 style 统一转化为对象结构
-        const style = createMemo<JSX.CSSProperties>(() => {
-            switch (typeof props.style) {
-                case "object":
-                    return props.style;
-                default:
-                    return {};
-            }
-        });
+        const style = (...args: JSX.CSSProperties[]) => {
+            return Object.assign({}, props.style ?? {}, ...args);
+        };
         // 类名统一转化为数组
         const classString: typeof classNames = (...args) => {
             return createMemo(() => {
