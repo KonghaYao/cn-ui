@@ -26,7 +26,7 @@ export const Tabs = OriginComponent<
                             type="button"
                             class={firstClass.base("px-2 transition-colors rounded-md bg-gray-100")(
                                 selectItem.isSelected() &&
-                                    "bg-primary-500 hover:bg-primary-600 text-design-pure ",
+                                    "bg-primary-500 hover:bg-primary-600 text-white ",
                                 selectItem.isDisabled() && "opacity-50 cursor-pointer",
                                 "hover:bg-gray-200",
                             )}

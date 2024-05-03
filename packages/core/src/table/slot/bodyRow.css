@@ -7,9 +7,9 @@
 }
 
 .cn-table-body-row:hover .cn-table-body-cell {
-    --at-apply: "bg-design-card";
+    --at-apply: "bg-design-secondary";
 }
 
 .cn-table-body-row .cn-table-body-cell {
-    --at-apply: "bg-design-pure";
+    --at-apply: "bg-design-primary";
 }

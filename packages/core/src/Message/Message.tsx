@@ -46,7 +46,7 @@ export class MessageControl {
                             {(item) => {
                                 return (
                                     <Alert
-                                        class="h-full bg-design-pure shadow-lg"
+                                        class="h-full bg-design-primary-elevated shadow-lg"
                                         type={item.type}
                                         round
                                         message={item.title}

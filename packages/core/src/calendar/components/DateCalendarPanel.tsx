@@ -3,58 +3,92 @@ import { debounce } from "radash";
 import { For, createMemo } from "solid-js";
 import { type CalendarProps, CalenderCtx } from "../Calendar";
 import { CalendarDateCell } from "./DefaultCalendarCell";
+import type { Dayjs } from "dayjs";
+/**
+ * Sorts an array of items into groups. The return value is a map where the keys are
+ * the group ids the given getGroupId function produced and the value is an array of
+ * each item in that group.
+ */
+export const group = <T, Key extends string | number | symbol>(
+    array: readonly T[],
+    getGroupId: (item: T, index: number) => Key,
+    originSource = {},
+): Partial<Record<Key, T[]>> => {
+    return array.reduce(
+        (acc, item, index) => {
+            const groupId = getGroupId(item, index);
+            if (!acc[groupId]) acc[groupId] = [];
+            acc[groupId].push(item);
+            return acc;
+        },
+        originSource as Record<Key, T[]>,
+    );
+};
 
 export const DateCalendarPanel = (props: { Cell?: CalendarProps["Cell"] }) => {
     const calendarSystem = CalenderCtx.use();
 
-    const dateGrid = createMemo(() => {
+    const weeks = createMemo(() => {
         const dates = calendarSystem.allDateInMonth();
-        return [
-            ...calendarSystem.extraStartWeek(),
-            ...dates.paddingStart,
-            ...dates.dayInMonth,
-            ...dates.paddingEnd,
-            ...calendarSystem.extraEndWeek(),
-        ];
+        return group(
+            [
+                ...calendarSystem.extraStartWeek(),
+                ...dates.paddingStart,
+                ...dates.dayInMonth,
+                ...dates.paddingEnd,
+                ...calendarSystem.extraEndWeek(),
+            ],
+            (item, index) => Math.floor(index / 7),
+            [],
+        ) as Dayjs[][];
     });
     return (
-        <div class="text-center">
-            <div class="grid grid-cols-7  text-xs py-2">
+        <table class="text-center">
+            <thead class=" text-xs py-2">
                 <For each={calendarSystem.weekHeader()}>
                     {(date) => {
-                        return <div class={classNames("p-2")}>{date}</div>;
+                        return <th class={classNames("p-2")}>{date}</th>;
                     }}
                 </For>
-            </div>
-            <div class="grid grid-cols-7">
-                <For each={dateGrid()}>
-                    {(date) => {
+            </thead>
+            <tbody class="my-1">
+                <For each={weeks()}>
+                    {(dates) => {
                         return (
-                            <div
-                                class={firstClass.base("p-0")(
-                                    !calendarSystem.isInMonth(date) && "opacity-50",
-                                    "",
-                                )}
-                                onmouseover={debounce({ delay: 100 }, () => {
-                                    if (calendarSystem.isSelectingEnd())
-                                        calendarSystem.virtualEndTime(date);
-                                })}
-                                onclick={() => {
-                                    !calendarSystem.isInMonth(date) &&
-                                        calendarSystem.targetDate((i) =>
-                                            i.set("month", date.month()),
+                            <tr>
+                                <For each={dates}>
+                                    {(date) => {
+                                        return (
+                                            <td
+                                                class={firstClass.base("p-0")(
+                                                    !calendarSystem.isInMonth(date) && "opacity-50",
+                                                    "",
+                                                )}
+                                                onmouseover={debounce({ delay: 100 }, () => {
+                                                    if (calendarSystem.isSelectingEnd())
+                                                        calendarSystem.virtualEndTime(date);
+                                                })}
+                                                onclick={() => {
+                                                    !calendarSystem.isInMonth(date) &&
+                                                        calendarSystem.targetDate((i) =>
+                                                            i.set("month", date.month()),
+                                                        );
+                                                    calendarSystem.toggleSelect(date);
+                                                }}
+                                            >
+                                                {ensureFunctionResult(
+                                                    props.Cell ?? CalendarDateCell,
+                                                    [{ date, model: calendarSystem.selectedDate }],
+                                                )}
+                                            </td>
                                         );
-                                    calendarSystem.toggleSelect(date);
-                                }}
-                            >
-                                {ensureFunctionResult(props.Cell ?? CalendarDateCell, [
-                                    { date, model: calendarSystem.selectedDate },
-                                ])}
-                            </div>
+                                    }}
+                                </For>
+                            </tr>
                         );
                     }}
                 </For>
-            </div>
-        </div>
+            </tbody>
+        </table>
     );
 };

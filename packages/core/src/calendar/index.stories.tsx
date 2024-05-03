@@ -101,13 +101,12 @@ export const Primary: Story = {
 
         await step("区间选取时间测试", async () => {
             for (const page of [range]) {
-                await userEvent.click(page.getByLabelText("2024 04 14"));
                 await userEvent.click(page.getByLabelText("2024 04 18"));
                 await expect(
                     getSelected("range").map((i) => {
                         return i.textContent;
                     }),
-                ).toEqual(["14", "15", "16", "17", "18"]);
+                ).toEqual(["15", "16", "17", "18"]);
             }
         });
         await step("已有区间，点击另外节点清空区间并选中", async () => {

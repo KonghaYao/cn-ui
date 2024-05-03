@@ -5,7 +5,7 @@ import { CalenderCtx } from "../Calendar";
 
 export function CalendarHeader() {
     const calendarSystem = CalenderCtx.use();
-    const iconClass = "transition-colors cursor-pointer text-design-h2 hover:text-design-text";
+    const iconClass = "transition-colors cursor-pointer hover:text-design-text";
     const isDayView = createMemo(() => calendarSystem.calendarShowingType() === "day");
     const isYearView = createMemo(() => calendarSystem.calendarShowingType() === "year");
     return (

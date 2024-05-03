@@ -74,7 +74,7 @@ export const Badge = OriginComponent<BadgeProps>((props) => {
         <PortalEasy>
             <div class="cn-badge relative pointer-events-none" style={cover.coverStyle()}>
                 <sup
-                    class="absolute bg-error-400 text-white rounded-full p-[0.35rem] border border-design-pure pointer-events-auto cursor-default"
+                    class="absolute bg-error-400 text-white rounded-full p-[0.35rem]  pointer-events-auto cursor-default"
                     style={{
                         top: "-4px",
                         right: "-4px",

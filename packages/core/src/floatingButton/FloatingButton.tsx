@@ -24,7 +24,7 @@ export const FloatingButton = OriginComponent<FloatingButtonProps>((props) => {
             type="text"
             {...(props as any)}
             class={props.class(
-                " h-10 w-10 p-2 right-4 bottom-4 shadow-3 z-10 active:scale-75 transition-all duration-300",
+                " h-10 w-10 p-2 right-4 bottom-4 shadow-2 z-10 active:scale-75 transition-all duration-300 bg-design-floating",
                 groupCtx ? "" : props.absolute ? "absolute" : "fixed",
             )}
             style={props.style()}

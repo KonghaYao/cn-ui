@@ -7,7 +7,7 @@ export function createTypeClass(props: Partial<Pick<ButtonProps, "type" | "dange
             const danger = props.danger
                 ? "bg-error-500 hover:bg-error-400"
                 : "bg-primary-500 hover:bg-primary-400";
-            return `${danger} text-design-text-light `;
+            return `${danger} text-white `;
         },
         dashed() {
             return `${this.default()} border-dashed`;
@@ -23,7 +23,7 @@ export function createTypeClass(props: Partial<Pick<ButtonProps, "type" | "dange
             const danger = props.danger
                 ? "hover:border-error-400 hover:text-error-400 active:bg-error-50"
                 : "hover:border-primary-400 hover:text-primary-400  active:bg-primary-50";
-            return `border-design-border border ${danger} bg-transparent`;
+            return `border-design-separator border ${danger} bg-transparent`;
         },
     });
 }

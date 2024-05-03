@@ -1,5 +1,5 @@
-import "virtual:uno.css";
 import "@unocss/reset/tailwind.css";
+import "virtual:uno.css";
 import type { Preview } from "storybook-solidjs";
 import { extractArgTypes } from "storybook-solidjs-docgen/src/docs/extractArgTypes";
 import "../packages/core/src/css/dark.css";
