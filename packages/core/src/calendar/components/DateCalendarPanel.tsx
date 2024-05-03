@@ -43,7 +43,7 @@ export const DateCalendarPanel = (props: { Cell?: CalendarProps["Cell"] }) => {
         ) as Dayjs[][];
     });
     return (
-        <table class="text-center">
+        <table class="text-center" role="grid">
             <thead class=" text-xs py-2">
                 <For each={calendarSystem.weekHeader()}>
                     {(date) => {

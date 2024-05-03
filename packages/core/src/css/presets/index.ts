@@ -6,10 +6,16 @@ import { labelTokens } from "../tokens/labelTokens";
 import { separatorTokens } from "../tokens/separatorTokens";
 import { boxShadow } from "./boxShadow";
 import { colors, darkColors } from "./colors";
+import { materialTokens } from "../tokens/materialTokens";
 
 export default definePreset(() => {
     const tokenRules = new TokenRules(
-        [...backgroundTokens(BaseColor), ...separatorTokens(BaseColor), ...labelTokens(BaseColor)],
+        [
+            ...backgroundTokens(BaseColor),
+            ...separatorTokens(BaseColor),
+            ...labelTokens(BaseColor),
+            ...materialTokens(BaseColor),
+        ],
         BaseColor,
     );
     return {

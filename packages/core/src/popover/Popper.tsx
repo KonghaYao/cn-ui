@@ -144,7 +144,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
                             }}
                             class={props.class(
                                 isHidden() && "hidden",
-                                "absolute popover__content bg-design-floating p-1 rounded-md",
+                                "absolute popover__content bg-design-thick p-1 rounded-md",
                             )}
                             style={{ ...props.style(), "z-index": zIndex() }}
                             role="tooltip"

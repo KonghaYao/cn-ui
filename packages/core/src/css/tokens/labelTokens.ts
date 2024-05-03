@@ -16,20 +16,20 @@ export const labelTokens = (Colors = BaseColor): TokenLike => [
         "text-design-secondary",
 
         {
-            color: `${Colors.LabelSecondaryBlack}3C`,
+            color: `${Colors.LabelSecondaryBlack}99`,
         },
         {
-            color: `${Colors.LabelSecondaryWhite}3C`,
+            color: `${Colors.LabelSecondaryWhite}99`,
         },
     ],
     [
         "text-design-tertiary",
 
         {
-            color: `${Colors.LabelSecondaryBlack}1E`,
+            color: `${Colors.LabelSecondaryBlack}4c`,
         },
         {
-            color: `${Colors.LabelSecondaryWhite}1E`,
+            color: `${Colors.LabelSecondaryWhite}4c`,
         },
     ],
     [
@@ -37,10 +37,10 @@ export const labelTokens = (Colors = BaseColor): TokenLike => [
         "text-design-quarternary",
 
         {
-            color: `${Colors.LabelSecondaryBlack}12`,
+            color: `${Colors.LabelSecondaryBlack}2d`,
         },
         {
-            color: `${Colors.LabelSecondaryWhite}12`,
+            color: `${Colors.LabelSecondaryWhite}2d`,
         },
     ],
 ];

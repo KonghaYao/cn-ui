@@ -111,7 +111,7 @@ export const AppendMode: Story = {
         const show = atom(true);
         createEffect(() => console.log(show()));
         return (
-            <Flex class="h-full bg-gray-100">
+            <Flex class="h-96  bg-gradient-to-r from-cyan-500 to-blue-500">
                 <Button id="my-btn">你不需要嵌套 JSX，而是使用 HTML 原生支持的选择器</Button>
                 <Popover
                     popoverTarget="#my-btn"
@@ -122,7 +122,7 @@ export const AppendMode: Story = {
                         const { model } = context!;
                         return (
                             <div class="flex flex-col">
-                                <Alert type="warning" message="是否要执行删除操作" />
+                                <Alert round type="warning" message="是否要执行删除操作" />
                                 <div class="flex justify-end">
                                     <Button onclick={() => model(false)}>取消</Button>
                                     <Button

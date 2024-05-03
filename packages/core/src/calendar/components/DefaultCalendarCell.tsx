@@ -8,7 +8,6 @@ export const CalendarDateCell = (props: { date: Dayjs }) => {
     return (
         <td
             aria-label={props.date.format("YYYY MM DD")}
-            aria-selected={calendarSystem.isSelected(props.date) || undefined}
             class={firstClass.base(
                 "transition-colors cursor-pointer  w-8 h-8 flex justify-center items-center rounded-md",
             )(
@@ -20,6 +19,8 @@ export const CalendarDateCell = (props: { date: Dayjs }) => {
             )}
         >
             <div
+                role="gridcell"
+                aria-selected={calendarSystem.isSelected(props.date) || undefined}
                 class={firstClass.base("")(
                     (calendarSystem.isEndDate(props.date) ||
                         calendarSystem.isStartDate(props.date)) &&
@@ -37,6 +38,7 @@ export const CalendarMonthCell = (props: { date: Dayjs }) => {
     return (
         <div
             aria-label={props.date.format("YYYY MM")}
+            role="gridcell"
             aria-selected={calendarSystem.isSelected(props.date, "month")}
             class={firstClass.base(
                 "transition-colors cursor-pointer p-2 h-6 flex justify-center items-center w-full rounded-md",
@@ -58,6 +60,7 @@ export const CalendarYearCell = (props: { date: Dayjs; year: number }) => {
     return (
         <div
             aria-label={props.date.format("YYYY")}
+            role="gridcell"
             aria-selected={calendarSystem.isSelected(props.date, "year")}
             class={firstClass.base(
                 "transition-colors cursor-pointer p-2 h-6 flex justify-center items-center w-full rounded-md",

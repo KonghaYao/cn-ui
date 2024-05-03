@@ -12,6 +12,8 @@ export const BaseColor = {
     LabelSecondaryBlack: "#EBEBF5",
     SeparatorOpaque: "#C6C6C8",
     FloatingWhite: "#fafafa",
+    ThickWhite: "#fcfcfc",
+    ThickBlack: "#252525",
 };
 export const BaseColorToName = Object.fromEntries(
     Object.entries(BaseColor).map(([k, v]) => [v, k]),
