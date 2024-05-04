@@ -44,7 +44,7 @@ export const ModalList = OriginComponent(function <T>(
                     props.stack !== false &&
                         props.each.length >= (props.maxStackItem ?? 5) &&
                         "cn-modal-stack",
-                    "cn-modal fixed z-50 overflow-y-auto overflow-x-visible h-96 w-96 ",
+                    "cn-modal-list fixed overflow-y-auto overflow-x-visible h-96 w-96 ",
                     position(),
                 )}
                 style={{

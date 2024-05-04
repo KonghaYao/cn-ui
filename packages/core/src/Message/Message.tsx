@@ -2,7 +2,7 @@ import { type Atom, type JSXSlot, atom } from "@cn-ui/reactive";
 import { For } from "solid-js";
 import { MODAL_LIST_POSITION, ModalList, type ModalListPosition } from "../Modal";
 import { Alert, type AlertProps } from "./Alert";
-import { createRuntimeArea } from "./runtime";
+import { type FloatingArea, createRuntimeArea } from "./runtime";
 
 export interface MessageInfo extends Partial<AlertProps> {
     id?: string;
@@ -14,7 +14,11 @@ export interface MessageInfo extends Partial<AlertProps> {
     closable?: boolean;
 }
 
-export class MessageControl {
+interface MessageRenderProps {
+    store: MessageControl["store"];
+}
+
+export class MessageControl implements FloatingArea<MessageRenderProps> {
     constructor(public id: string) {
         this.store = MODAL_LIST_POSITION.reduce(
             (col, i) => {
@@ -30,14 +34,14 @@ export class MessageControl {
         const pos = this.getPosFromId(id);
         return this.store[pos]((list) => list.filter((i) => i.id !== id));
     }
-    private render(props: { store: MessageControl["store"] }) {
+    render(props: MessageRenderProps) {
         return (
             <For each={MODAL_LIST_POSITION}>
                 {(pos) => {
                     const listStore = props.store[pos];
                     return (
                         <ModalList
-                            id={"cn-message-" + pos}
+                            id={`cn-message-${pos}`}
                             v-model={() => true}
                             each={listStore()}
                             by={(i) => i.id!}
@@ -72,7 +76,7 @@ export class MessageControl {
     }
     public create(message: JSXSlot, type: MessageInfo["type"], options: Partial<MessageInfo> = {}) {
         const pos = this.getPosFromInfo(options);
-        const id = pos + ":" + (this.autoKey++).toString();
+        const id = `${pos}:${(this.autoKey++).toString()}`;
 
         const item: MessageInfo = { id, title: message, type, ...options };
         this.store[pos]((arr) => {
