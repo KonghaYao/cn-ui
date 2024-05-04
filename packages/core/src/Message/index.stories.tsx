@@ -91,14 +91,14 @@ export const MessageLog: Story = {
         );
         const checkPosSpec = async (pos: ModalListPosition) => {
             await userEvent.click(canvas.getByText("success"));
-            await userEvent.click(canvas.getByText("error"));
-            await userEvent.click(canvas.getByText("warning"));
-            await userEvent.click(canvas.getByText("info"));
-
             expect(await messageArea[pos].findByText("success-message")).toBeInTheDocument();
+            await userEvent.click(canvas.getByText("error"));
             expect(await messageArea[pos].findByText("error-message")).toBeInTheDocument();
+            await userEvent.click(canvas.getByText("warning"));
             expect(await messageArea[pos].findByText("warning-message")).toBeInTheDocument();
+            await userEvent.click(canvas.getByText("info"));
             expect(await messageArea[pos].findByText("info-message")).toBeInTheDocument();
+
             await sleep(500);
 
             expect(messageArea[pos].queryByText("success-message")).toBeFalsy();
@@ -115,6 +115,7 @@ export const MessageLog: Story = {
                 await userEvent.click(canvas.getByText(pos));
                 await checkPosSpec(pos);
             });
+            await sleep(300)
         }
     },
 };

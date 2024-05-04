@@ -41,10 +41,10 @@ const uploadFile = () => {
         .catch((error) => console.error(error));
 };
 const uncompress = async () => {
-    const file = await fetch("https://ik.imagekit.io/cnui/cn-ui/snapshots.tar.gz").then((res) =>
-        res.arrayBuffer(),
-    );
-    fs.writeFileSync(compressedFile, Buffer.from(file));
+    const file = await fetch("https://ik.imagekit.io/cnui/cn-ui/snapshots.tar.gz").then((res) => {
+        return res.arrayBuffer();
+    });
+    fs.outputFileSync(compressedFile, Buffer.from(file));
     tar.x({
         // or tar.extract
         file: compressedFile,

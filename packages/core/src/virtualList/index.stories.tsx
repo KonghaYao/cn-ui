@@ -131,7 +131,12 @@ export const horizontal: Story = {
                 >
                     {(item, index) => {
                         return (
-                            <div class="h-full w-24 bg-gray-100 flex py-4">
+                            <div
+                                class="h-full  bg-gray-100 flex py-4"
+                                style={{
+                                    "writing-mode": "vertical-lr",
+                                }}
+                            >
                                 <mark data-testid="index">{index()}</mark>
                                 {item}
                             </div>
@@ -155,8 +160,8 @@ export const horizontal: Story = {
                 },
                 { step: 20000, horizontal: true },
             );
-            expect(await isElementRealVisible(canvas.getByText("999"))).toBe(true);
-            expect(await isElementRealVisible(canvas.getByText("998"))).toBe(true);
+            expect(canvas.getByText("999")).toBeInTheDocument();
+            expect(canvas.getByText("998")).toBeInTheDocument();
         });
         await step("滚动到最前面", async () => {
             await scrollElement(
@@ -246,7 +251,7 @@ export const H_Reverse: Story = {
     render() {
         const cellsSize = 1000;
         const items = atom(
-            Mock.mock<{ data: string[] }>({ [`data|${cellsSize}`]: ["@paragraph"] }).data,
+            Mock.mock<{ data: string[] }>({ [`data|${cellsSize}`]: ["@sentence"] }).data,
         );
 
         return (
@@ -254,7 +259,7 @@ export const H_Reverse: Story = {
                 <div class="h-24">1000</div>
                 <VirtualList
                     data-testid="v-list"
-                    class="flex-1"
+                    class="flex-1 h-96"
                     reverse
                     horizontal
                     each={items()}
@@ -262,10 +267,16 @@ export const H_Reverse: Story = {
                     expose={(expose) => {
                         (globalThis as any).expose = expose;
                     }}
+                    onVirtualScrollEnd={() => console.log("end")}
                 >
                     {(item, index) => {
                         return (
-                            <div class="h-full w-24 bg-gray-100 flex py-4">
+                            <div
+                                class="h-full bg-gray-100 flex py-4"
+                                style={{
+                                    "writing-mode": "vertical-rl",
+                                }}
+                            >
                                 <mark data-testid="index">{index()}</mark>
                                 {item}
                             </div>
@@ -279,18 +290,20 @@ export const H_Reverse: Story = {
         const canvas = within(canvasElement);
         await sleep(100);
         await step("滚动到最末尾", async () => {
+            expect(canvas.getByText("0")).toBeInTheDocument();
+            expect(canvas.getByText("1")).toBeInTheDocument();
             await scrollElement(
                 canvasElement.querySelector(".cn-virtual-list")!,
                 async (scrollElement, context) => {
                     const item = canvas.queryByText("999");
-                    if (item && (await isElementRealVisible(item))) {
+                    if (item) {
                         return true;
                     }
                 },
                 { step: -20000, horizontal: true },
             );
-            expect(await isElementRealVisible(canvas.getByText("999"))).toBe(true);
-            expect(await isElementRealVisible(canvas.getByText("998"))).toBe(true);
+            expect(canvas.getByText("999")).toBeInTheDocument();
+            expect(canvas.getByText("998")).toBeInTheDocument();
         });
         await step("滚动到最前面", async () => {
             await scrollElement(

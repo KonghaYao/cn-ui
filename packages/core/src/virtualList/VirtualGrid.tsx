@@ -1,6 +1,6 @@
 import { type Atom, type JSXSlot, NullAtom, atom, classNames, toCSSPx } from "@cn-ui/reactive";
 import { Key } from "@solid-primitives/keyed";
-import { type Accessor, For, type JSXElement, Show } from "solid-js";
+import { type Accessor, For, type JSXElement, Show, createMemo } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
 import { useAutoResize } from "../table/hook/useAutoResize";
 import { createVirtualizer } from "../table/virtual/createVirtualizer";
@@ -64,48 +64,50 @@ export function VirtualGrid<T>(props: VirtualGridProps<T>) {
                 const itemClass = atom("");
                 const itemRef = NullAtom<HTMLDivElement>(null);
                 const context = { itemClass, itemRef };
-                const row = props.each[virtualRow().index];
+                const row = createMemo((last) => props.each[virtualRow().index] ?? last);
                 return (
-                    <Show when={row}>
-                        <div
-                            class={classNames("cn-virtual-list-item absolute w-full", itemClass())}
-                            data-index={virtualRow().index} //needed for dynamic row height measurement
-                            ref={(node) => {
-                                itemRef(node);
-                                queueMicrotask(() => {
-                                    colVirtualizer.measureElement(node);
-                                });
-                            }}
-                            style={{
-                                [props.reverse ? "bottom" : "top"]: `${virtualRow().start}px`,
-                            }}
-                        >
-                            <For each={colVirtualizer.getVirtualItems()}>
-                                {(item) => {
-                                    return (
-                                        <div
-                                            class="absolute"
-                                            data-index={item.index}
-                                            ref={(node) => {
-                                                queueMicrotask(() => {
-                                                    colVirtualizer.measureElement(node);
-                                                });
-                                            }}
-                                            style={{
-                                                left: `${item.start}px`,
-                                            }}
-                                        >
-                                            {props.children(
-                                                row[item.index],
-                                                () => virtualRow().index,
-                                                context,
-                                            )}
-                                        </div>
+                    <div
+                        class={classNames("cn-virtual-list-item absolute w-full", itemClass())}
+                        data-index={virtualRow().index} //needed for dynamic row height measurement
+                        ref={(node) => {
+                            itemRef(node);
+                            queueMicrotask(() => {
+                                colVirtualizer.measureElement(node);
+                            });
+                        }}
+                        style={{
+                            [props.reverse ? "bottom" : "top"]: `${virtualRow().start}px`,
+                        }}
+                    >
+                        <For each={colVirtualizer.getVirtualItems()}>
+                            {(item) => {
+                                const child = createMemo<JSXElement>((last) => {
+                                    if (row()[virtualRow().index] === undefined) return last;
+                                    return props.children(
+                                        row()[item.index],
+                                        () => virtualRow().index,
+                                        context,
                                     );
-                                }}
-                            </For>
-                        </div>
-                    </Show>
+                                });
+                                return (
+                                    <div
+                                        class="absolute"
+                                        data-index={item.index}
+                                        ref={(node) => {
+                                            queueMicrotask(() => {
+                                                colVirtualizer.measureElement(node);
+                                            });
+                                        }}
+                                        style={{
+                                            left: `${item.start}px`,
+                                        }}
+                                    >
+                                        {child()}
+                                    </div>
+                                );
+                            }}
+                        </For>
+                    </div>
                 );
             }}
         </Key>

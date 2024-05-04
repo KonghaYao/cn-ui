@@ -1,6 +1,19 @@
 import { type JSX, createMemo } from "solid-js";
 import { OriginComponent, type OriginComponentInputType } from "./OriginComponent";
 import { extendsEvent } from "./extendsEvent";
+
+export const extendsComponents = (props: any, override?: any) => {
+    return {
+        ...props,
+        ref: (el: any) => {
+            props.ref?.(el);
+        },
+        class: props.class(override?.class),
+        style: props.style(override?.style),
+        ...extendsEvent(props),
+    };
+};
+
 /** 自动继承组件属性  */
 export const OriginDiv = OriginComponent(
     <T, _RefType, ModelType>(
