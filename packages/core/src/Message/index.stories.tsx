@@ -71,7 +71,7 @@ export const MessageLog: Story = {
                             onclick={() =>
                                 Message[i](i + "-message", {
                                     position: pos()[0] as ModalListPosition,
-                                    duration: 100,
+                                    duration: 200,
                                 })
                             }
                         >
@@ -110,7 +110,7 @@ export const MessageLog: Story = {
             await checkPosSpec("top");
         });
         for (const pos of MODAL_LIST_POSITION) {
-            await step("切换" + pos, async () => {
+            await step(`切换${pos}`, async () => {
                 await userEvent.click(canvas.getByRole("textbox"));
                 await userEvent.click(canvas.getByText(pos));
                 await checkPosSpec(pos);
