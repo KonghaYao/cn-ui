@@ -3,8 +3,6 @@ import type { Meta, StoryObj } from "storybook-solidjs";
 import { NullAtom, atom } from "@cn-ui/reactive";
 import { expect, userEvent, within } from "@storybook/test";
 import { sleep } from "radash";
-import { createEffect } from "solid-js";
-import { Button } from "../button";
 import { InputNumber } from "../inputNumber";
 import { Badge } from "./index";
 
