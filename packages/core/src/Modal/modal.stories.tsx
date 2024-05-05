@@ -65,26 +65,31 @@ export const MessageBox_: Story = {
         await step("点击 confirm 按钮", async () => {
             await userEvent.click(canvas.getByText("confirm"));
             await userEvent.click(layer.getByText("确认"));
-            await sleep(50);
-            expect(doc.queryByText("confirm_success")).toBeInTheDocument();
+            await sleep(100);
+            expect(doc.getByText("confirm_success")).toBeInTheDocument();
             await userEvent.click(canvas.getByText("confirm"));
             await userEvent.click(layer.getByText("取消"));
-            expect(doc.queryByText("confirm取消成功")).toBeInTheDocument();
+            await sleep(100);
+            expect(doc.getByText("confirm取消成功")).toBeInTheDocument();
         });
+        await sleep(300);
         await step("点击 alert 按钮", async () => {
             await userEvent.click(canvas.getByText("alert"));
             await userEvent.click(layer.getByText("确认"));
             await sleep(100);
-            expect(doc.queryByText("alert_success")).toBeInTheDocument();
+            expect(doc.getByText("alert_success")).toBeInTheDocument();
         });
+        await sleep(300);
         await step("点击 prompt 按钮", async () => {
             await userEvent.click(canvas.getByText("prompt"));
             await userEvent.type(layer.getByPlaceholderText("请输入文本"), "123");
             await userEvent.click(layer.getByText("确认"));
-            expect(doc.queryByText('{"text":"123"}')).toBeInTheDocument();
+            await sleep(100);
+            expect(doc.getByText('{"text":"123"}')).toBeInTheDocument();
             await userEvent.click(canvas.getByText("prompt"));
             await userEvent.click(layer.getByText("取消"));
-            expect(doc.queryByText("prompt取消成功")).toBeInTheDocument();
+            await sleep(100);
+            expect(doc.getByText("prompt取消成功")).toBeInTheDocument();
         });
     },
 };

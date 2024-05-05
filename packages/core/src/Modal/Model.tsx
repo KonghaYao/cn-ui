@@ -4,13 +4,15 @@ import {
     atom,
     ensureFunctionResult,
     extendsEvent,
+    usePromise,
 } from "@cn-ui/reactive";
 import { Button } from "../button";
 import { For, Show } from "solid-js";
 import { type FloatingArea, createRuntimeArea } from "../Message/runtime";
-import { Center } from "../container";
+import "../animation/fade.css";
 import { BaseInput } from "../input";
 import { zIndexManager } from "../popover/zIndexManager";
+import { TransitionGroup } from "solid-transition-group";
 
 export interface MessageBoxPanelProps {
     title: string;
@@ -23,7 +25,7 @@ export interface MessageBoxPanelProps {
 export const MessageBoxPanel = OriginComponent<MessageBoxPanelProps>((props) => {
     return (
         <nav
-            class="rounded-xl text-center px-4 pb-2 pt-4 shadow-1 max-w-screen min-w-[15rem] w-fit min-h-[9rem] flex flex-col justify-evenly"
+            class="bg-design-regular rounded-xl text-center px-4 pb-2 pt-4 shadow-1 max-w-screen min-w-[15rem] w-fit min-h-[9rem] flex flex-col justify-evenly"
             {...extendsEvent(props)}
         >
             <div class="text-design-primary mb-1">{props.title}</div>
@@ -50,58 +52,76 @@ export const MessageBoxPanel = OriginComponent<MessageBoxPanelProps>((props) => 
     );
 });
 
+export interface MessageBoxOptions extends MessageBoxPanelProps {
+    mask?: boolean;
+}
+
 export class MessageBoxTemplate implements FloatingArea<unknown> {
+    private messageStack = atom<MessageBoxOptions[]>([]);
     constructor(public id: string) {
         createRuntimeArea(id, () => this.render());
     }
     render() {
         return (
-            <Center class="cn-message-box pointer-events-none ">
-                <For each={this.messageStack()}>
-                    {(item) => {
-                        return (
-                            <div
-                                class="pointer-events-auto"
-                                style={{ "z-index": zIndexManager.getIndex() }}
-                            >
-                                <MessageBoxPanel {...item} />
-                            </div>
-                        );
-                    }}
-                </For>
-            </Center>
+            <div class="cn-message-box">
+                <Show when={this.messageStack().length && this.messageStack().some((i) => i.mask)}>
+                    <div
+                        class="cn-mask fixed top-0 left-0 h-screen w-screen bg-design-ultra-thin"
+                        onclick={() => {
+                            this.messageStack().map((i) => i.onCancel!());
+                        }}
+                    />
+                </Show>
+                <TransitionGroup name="cn-fade">
+                    <For each={this.messageStack()}>
+                        {(item) => {
+                            return (
+                                <div
+                                    class="fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]"
+                                    style={{ "z-index": zIndexManager.getIndex() }}
+                                >
+                                    <MessageBoxPanel {...item} />
+                                </div>
+                            );
+                        }}
+                    </For>
+                </TransitionGroup>
+            </div>
         );
     }
-    private messageStack = atom<MessageBoxPanelProps[]>([]);
 
     base<T>(
         title: string,
         message?: string,
-        options: Partial<MessageBoxPanelProps> = {},
+        options: Partial<MessageBoxOptions> = {},
         returnData?: () => T,
     ) {
-        return new Promise<T>((res, rej) => {
-            const option: MessageBoxPanelProps = {
-                ...options,
-                title,
-                description: message,
-                onConfirm: () => {
-                    removeOption();
-                    res(returnData?.()!);
-                },
-                onCancel: () => {
-                    removeOption();
-                    rej();
-                },
-            };
-            const removeOption = () => this.messageStack((i) => i.filter((i) => i !== option));
-            this.messageStack((i) => [...i, option]);
-        });
+        const p = usePromise();
+        const option: MessageBoxOptions = {
+            ...options,
+            title,
+            description: message,
+            onConfirm: () => {
+                p.resolve(returnData?.()!);
+                removeOption();
+            },
+            onCancel: () => {
+                removeOption();
+            },
+        };
+
+        this.messageStack((i) => [...i, option]);
+
+        const removeOption = () => {
+            this.messageStack((i) => i.filter((i) => i !== option));
+            p.reject();
+        };
+        return p.promise;
     }
-    alert(title: string, message?: string, options: Partial<MessageBoxPanelProps> = {}) {
+    alert(title: string, message?: string, options: Partial<MessageBoxOptions> = {}) {
         return this.base<null>(title, message, { ...options, cancelable: false });
     }
-    prompt(title: string, message?: string, options: Partial<MessageBoxPanelProps> = {}) {
+    prompt(title: string, message?: string, options: Partial<MessageBoxOptions> = {}) {
         const inputText = atom("");
         return this.base<{ text: string }>(
             title,
@@ -116,7 +136,7 @@ export class MessageBoxTemplate implements FloatingArea<unknown> {
             () => ({ text: inputText() }),
         );
     }
-    confirm(title: string, message?: string, options: Partial<MessageBoxPanelProps> = {}) {
+    confirm(title: string, message?: string, options: Partial<MessageBoxOptions> = {}) {
         return this.base(title, message, { ...options, cancelable: true });
     }
 }

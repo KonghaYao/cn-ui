@@ -5,3 +5,4 @@ export * from "./useSelectItem";
 export * from "./useDynamicList";
 export * from "./useLazyMount";
 export * from "./useCalendar";
+export * from "./usePromise";
