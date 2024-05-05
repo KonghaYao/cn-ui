@@ -273,7 +273,7 @@ export const Virtual: Story = {
                 async (scrollElement, context) => {
                     const item = canvas.queryByText("Jack500");
                     for (const i of scrollElement.children[0].children) {
-                        checkAndClick(i);
+                        await checkAndClick(i);
                         if (item) return true;
                     }
                 },
