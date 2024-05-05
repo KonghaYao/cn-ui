@@ -265,7 +265,7 @@ export const Virtual: Story = {
             };
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
             const tooltip = within(canvas.getByRole("tooltip"));
-
+            await sleep(100);
             // 先执行一次，防止滚动太快选不中
             await checkAndClick(canvasElement.querySelector(".cn-virtual-list")!);
             await scrollElement(
