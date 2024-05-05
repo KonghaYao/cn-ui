@@ -256,20 +256,24 @@ export const Virtual: Story = {
             expect(tooltip.queryByText("Jack900")).toBeFalsy();
         });
         await step("滚动并依次选中", async () => {
+            const checkAndClick = async (i: Element) => {
+                if (
+                    ["Jack1", "Jack2", "Jack3", "Jack100"].includes(i.textContent!) &&
+                    i.getAttribute("aria-selected") !== "true"
+                )
+                    await userEvent.click(i);
+            };
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
             const tooltip = within(canvas.getByRole("tooltip"));
+
+            // 先执行一次，防止滚动太快选不中
+            await checkAndClick(canvasElement.querySelector(".cn-virtual-list")!);
             await scrollElement(
                 canvasElement.querySelector(".cn-virtual-list")!,
                 async (scrollElement, context) => {
                     const item = canvas.queryByText("Jack500");
                     for (const i of scrollElement.children[0].children) {
-                        if (
-                            ["Jack1", "Jack2", "Jack3", "Jack100"].includes(
-                                i.textContent!,
-                            ) &&
-                            i.getAttribute("aria-selected") !== "true"
-                        )
-                            await userEvent.click(i);
+                        checkAndClick(i);
                         if (item) return true;
                     }
                 },
@@ -284,7 +288,7 @@ export const Virtual: Story = {
             expect(tooltip.queryByText("Jack500")).toBeInTheDocument();
             expect(tooltip.queryByText("Jack700")).toBeFalsy();
             expect(tooltip.queryByText("Jack999")).toBeFalsy();
-            await userEvent.click(tooltip.getByText("Jack500"))
+            await userEvent.click(tooltip.getByText("Jack500"));
             expect(canvas.getByTestId("result")).toHaveTextContent("jack1jack2jack3jack100jack500");
         });
         await step("滚动到底部", async () => {
