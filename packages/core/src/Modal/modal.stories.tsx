@@ -8,7 +8,7 @@ import { Message } from "../Message";
 import { expect, userEvent, within } from "@storybook/test";
 
 const meta = {
-    title: "Feedback 反馈组件/Modal1 模态框",
+    title: "Feedback 反馈组件/MessageBox 消息通知",
     component: MessageBoxPanel,
     argTypes: {},
 } satisfies Meta<typeof MessageBoxPanel>;
