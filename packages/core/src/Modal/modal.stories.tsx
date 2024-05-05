@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
-import { atom } from "@cn-ui/reactive";
+import { atom, sleep } from "@cn-ui/reactive";
 import { createEffect } from "solid-js";
 import { MessageBox, MessageBoxPanel } from "./Model";
 import { Button } from "../button";
 import { Message } from "../Message";
+import { expect, userEvent, within } from "@storybook/test";
 
 const meta = {
     title: "Feedback 反馈组件/Modal1 模态框",
@@ -41,12 +42,12 @@ export const MessageBox_: Story = {
                     return (
                         <Button
                             onclick={() => {
-                                MessageBox[i](i, i + "box")
+                                MessageBox[i](i, `${i}box`)
                                     .then((data) => {
-                                        Message.success(JSON.stringify(data) || i);
+                                        Message.success(JSON.stringify(data) || `${i}_success`);
                                     })
-                                    .catch((i) => {
-                                        Message.info("取消成功");
+                                    .catch(() => {
+                                        Message.info(i + "取消成功");
                                     });
                             }}
                         >
@@ -57,5 +58,33 @@ export const MessageBox_: Story = {
             </>
         );
     },
-    args: {},
+    play: async ({ canvasElement, step }) => {
+        const canvas = within(canvasElement);
+        const layer = within(canvasElement.parentElement?.querySelector("#cn-ui-modal-layers")!);
+        const doc = within(canvasElement.parentElement!);
+        await step("点击 confirm 按钮", async () => {
+            await userEvent.click(canvas.getByText("confirm"));
+            await userEvent.click(layer.getByText("确认"));
+            await sleep(50);
+            expect(doc.queryByText("confirm_success")).toBeInTheDocument();
+            await userEvent.click(canvas.getByText("confirm"));
+            await userEvent.click(layer.getByText("取消"));
+            expect(doc.queryByText("confirm取消成功")).toBeInTheDocument();
+        });
+        await step("点击 alert 按钮", async () => {
+            await userEvent.click(canvas.getByText("alert"));
+            await userEvent.click(layer.getByText("确认"));
+            await sleep(100);
+            expect(doc.queryByText("alert_success")).toBeInTheDocument();
+        });
+        await step("点击 prompt 按钮", async () => {
+            await userEvent.click(canvas.getByText("prompt"));
+            await userEvent.type(layer.getByPlaceholderText("请输入文本"), "123");
+            await userEvent.click(layer.getByText("确认"));
+            expect(doc.queryByText('{"text":"123"}')).toBeInTheDocument();
+            await userEvent.click(canvas.getByText("prompt"));
+            await userEvent.click(layer.getByText("取消"));
+            expect(doc.queryByText("prompt取消成功")).toBeInTheDocument();
+        });
+    },
 };

@@ -64,7 +64,7 @@ export const MessageLog: Story = {
                             value: i,
                         })) as SelectOptionsType[]
                     }
-                ></Select>
+                />
                 {(["success", "error", "warning", "info"] as const).map((i) => {
                     return (
                         <Button
@@ -115,7 +115,7 @@ export const MessageLog: Story = {
                 await userEvent.click(canvas.getByText(pos));
                 await checkPosSpec(pos);
             });
-            await sleep(300)
+            await sleep(300);
         }
     },
 };

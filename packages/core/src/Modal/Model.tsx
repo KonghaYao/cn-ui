@@ -1,5 +1,5 @@
 import {
-    JSXSlot,
+    type JSXSlot,
     OriginComponent,
     atom,
     ensureFunctionResult,
@@ -10,6 +10,7 @@ import { For, Show } from "solid-js";
 import { type FloatingArea, createRuntimeArea } from "../Message/runtime";
 import { Center } from "../container";
 import { BaseInput } from "../input";
+import { zIndexManager } from "../popover/zIndexManager";
 
 export interface MessageBoxPanelProps {
     title: string;
@@ -59,8 +60,11 @@ export class MessageBoxTemplate implements FloatingArea<unknown> {
                 <For each={this.messageStack()}>
                     {(item) => {
                         return (
-                            <div class="pointer-events-auto">
-                                <MessageBoxPanel {...item}></MessageBoxPanel>
+                            <div
+                                class="pointer-events-auto"
+                                style={{ "z-index": zIndexManager.getIndex() }}
+                            >
+                                <MessageBoxPanel {...item} />
                             </div>
                         );
                     }}
@@ -107,6 +111,7 @@ export class MessageBoxTemplate implements FloatingArea<unknown> {
                 messageSlot() {
                     return <BaseInput v-model={inputText} class="my-2" type="text" />;
                 },
+                cancelable: true,
             },
             () => ({ text: inputText() }),
         );
