@@ -22,7 +22,7 @@ export const Drawer_: Story = {
         return (
             <>
                 <Button onclick={() => open(true)}>Open</Button>
-                <Drawer v-model={open} title="Drawer" placement="right">
+                <Drawer v-model={open} title="Drawer" placement="left">
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                     <p>Some contents...</p>

@@ -1,0 +1,14 @@
+.cn-slide-from-right-enter-active,
+.cn-slide-from-right-exit-active {
+    transition: transform 0.3s;
+}
+.cn-slide-from-right-enter,
+.cn-slide-from-right-exit-to {
+    transform: translateX(100%);
+}
+.cn-slide-from-right-enter {
+    transform: translateX(100%);
+}
+.cn-slide-from-right-exit-active {
+    position: absolute;
+}
