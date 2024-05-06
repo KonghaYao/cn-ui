@@ -1,12 +1,12 @@
-import { type JSX, mergeProps, Show } from "solid-js";
+import { type JSX, Show, mergeProps } from "solid-js";
 
 import {
     type JSXSlot,
     OriginComponent,
-    computed,
-    extendsEvent,
     atom,
+    computed,
     ensureFunctionResult,
+    extendsEvent,
 } from "@cn-ui/reactive";
 export type ImageFit = "contain" | "cover" | "fill" | "none" | "scale-down";
 export type ImagePosition = "center" | "top" | "right" | "bottom" | "left" | string;
@@ -48,25 +48,23 @@ export const Image = OriginComponent<ImageProps, HTMLImageElement>((props) => {
         },
         props,
     );
-    const srcSets = computed(
-        () =>
-            props.srcSets
-                ?.map(([src, size], index) => {
-                    if (index === props.srcSets!.length - 1) return `${src} ${size}w`;
-                    return `${src} ${size - 1}w`;
-                })
-                .join(","),
+    const srcSets = computed(() =>
+        props.srcSets
+            ?.map(([src, size], index) => {
+                if (index === props.srcSets!.length - 1) return `${src} ${size}w`;
+                return `${src} ${size - 1}w`;
+            })
+            .join(","),
     );
-    const sizes = computed(
-        () =>
-            props.srcSets
-                ?.map(([_, size], index) => {
-                    if (index === props.srcSets!.length - 1) {
-                        return `${size}px`;
-                    }
-                    return `(max-width: ${size}px) ${size - 1}px`;
-                })
-                .join(","),
+    const sizes = computed(() =>
+        props.srcSets
+            ?.map(([_, size], index) => {
+                if (index === props.srcSets!.length - 1) {
+                    return `${size}px`;
+                }
+                return `(max-width: ${size}px) ${size - 1}px`;
+            })
+            .join(","),
     );
     const isError = atom(false);
     const isStringFallback = computed(() => typeof props.fallback === "string");

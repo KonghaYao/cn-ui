@@ -4,9 +4,7 @@
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": [
-        "dist"
-    ],
+    "files": ["dist"],
     "keywords": [
         "cn-ui",
         "component",
@@ -32,9 +30,7 @@
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
-    "sideEffects": [
-        "**/*.css"
-    ],
+    "sideEffects": ["**/*.css"],
     "scripts": {
         "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",

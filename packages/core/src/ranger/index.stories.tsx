@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
-import { Ranger } from "./";
-import { expect, userEvent, within } from "@storybook/test";
 import { atom } from "@cn-ui/reactive";
+import { expect, userEvent, within } from "@storybook/test";
+import { Ranger } from "./";
 
 const meta = {
     title: "Feedback 反馈组件/Ranger 抽屉组件",

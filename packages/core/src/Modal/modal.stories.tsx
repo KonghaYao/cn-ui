@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
 import { atom, sleep } from "@cn-ui/reactive";
-import { createEffect } from "solid-js";
-import { MessageBox, MessageBoxPanel } from "./Model";
-import { Button } from "../button";
-import { Message } from "../Message";
 import { expect, userEvent, within } from "@storybook/test";
+import { createEffect } from "solid-js";
+import { Message } from "../Message";
+import { Button } from "../button";
+import { MessageBox, MessageBoxPanel } from "./Model";
 
 const meta = {
     title: "Feedback 反馈组件/MessageBox 消息通知",

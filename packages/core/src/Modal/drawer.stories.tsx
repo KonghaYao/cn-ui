@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
 import { atom, sleep } from "@cn-ui/reactive";
-import { createEffect } from "solid-js";
-import { Drawer } from "./";
-import { Button } from "../button";
-import { Message } from "../Message";
 import { expect, userEvent, within } from "@storybook/test";
+import { createEffect } from "solid-js";
+import { Message } from "../Message";
+import { Button } from "../button";
+import { Drawer } from "./";
 
 const meta = {
     title: "Feedback 反馈组件/Drawer 抽屉组件",
@@ -50,14 +50,11 @@ export const Drawer_: Story = {
         const canvas = within(canvasElement);
         const layer = within(canvasElement.parentElement?.querySelector("#cn-ui-modal-layers")!);
         const doc = within(canvasElement.parentElement!);
-        await userEvent.click(canvas.getByText('Open Left'))
-        
-        expect(layer.getByText("left_Drawer")).toBeInTheDocument()
-        
-        await userEvent.click(canvas.getByText('Open Right'))
-        expect(layer.getByText("right_Drawer")).toBeInTheDocument()
-        
+        await userEvent.click(canvas.getByText("Open Left"));
 
+        expect(layer.getByText("left_Drawer")).toBeInTheDocument();
 
-    }
+        await userEvent.click(canvas.getByText("Open Right"));
+        expect(layer.getByText("right_Drawer")).toBeInTheDocument();
+    },
 };

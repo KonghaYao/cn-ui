@@ -1,6 +1,6 @@
 import { computed } from "@cn-ui/reactive";
-import { RangerConfig, RangerOptions, Ranger } from "@tanstack/ranger";
-import { Accessor, createEffect, createMemo, onMount } from "solid-js";
+import { Ranger, type RangerConfig, type RangerOptions } from "@tanstack/ranger";
+import { type Accessor, createEffect, createMemo, onMount } from "solid-js";
 
 export * from "@tanstack/ranger";
 
