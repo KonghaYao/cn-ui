@@ -64,14 +64,14 @@ export const MessageLog: Story = {
                             value: i,
                         })) as SelectOptionsType[]
                     }
-                ></Select>
+                />
                 {(["success", "error", "warning", "info"] as const).map((i) => {
                     return (
                         <Button
                             onclick={() =>
                                 Message[i](i + "-message", {
                                     position: pos()[0] as ModalListPosition,
-                                    duration: 100,
+                                    duration: 200,
                                 })
                             }
                         >
@@ -110,12 +110,12 @@ export const MessageLog: Story = {
             await checkPosSpec("top");
         });
         for (const pos of MODAL_LIST_POSITION) {
-            await step("切换" + pos, async () => {
+            await step(`切换${pos}`, async () => {
                 await userEvent.click(canvas.getByRole("textbox"));
                 await userEvent.click(canvas.getByText(pos));
                 await checkPosSpec(pos);
             });
-            await sleep(300)
+            await sleep(300);
         }
     },
 };

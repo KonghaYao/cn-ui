@@ -3,7 +3,6 @@ import {
     DebounceAtom,
     NullAtom,
     OriginComponent,
-    ThrottleAtom,
     atom,
     computed,
     createCtx,

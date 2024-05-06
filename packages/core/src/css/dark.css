@@ -1,10 +1,6 @@
 :root body {
-    color: #000000;
-    background-color: #ffffff;
-}
-.dark body {
-    color: #e5eaf3;
-    background-color: #000;
+    color: var(--cn-text-design-primary-0);
+    background-color: var(--cn-bg-design-primary-0);
 }
 
 ::view-transition-old(root),

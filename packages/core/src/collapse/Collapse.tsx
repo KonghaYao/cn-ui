@@ -46,7 +46,7 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((p
                             {(api) => {
                                 return (
                                     <>
-                                        <Accordion.ItemTrigger class="flex justify-between w-full items-center bg-design-card">
+                                        <Accordion.ItemTrigger class="flex justify-between w-full items-center bg-design-thick">
                                             <span class="text-xl py-4">
                                                 {ensureFunctionResult(item.label)}
                                             </span>
@@ -62,7 +62,7 @@ export const Collapse = OriginComponent<CollapseProps, HTMLElement, string[]>((p
                                         </Accordion.ItemTrigger>
                                         <div
                                             class={classNames(
-                                                "cn-collapse-container duration-300 transition-all grid  text-design-text",
+                                                "cn-collapse-container duration-300 transition-all grid  text-design-secondary",
                                                 api().isOpen ? "pb-4" : "pointer-events-none",
                                             )}
                                             style={

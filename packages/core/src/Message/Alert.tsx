@@ -1,10 +1,4 @@
-import {
-    type JSXSlot,
-    OriginComponent,
-    classNames,
-    ensureFunctionResult,
-    useMapper,
-} from "@cn-ui/reactive";
+import { type JSXSlot, OriginComponent, ensureFunctionResult, useMapper } from "@cn-ui/reactive";
 import {
     AiFillCheckCircle,
     AiFillCloseCircle,
@@ -63,21 +57,23 @@ export const Alert = OriginComponent<AlertProps>((props) => {
         },
     });
     return (
-        <div class={props.class(props.round && "rounded-md", "p-2 overflow-hidden border-1")}>
+        <div
+            class={props.class(
+                props.round && "rounded-md",
+                "p-2 overflow-hidden border-1 border-design-separator",
+            )}
+        >
             <h3 class="flex items-center">
                 {typeof props.icon === "boolean" ? DynamicIcon() : ensureFunctionResult(props.icon)}
                 <span class="flex-1">{ensureFunctionResult(props.message)}</span>
                 <Show when={props.closable}>
-                    <Icon
-                        class="cursor-pointer text-design-border hover:text-design-title transition-color"
-                        onclick={props?.onClose}
-                    >
+                    <Icon class="cursor-pointer transition-color" onclick={props?.onClose}>
                         <AiOutlineClose />
                     </Icon>
                 </Show>
             </h3>
             <p
-                class="pl-6 text-design-h2"
+                class="pl-6"
                 style={{
                     // bug: 不知为何这个地方不折行
                     "line-break": "anywhere",

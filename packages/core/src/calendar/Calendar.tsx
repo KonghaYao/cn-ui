@@ -57,7 +57,7 @@ export const Calendar = OriginComponent<CalendarProps, HTMLDivElement, Dayjs[]>(
     const calendarSystem = useDateCalendar(watchingDate, () => props);
     return (
         <CalenderCtx.Provider value={{ ...select, ...calendarSystem, calendarShowingType }}>
-            <OriginDiv prop={props} class="flex flex-col select-none  min-w-[15rem]">
+            <OriginDiv prop={props} class="flex flex-col select-none  min-w-[15rem]" role="grid">
                 <CalendarHeader />
                 <Switch>
                     <Match when={calendarShowingType() === "year"}>
