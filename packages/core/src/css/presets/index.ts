@@ -3,10 +3,10 @@ import { TokenRules } from "../tokens";
 import { BaseColor } from "../tokens/BaseColor";
 import { backgroundTokens } from "../tokens/backgroundTokens";
 import { labelTokens } from "../tokens/labelTokens";
+import { materialTokens } from "../tokens/materialTokens";
 import { separatorTokens } from "../tokens/separatorTokens";
 import { boxShadow } from "./boxShadow";
 import { colors, darkColors } from "./colors";
-import { materialTokens } from "../tokens/materialTokens";
 
 export default definePreset(() => {
     const tokenRules = new TokenRules(

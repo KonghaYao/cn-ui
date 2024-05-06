@@ -4,7 +4,10 @@
     "version": "0.0.1",
     "type": "module",
     "main": "./dist/index.js",
-    "files": ["dist", "src"],
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "storybook": "storybook dev -p 6006",
         "preview": "pnpx http-server storybook-static --port 6006 --silent",
@@ -15,7 +18,8 @@
         "test:update": "node ./script/snapshotSync.mjs download",
         "test": "test-storybook --updateSnapshot --skipTags=\"skip-test\" --browsers chromium ",
         "prettier": "prettier --write packages/**/*.{json,less,md}",
-        "build": "pnpm --filter \"*\" build && pnpm storybook build"
+        "build": "pnpm --filter \"*\" build && pnpm storybook build",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@cn-ui/area-data": "workspace:^",
@@ -72,13 +76,10 @@
         "vite-plugin-solid": "^2.10.2",
         "vite-plugin-wasm": "^3.3.0",
         "vitest": "^1.5.0",
-        "yorkie": "^2.0.0"
+        "husky": "^8.0.0"
     },
     "lint-staged": {
         "*.{ts,tsx,js,jsx}": "biome check --diagnostic-level=error ",
         "*.{css,md,mdx,json}": "prettier --ignore-unknown "
-    },
-    "gitHooks": {
-        "pre-commit": "lint-staged"
     }
 }

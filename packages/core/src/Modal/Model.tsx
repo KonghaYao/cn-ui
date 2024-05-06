@@ -6,13 +6,13 @@ import {
     extendsEvent,
     usePromise,
 } from "@cn-ui/reactive";
-import { Button } from "../button";
 import { For, Show } from "solid-js";
+import { TransitionGroup } from "solid-transition-group";
 import { type FloatingArea, createRuntimeArea } from "../Message/runtime";
 import "../animation/fade.css";
+import { Button } from "../button";
 import { BaseInput } from "../input";
 import { zIndexManager } from "../popover/zIndexManager";
-import { TransitionGroup } from "solid-transition-group";
 
 export interface MessageBoxPanelProps {
     title: string;

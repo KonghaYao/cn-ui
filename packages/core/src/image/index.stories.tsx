@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
+import { Alert } from "../Message";
 import { photos } from "../waterFall/example/photos";
 import { Image } from "./index";
-import { Alert } from "../Message";
 
 const meta = {
     title: "Basic 基础组件/Image",

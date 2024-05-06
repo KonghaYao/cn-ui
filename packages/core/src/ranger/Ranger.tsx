@@ -1,6 +1,6 @@
 import { NullAtom, OriginComponent, classHelper, createCtx } from "@cn-ui/reactive";
-import { useRanger } from "./solid-range";
 import { For, Match, Show, Switch } from "solid-js";
+import { useRanger } from "./solid-range";
 
 export interface RangerProps {
     min?: number;
@@ -86,7 +86,9 @@ export const HighlightRange = (props: { index: number }) => {
             class="absolute h-full bg-primary-400 z-1 rounded-md"
             style={{
                 left: `${getPercentageFromRanger(props.index - 1)}%`,
-                width: `calc(${getPercentageFromRanger(props.index)}% - ${getPercentageFromRanger(props.index - 1)}%)`,
+                width: `calc(${getPercentageFromRanger(props.index)}% - ${getPercentageFromRanger(
+                    props.index - 1,
+                )}%)`,
             }}
         ></div>
     );
