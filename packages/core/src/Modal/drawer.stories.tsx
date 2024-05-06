@@ -18,11 +18,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Drawer_: Story = {
     render() {
+        const placement = atom<"left" | "right">("left");
         const open = atom(false);
         return (
             <>
-                <Button onclick={() => open(true)}>Open</Button>
-                <Drawer v-model={open} title="Drawer" placement="left">
+                <Button
+                    onclick={() => {
+                        placement("left");
+                        open(true);
+                    }}
+                >
+                    Open Left
+                </Button>
+                <Button
+                    onclick={() => {
+                        placement("right");
+                        open(true);
+                    }}
+                >
+                    Open Right
+                </Button>
+                <Drawer v-model={open} title={placement() + "_Drawer"} placement={placement()}>
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                     <p>Some contents...</p>
@@ -30,5 +46,18 @@ export const Drawer_: Story = {
             </>
         );
     },
-    args: {},
+    play: async ({ canvasElement, step }) => {
+        const canvas = within(canvasElement);
+        const layer = within(canvasElement.parentElement?.querySelector("#cn-ui-modal-layers")!);
+        const doc = within(canvasElement.parentElement!);
+        await userEvent.click(canvas.getByText('Open Left'))
+        
+        expect(layer.getByText("left_Drawer")).toBeInTheDocument()
+        
+        await userEvent.click(canvas.getByText('Open Right'))
+        expect(layer.getByText("right_Drawer")).toBeInTheDocument()
+        
+
+
+    }
 };
