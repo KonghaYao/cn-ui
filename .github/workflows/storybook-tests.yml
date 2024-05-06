@@ -1,5 +1,11 @@
 name: "Storybook Tests"
-on: push
+on:
+  push:
+    branches:
+      - story
+  pull_request:
+    branches:
+      - story
 jobs:
     test:
         timeout-minutes: 10
