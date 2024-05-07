@@ -5,3 +5,4 @@ export * from "./transformer";
 export * from "./typeUtils";
 export * from "./DOM";
 export * from "./css";
+export * from "./storage";
