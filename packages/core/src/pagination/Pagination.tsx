@@ -15,7 +15,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
         "h-8 w-8 bg-transparent mx-1 text-center hover:bg-design-hover rounded-md  cursor-pointer transition-colors";
     const pageControl = useViewingPagination({
         ...props,
-        page: props.model(),
+        page: props.model,
         setPage: props.model,
         pageSize: pageSizeModel(),
         setPageSize: pageSizeModel,
@@ -23,6 +23,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
     return (
         <div class="flex gap-4 select-none">
             <Icon
+                aria-label="prev page"
                 onclick={pageControl.prev}
                 class={classHelper.base(baseBtn)(pageControl.isFirstPage() && "", "")}
             >
@@ -35,9 +36,10 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
             </Show>
             <TransitionGroup name="cn-fade">
                 <For each={pageControl.viewingPages()}>
-                    {(page, index) => {
+                    {(page) => {
                         return (
                             <button
+                                type="button"
                                 disabled={pageControl.isCurrentPage(page)}
                                 class={classNames(
                                     baseBtn,
@@ -60,6 +62,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
                 </Icon>
             </Show>
             <Icon
+                aria-label="next page"
                 class={classHelper.base(baseBtn)(pageControl.isFirstPage() && "", "")}
                 onclick={pageControl.next}
             >
