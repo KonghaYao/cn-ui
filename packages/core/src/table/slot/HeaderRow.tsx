@@ -1,8 +1,8 @@
 import { classNames, toCSSPx } from "@cn-ui/reactive";
 import { Key } from "@solid-primitives/keyed";
-import type { Header } from "@tanstack/solid-table";
 import { Show, createMemo } from "solid-js";
 import { MagicTableCtx, type MagicTableCtxType, MagicVirtualTableCtx } from "../MagicTableCtx";
+import type { Header } from "../solidTable";
 import type { VirtualItem } from "../virtual";
 import { HeaderCell } from "./HeaderCell";
 

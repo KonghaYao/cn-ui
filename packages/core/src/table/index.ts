@@ -1,4 +1,4 @@
-export type { ColumnDef } from "@tanstack/solid-table";
+export type { ColumnDef } from "./solidTable";
 export * from "./slot/BodyCell";
 export * from "./Table";
 import "./defineTable";

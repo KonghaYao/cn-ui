@@ -8,11 +8,11 @@ import {
     createCtx,
     extendsEvent,
 } from "@cn-ui/reactive";
-import type { ColumnDef } from "@tanstack/solid-table";
 import type { RuleItem } from "async-validator";
 import { For, createEffect, createMemo } from "solid-js";
 import type { SetStoreFunction } from "solid-js/store";
 import { Row } from "../RowAndCol";
+import type { ColumnDef } from "../table/solidTable";
 import { FormCore } from "./FormCore";
 import { useValidator } from "./useValidator";
 import { type RootColumnDef, getKeyFromRootColumnDef } from "./utils";

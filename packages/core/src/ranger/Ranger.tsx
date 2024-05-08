@@ -1,5 +1,5 @@
 import { NullAtom, OriginComponent, classHelper, createCtx } from "@cn-ui/reactive";
-import { For, Match, Show, Switch } from "solid-js";
+import { For, Match, Switch } from "solid-js";
 import { useRanger } from "./solid-range";
 
 export interface RangerProps {

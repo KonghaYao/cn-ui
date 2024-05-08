@@ -1,7 +1,7 @@
 import { toCSSPx } from "@cn-ui/reactive";
-import type { Column } from "@tanstack/solid-table";
 import type { JSX } from "solid-js";
 import { MagicTableCtx, type MagicTableCtxType } from "../MagicTableCtx";
+import type { Column } from "../solidTable";
 
 export function getCommonPinningStyles<T, D>(
     column: Column<T, D>,

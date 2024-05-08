@@ -1,8 +1,8 @@
 import { type Atom, classNames, createBlackBoard, ensureArrayReturn } from "@cn-ui/reactive";
-import { flexRender } from "@tanstack/solid-table";
 import { createMemo } from "solid-js";
 import { Dynamic, Show } from "solid-js/web";
 import { Col } from "../RowAndCol";
+import { flexRender } from "../table/solidTable";
 import { MagicFormCtx } from "./MagicForm";
 import "./form-core.css";
 import type { RootColumnDef } from "./utils";
@@ -51,7 +51,7 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
                     <Show when={isRequired()}>
                         <sup class="text-red-400 pr-1">*</sup>
                     </Show>
-                    {flexRender(props.config.header ?? accessorKey(), {})}
+                    {flexRender(props.config.header ?? accessorKey(), {} as any)}
                 </label>
             </Show>
             <div class="flex flex-col flex-1">

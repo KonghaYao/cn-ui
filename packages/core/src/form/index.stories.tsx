@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
 import { NullAtom, StoreToAtom, atom } from "@cn-ui/reactive";
-import type { ColumnDef } from "@tanstack/solid-table";
 import { For, onCleanup } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Col, Row } from "../RowAndCol";
@@ -13,6 +12,7 @@ import { FormInput } from "../input/FormInput";
 import { FormInputNumber } from "../inputNumber";
 import { FormSelect } from "../select/FormSelect";
 import { FormSwitch } from "../switch";
+import type { ColumnDef } from "../table/solidTable";
 import { FormCore, FormCoreRegister } from "./FormCore";
 import { MagicForm } from "./MagicForm";
 

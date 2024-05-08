@@ -1,15 +1,5 @@
 import { useMapper } from "@cn-ui/reactive";
-import {
-    AiFillCheckCircle,
-    AiFillCloseCircle,
-    AiFillInfoCircle,
-    AiFillWarning,
-    AiOutlineAlert,
-    AiOutlineCheck,
-    AiOutlineClose,
-    AiOutlineInfo,
-} from "solid-icons/ai";
-import { Icon } from "../icon";
+import { AiOutlineAlert, AiOutlineCheck, AiOutlineClose, AiOutlineInfo } from "solid-icons/ai";
 
 export interface useResultProps {
     type?: "success" | "info" | "warning" | "error";

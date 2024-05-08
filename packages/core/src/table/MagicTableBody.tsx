@@ -1,9 +1,9 @@
 import { toCSSPx } from "@cn-ui/reactive";
 import { Key } from "@solid-primitives/keyed";
-import type { Row } from "@tanstack/solid-table";
 import { createMemo } from "solid-js";
 import { MagicTableCtx, type MagicTableCtxType, MagicVirtualTableCtx } from "./MagicTableCtx";
 import { BodyRow } from "./slot/BodyRow";
+import type { Row } from "./solidTable";
 import type { VirtualItem } from "./virtual";
 export function MagicTableBody<T>(props: { rowAbsolute: boolean }) {
     const vTable = MagicVirtualTableCtx.use();

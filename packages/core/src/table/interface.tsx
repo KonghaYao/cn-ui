@@ -1,6 +1,6 @@
-import type { CellContext, ColumnDef } from "@tanstack/solid-table";
 import type { JSX } from "solid-js";
 import type { MagicTableCtxType } from "./MagicTableCtx";
+import type { CellContext, ColumnDef } from "./solidTable";
 import type { useTableVirtual } from "./useVirtual";
 
 export interface MagicTableProps<T> {

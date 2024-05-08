@@ -1,6 +1,6 @@
 import type { Atom } from "@cn-ui/reactive";
-import type { ColumnDef, Table } from "@tanstack/solid-table";
 import { type Accessor, createMemo } from "solid-js";
+import type { ColumnDef, Table } from "./solidTable";
 import type { useSticky } from "./useSticky";
 import { createVirtualizer } from "./virtual/createVirtualizer";
 

@@ -1,6 +1,6 @@
 import { type Atom, OriginComponent, atom, classHelper, classNames } from "@cn-ui/reactive";
 import { AiOutlineEllipsis, AiOutlineLeft, AiOutlineRight } from "solid-icons/ai";
-import { For, Index, Show } from "solid-js";
+import { For, Show } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
 import { Icon } from "../icon/Icon";
 

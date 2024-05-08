@@ -1,8 +1,8 @@
 import { computed } from "@cn-ui/reactive";
-import type { ColumnDef } from "@tanstack/solid-table";
 import { AiOutlineCaretDown, AiOutlineCaretRight } from "solid-icons/ai";
 import { Checkbox } from "../checkbox";
 import { Icon } from "../icon/Icon";
+import type { ColumnDef } from "./solidTable";
 
 export const selectionConfig = {
     id: "$select",

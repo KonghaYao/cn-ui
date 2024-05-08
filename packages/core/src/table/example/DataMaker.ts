@@ -1,4 +1,4 @@
-import type { ColumnDef } from "@tanstack/table-core";
+import type { ColumnDef } from "../solidTable";
 /**
  * 创建一个虚拟列的数组。这个数组不支持 forEach map 等属性，只允许直接取值
  * @param num 列的数量。

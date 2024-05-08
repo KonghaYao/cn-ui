@@ -38,7 +38,7 @@ export const DateCalendarPanel = (props: { Cell?: CalendarProps["Cell"] }) => {
                 ...dates.paddingEnd,
                 ...calendarSystem.extraEndWeek(),
             ],
-            (item, index) => Math.floor(index / 7),
+            (_, index) => Math.floor(index / 7),
             [],
         ) as Dayjs[][];
     });

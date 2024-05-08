@@ -1,5 +1,5 @@
-import type { Table } from "@tanstack/solid-table";
 import { createMemo } from "solid-js";
+import type { Table } from "./solidTable";
 
 export function useSticky<T>(table: Table<T>) {
     const paddingLeft = createMemo(() => {

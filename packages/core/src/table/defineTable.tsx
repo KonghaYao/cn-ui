@@ -1,7 +1,7 @@
 import type { SelectOptionsType } from "@cn-ui/reactive";
 import type { RuleItem } from "async-validator";
 
-declare module "@tanstack/solid-table" {
+declare module "@cn-ui/table-core" {
     interface TableMeta<TData> {
         updateData?: (rowIndex: number, columnId: string, value: any) => void;
     }

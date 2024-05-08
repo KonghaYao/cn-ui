@@ -1,3 +1,4 @@
+export * from "./Badge/index";
 export * from "./ExtraComponents/index";
 export * from "./Message/index";
 export * from "./Modal/index";
@@ -25,7 +26,10 @@ export * from "./loading/index";
 export * from "./pagination/index";
 export * from "./picker/index";
 export * from "./popover/index";
+export * from "./qrcode/index";
+export * from "./ranger/index";
 export * from "./register/index";
+export * from "./result/index";
 export * from "./select/index";
 export * from "./splitter/index";
 export * from "./switch/index";

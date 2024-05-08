@@ -1,6 +1,6 @@
 import { type Atom, type JSXSlot, NullAtom, atom, classNames, toCSSPx } from "@cn-ui/reactive";
 import { Key } from "@solid-primitives/keyed";
-import { type Accessor, For, type JSXElement, Show, createMemo } from "solid-js";
+import { type Accessor, For, type JSXElement, createMemo } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
 import { useAutoResize } from "../table/hook/useAutoResize";
 import { createVirtualizer } from "../table/virtual/createVirtualizer";

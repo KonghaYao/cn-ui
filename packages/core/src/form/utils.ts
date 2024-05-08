@@ -1,4 +1,4 @@
-import type { AccessorFnColumnDef, AccessorKeyColumnDef } from "@tanstack/solid-table";
+import type { AccessorFnColumnDef, AccessorKeyColumnDef } from "../table/solidTable";
 export type RootColumnDef<T, D> = AccessorFnColumnDef<T, D> | AccessorKeyColumnDef<T, D>;
 
 export const getKeyFromRootColumnDef = <T, D>(

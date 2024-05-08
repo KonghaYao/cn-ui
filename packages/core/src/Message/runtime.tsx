@@ -1,4 +1,4 @@
-import type { Component, JSX, JSXElement } from "solid-js";
+import type { Component, JSX } from "solid-js";
 import { render } from "solid-js/web";
 
 export const createRuntimeRoot = (id: string) => {

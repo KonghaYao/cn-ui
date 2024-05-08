@@ -1,14 +1,14 @@
-import { createComponent, createComputed, mergeProps } from "solid-js";
-import { createStore } from "solid-js/store";
 import {
     type RowData,
     type TableOptions,
     type TableOptionsResolved,
     createTable,
-} from "../../../table/packages/table-core/src";
+} from "@cn-ui/table-core";
+import { createComponent, createComputed, mergeProps } from "solid-js";
+import { createStore } from "solid-js/store";
 
 import type { JSX } from "solid-js";
-export * from "../../../table/packages/table-core/src";
+export * from "@cn-ui/table-core";
 
 export function flexRender<TProps>(
     Comp: ((props: TProps) => JSX.Element) | JSX.Element | undefined,

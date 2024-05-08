@@ -1,7 +1,7 @@
 import { OriginComponent } from "@cn-ui/reactive";
 import { qr } from "headless-qr";
 import { createMemo } from "solid-js";
-
+import "./qrcode.d";
 export const QRCode = OriginComponent<QRCodeSvgProps, HTMLElement, string>((props) => {
     return (
         <div class="h-32 w-32 p-2 border rounded-lg">
@@ -12,12 +12,12 @@ export const QRCode = OriginComponent<QRCodeSvgProps, HTMLElement, string>((prop
 
 interface QRCodeSvgProps {
     version?: number;
-    correction?: string;
+    correction?: "M" | "L" | "Q" | "H";
     cellSize?: number;
 }
 
 export const QRCodeSvg = OriginComponent<QRCodeSvgProps, HTMLElement, string>((props) => {
-    const modules = createMemo<boolean[][]>(() => qr(props.model(), props));
+    const modules = createMemo<(boolean | null)[][]>(() => qr(props.model(), props));
     const size = createMemo(() => modules().length);
     const cellSize = createMemo(() => props.cellSize ?? 4);
 

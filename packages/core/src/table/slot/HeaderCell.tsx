@@ -1,8 +1,8 @@
 import { classHelper, classNames, toCSSPx } from "@cn-ui/reactive";
-import { type Header, flexRender } from "@tanstack/solid-table";
 import { AiOutlineSwapRight } from "solid-icons/ai";
 import { Show, createMemo } from "solid-js";
 import { MagicTableCtx } from "../MagicTableCtx";
+import { type Header, flexRender } from "../solidTable";
 import type { VirtualItem } from "../virtual";
 import { getCommonPinningStyles } from "./getCommonPinningStyles";
 

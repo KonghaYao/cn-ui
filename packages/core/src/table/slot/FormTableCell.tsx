@@ -1,7 +1,7 @@
 import { computed, useEffectWithoutFirst } from "@cn-ui/reactive";
-import type { CellContext } from "@tanstack/solid-table";
 import { Show, createMemo } from "solid-js";
 import { FormCore } from "../../form/FormCore";
+import type { CellContext } from "../solidTable";
 import { defaultBodyCell } from "./BodyCell";
 
 export function FormTableCell<T, D>(props: CellContext<T, D>) {

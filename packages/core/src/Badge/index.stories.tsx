@@ -28,7 +28,6 @@ export const Default: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
         const typeInput = async (input: HTMLInputElement, value: string) => {
             await userEvent.clear(input);
             await userEvent.type(input, value);

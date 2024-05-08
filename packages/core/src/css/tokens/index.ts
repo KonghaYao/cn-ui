@@ -16,7 +16,7 @@ export class TokenRules {
             return [
                 key,
                 Object.fromEntries(
-                    Object.entries(light).map(([cssName, val], index) => {
+                    Object.entries(light).map(([cssName], index) => {
                         return [cssName, `var(--cn-${key}-${index})`];
                     }),
                 ),

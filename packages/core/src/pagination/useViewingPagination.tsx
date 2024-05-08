@@ -1,5 +1,5 @@
 import { range } from "radash";
-import { batch, createMemo } from "solid-js";
+import { createMemo } from "solid-js";
 import { type UseOffsetPaginationOptions, useOffsetPagination } from "solidjs-use";
 
 export interface UseViewingPaginationOptions extends UseOffsetPaginationOptions {

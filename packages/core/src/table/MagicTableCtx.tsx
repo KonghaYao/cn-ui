@@ -1,9 +1,9 @@
 import { type Atom, createCtx } from "@cn-ui/reactive";
-import type { CellContext, RowSelectionState, Table } from "@tanstack/solid-table";
 import type { Accessor } from "solid-js";
 import type { JSX } from "solid-js";
 import type { useScroll } from "solidjs-use";
 import type { MagicTableProps } from "./interface";
+import type { CellContext, RowSelectionState, Table } from "./solidTable";
 import type { useStaticTableDefine } from "./useStaticTableDefine";
 import type { useSticky } from "./useSticky";
 import type { useTableVirtual } from "./useVirtual";
