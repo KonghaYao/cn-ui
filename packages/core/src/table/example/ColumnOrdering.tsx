@@ -1,10 +1,10 @@
 import { NullAtom, computed } from "@cn-ui/reactive";
 import { SortableList } from "@cn-ui/sortable";
-import type { ColumnDef } from "@tanstack/solid-table";
 import Mock from "mockjs-ts";
 import { Show } from "solid-js";
 import { MagicTable, type MagicTableExpose } from "..";
 import { Checkbox } from "../../checkbox";
+import type { ColumnDef } from "../solidTable";
 
 export type Person = {
     firstName: string;
@@ -104,6 +104,7 @@ export const ColumnOrdering = () => {
                 <div class="px-1 border-b border-black">
                     <Checkbox
                         label="Toggle All"
+                        value=""
                         v-model={() => tableExpose()!.table.getIsAllColumnsVisible()}
                         onChange={tableExpose()!.table.getToggleAllColumnsVisibilityHandler()}
                     />

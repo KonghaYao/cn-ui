@@ -1,5 +1,5 @@
-import { createColumnHelper } from "@tanstack/solid-table";
 import { MagicTable } from "../Table";
+import { createColumnHelper } from "../solidTable";
 
 type Person = {
     firstName: string;

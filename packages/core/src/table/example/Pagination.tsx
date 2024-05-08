@@ -1,10 +1,10 @@
 import { atom, genArray, usePagination } from "@cn-ui/reactive";
-import { createColumnHelper } from "@tanstack/solid-table";
 import Mock from "mockjs-ts";
 import { shuffle } from "radash";
 import { Container, Footer, Header, Main } from "../../container";
 import { Pagination } from "../../pagination";
 import { MagicTable } from "../Table";
+import { createColumnHelper } from "../solidTable";
 import { newPerson } from "./Expanded";
 
 type Person = {

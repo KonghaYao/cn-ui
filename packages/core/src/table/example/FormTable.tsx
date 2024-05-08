@@ -1,4 +1,3 @@
-import { createColumnHelper } from "@tanstack/solid-table";
 import { createStore } from "solid-js/store";
 import { FormCheckBox } from "../../checkbox/FormCheckBox";
 import { FormRadio } from "../../checkbox/FormRadio";
@@ -10,6 +9,7 @@ import { FormInputNumber } from "../../inputNumber/FormInputNumber";
 import { FormSelect } from "../../select/FormSelect";
 import { MagicTable } from "../Table";
 import { FormTableCell } from "../slot/FormTableCell";
+import { createColumnHelper } from "../solidTable";
 
 type Person = {
     firstName: string;

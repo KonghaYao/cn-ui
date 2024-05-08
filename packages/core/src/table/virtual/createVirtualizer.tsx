@@ -1,4 +1,4 @@
-// from @tanstack/solid-table
+// from ../solidTable
 import {
     type PartialKeys,
     Virtualizer,

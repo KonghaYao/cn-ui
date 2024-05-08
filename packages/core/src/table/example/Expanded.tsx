@@ -1,6 +1,6 @@
-import type { ColumnDef } from "@tanstack/solid-table";
 import Mock from "mockjs-ts";
 import { MagicTable } from "../Table";
+import type { ColumnDef } from "../solidTable";
 
 export type Person = {
     firstName: string;
