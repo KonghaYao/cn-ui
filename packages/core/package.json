@@ -4,7 +4,9 @@
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": ["dist"],
+    "files": [
+        "dist"
+    ],
     "keywords": [
         "cn-ui",
         "component",
@@ -30,7 +32,9 @@
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
-    "sideEffects": ["**/*.css"],
+    "sideEffects": [
+        "**/*.css"
+    ],
     "scripts": {
         "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",
@@ -57,6 +61,7 @@
         "copy-to-clipboard": "^3.3.3",
         "dayjs": "^1.11.10",
         "esbuild": "^0.20.2",
+        "headless-qr": "^1.0.3",
         "lodash-es": "^4.17.21",
         "radash": "^12.1.0",
         "solid-icons": "^1.1.0",
