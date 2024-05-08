@@ -40,6 +40,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
                         return (
                             <button
                                 type="button"
+                                aria-label={`page ${page}`}
                                 disabled={pageControl.isCurrentPage(page)}
                                 class={classNames(
                                     baseBtn,
@@ -62,6 +63,7 @@ export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, numbe
                 </Icon>
             </Show>
             <Icon
+                aria-hidden="false"
                 aria-label="next page"
                 class={classHelper.base(baseBtn)(pageControl.isFirstPage() && "", "")}
                 onclick={pageControl.next}
