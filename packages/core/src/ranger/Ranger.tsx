@@ -9,6 +9,8 @@ export interface RangerProps {
     tickSize?: number;
     steps?: number[];
     ticks?: number[];
+    /** range 情况下允许范围重叠  */
+    allowOverlap?: boolean;
     mode?: "single" | "multiple" | "range";
 }
 
@@ -39,6 +41,7 @@ export const Ranger = OriginComponent<RangerProps, HTMLDivElement, number[]>((pr
                             onMouseDown={onMouseDownHandler}
                             onTouchStart={onTouchStart}
                             role="slider"
+                            aria-orientation="horizontal"
                             aria-valuemin={rangerInstance.options.min}
                             aria-valuemax={rangerInstance.options.max}
                             aria-valuenow={value}
@@ -56,7 +59,7 @@ export const Ranger = OriginComponent<RangerProps, HTMLDivElement, number[]>((pr
                 )}
                 <Switch>
                     <Match when={props.mode === "single"}>
-                        <HighlightRange index={0}></HighlightRange>
+                        <HighlightRange index={1}></HighlightRange>
                     </Match>
                     <Match when={props.mode === "range"}>
                         <For
