@@ -36,6 +36,7 @@ export const usePagination = <T>(
     return {
         /** 总数 */
         count,
+        total: count,
         /** index 数值，从 0 开始 */
         currentIndex,
         /** 页数 数值，从 1 开始 */
@@ -63,8 +64,9 @@ export const usePagination = <T>(
         toPaginationModel() {
             return {
                 "v-model": currentPageModel,
-                count: count(),
+                total: count(),
                 onPageChange: refetch,
+                onPageSizeChange: refetch,
             };
         },
     };

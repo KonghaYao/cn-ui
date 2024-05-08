@@ -1,67 +1,70 @@
-import { Pagination as P } from "@ark-ui/solid";
-import { OriginComponent, classNames } from "@cn-ui/reactive";
+import { type Atom, OriginComponent, atom, classHelper, classNames } from "@cn-ui/reactive";
 import { AiOutlineEllipsis, AiOutlineLeft, AiOutlineRight } from "solid-icons/ai";
-import { For } from "solid-js";
+import { For, Index, Show } from "solid-js";
+import { TransitionGroup } from "solid-transition-group";
 import { Icon } from "../icon/Icon";
-export interface PaginationProps {
-    count: number;
-    pageSize?: number;
-    onPageChange?: (details: { page: number; pageSize: number }) => void;
+
+import "../animation/fade.css";
+import { type UseViewingPaginationOptions, useViewingPagination } from "./useViewingPagination";
+export interface PaginationProps extends UseViewingPaginationOptions {
+    pageSizeModel?: Atom<number>;
 }
 export const Pagination = OriginComponent<PaginationProps, HTMLDivElement, number>((props) => {
+    const pageSizeModel = props.pageSizeModel ?? atom(10);
     const baseBtn =
         "h-8 w-8 bg-transparent mx-1 text-center hover:bg-design-hover rounded-md  cursor-pointer transition-colors";
+    const pageControl = useViewingPagination({
+        ...props,
+        page: props.model(),
+        setPage: props.model,
+        pageSize: pageSizeModel(),
+        setPageSize: pageSizeModel,
+    });
     return (
-        <P.Root
-            class="flex"
-            count={props.count ?? 100}
-            page={props.model() ?? 1}
-            pageSize={props.pageSize ?? 10}
-            siblingCount={3}
-            onPageChange={(detail) => {
-                props.model(detail.page);
-                props.onPageChange?.(detail);
-            }}
-        >
-            {(api) => (
-                <>
-                    <P.PrevTrigger class={baseBtn}>
-                        <Icon>
-                            <AiOutlineLeft />
-                        </Icon>
-                    </P.PrevTrigger>
-                    <For each={api().pages}>
-                        {(page, index) => {
-                            return page.type === "page" ? (
-                                <P.Item
-                                    class={classNames(
-                                        baseBtn,
-                                        api().page === page.value &&
-                                            "border-blue-600 border text-blue-600",
-                                    )}
-                                    {...page}
-                                >
-                                    {page.value}
-                                </P.Item>
-                            ) : (
-                                <P.Ellipsis
-                                    class={classNames(baseBtn, "flex items-center justify-center")}
-                                    index={index()}
-                                >
-                                    <Icon>
-                                        <AiOutlineEllipsis />
-                                    </Icon>
-                                </P.Ellipsis>
-                            );
-                        }}
-                    </For>
-                    <P.NextTrigger class={baseBtn}>
-                        <Icon>
-                            <AiOutlineRight />
-                        </Icon>
-                    </P.NextTrigger>
-                </>
-            )}
-        </P.Root>
+        <div class="flex gap-4 select-none">
+            <Icon
+                onclick={pageControl.prev}
+                class={classHelper.base(baseBtn)(pageControl.isFirstPage() && "", "")}
+            >
+                <AiOutlineLeft />
+            </Icon>
+            <Show when={pageControl.viewingPages()[0] !== 1}>
+                <Icon>
+                    <AiOutlineEllipsis />
+                </Icon>
+            </Show>
+            <TransitionGroup name="cn-fade">
+                <For each={pageControl.viewingPages()}>
+                    {(page, index) => {
+                        return (
+                            <button
+                                disabled={pageControl.isCurrentPage(page)}
+                                class={classNames(
+                                    baseBtn,
+                                    pageControl.isCurrentPage(page) &&
+                                        "border-blue-600 border text-blue-600",
+                                )}
+                                onclick={() => {
+                                    pageControl.setCurrentPage(page);
+                                }}
+                            >
+                                {page}
+                            </button>
+                        );
+                    }}
+                </For>
+            </TransitionGroup>
+            <Show when={pageControl.viewingPages().at(-1) !== pageControl.pageCount()}>
+                <Icon>
+                    <AiOutlineEllipsis />
+                </Icon>
+            </Show>
+            <Icon
+                class={classHelper.base(baseBtn)(pageControl.isFirstPage() && "", "")}
+                onclick={pageControl.next}
+            >
+                <AiOutlineRight />
+            </Icon>
+        </div>
     );
 });

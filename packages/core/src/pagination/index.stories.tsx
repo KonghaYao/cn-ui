@@ -15,14 +15,27 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     render() {
-        const pageSize = atom(10);
         const a = usePagination(async (num, max, count) => {
             console.log("请求", num);
             max(100);
-            count(100);
+            count(200);
             return [];
         });
-        return <Pagination {...a.toPaginationModel()} pageSize={pageSize()} />;
+        const pageSize = atom(10);
+        return (
+            <>
+                <div>
+                    total:{a.count()}
+                    page: {a.currentPage()}
+                    pageSize: {pageSize()}
+                </div>
+                <Pagination
+                    {...a.toPaginationModel()}
+                    pageSizeModel={pageSize}
+                    pageSize={pageSize()}
+                />
+            </>
+        );
     },
     args: {},
 };
