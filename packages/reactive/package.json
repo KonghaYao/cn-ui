@@ -5,6 +5,7 @@
     "main": "./src/index.ts",
     "files": ["dist"],
     "scripts": {
+        "doc": "typedoc  --tsconfig tsconfig.node.json  --out docs src/index.ts",
         "build": "tsc -p tsconfig.node.json",
         "test": "vitest run",
         "test-watch": "vitest",
