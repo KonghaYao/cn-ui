@@ -1,0 +1,7 @@
+.cn-timeline-item-tail {
+    position: absolute;
+    inset-block-start: 10px;
+    inset-inline-start: 0.5rem;
+    height: 100%;
+    border-inline-start: 2px solid var(--cn-border-design-separator-0);
+}
