@@ -17,16 +17,18 @@ interface StepOptions {
     key?: string;
     label: string;
     content?: JSXSlot;
-    /** dev */
-    reverse?: boolean;
-    /** dev */
-    alternate?: boolean;
+
     icon?: JSXSlot<{ step: StepOptions; index: number }>;
 }
 
 export interface TimelineProps {
     options: StepOptions[];
     pending?: Atom<boolean>;
+    /** dev */
+    reverse?: boolean;
+    /** dev */
+    alternate?: boolean;
+    horizontal?: boolean;
     expose?: (expose: TimelineExpose) => void;
 }
 export type TimelineExpose = ReturnType<typeof useStepController>;
@@ -40,18 +42,33 @@ export const Timeline = OriginComponent<TimelineProps, HTMLUListElement, StepOpt
     props.expose?.(stepper);
     return (
         <TimelineCtx.Provider value={stepper}>
-            <ul class={props.class("flex flex-col")} style={props.style()} {...extendsEvent(props)}>
+            <ul
+                class={props.class("flex", !props.horizontal && "flex-col")}
+                style={props.style()}
+                {...extendsEvent(props)}
+            >
                 <For each={stepper.steps()}>
                     {(step, index) => {
                         const isCurrent = () => stepper.isCurrent(stepper.getKeyFromOption(step));
                         return (
                             <li
-                                class="flex gap-4 relative pb-4"
+                                class={classHelper.base("flex gap-4 relative ")(
+                                    props.horizontal && "flex-col pr-4",
+                                    "pb-4",
+                                )}
                                 data-index={index()}
                                 aria-current={isCurrent() ? "step" : undefined}
                             >
                                 <Show when={index() !== props.options.length - 1}>
-                                    <div aria-hidden="true" class="cn-timeline-item-tail -z-1" />
+                                    <div
+                                        aria-hidden="true"
+                                        class={classHelper.base("-z-1")(
+                                            props.horizontal
+                                                ? "cn-timeline-item-tail-col "
+                                                : "cn-timeline-item-tail ",
+                                            "",
+                                        )}
+                                    />
                                 </Show>
                                 <div class="select-none">
                                     {ensureFunctionResult(step.icon ?? DefaultTimelineIcon, [
