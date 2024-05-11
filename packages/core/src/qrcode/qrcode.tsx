@@ -1,11 +1,14 @@
 import { OriginComponent } from "@cn-ui/reactive";
 import { qr } from "headless-qr";
 import { createMemo } from "solid-js";
-import "./qrcode.d";
 export const QRCode = OriginComponent<QRCodeSvgProps, HTMLElement, string>((props) => {
     return (
-        <div class="h-32 w-32 p-2 border rounded-lg">
-            <QRCodeSvg v-model={props.model}></QRCodeSvg>
+        <div class="p-2 w-fit border rounded-lg">
+            <QRCodeSvg
+                v-model={props.model}
+                correction={props.correction}
+                cellSize={props.cellSize}
+            ></QRCodeSvg>
         </div>
     );
 });
@@ -25,6 +28,8 @@ export const QRCodeSvg = OriginComponent<QRCodeSvgProps, HTMLElement, string>((p
         <svg
             role="img"
             aria-label={props.model()}
+            height={size() * cellSize()}
+            width={size() * cellSize()}
             viewBox={`0 0 ${size() * cellSize()} ${size() * cellSize()}`}
             xmlns="http://www.w3.org/2000/svg"
         >
