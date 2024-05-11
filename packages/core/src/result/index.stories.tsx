@@ -19,9 +19,9 @@ export const Default: Story = {
                         <ResultAlert
                             class="flex-1"
                             title={i}
-                            subTitle={i + ".description"}
+                            subTitle={`${i}.description`}
                             type={i}
-                        ></ResultAlert>
+                        />
                     );
                 })}
             </Flex>
@@ -36,7 +36,7 @@ export const EmptyExample: Story = {
     render: () => {
         return (
             <Flex>
-                <Empty class="flex-1" title={"No Data"}></Empty>
+                <Empty class="flex-1" title={"No Data"} />
             </Flex>
         );
     },

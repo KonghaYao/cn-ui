@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
 import { NullAtom, atom } from "@cn-ui/reactive";
+import { expect, userEvent, within } from "@storybook/test";
 import { Button } from "../button";
 import { Timeline, type TimelineExpose } from "./index";
 
@@ -53,5 +54,32 @@ export const Primary: Story = {
             </>
         );
     },
-    args: {},
+    play: async ({ canvasElement, step }) => {
+        const canvas = within(canvasElement);
+        const checkCurrentIndex = (index: string) => {
+            //aria-current step data-index 为 1
+            const items = canvasElement.querySelectorAll("li");
+            const current = [...items].filter((i) => i.hasAttribute("aria-current"));
+            expect(current.length).toBe(1);
+            expect(current[0]).toHaveAttribute("data-index", index);
+        };
+        await step("检查初始状态", () => {
+            checkCurrentIndex("1");
+        });
+        await step("检查前后状态", async () => {
+            await userEvent.click(canvas.getByRole("button", { name: "Prev" }));
+            checkCurrentIndex("0");
+            await userEvent.click(canvas.getByRole("button", { name: "Next" }));
+            checkCurrentIndex("1");
+            await userEvent.click(canvas.getByRole("button", { name: "Next" }));
+            checkCurrentIndex("2");
+        });
+        await step("检查 pending 状态", async () => {
+            expect(canvas.queryByLabelText("loading icon")).not.toBeInTheDocument();
+            await userEvent.click(canvas.getByRole("button", { name: "Toggle Pending" }));
+            expect(canvas.queryByLabelText("loading icon")).toBeInTheDocument();
+            await userEvent.click(canvas.getByRole("button", { name: "Toggle Pending" }));
+            expect(canvas.queryByLabelText("loading icon")).not.toBeInTheDocument();
+        });
+    },
 };

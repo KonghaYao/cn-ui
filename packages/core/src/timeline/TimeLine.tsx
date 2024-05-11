@@ -17,6 +17,10 @@ interface StepOptions {
     key?: string;
     label: string;
     content?: JSXSlot;
+    /** dev */
+    reverse?: boolean;
+    /** dev */
+    alternate?: boolean;
     icon?: JSXSlot<{ step: StepOptions; index: number }>;
 }
 
@@ -39,10 +43,15 @@ export const Timeline = OriginComponent<TimelineProps, HTMLUListElement, StepOpt
             <ul class={props.class("flex flex-col")} style={props.style()} {...extendsEvent(props)}>
                 <For each={stepper.steps()}>
                     {(step, index) => {
+                        const isCurrent = () => stepper.isCurrent(stepper.getKeyFromOption(step));
                         return (
-                            <li class="flex gap-4 relative pb-4">
+                            <li
+                                class="flex gap-4 relative pb-4"
+                                data-index={index()}
+                                aria-current={isCurrent() ? "step" : undefined}
+                            >
                                 <Show when={index() !== props.options.length - 1}>
-                                    <div aria-hidden class="cn-timeline-item-tail -z-1" />
+                                    <div aria-hidden="true" class="cn-timeline-item-tail -z-1" />
                                 </Show>
                                 <div class="select-none">
                                     {ensureFunctionResult(step.icon ?? DefaultTimelineIcon, [
@@ -67,6 +76,7 @@ export const Timeline = OriginComponent<TimelineProps, HTMLUListElement, StepOpt
 
 const DefaultTimelineIcon = (props: { step: StepOptions; index: number }) => {
     const stepper = TimelineCtx.use();
+    const isCurrent = () => stepper.isCurrent(stepper.getKeyFromOption(props.step));
     return (
         <div
             class={classHelper.base(
@@ -74,20 +84,12 @@ const DefaultTimelineIcon = (props: { step: StepOptions; index: number }) => {
             )(
                 stepper.isAfter(stepper.getKeyFromOption(props.step)) &&
                     "border-3 border-success-600",
-                stepper.isCurrentPending() &&
-                    stepper.isCurrent(stepper.getKeyFromOption(props.step)) &&
-                    "pl-[0.15rem]",
-                stepper.isCurrent(stepper.getKeyFromOption(props.step)) &&
-                    "border-3 border-primary-300",
+                stepper.isCurrentPending() && isCurrent() && "pl-[0.15rem]",
+                isCurrent() && "border-3 border-primary-300",
                 "border-3 border-gray-300",
             )}
         >
-            <Show
-                when={
-                    stepper.isCurrentPending() &&
-                    stepper.isCurrent(stepper.getKeyFromOption(props.step))
-                }
-            >
+            <Show when={stepper.isCurrentPending() && isCurrent()}>
                 {GlobalButtonSlots.useSlot("loadingIcon")}
             </Show>
         </div>
