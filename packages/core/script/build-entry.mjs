@@ -7,7 +7,7 @@ const e = await glob(["./src/*/index.ts"]);
 const jsFile = e
     .sort()
     .map((i) => {
-        return `export * from './${path.relative("./src/", i).replace(".ts", "")}'`;
+        return `export * from "./${path.relative("./src/", i).replace(".ts", "")}";`;
     })
     .join("\n");
 fs.outputFileSync("./src/index.ts", jsFile);

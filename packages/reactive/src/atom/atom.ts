@@ -16,34 +16,41 @@ export interface PartialSetter<T> {
 export interface Atom<T> extends Accessor<T>, PartialSetter<T> {
     reflux: makeReflux<T>;
     toSignal(): [Accessor<T>, Setter<T>];
-    getGetter(): Accessor<T>;
-    getSetter(): Setter<T>;
+    toGetter(): Accessor<T>;
+    toSetter(): Setter<T>;
     [AtomTypeSymbol]: string;
 }
 type SignalOptions<T> = { equals?: false | ((prev: T, next: T) => boolean) };
 
 /**
  * @category atom
- * @zh 加强版的 atom
- * @en very easy way to use reactive value!
- * @example
- *  const a = atom(false);
- *  // get data
- *  console.log(a());
- *
- *  // change data
- *  a(true);
- *  a(i=>!i);
- *
- *
+ * @zh 更加友好的 Signal 使用方式
+ * @en A more friendly Signal usage!
  * @description atom 的理念来自 solid-use, 使用一个函数进行响应式数据的管理
+ * @example
+ * const a = atom(false);
+ * // get data
+ * console.log(a());
+ *
+ * // change data
+ * a(true);
+ * a(i=>!i);
  */
 export const atom = <T>(value: T, props?: SignalOptions<T>): Atom<T> => {
     const signal = createSignal<T>(value, props);
     return SignalToAtom(signal);
 };
 
-/** Signal 转为 Atom */
+/**
+ * @category atom
+ * @zh Signal 转为 Atom
+ * @en Signal to Atom
+ * @example
+ * const [state, setState] = createSignal(false);
+ *
+ * const a = SignalToAtom([state, setState]);
+ * // a is an Atom
+ *  */
 export const SignalToAtom = <T>(signal: Signal<T>) => {
     const [state, setState] = signal;
 
@@ -57,17 +64,17 @@ export const SignalToAtom = <T>(signal: Signal<T>) => {
         },
         {
             reflux,
-            [AtomTypeSymbol]: "atom",
             /** 转换为原来的写法，为了兼容其他 api 的要求 */
             toSignal() {
                 return [state, setState];
             },
-            getSetter() {
+            toSetter() {
                 return setState;
             },
-            getGetter() {
+            toGetter() {
                 return state;
             },
+            [AtomTypeSymbol]: "atom",
         },
     ) as Atom<T>;
 };
@@ -105,6 +112,7 @@ type makeReflux<T> = <C>(
     /** 派生 Atom 的初始参数 */
     Options?: SignalOptions<T>,
 ) => Atom<C>;
+
 /**
  * @zh 生成回流 atom， 回流 atom 的数值改变将会返回改变原始的 atom
  * @description 不同于 reflect 的衍生，回流是主动改变上流的原子
@@ -112,13 +120,13 @@ type makeReflux<T> = <C>(
  *
  * const a = atom(0)
  *
- *  const b = a.reflux('0',(newValue)=>parseInt(newValue))
+ * const b = a.reflux('0',(newValue)=>parseInt(newValue))
  *
- *  <div onClick={
- *      ()=>{
- *          b('1000') // `a` will be switch to number 1000
- *      }
- *  }></div>
+ * <div onClick={
+ *     ()=>{
+ *         b('1000') // `a` will be switch to number 1000
+ *     }
+ * }></div>
  *
  *
  */
