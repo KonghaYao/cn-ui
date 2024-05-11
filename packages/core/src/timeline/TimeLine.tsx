@@ -1,51 +1,56 @@
 import {
+    type Atom,
     type JSXSlot,
     OriginComponent,
-    OriginDiv,
+    atom,
+    classHelper,
     createCtx,
     ensureFunctionResult,
     extendsEvent,
 } from "@cn-ui/reactive";
-import { Accessor, For, JSXElement, Show, createMemo } from "solid-js";
-import { type UseStepperReturn, useStepper } from "solidjs-use";
-import { Icon } from "../icon";
+import { type Accessor, For, Show, createEffect, createMemo } from "solid-js";
+import { useStepper } from "solidjs-use";
+import { GlobalButtonSlots } from "../button/ButtonSlots";
 import "./index.css";
 interface StepOptions {
     /** 如果没有，则指定 label 为 key */
     key?: string;
     label: string;
     content?: JSXSlot;
-    icon?: JSXSlot<number>;
+    icon?: JSXSlot<{ step: StepOptions; index: number }>;
 }
 
 export interface TimelineProps {
     options: StepOptions[];
+    pending?: Atom<boolean>;
+    expose?: (expose: TimelineExpose) => void;
 }
-export const TimelintCtx = createCtx<UseStepperReturn<string, string[], string>>();
+export type TimelineExpose = ReturnType<typeof useStepController>;
+export const TimelineCtx = createCtx<TimelineExpose>();
 
 export const Timeline = OriginComponent<TimelineProps, HTMLUListElement, StepOptions>((props) => {
-    const getKeyFromOption = (i: StepOptions) => i.key ?? i.label;
-    const stepKeys = createMemo(() => props.options.map(getKeyFromOption));
-    const StepKeyToOption = createMemo(
-        () => new Map(props.options.map((i) => [i.key ?? i.label, i])),
-    );
-    const stepper = useStepper(stepKeys);
+    const stepper = useStepController(() => props.options, {
+        isCurrentPending: props.pending ?? atom(false),
+    });
+    stepper.syncModel(props.model);
+    props.expose?.(stepper);
     return (
-        <TimelintCtx.Provider value={stepper}>
+        <TimelineCtx.Provider value={stepper}>
             <ul class={props.class("flex flex-col")} style={props.style()} {...extendsEvent(props)}>
-                <For each={props.options}>
+                <For each={stepper.steps()}>
                     {(step, index) => {
                         return (
                             <li class="flex gap-4 relative pb-4">
                                 <Show when={index() !== props.options.length - 1}>
-                                    <div aria-hidden class="cn-timeline-item-tail -z-1"></div>
+                                    <div aria-hidden class="cn-timeline-item-tail -z-1" />
                                 </Show>
-                                <div>
-                                    <div class="mt-1 bg-design-primary text-xs w-4 h-4 text-center rounded-full border">
-                                        {ensureFunctionResult(step.icon ?? ((i: number) => i), [
-                                            index() + 1,
-                                        ])}
-                                    </div>
+                                <div class="select-none">
+                                    {ensureFunctionResult(step.icon ?? DefaultTimelineIcon, [
+                                        {
+                                            step,
+                                            index: index() + 1,
+                                        },
+                                    ])}
                                 </div>
                                 <div>
                                     {step.label}
@@ -56,6 +61,61 @@ export const Timeline = OriginComponent<TimelineProps, HTMLUListElement, StepOpt
                     }}
                 </For>
             </ul>
-        </TimelintCtx.Provider>
+        </TimelineCtx.Provider>
     );
 });
+
+const DefaultTimelineIcon = (props: { step: StepOptions; index: number }) => {
+    const stepper = TimelineCtx.use();
+    return (
+        <div
+            class={classHelper.base(
+                "mt-1 bg-design-primary  text-xs w-4 h-4 text-center rounded-full ",
+            )(
+                stepper.isAfter(stepper.getKeyFromOption(props.step)) &&
+                    "border-3 border-success-600",
+                stepper.isCurrentPending() &&
+                    stepper.isCurrent(stepper.getKeyFromOption(props.step)) &&
+                    "pl-[0.15rem]",
+                stepper.isCurrent(stepper.getKeyFromOption(props.step)) &&
+                    "border-3 border-primary-300",
+                "border-3 border-gray-300",
+            )}
+        >
+            <Show
+                when={
+                    stepper.isCurrentPending() &&
+                    stepper.isCurrent(stepper.getKeyFromOption(props.step))
+                }
+            >
+                {GlobalButtonSlots.useSlot("loadingIcon")}
+            </Show>
+        </div>
+    );
+};
+function useStepController(
+    steps: Accessor<StepOptions[]>,
+    { isCurrentPending }: { isCurrentPending: Atom<boolean> },
+) {
+    const getKeyFromOption = (i: StepOptions) => i.key ?? i.label;
+    const stepKeys = createMemo(() => steps().map(getKeyFromOption));
+    const StepKeyToOption = createMemo(() => new Map(steps().map((i) => [i.key ?? i.label, i])));
+    const stepper = useStepper(stepKeys);
+
+    return {
+        getKeyFromOption,
+        ...stepper,
+        isCurrentPending,
+        StepKeyToOption,
+        steps,
+        syncModel(model: Atom<StepOptions>) {
+            const currentKeyModel = model.reflux(getKeyFromOption(model()), (key) => {
+                return StepKeyToOption().get(key)!;
+            });
+            stepper.goTo(currentKeyModel());
+            createEffect(() => {
+                currentKeyModel(stepper.current);
+            });
+        },
+    };
+}

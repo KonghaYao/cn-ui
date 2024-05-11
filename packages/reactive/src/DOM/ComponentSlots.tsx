@@ -23,4 +23,7 @@ export class ComponentSlots<ISlotMap extends Record<string, () => JSXElement>> {
     getSlot(slotName: keyof ISlotMap) {
         return this.slots[slotName];
     }
+    useSlot(slotName: keyof ISlotMap) {
+        return ensureFunctionResult(this.getSlot(slotName));
+    }
 }

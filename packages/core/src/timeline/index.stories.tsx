@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
-import { Timeline } from "./index";
+import { NullAtom, atom } from "@cn-ui/reactive";
+import { Button } from "../button";
+import { Timeline, type TimelineExpose } from "./index";
 
 const meta = {
     title: "Layout 布局组件/Timeline 拖拽区域",
@@ -19,7 +21,37 @@ export const Primary: Story = {
             { label: "second" },
             { label: "third" },
         ];
-        return <Timeline options={options}></Timeline>;
+        const model = atom(options[1]);
+        const pending = atom(false);
+        const Expose = NullAtom<TimelineExpose>(null);
+        return (
+            <>
+                <Timeline options={options} expose={Expose} pending={pending} v-model={model} />
+                <div>
+                    <Button
+                        onclick={() => {
+                            Expose()?.goToPrevious();
+                        }}
+                    >
+                        Prev
+                    </Button>
+                    <Button
+                        onclick={() => {
+                            pending((i) => !i);
+                        }}
+                    >
+                        Toggle Pending
+                    </Button>
+                    <Button
+                        onclick={() => {
+                            Expose()!.goToNext();
+                        }}
+                    >
+                        Next
+                    </Button>
+                </div>
+            </>
+        );
     },
     args: {},
 };
