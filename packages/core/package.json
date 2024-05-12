@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/core",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -55,9 +55,7 @@
         "async-validator": "^4.2.5",
         "copy-to-clipboard": "^3.3.3",
         "dayjs": "^1.11.10",
-        "esbuild": "^0.20.2",
         "headless-qr": "^1.0.3",
-        "lodash-es": "^4.17.21",
         "radash": "^12.1.0",
         "solid-icons": "^1.1.0",
         "solid-js": "^1.8.16",
