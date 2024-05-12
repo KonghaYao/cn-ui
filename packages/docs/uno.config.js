@@ -1,4 +1,4 @@
-import presetCN, { darkColors, lightColors } from "@cn-ui/core/src/css/presets/index";
+import presetCN, { darkColors, lightColors } from "@cn-ui/core/uno-preset";
 import transformerDirectives from "@unocss/transformer-directives";
 // uno.config.ts
 import { defineConfig, presetUno } from "unocss";

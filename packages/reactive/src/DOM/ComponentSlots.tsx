@@ -1,5 +1,5 @@
-import { type JSXSlot, ensureFunctionResult } from "@cn-ui/reactive";
 import type { JSXElement } from "solid-js";
+import { type JSXSlot, ensureFunctionResult } from "../";
 
 export class ComponentSlots<ISlotMap extends Record<string, () => JSXElement>> {
     constructor(

@@ -4,7 +4,23 @@
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": ["dist"],
+    "files": ["dist", "src"],
+    "exports": {
+        ".": {
+            "source": "./src/index.ts",
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            },
+            "solid": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/ssr.js"
+            }
+        },
+        "./cn-uno.css": "./dist/cn-uno.css",
+        "./cn-uno.not.css": "./dist/cn-uno.not.css",
+        "./uno-preset": "./src/css/presets/index.ts"
+    },
     "keywords": [
         "cn-ui",
         "component",
@@ -32,24 +48,26 @@
     },
     "sideEffects": ["**/*.css"],
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen",
+        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:vite && pnpm build:css && pnpm docgen",
+        "build:vite": "vite build",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",
         "docgen": "node ./script/docgen.mjs",
         "prettier": "prettier --write src/**/*",
         "prepublish": "pnpm build"
     },
     "dependencies": {
+        "@ant-design/colors": "^7.0.2",
         "@ark-ui/solid": "^2.2.0",
         "@cn-ui/reactive": "workspace:^",
         "@cn-ui/sortable": "workspace:^",
         "@cn-ui/svg-spinner": "workspace:^",
+        "@cn-ui/table-core": "^8.16.0",
         "@popperjs/core": "^2.11.8",
         "@solid-primitives/keyed": "^1.2.2",
         "@solid-primitives/refs": "^1.0.8",
         "@solid-primitives/transition-group": "^1.0.5",
         "@storybook/test": "^8.0.4",
         "@tanstack/ranger": "^0.0.3",
-        "@cn-ui/table-core": "^8.16.0",
         "@types/lodash": "^4.17.0",
         "@types/lodash-es": "^4.17.12",
         "async-validator": "^4.2.5",
@@ -67,7 +85,6 @@
     },
     "devDependencies": {
         "@alenaksu/json-viewer": "^2.0.1",
-        "@ant-design/colors": "^7.0.2",
         "@cn-ui/area-data": "workspace:^",
         "@testing-library/jest-dom": "^6.4.2",
         "@types/sortablejs": "^1.15.8",
