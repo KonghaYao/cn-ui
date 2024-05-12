@@ -36,6 +36,7 @@ export * from "./switch/index";
 export * from "./table/index";
 export * from "./tabs/index";
 export * from "./tag/index";
+export * from "./timeline/index";
 export * from "./toc/index";
 export * from "./typography/index";
 export * from "./utils/index";
