@@ -1,6 +1,6 @@
-import { toCSSPx } from "@cn-ui/reactive";
 import { type Accessor, type JSX, type ResolvedJSXElement, createMemo } from "solid-js";
 import { type MaybeElement, useElementBounding } from "solidjs-use";
+import { toCSSPx } from "../css/toCSSPx";
 
 export interface FloatingCoverProps {
     target: string | Accessor<MaybeElement | ResolvedJSXElement>;

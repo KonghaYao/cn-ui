@@ -1,5 +1,5 @@
-import { reflect } from "@cn-ui/reactive";
 import { breakpointsTailwind, useBreakpoints } from "solidjs-use";
+import { reflect } from "../atom";
 
 /**
  * 联通 Tailwind 的响应式标识符号

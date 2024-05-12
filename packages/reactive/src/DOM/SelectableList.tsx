@@ -1,8 +1,8 @@
-import { type Atom, useSelect } from "@cn-ui/reactive";
-import { useSelectItem } from "@cn-ui/reactive/src/hook/useSelectItem";
 import { For, type JSXElement } from "solid-js";
+import { type Atom, useSelect } from "../";
 import { type DynamicListReturn, useDynamicList } from "../hook/useDynamicList";
 import type { SelectOptionsType, SelectSystem } from "../hook/useSelect";
+import { useSelectItem } from "../hook/useSelectItem";
 
 export interface SelectableListExpose {
     selectSystem: SelectSystem<SelectOptionsType>;
