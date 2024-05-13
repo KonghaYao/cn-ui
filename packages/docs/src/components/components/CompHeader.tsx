@@ -15,14 +15,14 @@ interface CompHeaderProps {
 export const CompHeader = (props: CompHeaderProps) => {
     const CompSize = sizeData.find((i) => i.name === props.compName);
     return (
-        <section class="flex items-center py-4 border-b">
+        <section class="flex items-center p-8 bg-gray-100 ">
             <section class=" flex-1">
                 <h1>{props.title}</h1>
                 <p class="text-gray-500">{props.description}</p>
                 <div class="flex gap-2 flex-col cursor-default">
                     <Show when={props.sourceLink}>
                         <div class="flex">
-                            <div class="text-gray-500 px-2">源代码》</div>
+                            <div class="text-gray-500 pr-2">源代码》</div>
                             <a
                                 class="flex items-center gap-4 px-6"
                                 target="_blank"
@@ -36,11 +36,11 @@ export const CompHeader = (props: CompHeaderProps) => {
                     </Show>
                     <Show when={CompSize}>
                         <div class="flex">
-                            <span class="text-gray-500 px-2">引入方法</span>
+                            <span class="text-gray-500 pr-2">引入方法</span>
                             <ImportTemplate compName={props.compName!} />
                         </div>{" "}
                         <div class="rounded-md flex w-fit gap-2">
-                            <div class="text-gray-500 px-2">引入大小</div>
+                            <div class="text-gray-500 pr-2">引入大小</div>
                             <SplitText left="Origin" right={prettyBytes(CompSize!.size)} />
                             <SplitText left="Gzip" right={prettyBytes(CompSize!.gzip)} />
                             <SplitText left="Br" right={prettyBytes(CompSize!.br)} />

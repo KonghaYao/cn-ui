@@ -27,7 +27,7 @@ export const Header = () => {
                     {(i) => {
                         return (
                             <a
-                                class="px-4 transition-colors hover:bg-primary-400 hover:text-design-primary h-full block"
+                                class="px-4 transition-colors hover:bg-primary-400 hover:text-white h-full block"
                                 href={i.href}
                             >
                                 {i.name}

@@ -10,7 +10,7 @@ const { title, description, pubDate, updatedDate, heroImag, headings, compName }
 ---
 
 <Layout {...Astro.props}>
-    <Typography class="pr-52 pl-12 bg-gray-50/90">
+    <Typography class="pr-24 pl-12 max-w-[84rem]">
         <CompHeader title={title} {...Astro.props} />
         <slot />
     </Typography>
