@@ -70,6 +70,7 @@
     "devDependencies": {
         "@alenaksu/json-viewer": "^2.0.1",
         "@cn-ui/area-data": "workspace:^",
+        "@isomorphic-git/lightning-fs": "^4.6.0",
         "@testing-library/jest-dom": "^6.4.2",
         "@types/sortablejs": "^1.15.8",
         "@unocss/cli": "^0.58.6",
