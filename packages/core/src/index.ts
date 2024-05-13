@@ -14,6 +14,7 @@ export * from "./container/index";
 export * from "./css/index";
 export * from "./datePicker/index";
 export * from "./dialog/index";
+export * from "./fileExplorer/index";
 export * from "./floatingButton/index";
 export * from "./form/index";
 export * from "./groupList/index";
