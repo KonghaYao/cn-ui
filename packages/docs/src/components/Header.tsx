@@ -18,7 +18,7 @@ export const Header = () => {
         },
     ];
     return (
-        <header class="px-8 gap-12 flex items-center h-16 border-b border-design-border sticky top-0 left-0 backdrop-blur-lg z-50">
+        <header class="px-8 gap-12 flex items-center h-16 border-b border-design-separator sticky top-0 left-0 backdrop-blur-lg z-50">
             <a href="/" class="text-2xl font-bold">
                 <span class="px-1 bg-design-title text-design-pure">CN UI</span>
             </a>
@@ -27,7 +27,7 @@ export const Header = () => {
                     {(i) => {
                         return (
                             <a
-                                class="px-4 transition-colors hover:bg-primary-400 hover:text-design-pure h-full block"
+                                class="px-4 transition-colors hover:bg-primary-400 hover:text-design-primary h-full block"
                                 href={i.href}
                             >
                                 {i.name}

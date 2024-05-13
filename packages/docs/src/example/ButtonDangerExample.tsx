@@ -7,7 +7,7 @@ export default () => {
     return (
         <div>
             <div class="mb-18 flex gap-4">
-                <Button id={randomId} danger type="primary">
+                <Button id={randomId} danger type="primary" onclick={() => show(true)}>
                     Primary
                 </Button>
                 <Popover

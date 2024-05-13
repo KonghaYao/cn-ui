@@ -9,7 +9,7 @@ interface CompHeaderProps {
     title: string;
     description: string;
     compName?: string;
-    image?: string;
+    image?: keyof typeof ImageStore;
 }
 
 export const CompHeader = (props: CompHeaderProps) => {
@@ -49,9 +49,9 @@ export const CompHeader = (props: CompHeaderProps) => {
                 </div>
             </section>
             <div class="">
-                <Show when={ImageStore[props.image]}>
+                <Show when={props.image && ImageStore[props.image]}>
                     <a
-                        href={ImageStore[props.image].link}
+                        href={ImageStore[props.image!].link}
                         class=" rounded-lg shadow-lg h-84 w-128 aspect-video overflow-hidden block hover:scale-125 transition-transform"
                     >
                         <UnsplashImage
@@ -99,7 +99,7 @@ export const ImportTemplate = (props: { compName: string }) => {
 
 export const SplitText = (props: { left: string; right: string }) => {
     return (
-        <div class="flex text-design-pure rounded-lg overflow-hidden text-sm items-center">
+        <div class="flex text-white rounded-lg overflow-hidden text-sm items-center">
             <div class="px-1 bg-black">{props.left}</div>
             <div class="px-1 bg-green-600">{props.right}</div>
         </div>
