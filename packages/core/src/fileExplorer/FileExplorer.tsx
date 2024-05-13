@@ -33,13 +33,13 @@ export const FileExplorer = OriginComponent(function <T extends { name: string }
         >
             <div class="flex gap-8 bg-gray-100 p-1 rounded-md mb-2">
                 <div>
-                    <IconButton onclick={() => explorer.router.undo()}>
+                    <IconButton aria-label="undo control" onclick={() => explorer.router.undo()}>
                         <AiOutlineArrowLeft />
                     </IconButton>
-                    <IconButton onclick={() => explorer.router.redo()}>
+                    <IconButton aria-label="redo control" onclick={() => explorer.router.redo()}>
                         <AiOutlineArrowRight />
                     </IconButton>
-                    <IconButton onclick={() => explorer.router.prev()}>
+                    <IconButton aria-label="prev level" onclick={() => explorer.router.prev()}>
                         <AiOutlineArrowUp />
                     </IconButton>
                 </div>
