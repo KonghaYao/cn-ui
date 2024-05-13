@@ -6,3 +6,4 @@ export * from "./useDynamicList";
 export * from "./useLazyMount";
 export * from "./useCalendar";
 export * from "./usePromise";
+export * from "./useFileExplorer";
