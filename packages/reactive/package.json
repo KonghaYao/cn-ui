@@ -2,22 +2,8 @@
     "name": "@cn-ui/reactive",
     "version": "4.6.0",
     "description": "",
-    "main": "./dist/esm/index.js",
-    "types": "./dist/ssr/index.d.ts",
+    "main": "./src/index.ts",
     "files": ["dist", "src"],
-    "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "import": {
-                "types": "./dist/ssr/index.d.ts",
-                "default": "./dist/esm/index.js"
-            },
-            "solid": {
-                "types": "./dist/ssr/index.d.ts",
-                "default": "./dist/ssr/index.js"
-            }
-        }
-    },
     "scripts": {
         "doc": "typedoc  --tsconfig tsconfig.node.json  --out docs src/index.ts",
         "build": "vite build && tsc -p tsconfig.node.json",

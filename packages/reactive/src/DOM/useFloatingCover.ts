@@ -1,4 +1,5 @@
 import { type Accessor, type JSX, type ResolvedJSXElement, createMemo } from "solid-js";
+import { isServer } from "solid-js/web";
 import { type MaybeElement, useElementBounding } from "solidjs-use";
 import { toCSSPx } from "../css/toCSSPx";
 
@@ -11,7 +12,9 @@ export interface FloatingCoverProps {
 export const useFloatingCover = (props: FloatingCoverProps) => {
     const el = createMemo(() => {
         return typeof props.target === "string"
-            ? (document.querySelector(props.target) as MaybeElement)
+            ? isServer()
+                ? null
+                : (document.querySelector(props.target) as MaybeElement)
             : props.target();
     });
     const bounding = useElementBounding(el as Accessor<MaybeElement>);

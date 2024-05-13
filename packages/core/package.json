@@ -2,25 +2,9 @@
     "name": "@cn-ui/core",
     "version": "2.6.0",
     "type": "module",
-    "main": "./dist/index.js",
+    "main": "./dist/ssr.js",
     "types": "./dist/index.d.ts",
     "files": ["dist", "src"],
-    "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "import": {
-                "types": "./dist/index.d.ts",
-                "default": "./dist/index.js"
-            },
-            "solid": {
-                "types": "./dist/index.d.ts",
-                "default": "./dist/ssr.js"
-            }
-        },
-        "./cn-uno.css": "./dist/cn-uno.css",
-        "./cn-uno.not.css": "./dist/cn-uno.not.css",
-        "./uno-preset": "./src/css/presets/index.ts"
-    },
     "keywords": [
         "cn-ui",
         "component",
@@ -48,7 +32,7 @@
     },
     "sideEffects": ["**/*.css"],
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:vite && pnpm build:css && pnpm docgen",
+        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen",
         "build:vite": "vite build",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",
         "docgen": "node ./script/docgen.mjs",

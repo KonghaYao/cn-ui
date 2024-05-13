@@ -1,4 +1,5 @@
-import relationship from "@cn-ui/core/dist/relationShip.json";
+// import relationship from "@cn-ui/core/dist/relationShip.json";
+const relationShip = [];
 import { NullAtom } from "@cn-ui/reactive";
 import { GraphChart } from "echarts/charts";
 import { TitleComponent } from "echarts/components";
