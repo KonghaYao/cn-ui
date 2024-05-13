@@ -1,1 +1,1 @@
-export * from './src/css/presets/index'
+export * from "./src/css/presets/index";

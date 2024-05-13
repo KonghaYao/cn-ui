@@ -1,3 +1,4 @@
+/** 生成文档所需要的构建文件 */
 import fs from "node:fs";
 import { parse } from "react-docgen-typescript";
 const options = {
@@ -17,3 +18,4 @@ fs.writeFileSync(
         })
         .join("\n"),
 );
+console.log(item.map((i) => [i.displayName]));

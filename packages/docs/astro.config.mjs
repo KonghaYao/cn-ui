@@ -32,13 +32,9 @@ export default defineConfig({
         },
     },
     vite: {
-        resolve:{
-            conditions:['solid']
-        },
         ssr: {
-            noExternal: ["solid-icons", "@popperjs/core", "@cn-ui/core"],
+            noExternal: ["solid-icons", "@popperjs/core"],
             resolve: {
-                conditions: ["solid", "module", "import"],
                 externalConditions: ["solid", "module", "import"],
             },
         },

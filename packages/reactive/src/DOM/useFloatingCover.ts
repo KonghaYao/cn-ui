@@ -12,7 +12,7 @@ export interface FloatingCoverProps {
 export const useFloatingCover = (props: FloatingCoverProps) => {
     const el = createMemo(() => {
         return typeof props.target === "string"
-            ? isServer()
+            ? isServer
                 ? null
                 : (document.querySelector(props.target) as MaybeElement)
             : props.target();
