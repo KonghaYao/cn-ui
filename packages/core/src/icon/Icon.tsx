@@ -24,3 +24,25 @@ export const Icon = OriginComponent<{
         </span>
     );
 });
+
+export const IconButton = OriginComponent<{
+    children: JSXElement;
+    spin?: boolean;
+}>((props) => {
+    return (
+        <button
+            type="button"
+            class={props.class(
+                props.spin && "animate-spin",
+                "inline-flex items-center text-center leading-[0] cursor-pointer hover:bg-gray-300 p-2 rounded-md transition-colors",
+            )}
+            style={{
+                ...props.style,
+                "vertical-align": "-0.125em",
+            }}
+            {...extendsEvent(props)}
+        >
+            {props.children}
+        </button>
+    );
+});

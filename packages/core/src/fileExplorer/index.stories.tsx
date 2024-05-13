@@ -14,12 +14,16 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 import FS from "@isomorphic-git/lightning-fs";
+import { AiOutlineFile, AiOutlineFolder } from "solid-icons/ai";
+import { Icon } from "../icon/Icon";
 const fs = new FS("testfs").promises;
 
 const initFS = async () => {
     await fs.writeFile("/README.md", "It's a readme file!");
-    await fs.mkdir("/src");
+    await fs.mkdir("/src").catch(() => {});
     await fs.writeFile("/src/README_zh_cn.md", "你好！");
+    await fs.mkdir("/src/some").catch(() => {});
+    await fs.mkdir("/src/some/link").catch(() => {});
     return;
 };
 initFS();
@@ -53,16 +57,28 @@ export const Primary: Story = {
         } satisfies ExplorerAPI<{ name: string; path: string } & FS.Stats>;
         return (
             <Flex vertical gap="4px">
-                <FileExplorer explorerModel={explorerModel}>
+                <FileExplorer class={"w-96"} explorerModel={explorerModel} emptyView={"无数据"}>
                     {(item, explorer) => {
-                        console.log(item.name);
                         return (
                             <>
-                                {item.type === "file" && <div>{item.name}</div>}
-                                {item.type === "dir" && (
-                                    <div onclick={() => explorer.router.enter(item.name)}>
+                                {item.type === "file" && (
+                                    <li class="cursor-pointer">
+                                        <Icon>
+                                            <AiOutlineFile />
+                                        </Icon>
                                         {item.name}
-                                    </div>
+                                    </li>
+                                )}
+                                {item.type === "dir" && (
+                                    <li
+                                        class="cursor-pointer"
+                                        onclick={() => explorer.router.enter(item.name)}
+                                    >
+                                        <Icon>
+                                            <AiOutlineFolder />
+                                        </Icon>
+                                        {item.name}
+                                    </li>
                                 )}
                             </>
                         );
