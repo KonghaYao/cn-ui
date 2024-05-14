@@ -9,7 +9,7 @@ import {
 } from "@cn-ui/reactive";
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineArrowUp } from "solid-icons/ai";
 import { type Accessor, For, type JSXElement } from "solid-js";
-import { Icon, IconButton } from "../icon";
+import { IconButton } from "../icon";
 
 export const FileExplorer = OriginComponent(function <T extends { name: string }>(
     props: OriginComponentInputType<{
