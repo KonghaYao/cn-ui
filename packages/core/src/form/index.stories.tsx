@@ -4,16 +4,8 @@ import { NullAtom, StoreToAtom, atom } from "@cn-ui/reactive";
 import { For, onCleanup } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Col, Row } from "../RowAndCol";
-import { FormCascader } from "../cascader";
-import { FormCheckBox, FormRadio } from "../checkbox";
-import { JSONViewer } from "../dataViewer";
-import { FormDatePicker, FormDateRangePicker } from "../datePicker";
-import { FormInput } from "../input/FormInput";
-import { FormInputNumber } from "../inputNumber";
-import { FormSelect } from "../select/FormSelect";
-import { FormSwitch } from "../switch";
 import type { ColumnDef } from "../table/solidTable";
-import { FormCore, FormCoreRegister } from "./FormCore";
+import { FormCore } from "./FormCore";
 import { MagicForm } from "./MagicForm";
 
 const meta = {
@@ -25,23 +17,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-FormCoreRegister.register("text", FormInput, { allowSameRegister: true });
-FormCoreRegister.register("select", FormSelect, { allowSameRegister: true });
-FormCoreRegister.register("number", FormInputNumber, {
-    allowSameRegister: true,
-});
-FormCoreRegister.register("date", FormDatePicker, { allowSameRegister: true });
-FormCoreRegister.register("date-range", FormDateRangePicker, {
-    allowSameRegister: true,
-});
-FormCoreRegister.register("radio", FormRadio, { allowSameRegister: true });
-FormCoreRegister.register("checkbox", FormCheckBox, {
-    allowSameRegister: true,
-});
-FormCoreRegister.register("cascader", FormCascader, {
-    allowSameRegister: true,
-});
-FormCoreRegister.register("switch", FormSwitch, { allowSameRegister: true });
 const mustFill = {
     required: true,
     message: "此项必填",
@@ -196,6 +171,7 @@ export const Primary: Story = {
     },
     args: {},
 };
+// await registerAllControlComponent(true)
 export const _MagicForm: Story = {
     name: "MagicForm 集成表单",
     render() {

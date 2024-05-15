@@ -2,6 +2,8 @@ import { createContext, useContext } from "solid-js";
 import { atom } from "../atom/atom";
 export interface BlackBoardOption {
     allowSameRegister?: boolean;
+    /** 允许后注册覆盖前注册 */
+    allowOverride?: boolean;
     onUpdate?: () => void;
 }
 
@@ -32,10 +34,11 @@ export const createBlackBoard = <T extends Record<string, any>>(
         store,
         /** 应该在组件声明时进行注册 App，保证在 onMount 时能够获取到数据 */
         register<D extends keyof T>(name: D, api: T[D], opts: BlackBoardOption = {}) {
-            if (store.has(name)) {
-                if (opts.allowSameRegister ?? baseOpts.allowSameRegister) return store;
+            const isExist = store.has(name);
+            if (isExist && !(opts.allowSameRegister ?? baseOpts.allowSameRegister)) {
                 throw new Error("Blackboard has a same app named " + name.toString());
             }
+            if (isExist && !opts.allowOverride) return;
             store.set(name, api);
             baseOpts.onUpdate?.();
             return store;

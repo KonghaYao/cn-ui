@@ -1,13 +1,13 @@
-import { type Atom, classNames, createBlackBoard, ensureArrayReturn } from "@cn-ui/reactive";
+import { type Atom, classNames, ensureArrayReturn } from "@cn-ui/reactive";
 import { createMemo } from "solid-js";
 import { Dynamic, Show } from "solid-js/web";
 import { Col } from "../RowAndCol";
+import { ControlCenter } from "../register";
 import { flexRender } from "../table/solidTable";
 import { MagicFormCtx } from "./MagicForm";
 import "./form-core.css";
 import type { RootColumnDef } from "./utils";
 import { getKeyFromRootColumnDef } from "./utils";
-export const FormCoreRegister = createBlackBoard<Record<string, any>>();
 
 export interface FormCoreProps<T, D> {
     "v-model": Atom<any>;
@@ -57,7 +57,7 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
             <div class="flex flex-col flex-1">
                 <Dynamic
                     id={id()}
-                    component={FormCoreRegister.getApp(props.config.type as string)}
+                    component={ControlCenter.getApp(props.config.type as string)}
                     {...props.config}
                     error={errorMessage()}
                     disabled={props.disabled}
