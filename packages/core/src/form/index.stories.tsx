@@ -7,7 +7,7 @@ import { Col, Row } from "../RowAndCol";
 import { JSONViewer } from "../dataViewer";
 import type { ColumnDef } from "../table/solidTable";
 import { FormCore } from "./FormCore";
-import { MagicForm } from "./MagicForm";
+import { MagicForm, MagicFormCtx } from "./MagicForm";
 
 const meta = {
     title: "From/FormCore",

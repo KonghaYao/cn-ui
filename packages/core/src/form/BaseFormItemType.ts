@@ -14,7 +14,7 @@ export interface BaseFormItemType {
     /** 数据错误状态 */
     error?: boolean;
 
-    onChange?: (value: any) => void;
+    onValueChange?: (e: Event, value: any) => void;
 }
 
 export const extendsBaseFormItemProp = (props: BaseFormItemType) => {

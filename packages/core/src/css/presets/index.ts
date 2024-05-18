@@ -14,7 +14,7 @@ export default definePreset(() => {
             ...backgroundTokens(BaseColor),
             ...separatorTokens(BaseColor),
             ...labelTokens(BaseColor),
-            ...materialTokens(BaseColor),
+            ...materialTokens(),
         ],
         BaseColor,
     );

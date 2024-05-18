@@ -1,8 +1,9 @@
-import { type Atom, classNames, ensureArrayReturn } from "@cn-ui/reactive";
+import { type Atom, classNames, ensureArrayReturn, ensureFunctionResult } from "@cn-ui/reactive";
 import { createMemo } from "solid-js";
 import { Dynamic, Show } from "solid-js/web";
 import { Col } from "../RowAndCol";
 import { ControlCenter } from "../register";
+import type { PropSlot } from "../table/defineTable";
 import { flexRender } from "../table/solidTable";
 import { MagicFormCtx } from "./MagicForm";
 import "./form-core.css";
@@ -36,13 +37,13 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
     });
     return (
         <Col
-            span={props.span ?? props.config.span ?? 12}
+            span={ensureFunctionResult(props.span) ?? props.config.span ?? 12}
             class={classNames(
                 "cn-form-core relative flex",
                 props.wrap ? "flex-wrap flex-col gap-2" : "gap-4",
             )}
         >
-            <Show when={props.showLabel}>
+            <Show when={props.config.showLabel ?? props.showLabel}>
                 <label
                     for={id()}
                     class={classNames("flex-none w-full", props.wrap ? "text-left" : "text-right")}
@@ -58,9 +59,10 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
                 <Dynamic
                     id={id()}
                     component={ControlCenter.getApp(props.config.type as string)}
-                    {...props.config}
+                    {...(props.config.control ?? {})}
+                    {...extendsFormCoreSlotProp(props.config)}
+                    options={props.config.options}
                     error={errorMessage()}
-                    disabled={props.disabled}
                     name={accessorKey()}
                     v-model={props["v-model"]}
                 />
@@ -79,3 +81,19 @@ export function FormCore<T, D>(props: FormCoreProps<T, D>) {
         </Col>
     );
 }
+export const extendsFormCoreSlotProp = (props: {
+    /** 无值时的提示 */
+    placeholder?: PropSlot<string>;
+    /** 禁止操作 */
+    disabled?: PropSlot<boolean>;
+    /** 只读状态, 保证控件不会被输入控制 */
+    readonly?: PropSlot<boolean>;
+    /** 强制必填 */
+    required?: PropSlot<boolean>;
+}) => {
+    return Object.fromEntries(
+        (["placeholder", "disabled", "readonly", "required"] as const).map((i) => {
+            return [i, ensureFunctionResult(props[i])];
+        }),
+    );
+};

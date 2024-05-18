@@ -9,7 +9,7 @@ import {
     extendsEvent,
 } from "@cn-ui/reactive";
 import type { RuleItem } from "async-validator";
-import { For, createEffect, createMemo } from "solid-js";
+import { For, createMemo } from "solid-js";
 import type { SetStoreFunction } from "solid-js/store";
 import { Row } from "../RowAndCol";
 import type { ColumnDef } from "../table/solidTable";
@@ -27,20 +27,17 @@ export const MagicFormCtx = /* @__PURE__ */ createCtx<{
     } | null>;
 }>(undefined, true);
 
+interface MagicFormProps<T, D> {
+    config: ColumnDef<T, D>[];
+    disabled?: boolean;
+    index?: number;
+    originData: T;
+    setOriginData: SetStoreFunction<T>;
+    showLabel?: boolean;
+}
+
 export const MagicForm = OriginComponent(
-    <T, D>(
-        props: OriginComponentInputType<
-            {
-                config: ColumnDef<T, D>[];
-                disabled?: boolean;
-                index?: number;
-                originData: T;
-                setOriginData: SetStoreFunction<T>;
-            },
-            HTMLFormElement,
-            any
-        >,
-    ) => {
+    <T, D>(props: OriginComponentInputType<MagicFormProps<T, D>, HTMLFormElement, any>) => {
         const flattenColumns = createMemo(() => getFlattenColumnConfig(props.config));
         const { validator } = useValidator(
             props.config as RootColumnDef<T, D>[],
@@ -59,9 +56,6 @@ export const MagicForm = OriginComponent(
                     },
                 ),
         );
-        createEffect(() => {
-            console.log(props.originData);
-        });
         return (
             <MagicFormCtx.Provider
                 value={{
@@ -89,7 +83,7 @@ export const MagicForm = OriginComponent(
                                 return (
                                     <FormCore
                                         disabled={props.disabled}
-                                        showLabel
+                                        showLabel={props.showLabel ?? true}
                                         config={item}
                                         v-model={model}
                                     />

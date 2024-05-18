@@ -1,5 +1,4 @@
 import type { TokenLike } from ".";
-import { BaseColor } from "./BaseColor";
 
 const Token = {
     WhiteBorder: "1px solid rgba(209, 213, 219, 0.3)",
@@ -10,7 +9,7 @@ const Token = {
  *
  * @link https://www.figma.com/file/HEvUIZSLxAQ0mGbllDDBl7/iOS-17-and-iPadOS-17-(Community)?type=design&node-id=224%3A56304&mode=design&t=Tci3XVGl8oCQgr8I-1
  */
-export const materialTokens = (Colors = BaseColor): TokenLike => [
+export const materialTokens = (): TokenLike => [
     [
         "bg-design-thick",
 
