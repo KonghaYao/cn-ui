@@ -17,7 +17,7 @@ export const separatorTokens = (Colors = BaseColor): TokenLike => [
             "border-color": Colors.SeparatorOpaque,
         },
         {
-            "border-color": Colors.SeparatorOpaque,
+            "border-color": Colors.SeparatorOpaqueBlack,
         },
     ],
 ];

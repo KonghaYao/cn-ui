@@ -3,17 +3,18 @@
  */
 export const BaseColor = {
     White: "#FFFFFF",
-    Black: "#000000",
-    SecondaryBlack: "#1C1C1E",
     SecondaryWhite: "#F2F2F7",
-    TertiaryBlack: "#2C2C2E",
     TertiaryWhite: "#3A3A3C",
     LabelSecondaryWhite: "#EBEBF5",
-    LabelSecondaryBlack: "#3C3C43",
-    SeparatorOpaque: "#C6C6C8",
     FloatingWhite: "#fafafa",
-    ThickWhite: "#fcfcfc",
-    ThickBlack: "#252525",
+
+    Black: "#000000",
+    TertiaryBlack: "#2C2C2E",
+    SecondaryBlack: "#1C1C1E",
+    LabelSecondaryBlack: "#3C3C43",
+
+    SeparatorOpaque: "#e3e3e3",
+    SeparatorOpaqueBlack: "#3f3f3f",
 };
 export const BaseColorToName = Object.fromEntries(
     Object.entries(BaseColor).map(([k, v]) => [v, k]),

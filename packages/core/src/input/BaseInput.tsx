@@ -121,7 +121,7 @@ export const BaseInput = OriginComponent<BaseInputProps, HTMLInputElement, strin
                     isTextarea() && props.autoSize && "cn-textarea-auto-size",
                     props.rounded && "rounded",
                 )(
-                    props.readonly && "cursor-default",
+                    props.readonly && "border-design-separator cursor-default",
                     props.disabled &&
                         "border-design-separator bg-gray-100 text-gray-400 opacity-50",
                     props.error && "border-red-300",
