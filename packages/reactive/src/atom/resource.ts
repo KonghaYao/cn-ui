@@ -24,7 +24,7 @@ export interface ResourceOptions<T> {
     /** 当成功时，发送副作用 */
     onSuccess?: (data: T) => void;
     /** 当发生错误时，发送副作用 */
-    onError?: (data: T) => void;
+    onError?: (error: Error) => void;
 }
 export interface RefetchOption {
     /** 如果发生了异步函数覆盖，进行警告*/
