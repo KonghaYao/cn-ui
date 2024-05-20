@@ -7,6 +7,7 @@ import "../animation/slideFromLeft.css";
 import "../animation/slideFromRight.css";
 import { Icon } from "../icon";
 import { zIndexManager } from "../popover/zIndexManager";
+import { GlobalMask } from "./Mask";
 
 interface DrawerProps {
     title?: string;
@@ -15,6 +16,7 @@ interface DrawerProps {
 
 export const Drawer = OriginComponent<DrawerProps, HTMLDivElement, boolean>((props) => {
     const root = createRuntimeRoot("cn-ui-modal-layers");
+    GlobalMask.bindModel(props.model);
     return (
         <PortalEasy mount={root} portalled>
             <Transition

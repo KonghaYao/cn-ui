@@ -1,0 +1,14 @@
+.cn-opacity-fade-enter-active,
+.cn-opacity-fade-exit-active {
+    transition:
+        opacity linear 150ms;
+}
+.cn-opacity-fade-enter,
+.cn-opacity-fade-exit-to {
+    opacity: 0;
+}
+.cn-opacity-fade-enter {
+}
+.cn-opacity-fade-exit-active {
+    position: absolute;
+}
