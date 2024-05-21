@@ -4,6 +4,7 @@ import { NullAtom, StoreToAtom, atom } from "@cn-ui/reactive";
 import { For, onCleanup } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Col, Row } from "../RowAndCol";
+import { JSONViewer } from "../dataViewer";
 import type { ColumnDef } from "../table/solidTable";
 import { FormCore } from "./FormCore";
 import { MagicForm } from "./MagicForm";
