@@ -8,7 +8,6 @@ import {
 import type { SelectOptionsType } from "@cn-ui/reactive";
 import { AiOutlineRight } from "solid-icons/ai";
 import { For, Show } from "solid-js";
-import { Flex } from "../container";
 import { Icon } from "../icon/Icon";
 import { Popover, type PopoverProps } from "../popover";
 import { flatLoop } from "./flatLoop";
@@ -52,9 +51,9 @@ export const GroupList = OriginComponent<GroupListProps>((props) => {
         const isHeader = computed(() => isGroupListConfigWithOptions(item) && props.unfold);
         return (
             <>
-                <div
+                <li
                     class={classNames(
-                        isHeader() ? "text-design-h2" : "hover:bg-design-hover",
+                        isHeader() ? "text-design-h2" : "hover:bg-gray-100",
                         "w-full rounded-md transition-transform cursor-pointer",
                     )}
                     onclick={() => ensureFunctionResult(item.onClick)}
@@ -75,9 +74,9 @@ export const GroupList = OriginComponent<GroupListProps>((props) => {
                             </Icon>
                         </Show>
                     </div>
-                </div>
+                </li>
                 <Show when={item.withSeparate}>
-                    <div class="h-px w-full my-2 bg-design-border" />
+                    <hr />
                 </Show>
             </>
         );
@@ -86,7 +85,7 @@ export const GroupList = OriginComponent<GroupListProps>((props) => {
     const VoidSlot = () => <span>无数据</span>;
 
     return (
-        <Flex vertical justify="start" class={classNames(!props.pure && "p-2 shadow-3 rounded-md")}>
+        <ul class={classNames("flex flex-col", !props.pure && "p-2 shadow-3 rounded-md")}>
             <For each={flatOptions()} fallback={VoidSlot()}>
                 {(item) => {
                     if (!props.unfold && "options" in item) {
@@ -112,6 +111,6 @@ export const GroupList = OriginComponent<GroupListProps>((props) => {
                     return <>{innerContent(item)}</>;
                 }}
             </For>
-        </Flex>
+        </ul>
     );
 });
