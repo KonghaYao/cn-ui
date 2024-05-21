@@ -4,7 +4,7 @@ import type { Instance } from "@popperjs/core/lib/popper-lite";
 import { type Accessor, onCleanup } from "solid-js";
 import { isServer } from "solid-js/web";
 import { nextTick } from "solidjs-use";
-import type { PopoverProps } from "./Popper";
+import type { PopoverProps } from "../Popper";
 import { createPopper } from "./createPopper";
 
 /** 对于 Popper js 的封装 */

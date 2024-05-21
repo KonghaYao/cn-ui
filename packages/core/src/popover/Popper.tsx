@@ -14,10 +14,10 @@ import type { Placement } from "@popperjs/core";
 import { pick } from "radash";
 import { Show, createEffect, createMemo, mergeProps, onMount } from "solid-js";
 import { nextTick, onClickOutside, useEventListener } from "solidjs-use";
+import { usePopper } from "./Popper/usePopper";
 import { useFocusIn } from "./composable/useFocusIn";
 import { usePopoverHover } from "./composable/usePopoverHover";
 import "./index.css";
-import { usePopper } from "./usePopper";
 import { zIndexManager } from "./zIndexManager";
 
 export interface FloatingComponentProp {
@@ -40,7 +40,7 @@ export interface PopoverProps extends FloatingComponentProp {
      * - focus: 聚焦触发
      * - none: 完全受控模式
      */
-    trigger?: "click" | "hover" | "focus" | "none";
+    trigger?: "click" | "hover" | "focus" | "none" | "contextmenu";
     expose?: (expose: PopoverExpose) => void;
     placement?: Placement;
     disabled?: boolean;
@@ -101,13 +101,22 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
             "pointerdown",
             () => (props.trigger === "click" || !props.trigger) && props.model((i) => !i),
         );
+
+        useEventListener(popoverTarget, "contextmenu", (e) => {
+            e.preventDefault();
+            props.trigger === "contextmenu" && props.model() === false && props.model(true);
+        });
+
         onClickOutside(
             popoverContent,
-            () =>
-                props.model() &&
-                props.clickOutsideClose !== false &&
-                props.trigger === "click" &&
-                props.model(false),
+            () => {
+                return (
+                    props.model() &&
+                    props.clickOutsideClose !== false &&
+                    (props.trigger === "click" || props.trigger === "contextmenu") &&
+                    props.model(false)
+                );
+            },
             {
                 ignore: [popoverTarget],
             },

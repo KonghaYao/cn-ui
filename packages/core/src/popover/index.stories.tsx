@@ -40,7 +40,7 @@ export const Primary: Story = {
                 <Col span={24}>
                     <Flex gap={"12px"}>
                         <CheckboxGroup
-                            options={["click", "hover", "focus"].map((i) => ({
+                            options={["click", "hover", "focus", "contextmenu"].map((i) => ({
                                 label: i,
                                 value: i,
                             }))}
