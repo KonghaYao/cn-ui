@@ -1,4 +1,5 @@
-import type { Component, JSX } from "solid-js";
+import { atom } from "@cn-ui/reactive";
+import type { JSX, JSXElement } from "solid-js";
 import { render } from "solid-js/web";
 
 export const createRuntimeRoot = (id: string) => {
@@ -24,7 +25,23 @@ export const createRuntimeArea = (id: string, Comp: () => JSX.Element) => {
     return render(Comp, runtimeArea);
 };
 
-export interface FloatingArea<T> {
-    id: string;
-    render: Component<T>;
+export class FloatingArea<T> {
+    store = atom<T[]>([]);
+    constructor(public id: string) {}
+    public createArea() {
+        createRuntimeArea(this.id, () => this.render());
+        return this;
+    }
+    render() {
+        return <></>;
+    }
+}
+export class EasyPortal extends FloatingArea<JSXElement> {
+    render() {
+        return <>{this.store()}</>;
+    }
+    Portal = function (this: EasyPortal, props: { children: JSXElement }) {
+        this.store((i) => [...i, props.children]);
+        return <></>;
+    }.bind(this);
 }

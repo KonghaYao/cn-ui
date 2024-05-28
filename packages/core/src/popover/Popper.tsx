@@ -9,22 +9,22 @@ import {
     extendsEvent,
     splitOneChild,
 } from "@cn-ui/reactive";
-import { PortalEasy } from "@cn-ui/reactive";
 import type { Placement } from "@popperjs/core";
 import { pick } from "radash";
 import { Show, createEffect, createMemo, mergeProps, onMount } from "solid-js";
 import { nextTick, onClickOutside, useEventListener } from "solidjs-use";
+import { EasyPortal } from "../Message/runtime";
 import { usePopper } from "./Popper/usePopper";
 import { useFocusIn } from "./composable/useFocusIn";
 import { usePopoverHover } from "./composable/usePopoverHover";
 import "./index.css";
 import { zIndexManager } from "./zIndexManager";
 
+export const PopoverArea = new EasyPortal("cn-popover").createArea();
+
 export interface FloatingComponentProp {
     zIndex?: number;
     lazy?: boolean;
-    /** 挂载到全局上 */
-    portalled?: boolean;
     // unmountOnExit 应该是附加到 PopoverContent, 暂时未实现
     // unmountOnExit?: boolean
     onMounted?: () => void;
@@ -144,7 +144,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
             <>
                 {child()}
                 {otherChildren()}
-                <PortalEasy portalled={props.portalled}>
+                <PopoverArea.Portal>
                     <Show when={readyToRenderDom()}>
                         <div
                             ref={(el) => {
@@ -163,7 +163,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
                             {ensureFunctionResult(props.content, [{ model: props.model }])}
                         </div>
                     </Show>
-                </PortalEasy>
+                </PopoverArea.Portal>
             </>
         );
     },

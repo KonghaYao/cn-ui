@@ -2,7 +2,7 @@ import { type Atom, type JSXSlot, atom } from "@cn-ui/reactive";
 import { For } from "solid-js";
 import { MODAL_LIST_POSITION, ModalList, type ModalListPosition } from "../Modal";
 import { Alert, type AlertProps } from "./Alert";
-import { type FloatingArea, createRuntimeArea } from "./runtime";
+import { FloatingArea } from "./runtime";
 
 export interface MessageInfo extends Partial<AlertProps> {
     id?: string;
@@ -15,30 +15,30 @@ export interface MessageInfo extends Partial<AlertProps> {
 }
 
 interface MessageRenderProps {
-    store: MessageControl["store"];
+    store: MessageControl["PStore"];
 }
 
-export class MessageControl implements FloatingArea<MessageRenderProps> {
+export class MessageControl extends FloatingArea<MessageRenderProps> {
     constructor(public id: string) {
-        this.store = MODAL_LIST_POSITION.reduce(
+        super(id);
+        this.PStore = MODAL_LIST_POSITION.reduce(
             (col, i) => {
                 col[i] = atom<MessageInfo[]>([]);
                 return col;
             },
             {} as Record<ModalListPosition, Atom<MessageInfo[]>>,
         );
-        createRuntimeArea(id, () => this.render({ store: this.store }));
     }
-    public store: Record<ModalListPosition, Atom<MessageInfo[]>>;
+    public PStore: Record<ModalListPosition, Atom<MessageInfo[]>>;
     public removeMessage(id: string) {
         const pos = this.getPosFromId(id);
-        return this.store[pos]((list) => list.filter((i) => i.id !== id));
+        return this.PStore[pos]((list) => list.filter((i) => i.id !== id));
     }
-    render(props: MessageRenderProps) {
+    render() {
         return (
             <For each={MODAL_LIST_POSITION}>
                 {(pos) => {
-                    const listStore = props.store[pos];
+                    const listStore = this.PStore[pos];
                     return (
                         <ModalList
                             id={`cn-message-${pos}`}
@@ -79,7 +79,7 @@ export class MessageControl implements FloatingArea<MessageRenderProps> {
         const id = `${pos}:${(this.autoKey++).toString()}`;
 
         const item: MessageInfo = { id, title: message, type, ...options };
-        this.store[pos]((arr) => {
+        this.PStore[pos]((arr) => {
             return [item, ...arr];
         });
         this.durationClose(item, item.duration);
@@ -113,4 +113,4 @@ export class MessageControl implements FloatingArea<MessageRenderProps> {
         return this.create(message, "error", options);
     }
 }
-export const Message = /* @__PURE__ */ new MessageControl("cn-ui-message-layers");
+export const Message = /* @__PURE__ */ new MessageControl("cn-ui-message-layers").createArea();
