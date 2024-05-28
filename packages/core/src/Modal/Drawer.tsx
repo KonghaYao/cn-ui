@@ -2,7 +2,6 @@ import { OriginComponent, PortalEasy } from "@cn-ui/reactive";
 import { AiOutlineClose } from "solid-icons/ai";
 import { Show } from "solid-js";
 import { Transition } from "solid-transition-group";
-import { useScrollLock } from "solidjs-use";
 import { createRuntimeRoot } from "../Message/runtime";
 import "../animation/slideFromLeft.css";
 import "../animation/slideFromRight.css";
