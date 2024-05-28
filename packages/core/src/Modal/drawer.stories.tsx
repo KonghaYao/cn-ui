@@ -19,6 +19,7 @@ type Story = StoryObj<typeof meta>;
 export const Drawer_: Story = {
     render() {
         const placement = atom<"left" | "right">("left");
+
         const open = atom(false);
         return (
             <>
@@ -38,6 +39,7 @@ export const Drawer_: Story = {
                 >
                     Open Right
                 </Button>
+                <div class="h-screen w-screen bg-gray-200"></div>
                 <Drawer v-model={open} title={placement() + "_Drawer"} placement={placement()}>
                     <p>Some contents...</p>
                     <p>Some contents...</p>

@@ -2,6 +2,7 @@ import { OriginComponent, PortalEasy } from "@cn-ui/reactive";
 import { AiOutlineClose } from "solid-icons/ai";
 import { Show } from "solid-js";
 import { Transition } from "solid-transition-group";
+import { useScrollLock } from "solidjs-use";
 import { createRuntimeRoot } from "../Message/runtime";
 import "../animation/slideFromLeft.css";
 import "../animation/slideFromRight.css";
@@ -16,6 +17,7 @@ interface DrawerProps {
 
 export const Drawer = OriginComponent<DrawerProps, HTMLDivElement, boolean>((props) => {
     const root = createRuntimeRoot("cn-ui-modal-layers");
+
     GlobalMask.bindModel(props.model);
     return (
         <PortalEasy mount={root} portalled>

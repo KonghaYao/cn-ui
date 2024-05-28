@@ -8,7 +8,7 @@ import {
 } from "@cn-ui/reactive";
 import { For, Show } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
-import { type FloatingArea, createRuntimeArea } from "../Message/runtime";
+import { FloatingArea } from "../Message/runtime";
 import "../animation/fade.css";
 import { Button } from "../button";
 import { BaseInput } from "../input";
@@ -56,24 +56,20 @@ export interface MessageBoxOptions extends MessageBoxPanelProps {
     mask?: boolean;
 }
 
-export class MessageBoxTemplate implements FloatingArea<unknown> {
-    private messageStack = atom<MessageBoxOptions[]>([]);
-    constructor(public id: string) {
-        createRuntimeArea(id, () => this.render());
-    }
+export class MessageBoxTemplate extends FloatingArea<MessageBoxOptions> {
     render() {
         return (
             <div class="cn-message-box">
-                <Show when={this.messageStack().length && this.messageStack().some((i) => i.mask)}>
+                <Show when={this.store().length && this.store().some((i) => i.mask)}>
                     <div
                         class="cn-mask fixed top-0 left-0 h-screen w-screen bg-design-ultra-thin"
                         onclick={() => {
-                            this.messageStack().map((i) => i.onCancel!());
+                            this.store().map((i) => i.onCancel!());
                         }}
                     />
                 </Show>
                 <TransitionGroup name="cn-fade">
-                    <For each={this.messageStack()}>
+                    <For each={this.store()}>
                         {(item) => {
                             return (
                                 <div
@@ -110,10 +106,10 @@ export class MessageBoxTemplate implements FloatingArea<unknown> {
             },
         };
 
-        this.messageStack((i) => [...i, option]);
+        this.store((i) => [...i, option]);
 
         const removeOption = () => {
-            this.messageStack((i) => i.filter((i) => i !== option));
+            this.store((i) => i.filter((i) => i !== option));
             p.reject();
         };
         return p.promise;
@@ -140,4 +136,4 @@ export class MessageBoxTemplate implements FloatingArea<unknown> {
         return this.base(title, message, { ...options, cancelable: true });
     }
 }
-export const MessageBox = /* @__PURE__ */ new MessageBoxTemplate("cn-ui-modal-layers");
+export const MessageBox = /* @__PURE__ */ new MessageBoxTemplate("cn-ui-modal-layers").createArea();

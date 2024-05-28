@@ -1,12 +1,11 @@
 import { type Atom, atom, ensureFunctionResult } from "@cn-ui/reactive";
 import { Show, createEffect, onCleanup } from "solid-js";
 import { Transition } from "solid-transition-group";
-import { type FloatingArea, createRuntimeArea } from "../Message/runtime";
+import { useScrollLock } from "solidjs-use";
+import { FloatingArea } from "../Message/runtime";
 import "../animation/opacity-fade.css";
-export class MaskTemplate implements FloatingArea<unknown> {
-    constructor(public id: string) {
-        createRuntimeArea(id, () => this.render());
-    }
+
+export class MaskTemplate extends FloatingArea<unknown> {
     show = atom(false);
     events: (() => void)[] = [];
     onClick(event: () => void) {
@@ -26,6 +25,11 @@ export class MaskTemplate implements FloatingArea<unknown> {
         });
     }
     render() {
+        // 锁定 Modal 防止滚动
+        const [_, setIsLock] = useScrollLock(document.body);
+        createEffect(() => {
+            setIsLock(this.show());
+        });
         return (
             <Transition name="cn-opacity-fade">
                 <Show when={this.show()}>
@@ -40,4 +44,4 @@ export class MaskTemplate implements FloatingArea<unknown> {
         );
     }
 }
-export const GlobalMask = /* @__PURE__ */ new MaskTemplate("cn-ui-mask");
+export const GlobalMask = /* @__PURE__ */ new MaskTemplate("cn-ui-mask").createArea();
