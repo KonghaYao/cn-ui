@@ -83,10 +83,10 @@ export const MessageLog: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(document.body);
         const messageArea = Object.fromEntries(
             MODAL_LIST_POSITION.map((i) => {
-                return [i, within(document.querySelector("#cn-message-" + i)!)];
+                return [i, within(document.querySelector(`#cn-message-${i}`)!)];
             }),
         );
         const checkPosSpec = async (pos: ModalListPosition) => {

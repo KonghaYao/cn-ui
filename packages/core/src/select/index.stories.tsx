@@ -63,7 +63,7 @@ export const Primary: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(document.body);
         await step("检查点击弹出", async () => {
             await userEvent.click(canvas.getByLabelText("selected-filterable"));
             expect(canvas.getByRole("tooltip")).toBeInTheDocument();
@@ -146,7 +146,7 @@ export const Multi: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(document.body);
 
         const selectOption = async (key: string, selected = true, scope = canvas) => {
             const zero = scope.getAllByRole("option").find((i) => i.textContent === key);
@@ -241,7 +241,7 @@ export const Virtual: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
-        const canvas = within(canvasElement);
+        const canvas = within(document.body);
 
         await step("虚拟初始化数据判断", async () => {
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
@@ -267,9 +267,8 @@ export const Virtual: Story = {
             const tooltip = within(canvas.getByRole("tooltip"));
             await sleep(100);
             // 先执行一次，防止滚动太快选不中
-            await checkAndClick(canvasElement.querySelector(".cn-virtual-list")!);
             await scrollElement(
-                canvasElement.querySelector(".cn-virtual-list")!,
+                canvas.getByRole("tooltip").querySelector(".cn-virtual-list")!,
                 async (scrollElement, context) => {
                     const item = canvas.queryByText("Jack500");
                     for (const i of scrollElement.children[0].children) {
@@ -295,7 +294,7 @@ export const Virtual: Story = {
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
             const tooltip = within(canvas.getByRole("tooltip"));
             await scrollElement(
-                canvasElement.querySelector(".cn-virtual-list")!,
+                canvas.getByRole("tooltip").querySelector(".cn-virtual-list")!,
                 async (scrollElement, context) => {
                     const item = tooltip.queryByText("Jack999");
                     if (item && (await isElementRealVisible(item))) {
