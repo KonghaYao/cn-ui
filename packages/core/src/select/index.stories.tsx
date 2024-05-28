@@ -66,6 +66,7 @@ export const Primary: Story = {
         const canvas = within(document.body);
         await step("检查点击弹出", async () => {
             await userEvent.click(canvas.getByLabelText("selected-filterable"));
+            await sleep(200);
             expect(canvas.getByRole("tooltip")).toBeInTheDocument();
             expect(canvas.getByRole("listbox")).toBeInTheDocument();
             expect(canvas.getByText("Jack")).toBeInTheDocument();
@@ -74,6 +75,7 @@ export const Primary: Story = {
 
             // 点击别的地方隐藏
             await userEvent.click(canvasElement);
+            await sleep(200);
             expect(canvas.getByText("Jack")).not.toBeVisible();
             expect(canvas.getByText("Lucy")).not.toBeVisible();
             expect(canvas.getByText("Tom")).not.toBeVisible();
@@ -151,12 +153,14 @@ export const Multi: Story = {
         const selectOption = async (key: string, selected = true, scope = canvas) => {
             const zero = scope.getAllByRole("option").find((i) => i.textContent === key);
             await userEvent.click(zero!);
+            await sleep(100);
             if (selected) expect(zero).toHaveAttribute("aria-selected", "true");
         };
 
         await step("检查 disabled", async () => {
-            await sleep(100);
+            await sleep(200);
             await userEvent.click(canvas.getByLabelText("multi-select"));
+            await sleep(200);
             expect(canvas.getAllByRole("option")[0]).toHaveAttribute("aria-disabled", "true");
             expect(canvas.getAllByRole("option")[0]).toBeInTheDocument();
 
@@ -167,12 +171,13 @@ export const Multi: Story = {
             expect(canvas.getByText("18,000")).toBeVisible();
 
             await userEvent.click(canvasElement);
+            await sleep(200);
             expect(canvas.getByText("0")).not.toBeVisible();
             expect(canvas.getByText("18,000")).not.toBeVisible();
         });
         await step("多选状态切换", async () => {
             await userEvent.click(canvas.getByLabelText("multi-select"));
-
+            await sleep(200);
             await userEvent.click(canvas.getByText("Jack"));
             expect(canvas.getByText("Jack")).not.toHaveAttribute("aria-selected");
 
@@ -245,6 +250,7 @@ export const Virtual: Story = {
 
         await step("虚拟初始化数据判断", async () => {
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
+            await sleep(200);
             const tooltip = within(canvas.getByRole("tooltip"));
             expect(tooltip.getByText("Jack1")).toBeInTheDocument();
             expect(tooltip.getByText("Jack2")).toBeInTheDocument();
@@ -264,8 +270,8 @@ export const Virtual: Story = {
                     await userEvent.click(i);
             };
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
+            await sleep(200);
             const tooltip = within(canvas.getByRole("tooltip"));
-            await sleep(100);
             // 先执行一次，防止滚动太快选不中
             await scrollElement(
                 canvas.getByRole("tooltip").querySelector(".cn-virtual-list")!,
@@ -292,6 +298,7 @@ export const Virtual: Story = {
         });
         await step("滚动到底部", async () => {
             await userEvent.click(canvas.getByLabelText("virtualSelect"));
+            await sleep(200);
             const tooltip = within(canvas.getByRole("tooltip"));
             await scrollElement(
                 canvas.getByRole("tooltip").querySelector(".cn-virtual-list")!,

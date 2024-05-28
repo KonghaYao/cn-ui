@@ -13,7 +13,7 @@
         "build:test": "pnpm --filter=@cn-ui/area-data build && pnpm --filter=@cn-ui/svg-spinner build && storybook build --test",
         "build-storybook": "pnpm --filter=@cn-ui/area-data build && pnpm --filter=@cn-ui/svg-spinner build && storybook build",
         "test:update": "node ./script/snapshotSync.mjs download",
-        "test": "test-storybook --updateSnapshot --skipTags=\"skip-test\" --browsers chromium ",
+        "test": "test-storybook --updateSnapshot --skipTags=\"skip-test\" --ci --browsers chromium ",
         "prettier": "prettier --write packages/**/*.{json,less,md}",
         "build": "pnpm --filter \"*\" build && pnpm storybook build",
         "prepare": "husky install"
