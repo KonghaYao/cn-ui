@@ -3,24 +3,21 @@ import {
     type JSXSlot,
     NullAtom,
     OriginComponent,
-    atom,
     computed,
     ensureFunctionResult,
     extendsEvent,
     splitOneChild,
 } from "@cn-ui/reactive";
+import { zIndexManager } from "@cn-ui/reactive";
 import type { Placement } from "@popperjs/core";
 import { pick } from "radash";
-import { Show, createEffect, createMemo, mergeProps, onMount } from "solid-js";
+import { createEffect, createMemo, mergeProps, onMount } from "solid-js";
 import { nextTick, onClickOutside, useEventListener } from "solidjs-use";
-import { EasyPortal } from "../Message/runtime";
 import { usePopper } from "./Popper/usePopper";
 import { useFocusIn } from "./composable/useFocusIn";
 import { usePopoverHover } from "./composable/usePopoverHover";
+import { PopoverArea } from "./global/PopoverArea";
 import "./index.css";
-import { zIndexManager } from "./zIndexManager";
-
-export const PopoverArea = new EasyPortal("cn-popover").createArea();
 
 export interface FloatingComponentProp {
     zIndex?: number;
@@ -59,10 +56,8 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
         const popoverContent = NullAtom<HTMLElement>(null);
         // fix: 封装一层 child 避免初始化时序混乱
         const popoverTarget = computed(() => child() as HTMLElement);
-
         const arrow = NullAtom<HTMLElement>(null);
-        const readyToRenderDom = atom(false);
-        const { show, hide, update } = usePopper(
+        const { update } = usePopper(
             popoverTarget,
             popoverContent,
             arrow,
@@ -70,19 +65,9 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
             createMemo(() =>
                 pick(props, ["placement", "disabled", "sameWidth", "lazy", "popoverTarget"]),
             ),
-            () => props.model(),
-            {
-                beforeMount() {
-                    readyToRenderDom(true);
-                },
-                mounted() {
-                    props.onMounted?.();
-                    nextTick(visibleChange); // 初始化完成，立即推迟进行一次渲染，爆炸状态正确
-                },
-            },
         );
         onMount(() => {
-            props.expose?.({ show, hide, update });
+            props.expose?.({ update });
             const pTarget = props.popoverTarget!;
             const el = (
                 typeof pTarget === "string" ? document.querySelector(pTarget)! : pTarget
@@ -132,8 +117,6 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
                     return;
             }
         });
-        const visibleChange = () => (props.model() ? show() : hide());
-        createEffect(visibleChange);
 
         const zIndex = computed(() => props.zIndex ?? zIndexManager.getIndex());
         createEffect(() => props.model() && zIndex(zIndexManager.getIndex()));
@@ -144,25 +127,26 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
             <>
                 {child()}
                 {otherChildren()}
-                <PopoverArea.Portal>
-                    <Show when={readyToRenderDom()}>
-                        <div
-                            ref={(el) => {
+                <PopoverArea.Portal show={() => props.model()}>
+                    <div
+                        ref={(el) => {
+                            nextTick(() => {
+                                // 延迟加载，防止 popper 获取不到 dom
                                 popoverContent(el);
-                                props.ref?.(el);
-                            }}
-                            class={props.class(
-                                isHidden() && "hidden",
-                                "absolute popover__content bg-design-thick p-1 rounded-md",
-                            )}
-                            style={{ ...props.style(), "z-index": zIndex() }}
-                            role="tooltip"
-                            {...extendsEvent(props)}
-                        >
-                            <div class="popover__arrow" ref={arrow} />
-                            {ensureFunctionResult(props.content, [{ model: props.model }])}
-                        </div>
-                    </Show>
+                            });
+                            props.ref?.(el);
+                        }}
+                        class={props.class(
+                            isHidden() && "hidden",
+                            "absolute popover__content bg-design-thick p-1 rounded-md",
+                        )}
+                        style={{ ...props.style(), "z-index": zIndex() }}
+                        role="tooltip"
+                        {...extendsEvent(props)}
+                    >
+                        <div class="popover__arrow" ref={arrow} />
+                        {ensureFunctionResult(props.content, [{ model: props.model }])}
+                    </div>
                 </PopoverArea.Portal>
             </>
         );
