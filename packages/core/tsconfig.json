@@ -27,5 +27,5 @@
         },
         "types": ["node"]
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "../reactive/src/css/zIndexManager.ts"]
 }

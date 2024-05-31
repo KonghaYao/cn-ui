@@ -6,13 +6,13 @@ import {
     extendsEvent,
     usePromise,
 } from "@cn-ui/reactive";
+import { zIndexManager } from "@cn-ui/reactive";
 import { For, Show } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
 import { FloatingArea } from "../Message/runtime";
 import "../animation/fade.css";
 import { Button } from "../button";
 import { BaseInput } from "../input";
-import { zIndexManager } from "../popover/zIndexManager";
 
 export interface MessageBoxPanelProps {
     title: string;

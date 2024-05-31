@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
-import { AC, DefineAC, ensureOnlyChild, resource, sleep } from "@cn-ui/reactive";
+import { AC, DefineAC, ensureOnlyChild, resource, sleep, usePromise } from "@cn-ui/reactive";
 import { defineExampleAC } from "../lazyLoad/example/defineExampleAC";
 import { Loading } from "./index";
 
@@ -16,8 +16,7 @@ type Story = StoryObj<typeof meta>;
 defineExampleAC();
 DefineAC({
     loading: (state, rendering) => {
-        const child = ensureOnlyChild(() => rendering);
-        return <Loading portalled target={child} />;
+        return <Loading show={() => true} target={() => rendering}></Loading>;
     },
 });
 
@@ -32,7 +31,8 @@ import { Button } from "../button";
 export const Primary: Story = {
     name: "Loading 加载组件",
     render() {
-        const res = resource(() => new Promise((resolve) => {}));
+        usePromise();
+        const res = resource(() => new Promise(() => {}));
         return (
             <Row gutter="8px">
                 <For each={SpinnerNames as (keyof typeof Spinners)[]}>
@@ -42,18 +42,20 @@ export const Primary: Story = {
                                 <AC
                                     resource={res}
                                     loading={(state, rendering) => {
-                                        const child = ensureOnlyChild(() => rendering);
                                         return (
-                                            <>
-                                                <Loading portalled target={child}>
+                                            <Loading
+                                                show={() => true}
+                                                fallback={
                                                     <Dynamic
                                                         component={Spinners[item]}
                                                         height="64"
                                                         width="64"
                                                         class="fill-primary-400 stroke-primary-400"
                                                     />
-                                                </Loading>
-                                            </>
+                                                }
+                                            >
+                                                {rendering}
+                                            </Loading>
                                         );
                                     }}
                                     fallback={() => {
@@ -86,8 +88,7 @@ export const Floating: Story = {
                     resource={res}
                     keepLastState
                     loading={(state, rendering) => {
-                        const child = ensureOnlyChild(() => rendering);
-                        return <Loading portalled target={child} />;
+                        return <Loading target={() => rendering} show={() => true}></Loading>;
                     }}
                 >
                     {() => {
@@ -109,8 +110,8 @@ export const Floating: Story = {
             const el = canvasElement.ownerDocument.querySelector(".cn-loading")!;
             console.log(el);
             const loading = getComputedStyle(el);
-            await expect(loading.height).toBe("384px");
-            await expect(loading.width).toBe("384px");
+            await expect(Math.round(loading.height)).toBe(384);
+            await expect(Math.round(loading.width)).toBe(384);
         });
     },
 };

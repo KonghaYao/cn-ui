@@ -1,4 +1,5 @@
 import { OriginComponent, PortalEasy } from "@cn-ui/reactive";
+import { zIndexManager } from "@cn-ui/reactive";
 import { AiOutlineClose } from "solid-icons/ai";
 import { Show } from "solid-js";
 import { Transition } from "solid-transition-group";
@@ -6,7 +7,6 @@ import { createRuntimeRoot } from "../Message/runtime";
 import "../animation/slideFromLeft.css";
 import "../animation/slideFromRight.css";
 import { Icon } from "../icon";
-import { zIndexManager } from "../popover/zIndexManager";
 import { GlobalMask } from "./Mask";
 
 interface DrawerProps {
