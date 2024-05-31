@@ -1,5 +1,5 @@
 import { atom } from "@cn-ui/reactive";
-import type { JSX, JSXElement } from "solid-js";
+import { type Accessor, type JSX, type JSXElement, createEffect, onCleanup } from "solid-js";
 import { render } from "solid-js/web";
 
 export const createRuntimeRoot = (id: string) => {
@@ -40,8 +40,29 @@ export class EasyPortal extends FloatingArea<JSXElement> {
     render() {
         return <>{this.store()}</>;
     }
-    Portal = function (this: EasyPortal, props: { children: JSXElement }) {
-        this.store((i) => [...i, props.children]);
+    addRender(symbol: symbol, item: JSXElement) {
+        if (this.cache.has(symbol)) return;
+        this.store((i) => [...i, item]);
+        this.cache.set(symbol, item);
+    }
+    removeRender(symbol: symbol) {
+        if (!this.cache.has(symbol)) return;
+        const cacheItem = this.cache.get(symbol)!;
+        this.cache.delete(symbol);
+        this.store((i) => {
+            const arr = i.filter((i) => cacheItem !== i);
+            return arr;
+        });
+    }
+    cache = new WeakMap<symbol, JSXElement>();
+    Portal = function (this: EasyPortal, props: { children: JSXElement; show: Accessor<boolean> }) {
+        const me = Symbol();
+        createEffect(() => {
+            props.show() ? this.addRender(me, props.children) : this.removeRender(me);
+        });
+        onCleanup(() => {
+            this.removeRender(me);
+        });
         return <></>;
     }.bind(this);
 }
