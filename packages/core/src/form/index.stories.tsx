@@ -5,9 +5,12 @@ import { For, onCleanup } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Col, Row } from "../RowAndCol";
 import { JSONViewer } from "../dataViewer";
+import { registerAllControlComponent } from "../register";
 import type { ColumnDef } from "../table/solidTable";
 import { FormCore } from "./FormCore";
-import { MagicForm, MagicFormCtx } from "./MagicForm";
+import { MagicForm } from "./MagicForm";
+
+registerAllControlComponent();
 
 const meta = {
     title: "From/FormCore",
@@ -172,7 +175,7 @@ export const Primary: Story = {
     },
     args: {},
 };
-// await registerAllControlComponent(true)
+
 export const _MagicForm: Story = {
     name: "MagicForm 集成表单",
     render() {

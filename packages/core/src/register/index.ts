@@ -16,7 +16,7 @@ const createLazyComponent = <T>(load: () => Promise<T>, prop: keyof T) => {
  * 注册所有的 Form 控件
  * @example
  * await registerAllControlComponent(true)
- * 将会直接覆盖
+ * preload: true 表示预加载所有组件，false 表示不预加载，[] 表示预加载指定的组件
  */
 export const registerAllControlComponent = (preload: boolean | string[] = false) => {
     return Promise.all(
@@ -48,5 +48,3 @@ export const registerAllControlComponent = (preload: boolean | string[] = false)
         }),
     );
 };
-
-/* @__PURE__ */ registerAllControlComponent();
