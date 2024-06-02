@@ -79,7 +79,6 @@
         "@vant/touch-emulator": "^1.4.0",
         "fuse.js": "^7.0.0",
         "glob": "^10.3.10",
-        "jsdom": "^22.1.0",
         "mock-type": "workspace:^",
         "mockjs-ts": "^2.3.0",
         "react-docgen-typescript": "^2.2.2",
