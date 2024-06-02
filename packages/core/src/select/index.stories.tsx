@@ -76,11 +76,13 @@ export const Primary: Story = {
             // 点击别的地方隐藏
             await userEvent.click(canvasElement);
             await sleep(200);
-            expect(canvas.getByText("Jack")).not.toBeVisible();
-            expect(canvas.getByText("Lucy")).not.toBeVisible();
-            expect(canvas.getByText("Tom")).not.toBeVisible();
+            expect(canvas.queryByText("Jack")).toBeNull();
+            expect(canvas.queryByText("Lucy")).toBeNull();
+            expect(canvas.queryByText("Tom")).toBeNull();
         });
         await step("检查选中切换", async () => {
+            await userEvent.click(canvas.getByLabelText("selected-filterable"));
+
             const filterable = canvas.getByLabelText("selected-filterable");
             const another = canvas.getByLabelText("selected");
 
@@ -172,8 +174,8 @@ export const Multi: Story = {
 
             await userEvent.click(canvasElement);
             await sleep(200);
-            expect(canvas.getByText("0")).not.toBeVisible();
-            expect(canvas.getByText("18,000")).not.toBeVisible();
+            expect(canvas.queryByText("0")).toBeNull();
+            expect(canvas.queryByText("18,000")).toBeNull();
         });
         await step("多选状态切换", async () => {
             await userEvent.click(canvas.getByLabelText("multi-select"));
