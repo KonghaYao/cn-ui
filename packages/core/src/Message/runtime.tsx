@@ -54,7 +54,8 @@ export class EasyPortal extends FloatingArea<JSXElement> {
             return arr;
         });
     }
-    cache = new WeakMap<symbol, JSXElement>();
+    // biome-ignore lint/suspicious/noExplicitAny: symbol will cause typescript error
+    cache = new WeakMap<any, JSXElement>();
     Portal = function (this: EasyPortal, props: { children: JSXElement; show: Accessor<boolean> }) {
         const me = Symbol();
         createEffect(() => {
