@@ -123,7 +123,7 @@ export const AppendMode: Story = {
                         return (
                             <div class="flex flex-col">
                                 <Alert round type="warning" message="是否要执行删除操作" />
-                                <div class="flex justify-end">
+                                <div class="flex justify-end mt-4">
                                     <Button onclick={() => model(false)}>取消</Button>
                                     <Button
                                         danger

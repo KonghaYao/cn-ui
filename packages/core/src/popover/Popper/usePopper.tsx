@@ -1,6 +1,6 @@
-import type { Atom } from "@cn-ui/reactive";
+import { type Atom, atom } from "@cn-ui/reactive";
 import type { Instance } from "@popperjs/core/lib/popper-lite";
-import { createMemo, onCleanup } from "solid-js";
+import { createMemo, onCleanup, onMount } from "solid-js";
 import type { PopoverProps } from "../Popper";
 import { createPopper } from "./createPopper";
 
@@ -11,8 +11,10 @@ export function usePopper(
     arrow: Atom<HTMLElement | null>,
     getOptions: () => Partial<PopoverProps>,
 ) {
-    const instance = createMemo<Instance | null>((instance) => {
+    const mounted = atom(false);
+    const recreatePopover = (instance?: Instance) => {
         if (instance) instance.destroy();
+        if (!mounted()) return instance;
         if (getOptions().popoverTarget) {
             const popoverTarget = getOptions().popoverTarget!;
             const el = (
@@ -46,12 +48,16 @@ export function usePopper(
                 { name: "sameWidth", enabled: !!getOptions().sameWidth },
             ],
         });
+    };
+    const instance = createMemo(recreatePopover);
+    onMount(() => {
+        mounted(true);
+        recreatePopover(undefined);
     });
-
     onCleanup(() => instance()?.destroy());
     return {
         /** update position */
-        update() {
+        updatePosition() {
             instance()?.update();
         },
     };

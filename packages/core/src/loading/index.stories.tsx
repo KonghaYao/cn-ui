@@ -110,8 +110,8 @@ export const Floating: Story = {
             const el = canvasElement.ownerDocument.querySelector(".cn-loading")!;
             console.log(el);
             const loading = getComputedStyle(el);
-            await expect(Math.round(loading.height)).toBe(384);
-            await expect(Math.round(loading.width)).toBe(384);
+            await expect(Math.round(Number.parseInt(loading.height, 10))).toBe(384);
+            await expect(Math.round(Number.parseInt(loading.width, 10))).toBe(384);
         });
     },
 };

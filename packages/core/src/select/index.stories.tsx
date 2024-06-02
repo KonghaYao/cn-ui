@@ -246,6 +246,7 @@ export const Virtual: Story = {
         );
     },
     play: async ({ canvasElement, step }) => {
+        await sleep(200);
         const canvas = within(document.body);
 
         await step("虚拟初始化数据判断", async () => {

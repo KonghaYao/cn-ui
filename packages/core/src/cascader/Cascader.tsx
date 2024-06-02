@@ -21,7 +21,7 @@ export const Cascader = OriginComponent<CascaderProps, HTMLDivElement, CommonGro
         );
         // 使 Popover 跟随移动
         const popoverInstance = NullAtom<PopoverExpose>(null);
-        watch(props.model, () => popoverInstance()?.update());
+        watch(props.model, () => popoverInstance()?.updatePosition());
         return (
             <OriginDiv prop={props}>
                 <BaseInput ref={input} wrapperRef={inputWrapper} v-model={inputText} />

@@ -45,6 +45,7 @@ export interface PopoverProps extends FloatingComponentProp {
     clickOutsideClose?: boolean;
     /** 支持通过 CSS 选择器直接虚拟链接对象, */
     popoverTarget?: string | Element;
+    fixed?: boolean;
 }
 
 export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
@@ -57,7 +58,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
         // fix: 封装一层 child 避免初始化时序混乱
         const popoverTarget = computed(() => child() as HTMLElement);
         const arrow = NullAtom<HTMLElement>(null);
-        const { update } = usePopper(
+        const { updatePosition } = usePopper(
             popoverTarget,
             popoverContent,
             arrow,
@@ -67,7 +68,7 @@ export const Popover = OriginComponent<PopoverProps, HTMLElement, boolean>(
             ),
         );
         onMount(() => {
-            props.expose?.({ update });
+            props.expose?.({ updatePosition });
             const pTarget = props.popoverTarget!;
             const el = (
                 typeof pTarget === "string" ? document.querySelector(pTarget)! : pTarget
