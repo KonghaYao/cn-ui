@@ -1,6 +1,8 @@
 # CN-UI 组件库
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui?ref=badge_shield)
 
+[![Storybook Tests](https://github.com/KonghaYao/cn-ui/actions/workflows/storybook-tests.yml/badge.svg?branch=story)](https://github.com/KonghaYao/cn-ui/actions/workflows/storybook-tests.yml)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui?ref=badge_shield)
 
 ```sh
 npm i cn-ui
@@ -23,7 +25,6 @@ git submodule update --init
 pnpm i
 ```
 
-
 ## 项目测试
 
 项目采用 Storybook play 测试与 Playwright 视觉测试统一的测试方式进行组件库核心功能测试，保证功能迭代的稳定性。
@@ -43,7 +44,6 @@ pnpm preview
 pnpm test
 ```
 
-
 ### 下载视觉测试文件包
 
 ```sh
@@ -51,8 +51,10 @@ node script/snapshotSync.mjs download # 下载测试文件包
 
 node script/snapshotSync.mjs upload # 上传测试文件包，需要在 .env 文件中写入 UPLOAD_TOKEN=
 ```
+
 ```
 
 ## License
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FKonghaYao%2Fcn-ui?ref=badge_large)
 
+```
