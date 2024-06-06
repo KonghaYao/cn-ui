@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/core",
-    "version": "2.8.0",
+    "version": "2.8.5",
     "type": "module",
     "main": "./dist/ssr.js",
     "types": "./dist/index.d.ts",
@@ -32,7 +32,7 @@
     },
     "sideEffects": ["**/*.css"],
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen",
+        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && node ./script/add-suffix.mjs && pnpm build:css && pnpm docgen",
         "build:vite": "vite build",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",
         "docgen": "node ./script/docgen.mjs",
