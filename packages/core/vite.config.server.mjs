@@ -3,20 +3,12 @@ import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 
 export default defineConfig({
-    plugins: [
-        solid({
-            solid: {
-                generate: "ssr",
-            },
-            ssr: true,
-        }),
-    ],
-
+    plugins: [solid()],
     build: {
         emptyOutDir: false,
         lib: {
             entry: "dist/index.js", // 入口文件路径
-            fileName: "esm/server",
+            fileName: "esm/client",
             formats: ["es"],
         },
         target: "esnext",

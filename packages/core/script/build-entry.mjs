@@ -12,5 +12,5 @@ const jsFile = e
     .join("\n");
 fs.outputFileSync("./src/index.ts", jsFile);
 
-fs.outputFileSync("./dist/ssr.js", `export * from './lib/index.js';`);
-fs.outputFileSync("./dist/ssr.d.ts", `export * from './lib/index';`);
+fs.outputFileSync("./dist/index.js", `export * from './lib/index.js';`);
+fs.outputFileSync("./dist/index.d.ts", `export * from './lib/index';`);
