@@ -1,7 +1,10 @@
-import dayjs, { type Dayjs } from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
-import minMax from "dayjs/plugin/minMax";
-
+import dayjs, { type Dayjs } from "dayjs/esm/index";
+import isBetween from "dayjs/esm/plugin/isBetween";
+import minMax from "dayjs/esm/plugin/minMax";
+import { type Accessor, createMemo } from "solid-js";
+import { type Atom, atom } from "../atom";
+import { genArray } from "../utils";
+export { dayjs, type Dayjs };
 /** 手动初始化 dayjs */
 let init: boolean;
 export const initDayjs = () => {
@@ -9,14 +12,7 @@ export const initDayjs = () => {
     dayjs.extend(minMax);
     dayjs.extend(isBetween);
     init = true;
-};
-
-import { type Accessor, createMemo } from "solid-js";
-import { type Atom, atom } from "../atom";
-import { genArray } from "../utils";
-
-export const useCalendar = () => {
-    return;
+    console.log(Object.keys(dayjs), isBetween);
 };
 
 export const useCalendarSelect = (

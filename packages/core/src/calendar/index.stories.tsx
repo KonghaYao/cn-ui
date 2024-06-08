@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "storybook-solidjs";
 
-import { atom, sleep } from "@cn-ui/reactive";
+import { atom, dayjs, sleep } from "@cn-ui/reactive";
 import { expect, userEvent, within } from "@storybook/test";
-import dayjs from "dayjs";
 import { Flex } from "../container";
 import { Calendar } from "./index";
 

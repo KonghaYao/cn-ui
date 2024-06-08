@@ -56,7 +56,6 @@
         "@types/lodash-es": "^4.17.12",
         "async-validator": "^4.2.5",
         "copy-to-clipboard": "^3.3.3",
-        "dayjs": "^1.11.10",
         "headless-qr": "^1.0.3",
         "radash": "^12.1.0",
         "solid-icons": "^1.1.0",

@@ -1,5 +1,4 @@
-import { firstClass } from "@cn-ui/reactive";
-import type { Dayjs } from "dayjs";
+import { type Dayjs, firstClass } from "@cn-ui/reactive";
 import { CalenderCtx } from "../Calendar";
 
 export const CalendarDateCell = (props: { date: Dayjs }) => {

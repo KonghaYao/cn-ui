@@ -1,5 +1,5 @@
 import { classNames, ensureFunctionResult, firstClass } from "@cn-ui/reactive";
-import type { Dayjs } from "dayjs";
+import type { Dayjs } from "@cn-ui/reactive";
 import { debounce } from "radash";
 import { For, createMemo } from "solid-js";
 import { type CalendarProps, CalenderCtx } from "../Calendar";

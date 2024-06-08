@@ -7,11 +7,12 @@ import {
     atom,
     computed,
     createCtx,
+    dayjs,
     initDayjs,
     useCalendarSelect,
     useDateCalendar,
 } from "@cn-ui/reactive";
-import dayjs, { type Dayjs } from "dayjs";
+import type { Dayjs } from "@cn-ui/reactive";
 import { Match, Switch, createMemo, untrack } from "solid-js";
 import { CalendarHeader } from "./components/CalendarHeader";
 import { DateCalendarPanel } from "./components/DateCalendarPanel";
