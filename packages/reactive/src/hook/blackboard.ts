@@ -1,6 +1,7 @@
-import { createContext, useContext } from "solid-js";
+import { createContext, onCleanup, useContext } from "solid-js";
 import { atom } from "../atom/atom";
 export interface BlackBoardOption {
+    autoCleanUp?: boolean;
     allowSameRegister?: boolean;
     /** 允许后注册覆盖前注册 */
     allowOverride?: boolean;
@@ -29,7 +30,11 @@ export const createBlackBoard = <T extends Record<string, any>>(
     baseOpts: BlackBoardOption = {},
 ) => {
     const store = new Map();
-
+    const deleteFn = (name: keyof T) => {
+        if (!store.has(name)) throw new Error(`Blackboard app ${name.toString()} isn't init yet`);
+        store.delete(name);
+        baseOpts.onUpdate?.();
+    };
     return {
         store,
         /** 应该在组件声明时进行注册 App，保证在 onMount 时能够获取到数据 */
@@ -41,6 +46,11 @@ export const createBlackBoard = <T extends Record<string, any>>(
             if (isExist && !opts.allowOverride) return;
             store.set(name, api);
             baseOpts.onUpdate?.();
+            if (opts.autoCleanUp ?? baseOpts.autoCleanUp) {
+                onCleanup(() => {
+                    store.delete(name);
+                });
+            }
             return store;
         },
         /** 在 onMount 阶段可以获取到所有声明的 App */
@@ -49,12 +59,7 @@ export const createBlackBoard = <T extends Record<string, any>>(
                 throw new Error(`Blackboard app ${name.toString()} isn't init yet`);
             return store.get(name);
         },
-        delete(name: keyof T) {
-            if (!store.has(name))
-                throw new Error(`Blackboard app ${name.toString()} isn't init yet`);
-            store.delete(name);
-            baseOpts.onUpdate?.();
-        },
+        deleteFn,
         /** 检查APP是否注册*/
         check(name: keyof T) {
             return store.has(name);

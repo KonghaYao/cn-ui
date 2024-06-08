@@ -3,8 +3,8 @@ import { Show } from "solid-js";
 import { Transition } from "solid-transition-group";
 import { onClickOutside } from "solidjs-use";
 import "../animation/fade.css";
+import { GlobalDialog } from "../register/useGlobalDialog";
 import { useBooleanState } from "./useBooleanState";
-import { GlobalDialog } from "./useGlobalDialog";
 export const DialogCtx = /* @__PURE__ */ createCtx<DialogExpose>();
 export interface DialogExpose extends ReturnType<typeof useBooleanState> {}
 export interface DialogProps {
@@ -16,7 +16,7 @@ export const Dialog = OriginComponent<DialogProps, HTMLDivElement, boolean>((pro
     const expose: DialogExpose = {
         ...useBooleanState(props.model, { beforeHide: props.beforeClose }),
     };
-    if (props.id) GlobalDialog().register(props.id, expose);
+    if (props.id) GlobalDialog.register(props.id, expose);
     const dialog = NullAtom<HTMLDivElement>(null);
     onClickOutside(dialog, () => {
         expose.hide();

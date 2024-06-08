@@ -12,7 +12,6 @@ export const initDayjs = () => {
     dayjs.extend(minMax);
     dayjs.extend(isBetween);
     init = true;
-    console.log(Object.keys(dayjs), isBetween);
 };
 
 export const useCalendarSelect = (

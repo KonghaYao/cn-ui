@@ -1,2 +1,2 @@
 export * from "./Dialog";
-export * from "./useGlobalDialog";
+export * from "../register/useGlobalDialog";
