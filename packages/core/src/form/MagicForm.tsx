@@ -2,10 +2,8 @@ import {
     type Atom,
     OriginComponent,
     type OriginComponentInputType,
-    type ResourceAtom,
     StoreToAtom,
     autoResource,
-    createCtx,
     extendsEvent,
 } from "@cn-ui/reactive";
 import type { RuleItem } from "async-validator";
@@ -14,18 +12,9 @@ import type { SetStoreFunction } from "solid-js/store";
 import { Row } from "../RowAndCol";
 import type { ColumnDef } from "../table/solidTable";
 import { FormCore } from "./FormCore";
+import { MagicFormCtx } from "./MagicFormCtx";
 import { useValidator } from "./useValidator";
 import { type RootColumnDef, getKeyFromRootColumnDef } from "./utils";
-
-export const MagicFormCtx = /* @__PURE__ */ createCtx<{
-    originData: unknown;
-    disabled?: boolean;
-    index?: number;
-    validResult?: ResourceAtom<{
-        errors: RuleItem[];
-        fields: Record<string, RuleItem[]>;
-    } | null>;
-}>(undefined, true);
 
 interface MagicFormProps<T, D> {
     config: ColumnDef<T, D>[];

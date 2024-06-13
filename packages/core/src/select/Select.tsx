@@ -5,7 +5,6 @@ import {
     OriginComponent,
     atom,
     computed,
-    createCtx,
     debounce,
     extendsEvent,
     useSelect,
@@ -25,12 +24,10 @@ import { ClearControl } from "../input/utils";
 import { Popover } from "../popover";
 import { useFocusIn } from "../popover/composable/useFocusIn";
 import { TagGroup } from "../tag/TagGroup";
+import { SelectCtx } from "./SelectCtx";
 import { SelectPanel, type SelectPanelProps } from "./SelectPanel";
 import { getLabelFromOptions } from "./getLabelFromOptions";
 import "./index.css";
-
-export const SelectCtx =
-    /* @__PURE__ */ createCtx<ReturnType<typeof useSelect<SelectOptionsType>>>();
 
 export interface SelectProps extends BaseFormItemType {
     /** TODO 异步态监控 */

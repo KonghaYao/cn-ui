@@ -9,7 +9,7 @@ import type { SelectOptionsType } from "@cn-ui/reactive";
 import { type Accessor, For, type JSXElement, createEffect, createMemo } from "solid-js";
 import { useEventListener } from "solidjs-use";
 import { VirtualList } from "../virtualList";
-import { SelectCtx } from "./Select";
+import { SelectCtx } from "./SelectCtx";
 
 export interface SelectPanelProps {
     /** 禁用点击选中状态 取消选择 */

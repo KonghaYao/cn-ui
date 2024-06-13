@@ -5,7 +5,7 @@ import { Col } from "../RowAndCol";
 import { ControlCenter } from "../register";
 import type { PropSlot } from "../table/defineTable";
 import { flexRender } from "../table/solidTable";
-import { MagicFormCtx } from "./MagicForm";
+import { MagicFormCtx } from "./MagicFormCtx";
 import "./form-core.css";
 import type { RootColumnDef } from "./utils";
 import { getKeyFromRootColumnDef } from "./utils";
