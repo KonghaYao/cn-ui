@@ -18,9 +18,14 @@ export interface Atom<T> extends Accessor<T>, PartialSetter<T> {
     toSignal(): [Accessor<T>, Setter<T>];
     toGetter(): Accessor<T>;
     toSetter(): Setter<T>;
+    sync: makeSync<T>;
     [AtomTypeSymbol]: string;
 }
 type SignalOptions<T> = { equals?: false | ((prev: T, next: T) => boolean) };
+
+export interface SyncedAtom<T> extends Atom<T> {
+    stopSync(): void;
+}
 
 /**
  * @category atom
@@ -64,6 +69,7 @@ export const SignalToAtom = <T>(signal: Signal<T>) => {
         },
         {
             reflux,
+            sync,
             /** 转换为原来的写法，为了兼容其他 api 的要求 */
             toSignal() {
                 return [state, setState];
@@ -80,6 +86,7 @@ export const SignalToAtom = <T>(signal: Signal<T>) => {
 };
 import type { SetStoreFunction, Store } from "solid-js/store";
 import { ensureFunctionResult } from "../utils";
+import { type SyncOptions, createSync } from "./createSync";
 
 /** Signal 转为 Atom */
 export const StoreToAtom = <T, D extends keyof T>(
@@ -137,4 +144,18 @@ const reflux: makeReflux<any> = function (init, computed, Options) {
     }, [a]);
     a[AtomTypeSymbol] = "reflux";
     return a;
+};
+
+type makeSync<T> = <NewType>(
+    this: Atom<T>,
+    computedFn: (last?: T) => NewType,
+    callbackFn: (t: NewType) => T,
+    Options?: SyncOptions<T, NewType>,
+) => SyncedAtom<NewType>;
+const sync: makeSync<any> = function (this, computedFn, callbackFn, Options) {
+    const newAtom = atom(computedFn());
+    const { breakSync } = createSync(this, newAtom, computedFn, callbackFn, Options);
+    return Object.assign(newAtom, {
+        stopSync: breakSync,
+    });
 };

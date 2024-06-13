@@ -38,6 +38,25 @@ describe("原子化测试", () => {
         child("200");
         expect(source()).eq(200);
     });
+    it("atom.sync", () => {
+        const {
+            result: { source, child },
+        } = renderHook(() => {
+            const source = atom(100);
+            const child = source.sync(
+                () => [source().toString()],
+                (val) => Number.parseInt(val[0]),
+            );
+            return { child, source };
+        });
+        expect(child()).eql(["100"]);
+        expect(source()).eq(100);
+        child(["200"]);
+        expect(source()).eq(200);
+        source(150);
+        expect(source()).eq(150);
+        expect(child()).eql(["150"]);
+    });
     it("atomization", () => {
         const {
             result: { source },

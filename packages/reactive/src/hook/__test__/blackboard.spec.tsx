@@ -42,7 +42,7 @@ test("blackboard", () => {
         );
     });
 
-    bd.delete("api1");
+    bd.deleteFn("api1");
     expect(bd.check("api1")).eq(false);
 
     bd.destroy();

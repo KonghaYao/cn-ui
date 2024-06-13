@@ -1,26 +1,28 @@
-import { createEffect, onCleanup } from "solid-js";
+import { onCleanup } from "solid-js";
+import { watch } from "solidjs-use";
 import type { Atom } from "./atom";
 
+export interface SyncOptions<T, D> {
+    aEqual?: (a: T) => boolean;
+    bEqual?: (b: D) => boolean;
+}
 export const createSync = <T, D>(
     a: Atom<T>,
     b: Atom<D>,
     AToB: (a: T) => D,
     BToA: (b: D) => T,
-    config?: {
-        aEqual?: (a: T) => boolean;
-        bEqual?: (b: D) => boolean;
-    },
+    config?: SyncOptions<T, D>,
 ) => {
     let cacheState: T | D | null;
     const aEqual = config?.aEqual ?? ((val) => val === cacheState);
     const bEqual = config?.bEqual ?? ((val) => val === cacheState);
-    createEffect(() => {
+    const stopA = watch([b], () => {
         if (bEqual(b())) return;
         const newA = BToA(b());
         a(() => newA);
         cacheState = newA;
     });
-    createEffect(() => {
+    const stopB = watch([a], () => {
         if (aEqual(a())) return;
         const newB = AToB(a());
         b(() => newB);
@@ -33,6 +35,9 @@ export const createSync = <T, D>(
         /**
          * @dev
          */
-        breakSync: () => {},
+        breakSync: () => {
+            stopA();
+            stopB();
+        },
     };
 };

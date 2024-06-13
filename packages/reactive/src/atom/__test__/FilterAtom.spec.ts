@@ -46,7 +46,7 @@ describe("FilterTest", () => {
         expect(source()).eql(a());
 
         const tags = genArray(10).map(() => {
-            vi.advanceTimersByTime(1);
+            vi.advanceTimersByTime(10);
             const tag = Math.random().toString();
 
             source(tag);
@@ -55,7 +55,10 @@ describe("FilterTest", () => {
         expect(a()).eql(tags[0]);
         vi.advanceTimersByTime(100);
         expect(a()).eql(tags[0]);
+        source("1000");
+        expect(a()).eql("1000");
         vi.advanceTimersByTime(1000);
-        expect(a()).eql(tags.at(-1));
+        source("1200");
+        expect(a()).eql("1200");
     });
 });
