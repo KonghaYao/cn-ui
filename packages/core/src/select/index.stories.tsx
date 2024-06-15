@@ -9,7 +9,6 @@ import { Select } from "./index";
 const meta = {
     title: "Controls/Select 选择器",
     component: Select,
-    tags: ["autodocs"],
     argTypes: {},
 } satisfies Meta<typeof Select>;
 

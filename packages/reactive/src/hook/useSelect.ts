@@ -179,13 +179,25 @@ export function useSelect<T>(
         /** 响应式同步 model 和 内部的数据 **/
         syncIdArrayModel(model: Atom<string[]>) {
             let lastModel: string[];
+            const matched = (a: string[], b: string[]) => {
+                if (!a || !b) return false;
+                if (a.length !== b.length) return false;
+                for (let i = 0; i < a.length; i++) {
+                    if (a[i] !== b[i]) return false;
+                }
+                return true;
+            };
+
             createEffect(() => {
-                if (lastModel === model()) return;
+                if (matched(lastModel, model())) return;
                 this.clearAll();
                 model().forEach((key) => this.selectById(key));
+                lastModel = model();
             });
             createEffect(() => {
-                lastModel = this.selected().map((i) => this.getId(i));
+                const item = this.selected().map((i) => this.getId(i));
+                if (matched(lastModel, item)) return;
+                lastModel = item;
                 model(() => lastModel);
             });
         },
