@@ -10,7 +10,6 @@ import {
     useSelect,
 } from "@cn-ui/reactive";
 import type { SelectOptionsType } from "@cn-ui/reactive";
-import { createSync } from "@cn-ui/reactive";
 import { AiOutlineCheck, AiOutlineDown, AiOutlineSearch } from "solid-icons/ai";
 import { type Accessor, createEffect, createMemo } from "solid-js";
 import { TransitionGroup } from "solid-transition-group";
