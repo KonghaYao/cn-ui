@@ -24,9 +24,7 @@ export const CheckboxGroup = OriginComponent<CheckboxGroupProps, HTMLElement, st
     const selectSetting = useSelect<SelectOptionsType>(() => props.options, {
         multi: () => props.multiple ?? true,
     });
-    createEffect(() => {
-        props.model(() => selectSetting.selected().map((i) => selectSetting.getId(i)));
-    });
+    selectSetting.syncIdArrayModel(props.model);
     const options = computed(() => {
         if (typeof props.options[0] === "object") {
             return props.options as CheckboxProps[];

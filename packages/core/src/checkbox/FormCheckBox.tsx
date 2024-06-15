@@ -4,7 +4,10 @@ import { CheckboxGroup, type CheckboxGroupExpose, type CheckboxGroupProps } from
 
 export const FormCheckBox = OriginComponent<CheckboxGroupProps, HTMLDivElement, string[] | null>(
     (props) => {
-        const model = props.model.reflux(props.model() ?? [], (i) => (i.length ? i : null));
+        const model = props.model.sync(
+            () => props.model() ?? [],
+            (i) => (i.length ? i : null),
+        );
         const checkBoxCtx = NullAtom<CheckboxGroupExpose>(null);
         // const { indeterminate, isAllChecked, onChange } = useControlCheckbox(checkBoxCtx)
         return (

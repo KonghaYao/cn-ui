@@ -4,8 +4,8 @@ import { CheckboxGroup, type CheckboxGroupProps } from "./CheckboxGroup";
 
 export const FormRadio = OriginComponent<CheckboxGroupProps, HTMLDivElement, string | null>(
     (props) => {
-        const model = props.model.reflux(
-            props.model() ? [props.model()!] : ([] as string[]),
+        const model = props.model.sync(
+            () => (props.model() ? [props.model()!] : ([] as string[])),
             (i) => (i ? i[0] : null),
         );
         return (

@@ -125,7 +125,15 @@ export const Primary: Story = {
     name: "FormCore 表单核心",
     render() {
         const [obj, setObj] = createStore({
-            select: "tom",
+            switch: true,
+            checkbox: ["tom", "lucy"],
+            info: "123321",
+            date: "2024-06-12T16:00:00.000Z",
+            "date-range": ["2024-06-03T16:00:00.000Z", "2024-06-12T16:00:00.000Z"],
+            cascader: [{ value: "lucy", label: "Lucy" }],
+            number: 0,
+            select: "lucy",
+            radio: "jack",
         });
         const form = NullAtom<HTMLFormElement>(null);
         const formData = atom({});
@@ -168,6 +176,7 @@ export const Primary: Story = {
                     </Col>
                     <Col span={12}>
                         <JSONViewer data={formData()} />
+                        {JSON.stringify(obj)}
                     </Col>
                 </Row>
             </form>

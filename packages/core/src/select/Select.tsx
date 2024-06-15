@@ -69,18 +69,7 @@ export const Select = OriginComponent<SelectProps, HTMLDivElement, string[]>(
         const selectSystem = useSelect(() => props.options, {
             multi: () => !!props.multiple,
         });
-        // 同步 model 与选择系统的数据
-        createSync(
-            props.model,
-            selectSystem.selectedMap,
-            (modelValue) => {
-                const idMap = selectSystem.optionsIdMap();
-                return new Map(modelValue.map((i) => [i, idMap.get(i)!]));
-            },
-            (selectedMap) => {
-                return [...selectedMap.keys()];
-            },
-        );
+        selectSystem.syncIdArrayModel(props.model);
         createEffect(() => {
             props.disabledOptions?.forEach((id) => {
                 selectSystem.disableById(id);

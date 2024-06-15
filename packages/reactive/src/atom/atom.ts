@@ -105,6 +105,7 @@ export const StoreToAtom = <T, D extends keyof T>(
         },
         {
             reflux,
+            sync,
             [AtomTypeSymbol]: "store-atom",
         },
     ) as Atom<T[D]>;

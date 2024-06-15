@@ -4,8 +4,8 @@ import { DatePicker, type DatePickerProps } from "./index";
 
 export const FormDatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date | null>(
     (props) => {
-        const model = props.model.reflux(
-            ensureArrayReturn(props.model() ?? []),
+        const model = props.model.sync(
+            () => ensureArrayReturn(props.model() ?? []),
             (i) => i[0] ?? null,
         );
 
@@ -14,7 +14,10 @@ export const FormDatePicker = OriginComponent<DatePickerProps, HTMLDivElement, D
 );
 export const FormDateRangePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[] | null>(
     (props) => {
-        const model = props.model.reflux(props.model() ?? [], (i) => i);
+        const model = props.model.sync(
+            () => props.model() ?? [],
+            (i) => i,
+        );
 
         return <DatePicker {...(props as any)} mode="range" v-model={model} />;
     },

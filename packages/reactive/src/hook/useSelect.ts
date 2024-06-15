@@ -1,5 +1,5 @@
 import { type Accessor, createEffect, untrack } from "solid-js";
-import { atom, computed } from "../atom/index";
+import { type Atom, atom, computed } from "../atom/index";
 import { updateMapAtom } from "../atom/updateMapAtom";
 
 export type SelectSystem<T> = ReturnType<typeof useSelect<T>>;
@@ -174,6 +174,20 @@ export function useSelect<T>(
         },
         disableById: (id: string) => {
             updateMapAtom(disabledMap, (i) => i.set(id, optionsIdMap().get(id)!));
+        },
+
+        /** 响应式同步 model 和 内部的数据 **/
+        syncIdArrayModel(model: Atom<string[]>) {
+            let lastModel: string[];
+            createEffect(() => {
+                if (lastModel === model()) return;
+                this.clearAll();
+                model().forEach((key) => this.selectById(key));
+            });
+            createEffect(() => {
+                lastModel = this.selected().map((i) => this.getId(i));
+                model(() => lastModel);
+            });
         },
     };
 }

@@ -8,7 +8,10 @@ export const FormCascader = OriginComponent<
     HTMLDivElement,
     CommonGroupListConfig[] | null
 >((props) => {
-    const model = props.model.reflux(props.model() ?? [], (i) => i);
+    const model = props.model.sync(
+        () => props.model() ?? [],
+        (i) => i,
+    );
 
     return <Cascader {...(props as any)} v-model={model} />;
 });
