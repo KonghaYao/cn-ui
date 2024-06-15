@@ -1,17 +1,7 @@
-import {
-    OriginComponent,
-    classNames,
-    computed,
-    createCtx,
-    extendsEvent,
-    useMapper,
-    type useSelect,
-} from "@cn-ui/reactive";
+import { OriginComponent, classNames, computed, extendsEvent, useMapper } from "@cn-ui/reactive";
 import type { SelectOptionsType } from "@cn-ui/reactive";
 import { type BaseFormItemType, extendsBaseFormItemProp } from "../form/BaseFormItemType";
-
-export type CheckboxGroupCtxType = ReturnType<typeof useSelect<SelectOptionsType>>;
-export const CheckboxGroupCtx = /* @__PURE__ */ createCtx<CheckboxGroupCtxType>({} as any);
+import { CheckboxGroupCtx } from "./CheckboxGroupCtx";
 
 export interface CheckboxProps extends BaseFormItemType, SelectOptionsType {
     /**
@@ -60,7 +50,7 @@ export const Checkbox = OriginComponent<CheckboxProps, HTMLInputElement, boolean
                 // @ts-ignore
                 indeterminate={props.indeterminate}
                 type={inputType()}
-                checked={isChecked()}
+                checked={!!isChecked()}
                 {...extendsBaseFormItemProp(props)}
                 {...extendsEvent(props)}
                 oninput={(e) => {

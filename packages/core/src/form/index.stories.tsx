@@ -131,7 +131,7 @@ export const Primary: Story = {
             date: "2024-06-12T16:00:00.000Z",
             "date-range": ["2024-06-03T16:00:00.000Z", "2024-06-12T16:00:00.000Z"],
             cascader: [{ value: "lucy", label: "Lucy" }],
-            number: 0,
+            number: 10,
             select: "lucy",
             radio: "jack",
         });

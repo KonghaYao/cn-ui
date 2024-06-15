@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "storybook-solidjs";
 
 import { atom } from "@cn-ui/reactive";
 import { expect, userEvent, within } from "@storybook/test";
-import { sleep } from "radash";
 import { Button } from "../button";
 import { InputNumber } from "./index";
 

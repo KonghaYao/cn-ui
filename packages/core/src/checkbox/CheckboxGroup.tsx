@@ -1,8 +1,9 @@
 import { type Atom, OriginComponent, computed, useSelect } from "@cn-ui/reactive";
 import type { SelectOptionsType } from "@cn-ui/reactive";
-import { For, createEffect } from "solid-js";
+import { For } from "solid-js";
 import { type BaseFormItemType, extendsBaseFormItemProp } from "../form/BaseFormItemType";
-import { Checkbox, CheckboxGroupCtx, type CheckboxProps } from "./Checkbox";
+import { Checkbox } from "./Checkbox";
+import { CheckboxGroupCtx } from "./CheckboxGroupCtx";
 
 export interface CheckboxGroupExpose extends ReturnType<typeof useSelect<SelectOptionsType>> {}
 export interface CheckboxGroupProps extends BaseFormItemType {
@@ -10,7 +11,7 @@ export interface CheckboxGroupProps extends BaseFormItemType {
      * 生成选项
      * @tested
      */
-    options: CheckboxProps[];
+    options: SelectOptionsType[];
     expose?: (expose: CheckboxGroupExpose) => void;
     /**
      * 是否支持多选
@@ -25,19 +26,10 @@ export const CheckboxGroup = OriginComponent<CheckboxGroupProps, HTMLElement, st
         multi: () => props.multiple ?? true,
     });
     selectSetting.syncIdArrayModel(props.model);
-    const options = computed(() => {
-        if (typeof props.options[0] === "object") {
-            return props.options as CheckboxProps[];
-        }
-        return props.options.map((i) => ({
-            value: i.toString(),
-            label: i.toString(),
-        }));
-    });
     props.expose?.(selectSetting);
     return (
         <CheckboxGroupCtx.Provider value={selectSetting}>
-            <For each={options()}>
+            <For each={props.options}>
                 {(config) => {
                     return <Checkbox {...extendsBaseFormItemProp(props)} {...config} />;
                 }}

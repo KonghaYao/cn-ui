@@ -6,7 +6,7 @@ import { Flex } from "../container/Flex";
 import { Checkbox, CheckboxGroup, type CheckboxGroupExpose, useControlCheckbox } from "./index";
 
 const expectCheckBox = (el: HTMLElement) => {
-    return expect(el.children[0]);
+    return expect(el.querySelector("input"));
 };
 
 const meta = {
@@ -79,22 +79,26 @@ export const Group: Story = {
         const canvas = within(canvasElement);
 
         const toggleCheckbox = async (name: string, state = true) => {
-            await userEvent.click(await canvas.findByText(name));
+            const el = await canvas.findByText(name);
+            await userEvent.click(el);
 
-            if (state) expectCheckBox(await canvas.findByText(name)).toBeChecked();
+            if (state) expectCheckBox(el).toBeChecked();
+            if (state === false) expectCheckBox(el).not.toBeChecked();
         };
 
         await step("多选子按钮测试", async () => {
-            await toggleCheckbox("苹果");
-
-            expectCheckBox(await canvas.getByText("切换选中")).toBePartiallyChecked();
+            expectCheckBox(await canvas.findByText("苹果")).toBeChecked();
+            const total = canvas.getByText("切换选中");
+            expectCheckBox(total).toBePartiallyChecked();
+            await toggleCheckbox("苹果", false);
 
             await toggleCheckbox("梨子");
-            expectCheckBox(await canvas.getByText("切换选中")).toBePartiallyChecked();
+            expectCheckBox(total).toBePartiallyChecked();
             await toggleCheckbox("橙子");
-            expectCheckBox(await canvas.getByText("切换选中")).toBeChecked();
+            await toggleCheckbox("苹果");
+            expectCheckBox(total).toBeChecked();
             await toggleCheckbox("橙子", false);
-            expectCheckBox(await canvas.getByText("切换选中")).toBePartiallyChecked();
+            expectCheckBox(total).toBePartiallyChecked();
         });
     },
 };
