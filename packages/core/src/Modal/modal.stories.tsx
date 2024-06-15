@@ -68,6 +68,7 @@ export const MessageBox_: Story = {
             await sleep(300);
             expect(doc.getByText("confirm_success")).toBeInTheDocument();
             await userEvent.click(canvas.getByText("confirm"));
+            await sleep(300);
             await userEvent.click(layer.getByText("取消"));
             await sleep(300);
             expect(doc.getByText("confirm取消成功")).toBeInTheDocument();
@@ -86,6 +87,7 @@ export const MessageBox_: Story = {
             await sleep(300);
             expect(doc.getByText('{"text":"123"}')).toBeInTheDocument();
             await userEvent.click(canvas.getByText("prompt"));
+            await sleep(300);
             await userEvent.click(layer.getByText("取消"));
             await sleep(300);
             expect(doc.getByText("prompt取消成功")).toBeInTheDocument();
