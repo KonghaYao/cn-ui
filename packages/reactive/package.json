@@ -1,12 +1,20 @@
 {
     "name": "@cn-ui/reactive",
-    "version": "4.9.5",
+    "version": "4.10.3",
     "description": "",
-    "main": "./src/index.ts",
-    "files": ["dist", "src"],
+    "main": "./dist/server.js",
+    "browser": "./dist/client.js",
+    "types": "./src/index.ts",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "doc": "typedoc  --tsconfig tsconfig.node.json  --out docs src/index.ts",
-        "build": " tsc -p tsconfig.node.json",
+        "build": " vite build && vite build --config vite.config.client.mjs && node ./scripts/build-unimport-entry.mjs",
         "test": "vitest run",
         "test-watch": "vitest",
         "test-ui": "vitest --ui",
@@ -16,7 +24,14 @@
     },
     "type": "module",
     "license": "MIT",
-    "keywords": ["pridepack", "solid-js", "use", "hooks", "component", "utils"],
+    "keywords": [
+        "pridepack",
+        "solid-js",
+        "use",
+        "hooks",
+        "component",
+        "utils"
+    ],
     "dependencies": {
         "dayjs": "^1.11.10",
         "mitt": "^3.0.0",
