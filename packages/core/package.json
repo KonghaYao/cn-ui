@@ -4,7 +4,10 @@
     "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
-    "files": ["dist", "src"],
+    "files": [
+        "dist",
+        "src"
+    ],
     "keywords": [
         "cn-ui",
         "component",
@@ -30,7 +33,9 @@
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
-    "sideEffects": ["**/*.css"],
+    "sideEffects": [
+        "**/*.css"
+    ],
     "scripts": {
         "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && node ./script/add-suffix.mjs && pnpm build:css && pnpm docgen && pnpm build:vite",
         "build:vite": "vite build && vite build -c vite.config.server.mjs",
@@ -50,7 +55,6 @@
         "@solid-primitives/keyed": "^1.2.2",
         "@solid-primitives/refs": "^1.0.8",
         "@solid-primitives/transition-group": "^1.0.5",
-        "@storybook/test": "^8.0.4",
         "@tanstack/ranger": "^0.0.3",
         "@types/lodash": "^4.17.0",
         "@types/lodash-es": "^4.17.12",
@@ -67,6 +71,7 @@
         "viewerjs": "^1.11.6"
     },
     "devDependencies": {
+        "@storybook/test": "^8.0.4",
         "@alenaksu/json-viewer": "^2.0.1",
         "@cn-ui/area-data": "workspace:^",
         "@isomorphic-git/lightning-fs": "^4.6.0",

@@ -65,7 +65,9 @@ export interface BadgeProps extends FloatingCoverProps {
 }
 export const Badge = OriginComponent<BadgeProps>((props) => {
     const cover = useFloatingCover(props);
-    const isNumberType = computed(() => typeof props.count === "number");
+    const isNumberType = computed(
+        () => typeof props.count === "number" && !Number.isNaN(props.count),
+    );
     const isOverflowCount = computed(
         () => typeof props.count === "number" && props.count > (props.overflowCount ?? 99),
     );
