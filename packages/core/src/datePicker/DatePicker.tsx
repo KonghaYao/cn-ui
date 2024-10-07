@@ -1,4 +1,3 @@
-import type { DatePickerContext } from "@ark-ui/solid";
 import { NullAtom, OriginComponent, OriginDiv, classNames, computed, dayjs } from "@cn-ui/reactive";
 import { AiOutlineCalendar, AiOutlineCloseCircle, AiOutlineSwapRight } from "solid-icons/ai";
 import { Match, Show, Switch, createMemo } from "solid-js";
@@ -25,7 +24,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
     const stringDate = computed(() => {
         return innerModel().map((i) => i.format(props.format ?? "YYYY-MM-DD"));
     });
-    const DatePickerExpose = NullAtom<ReturnType<DatePickerContext>>(null);
+    // const DatePickerExpose = NullAtom<ReturnType<DatePickerContext>>(null);
 
     const clearBtn = ({ isHovering }: InputExpose) => (
         <>
@@ -39,7 +38,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
             >
                 <ClearControl
                     onClear={() => {
-                        DatePickerExpose()?.clearValue();
+                        // TODO
                     }}
                 />
             </Show>
@@ -100,7 +99,7 @@ export const DatePicker = OriginComponent<DatePickerProps, HTMLDivElement, Date[
                         }}
                         v-model={stringDate}
                         onClear={() => {
-                            DatePickerExpose()?.clearValue();
+                            // TODO
                         }}
                     />
                 </Match>

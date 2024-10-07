@@ -1,9 +1,10 @@
 {
     "name": "@cn-ui/core",
-    "version": "2.9.0",
+    "version": "2.10.0",
     "description": "The @cn-ui/core is a collection of UI components and utilities for building modern web applications with SolidJS.",
     "type": "module",
-    "main": "./dist/index.js",
+    "main": "./dist/server.js",
+    "browser": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "files": [
         "dist",
@@ -63,7 +64,7 @@
         "copy-to-clipboard": "^3.3.3",
         "headless-qr": "^1.0.3",
         "radash": "^12.1.0",
-        "solid-icons": "^1.1.0",
+        "solid-icons": "1.0.12",
         "solid-js": "^1.8.16",
         "solid-transition-group": "^0.2.3",
         "solidjs-use": "^2.3.0",

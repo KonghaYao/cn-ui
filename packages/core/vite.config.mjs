@@ -5,7 +5,7 @@ import nodeExternals from "rollup-plugin-node-externals";
 export default defineConfig({
     plugins: [
         nodeExternals({
-            // exclude: [/solid-icon/]
+            exclude: [/@popperjs/]
         }),
         solid({
             solid: {
@@ -20,18 +20,19 @@ export default defineConfig({
         lib: {
             entry: "dist/index.js", // 入口文件路径
             formats: ["es"],
+            fileName: "server",
         },
 
-        rollupOptions: {
-            output: {
-                preserveModules: true,
-                dir: "dist/server",
-                preserveModulesRoot: 'src',
-                entryFileNames: (chunkInfo) => {
-                    return '[name].js';
-                }
-            }
-        },
+        // rollupOptions: {
+        //     output: {
+        //         preserveModules: true,
+        //         dir: "dist/server",
+        //         preserveModulesRoot: 'lib',
+        //         entryFileNames: (chunkInfo) => {
+        //             return '[name].js';
+        //         }
+        //     }
+        // },
         target: "esnext",
     },
 });

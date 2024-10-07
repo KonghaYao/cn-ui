@@ -260,8 +260,8 @@ importers:
         specifier: ^12.1.0
         version: 12.1.0
       solid-icons:
-        specifier: ^1.1.0
-        version: 1.1.0(solid-js@1.8.17)
+        specifier: 1.0.12
+        version: 1.0.12(solid-js@1.8.17)
       solid-js:
         specifier: ^1.8.16
         version: 1.8.17
@@ -8552,6 +8552,12 @@ packages:
   socks@2.8.3:
     resolution: {integrity: sha512-l5x7VUUWbjVFbafGLxPWkYsHIhEvmF85tbIeFZWc8ZPtoMyybuEhL7Jye/ooC4/d48FgOjSJXgsF/AJPYCW8Zw==}
     engines: {node: '>= 10.0.0', npm: '>= 3.0.0'}
+
+  solid-icons@1.0.12:
+    resolution: {integrity: sha512-HOIQ2nFGLEH9/QHnMiu6CZkEMrRlrEvxpX3V3XikvQQ/CQNhOKl2vLQALaJYgz3MvfPP5wkid+q79tTdIw5YGQ==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      solid-js: '*'
 
   solid-icons@1.1.0:
     resolution: {integrity: sha512-IesTfr/F1ElVwH2E1110s2RPXH4pujKfSs+koT8rwuTAdleO5s26lNSpqJV7D1+QHooJj18mcOiz2PIKs0ic+A==}
@@ -19898,6 +19904,10 @@ snapshots:
     dependencies:
       ip-address: 9.0.5
       smart-buffer: 4.2.0
+
+  solid-icons@1.0.12(solid-js@1.8.17):
+    dependencies:
+      solid-js: 1.8.17
 
   solid-icons@1.1.0(solid-js@1.8.17):
     dependencies:

@@ -23,10 +23,11 @@ export const registerAllControlComponent = (preload: boolean | string[] = false)
         Object.entries({
             text: createLazyComponent(() => import("../input/FormInput"), "FormInput"),
             select: createLazyComponent(() => import("../select/FormSelect"), "FormSelect"),
-            number: createLazyComponent(
-                () => import("../inputNumber/FormInputNumber"),
-                "FormInputNumber",
-            ),
+            // TODO
+            // number: createLazyComponent(
+            //     () => import("../inputNumber/FormInputNumber"),
+            //     "FormInputNumber",
+            // ),
             date: createLazyComponent(
                 () => import("../datePicker/FormDatePicker"),
                 "FormDatePicker",

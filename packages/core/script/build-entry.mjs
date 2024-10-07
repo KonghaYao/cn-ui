@@ -6,6 +6,8 @@ import { glob } from "glob";
 const e = await glob(["./src/*/index.ts"]);
 const jsFile = e
     .sort()
+    // TODO 这些组件使用了 @ark-ui 导致不能 tree-shake
+    .filter(i => ![/avatar/, /collapse/, /inputNumber/, /chatBox/].some(reg => reg.test(i)))
     .map((i) => {
         return `export * from "./${path.relative("./src/", i).replace(".ts", ".js")}";`;
     })
