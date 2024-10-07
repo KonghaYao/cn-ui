@@ -2,7 +2,7 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "declaration": true,
-        "emitDeclarationOnly": false,
+        "emitDeclarationOnly": true,
         "outDir": "dist/lib",
         "target": "ESNext",
         "useDefineForClassFields": true,

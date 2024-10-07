@@ -1,10 +1,10 @@
 {
     "name": "@cn-ui/core",
-    "version": "2.10.0",
+    "version": "2.11.0",
     "description": "The @cn-ui/core is a collection of UI components and utilities for building modern web applications with SolidJS.",
     "type": "module",
     "main": "./dist/server.js",
-    "browser": "./dist/index.js",
+    "browser": "./dist/client.js",
     "types": "./dist/index.d.ts",
     "files": [
         "dist",
@@ -39,8 +39,8 @@
         "**/*.css"
     ],
     "scripts": {
-        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && node ./script/add-suffix.mjs && pnpm build:css && pnpm docgen && pnpm build:vite",
-        "build:vite": "vite build",
+        "build": "node ./script/clean-dist.mjs && node ./script/build-entry.mjs && tsc -p tsconfig.node.json && pnpm build:css && pnpm docgen && pnpm build:vite",
+        "build:vite": "vite build --mode server && vite build --mode client",
         "build:css": "node ./script/copy-css-to-dist.mjs && unocss \"src/**/*.{ts,tsx,css}\" --out-file dist/cn-uno.css -m --preflights && unocss \"dist/lib/**/*.css\" --write-transformed -m --out-file dist/cn-uno.not.css",
         "docgen": "node ./script/docgen.mjs",
         "prettier": "prettier --write src/**/*",

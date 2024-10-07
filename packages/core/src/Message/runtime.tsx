@@ -59,6 +59,7 @@ export class EasyPortal extends FloatingArea<JSXElement> {
     Portal = function (this: EasyPortal, props: { children: JSXElement; show: Accessor<boolean> }) {
         const me = Symbol();
         createEffect(() => {
+            if (!props.children) console.warn("EasyPortal: children is undefined");
             props.show() ? this.addRender(me, props.children) : this.removeRender(me);
         });
         onCleanup(() => {

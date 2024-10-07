@@ -14,6 +14,9 @@ export function usePopper(
     const mounted = atom(false);
     const recreatePopover = (instance?: Instance) => {
         if (instance) instance.destroy();
+        if (!popoverContent()) return instance;
+        // 判断 DOM 真正挂载到了 document 中
+        if (popoverContent()?.ownerDocument !== window.document) return instance;
         if (!mounted()) return instance;
         if (getOptions().popoverTarget) {
             const popoverTarget = getOptions().popoverTarget!;
@@ -28,7 +31,7 @@ export function usePopper(
                 throw new Error(`Popover | can't find element ${popoverTarget}`);
             }
         }
-        // console.log('init', target())
+        // console.log("init", popoverContent());
         return createPopper(target() as Element, popoverContent() as HTMLElement, {
             ...getOptions(),
             modifiers: [

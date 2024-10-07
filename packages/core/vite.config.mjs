@@ -2,15 +2,16 @@
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
 import nodeExternals from "rollup-plugin-node-externals";
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     plugins: [
         nodeExternals({
             exclude: [/@popperjs/]
         }),
         solid({
-            solid: {
+            solid: mode === 'server' ? {
                 generate: "ssr",
-            },
+                hydratable: true
+            } : undefined,
             ssr: true,
         }),
     ],
@@ -18,21 +19,11 @@ export default defineConfig({
     build: {
         emptyOutDir: false,
         lib: {
-            entry: "dist/index.js", // 入口文件路径
+            entry: "src/index.ts", // 入口文件路径
             formats: ["es"],
-            fileName: "server",
+            fileName: mode,
         },
-
-        // rollupOptions: {
-        //     output: {
-        //         preserveModules: true,
-        //         dir: "dist/server",
-        //         preserveModulesRoot: 'lib',
-        //         entryFileNames: (chunkInfo) => {
-        //             return '[name].js';
-        //         }
-        //     }
-        // },
+        sourcemap: true,
         target: "esnext",
     },
-});
+}));
