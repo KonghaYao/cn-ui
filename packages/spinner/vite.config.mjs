@@ -4,9 +4,7 @@ import solid from "vite-plugin-solid";
 import nodeExternals from "rollup-plugin-node-externals";
 export default defineConfig({
     plugins: [
-        nodeExternals({
-            exclude: [/@popoverjs\/core/]
-        }),
+        nodeExternals(),
         solid({
             solid: {
                 generate: "ssr",
@@ -18,7 +16,7 @@ export default defineConfig({
     build: {
         emptyOutDir: false,
         lib: {
-            entry: "src/index", // 入口文件路径
+            entry: "dist/svg-spinner.tsx", // 入口文件路径
             formats: ["es"],
         },
 
