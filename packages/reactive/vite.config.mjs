@@ -1,27 +1,29 @@
 // 用于测试 dist 文件的构建
 import { defineConfig } from "vite";
 import solid from "vite-plugin-solid";
-import { nodeExternals } from 'rollup-plugin-node-externals'
-export default defineConfig({
+import nodeExternals from "rollup-plugin-node-externals";
+export default defineConfig(({ mode }) => ({
     plugins: [
         nodeExternals({
             exclude: [/^dayjs/]
         }),
         solid({
-            solid: {
+            solid: mode === 'server' ? {
                 generate: "ssr",
-            },
+                hydratable: true
+            } : undefined,
             ssr: true,
         }),
     ],
 
     build: {
-        emptyOutDir: true,
+        emptyOutDir: false,
         lib: {
             entry: "src/index", // 入口文件路径
-            fileName: "server",
             formats: ["es"],
+            fileName: mode,
         },
+        sourcemap: true,
         target: "esnext",
     },
-});
+}));

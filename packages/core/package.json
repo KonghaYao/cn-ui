@@ -1,6 +1,6 @@
 {
     "name": "@cn-ui/core",
-    "version": "2.11.0",
+    "version": "2.11.1",
     "description": "The @cn-ui/core is a collection of UI components and utilities for building modern web applications with SolidJS.",
     "type": "module",
     "main": "./dist/server.js",

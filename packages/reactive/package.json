@@ -1,10 +1,10 @@
 {
     "name": "@cn-ui/reactive",
-    "version": "4.10.3",
-    "description": "",
+    "version": "4.11.0",
+    "description": "a reactivity utils for solid-js",
     "main": "./dist/server.js",
     "browser": "./dist/client.js",
-    "types": "./src/index.ts",
+    "types": "./dist/ssr/index.d.ts",
     "publishConfig": {
         "registry": "https://registry.npmjs.org"
     },
@@ -13,8 +13,7 @@
         "src"
     ],
     "scripts": {
-        "doc": "typedoc  --tsconfig tsconfig.node.json  --out docs src/index.ts",
-        "build": " vite build && vite build --config vite.config.client.mjs && node ./scripts/build-unimport-entry.mjs",
+        "build": "vite build  --mode server && vite build --mode client && node ./scripts/build-unimport-entry.mjs",
         "test": "vitest run",
         "test-watch": "vitest",
         "test-ui": "vitest --ui",
