@@ -1,16 +1,17 @@
 {
     "name": "@cn-ui/sortable",
-    "version": "3.3.2",
+    "version": "3.4.0",
     "description": "The `SortableList` is a drag-and-drop sortable list component built with SolidJS and Sortable.js. It allows users to rearrange items within the list through drag-and-drop interactions, and it integrates seamlessly with reactive data, ensuring that both the data and the view are kept in sync.",
-    "main": "./dist/server/index.js",
-    "browser": "./src/index.ts",
+    "main": "./dist/server.js",
+    "browser": "./dist/client.js",
     "types": "./src/index.ts",
     "type": "module",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "build": "vite build"
+        "build": "vite build --mode server && vite build --mode client",
+        "prepublish": "pnpm build"
     },
     "sideEffects": false,
     "keywords": [

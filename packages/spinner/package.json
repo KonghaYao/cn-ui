@@ -1,16 +1,16 @@
 {
     "name": "@cn-ui/svg-spinner",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "SVG Spinner Component for solid-js",
-    "main": "dist/server/svg-spinner.js",
+    "main": "dist/server.js",
     "typings": "dist/svg-spinner.tsx",
-    "browser": "dist/svg-spinner.tsx",
+    "browser": "dist/client.js",
     "type": "module",
     "publishConfig": {
         "registry": "https://registry.npmjs.org/"
     },
     "scripts": {
-        "build": "node ./scripts/SVGToSolidComponent.mjs && vite build",
+        "build": "node ./scripts/SVGToSolidComponent.mjs && vite build --mode server && vite build --mode client",
         "prepublish": "pnpm build"
     },
     "sideEffects": false,
