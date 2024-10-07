@@ -447,12 +447,13 @@ importers:
 
   packages/spinner:
     dependencies:
-      '@cn-ui/spinners':
-        specifier: ^1.0.0
-        version: 1.0.0
       solid-js:
         specifier: ^1.0.0
         version: 1.8.17
+    devDependencies:
+      '@cn-ui/spinners':
+        specifier: ^1.0.0
+        version: 1.0.0
 
   packages/storybook-solidjs-docgen:
     dependencies:
@@ -11203,7 +11204,7 @@ snapshots:
 
   '@cn-ui/spinners@1.0.0':
     dependencies:
-      solid-js: 1.8.17
+      solid-js: 1.9.1
 
   '@cn-ui/table-core@8.16.0': {}
 

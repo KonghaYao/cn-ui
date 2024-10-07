@@ -1,9 +1,9 @@
-import Arrow from "@popperjs/core/lib/modifiers/arrow";
-import computeStyles from "@popperjs/core/lib/modifiers/computeStyles";
-import flip from "@popperjs/core/lib/modifiers/flip";
-import Offset from "@popperjs/core/lib/modifiers/offset";
-import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow";
-import { defaultModifiers, popperGenerator } from "@popperjs/core/lib/popper-lite";
+import Arrow from "@popperjs/core/lib/modifiers/arrow.js";
+import computeStyles from "@popperjs/core/lib/modifiers/computeStyles.js";
+import flip from "@popperjs/core/lib/modifiers/flip.js";
+import Offset from "@popperjs/core/lib/modifiers/offset.js";
+import preventOverflow from "@popperjs/core/lib/modifiers/preventOverflow.js";
+import { defaultModifiers, popperGenerator } from "@popperjs/core/lib/popper-lite.js";
 
 /** 重新配置全局的 Popper 生成器 */
 export const createPopper = popperGenerator({
